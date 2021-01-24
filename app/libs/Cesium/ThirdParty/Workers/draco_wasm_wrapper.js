@@ -1,7 +1,7 @@
 /**
- * Cesium - https://github.com/AnalyticalGraphicsInc/cesium
+ * Cesium - https://github.com/CesiumGS/cesium
  *
- * Copyright 2011-2017 Cesium Contributors
+ * Copyright 2011-2020 Cesium Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  * Columbus View (Pat. Pend.)
  *
  * Portions licensed separately.
- * See https://github.com/AnalyticalGraphicsInc/cesium/blob/master/LICENSE.md for full licensing details.
+ * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
 if (typeof WebAssembly !== 'undefined') {
 var $jscomp = $jscomp || {};
@@ -33,24 +33,24 @@ $jscomp.arrayIterator = function (f) {
     return{next: $jscomp.arrayIteratorImpl(f)}
 };
 $jscomp.makeIterator = function (f) {
-    var m = 'undefined' != typeof Symbol && Symbol.iterator && f[Symbol.iterator];
+    var m = "undefined" != typeof Symbol && Symbol.iterator && f[Symbol.iterator];
     return m ? m.call(f) : $jscomp.arrayIterator(f)
 };
 $jscomp.getGlobal = function (f) {
-    return'undefined' != typeof window && window === f ? f : 'undefined' != typeof global && null != global ? global : f
+    return"undefined" != typeof window && window === f ? f : "undefined" != typeof global && null != global ? global : f
 };
 $jscomp.global = $jscomp.getGlobal(this);
 $jscomp.ASSUME_ES5 = !1;
 $jscomp.ASSUME_NO_NATIVE_MAP = !1;
 $jscomp.ASSUME_NO_NATIVE_SET = !1;
 $jscomp.SIMPLE_FROUND_POLYFILL = !1;
-$jscomp.defineProperty = $jscomp.ASSUME_ES5 || 'function' == typeof Object.defineProperties ? Object.defineProperty : function (f, m, v) {
+$jscomp.defineProperty = $jscomp.ASSUME_ES5 || "function" == typeof Object.defineProperties ? Object.defineProperty : function (f, m, v) {
     f != Array.prototype && f != Object.prototype && (f[m] = v.value)
 };
 $jscomp.polyfill = function (f, m, v, t) {
     if (m) {
         v = $jscomp.global;
-        f = f.split('.');
+        f = f.split(".");
         for (t = 0; t < f.length - 1; t++) {
             var h = f[t];
             h in v || (v[h] = {});
@@ -63,7 +63,7 @@ $jscomp.polyfill = function (f, m, v, t) {
     }
 };
 $jscomp.FORCE_POLYFILL_PROMISE = !1;
-$jscomp.polyfill('Promise', function (f) {
+$jscomp.polyfill("Promise", function (f) {
     function m() {
         this.batch_ = null
     }
@@ -133,12 +133,12 @@ $jscomp.polyfill('Promise', function (f) {
         return{resolve: e(this.resolveTo_), reject: e(this.reject_)}
     };
     h.prototype.resolveTo_ = function (e) {
-        if (e === this)this.reject_(new TypeError('A Promise cannot resolve to itself')); else if (e instanceof h)this.settleSameAsPromise_(e); else {
+        if (e === this)this.reject_(new TypeError("A Promise cannot resolve to itself")); else if (e instanceof h)this.settleSameAsPromise_(e); else {
             a:switch (typeof e) {
-                case 'object':
+                case "object":
                     var l = null != e;
                     break a;
-                case 'function':
+                case "function":
                     l = !0;
                     break a;
                 default:
@@ -155,7 +155,7 @@ $jscomp.polyfill('Promise', function (f) {
             this.reject_(S);
             return
         }
-        'function' == typeof l ?
+        "function" == typeof l ?
             this.settleSameAsThenable_(l, e) : this.fulfill_(e)
     };
     h.prototype.reject_ = function (e) {
@@ -165,7 +165,7 @@ $jscomp.polyfill('Promise', function (f) {
         this.settle_(1, e)
     };
     h.prototype.settle_ = function (e, l) {
-        if (0 != this.state_)throw Error('Cannot settle(' + e + ', ' + l + '): Promise already settled in state' + this.state_);
+        if (0 != this.state_)throw Error("Cannot settle(" + e + ", " + l + "): Promise already settled in state" + this.state_);
         this.state_ = e;
         this.result_ = l;
         this.executeOnSettledCallbacks_()
@@ -191,7 +191,7 @@ $jscomp.polyfill('Promise', function (f) {
     };
     h.prototype.then = function (e, f) {
         function l(e, f) {
-            return'function' == typeof e ? function (f) {
+            return"function" == typeof e ? function (f) {
                 try {
                     m(e(f))
                 } catch (p) {
@@ -220,7 +220,7 @@ $jscomp.polyfill('Promise', function (f) {
                     f(h.result_);
                     break;
                 default:
-                    throw Error('Unexpected state: ' + h.state_);
+                    throw Error("Unexpected state: " + h.state_);
             }
         }
 
@@ -255,24 +255,24 @@ $jscomp.polyfill('Promise', function (f) {
         })
     };
     return h
-}, 'es6', 'es3');
+}, "es6", "es3");
 var DracoDecoderModule = function () {
-    var f = 'undefined' !== typeof document && document.currentScript ? document.currentScript.src : void 0;
-    'undefined' !== typeof __filename && (f = f || __filename);
+    var f = "undefined" !== typeof document && document.currentScript ? document.currentScript.src : void 0;
+    "undefined" !== typeof __filename && (f = f || __filename);
     return function (m) {
         function v(k) {
             return a.locateFile ? a.locateFile(k, M) : M + k
         }
 
         function t(a, c) {
-            a || z('Assertion failed: ' + c)
+            a || z("Assertion failed: " + c)
         }
 
         function h(a, c, b) {
             var d = c + b;
             for (b = c; a[b] && !(b >= d);)++b;
             if (16 < b - c && a.subarray && xa)return xa.decode(a.subarray(c, b));
-            for (d = ''; c < b;) {
+            for (d = ""; c < b;) {
                 var k = a[c++];
                 if (k & 128) {
                     var e = a[c++] & 63;
@@ -288,7 +288,7 @@ var DracoDecoderModule = function () {
         }
 
         function X(a, c) {
-            return a ? h(ca, a, c) : ''
+            return a ? h(ca, a, c) : ""
         }
 
         function e(a, c) {
@@ -311,42 +311,42 @@ var DracoDecoderModule = function () {
         function S(k) {
             for (; 0 < k.length;) {
                 var c = k.shift();
-                if ('function' == typeof c)c(); else {
+                if ("function" == typeof c)c(); else {
                     var b = c.func;
-                    'number' === typeof b ? void 0 === c.arg ? a.dynCall_v(b) : a.dynCall_vi(b, c.arg) : b(void 0 === c.arg ? null : c.arg)
+                    "number" === typeof b ? void 0 === c.arg ? a.dynCall_v(b) : a.dynCall_vi(b, c.arg) : b(void 0 === c.arg ? null : c.arg)
                 }
             }
         }
 
         function z(k) {
             if (a.onAbort)a.onAbort(k);
-            k += '';
+            k += "";
             ya(k);
             Y(k);
             za = !0;
-            throw new WebAssembly.RuntimeError('abort(' + k + '). Build with -s ASSERTIONS=1 for more info.');
+            throw new WebAssembly.RuntimeError("abort(" + k + "). Build with -s ASSERTIONS=1 for more info.");
         }
 
         function va(a) {
-            return String.prototype.startsWith ? a.startsWith('data:application/octet-stream;base64,') :
-                0 === a.indexOf('data:application/octet-stream;base64,')
+            return String.prototype.startsWith ? a.startsWith("data:application/octet-stream;base64,") :
+                0 === a.indexOf("data:application/octet-stream;base64,")
         }
 
         function wa() {
             try {
                 if (da)return new Uint8Array(da);
                 if (la)return la(U);
-                throw'both async and sync fetching of the wasm failed';
+                throw"both async and sync fetching of the wasm failed";
             } catch (k) {
                 z(k)
             }
         }
 
         function Ma() {
-            return da || !ea && !Z || 'function' !== typeof fetch ? new Promise(function (a, c) {
+            return da || !ea && !Z || "function" !== typeof fetch ? new Promise(function (a, c) {
                 a(wa())
-            }) : fetch(U, {credentials: 'same-origin'}).then(function (a) {
-                if (!a.ok)throw'failed to load wasm binary file at \'' + U + '\'';
+            }) : fetch(U, {credentials: "same-origin"}).then(function (a) {
+                if (!a.ok)throw"failed to load wasm binary file at '" + U + "'";
                 return a.arrayBuffer()
             }).catch(function () {
                 return wa()
@@ -355,11 +355,11 @@ var DracoDecoderModule = function () {
 
         function ba() {
             if (!ba.strings) {
-                var a = {USER: 'web_user',
-                    LOGNAME: 'web_user', PATH: '/', PWD: '/', HOME: '/home/web_user', LANG: ('object' === typeof navigator && navigator.languages && navigator.languages[0] || 'C').replace('-', '_') + '.UTF-8', _: na}, c;
+                var a = {USER: "web_user",
+                    LOGNAME: "web_user", PATH: "/", PWD: "/", HOME: "/home/web_user", LANG: ("object" === typeof navigator && navigator.languages && navigator.languages[0] || "C").replace("-", "_") + ".UTF-8", _: na}, c;
                 for (c in Aa)a[c] = Aa[c];
                 var b = [];
-                for (c in a)b.push(c + '=' + a[c]);
+                for (c in a)b.push(c + "=" + a[c]);
                 ba.strings = b
             }
             return ba.strings
@@ -372,17 +372,17 @@ var DracoDecoderModule = function () {
                     S(Ca);
                     S(Da);
                     if (a.onRuntimeInitialized)a.onRuntimeInitialized();
-                    if (a.postRun)for ('function' == typeof a.postRun && (a.postRun = [a.postRun]); a.postRun.length;)Ea.unshift(a.postRun.shift());
+                    if (a.postRun)for ("function" == typeof a.postRun && (a.postRun = [a.postRun]); a.postRun.length;)Ea.unshift(a.postRun.shift());
                     S(Ea)
                 }
             }
 
             if (!(0 < aa)) {
-                if (a.preRun)for ('function' == typeof a.preRun && (a.preRun = [a.preRun]); a.preRun.length;)Fa.unshift(a.preRun.shift());
+                if (a.preRun)for ("function" == typeof a.preRun && (a.preRun = [a.preRun]); a.preRun.length;)Fa.unshift(a.preRun.shift());
                 S(Fa);
-                0 < aa || (a.setStatus ? (a.setStatus('Running...'), setTimeout(function () {
+                0 < aa || (a.setStatus ? (a.setStatus("Running..."), setTimeout(function () {
                     setTimeout(function () {
-                        a.setStatus('')
+                        a.setStatus("")
                     }, 1);
                     c()
                 }, 1)) : c())
@@ -405,7 +405,7 @@ var DracoDecoderModule = function () {
         }
 
         function V(a) {
-            if ('string' === typeof a) {
+            if ("string" === typeof a) {
                 for (var c = 0, b = 0; b < a.length; ++b) {
                     var d = a.charCodeAt(b);
                     55296 <= d && 57343 >= d && (d = 65536 + ((d & 1023) << 10) | a.charCodeAt(++b) & 1023);
@@ -453,7 +453,7 @@ var DracoDecoderModule = function () {
         }
 
         function x() {
-            throw'cannot construct a Status, no constructor in IDL';
+            throw"cannot construct a Status, no constructor in IDL";
         }
 
         function A() {
@@ -538,7 +538,7 @@ var DracoDecoderModule = function () {
         }
 
         function Q() {
-            throw'cannot construct a VoidPtr, no constructor in IDL';
+            throw"cannot construct a VoidPtr, no constructor in IDL";
         }
 
         function I() {
@@ -553,36 +553,36 @@ var DracoDecoderModule = function () {
         }
 
         m = m || {};
-        var a = 'undefined' !== typeof m ? m : {}, Ga = !1, Ha = !1;
+        var a = "undefined" !== typeof m ? m : {}, Ga = !1, Ha = !1;
         a.onRuntimeInitialized = function () {
             Ga = !0;
-            if (Ha && 'function' === typeof a.onModuleLoaded)a.onModuleLoaded(a)
+            if (Ha && "function" === typeof a.onModuleLoaded)a.onModuleLoaded(a)
         };
         a.onModuleParsed = function () {
             Ha = !0;
-            if (Ga && 'function' === typeof a.onModuleLoaded)a.onModuleLoaded(a)
+            if (Ga && "function" === typeof a.onModuleLoaded)a.onModuleLoaded(a)
         };
         a.isVersionSupported = function (a) {
-            if ('string' !== typeof a)return!1;
-            a = a.split('.');
+            if ("string" !== typeof a)return!1;
+            a = a.split(".");
             return 2 > a.length || 3 < a.length ? !1 : 1 == a[0] && 0 <= a[1] && 3 >= a[1] ? !0 : 0 != a[0] || 10 < a[1] ? !1 : !0
         };
         var ha = {}, W;
         for (W in a)a.hasOwnProperty(W) && (ha[W] = a[W]);
-        var na = './this.program',
+        var na = "./this.program",
             ea = !1, Z = !1, oa = !1, fb = !1, Ia = !1;
-        ea = 'object' === typeof window;
-        Z = 'function' === typeof importScripts;
-        oa = (fb = 'object' === typeof process && 'object' === typeof process.versions && 'string' === typeof process.versions.node) && !ea && !Z;
+        ea = "object" === typeof window;
+        Z = "function" === typeof importScripts;
+        oa = (fb = "object" === typeof process && "object" === typeof process.versions && "string" === typeof process.versions.node) && !ea && !Z;
         Ia = !ea && !oa && !Z;
-        var M = '', pa, qa;
+        var M = "", pa, qa;
         if (oa) {
-            M = __dirname + '/';
+            M = __dirname + "/";
             var ra = function (a, c) {
-                pa || (pa = require('fs'));
-                qa || (qa = require('path'));
+                pa || (pa = require("fs"));
+                qa || (qa = require("path"));
                 a = qa.normalize(a);
-                return pa.readFileSync(a, c ? null : 'utf8')
+                return pa.readFileSync(a, c ? null : "utf8")
             };
             var la = function (a) {
                 a = ra(a, !0);
@@ -591,32 +591,32 @@ var DracoDecoderModule = function () {
                 return a
             };
             1 < process.argv.length &&
-            (na = process.argv[1].replace(/\\/g, '/'));
+            (na = process.argv[1].replace(/\\/g, "/"));
             process.argv.slice(2);
-            process.on('uncaughtException', function (a) {
+            process.on("uncaughtException", function (a) {
                 throw a;
             });
-            process.on('unhandledRejection', z);
+            process.on("unhandledRejection", z);
             a.inspect = function () {
-                return'[Emscripten Module object]'
+                return"[Emscripten Module object]"
             }
-        } else if (Ia)'undefined' != typeof read && (ra = function (a) {
+        } else if (Ia)"undefined" != typeof read && (ra = function (a) {
             return read(a)
         }), la = function (a) {
-            if ('function' === typeof readbuffer)return new Uint8Array(readbuffer(a));
-            a = read(a, 'binary');
-            t('object' === typeof a);
+            if ("function" === typeof readbuffer)return new Uint8Array(readbuffer(a));
+            a = read(a, "binary");
+            t("object" === typeof a);
             return a
-        }, 'undefined' !== typeof print && ('undefined' === typeof console && (console = {}), console.log = print,
-            console.warn = console.error = 'undefined' !== typeof printErr ? printErr : print); else if (ea || Z)Z ? M = self.location.href : document.currentScript && (M = document.currentScript.src), f && (M = f), M = 0 !== M.indexOf('blob:') ? M.substr(0, M.lastIndexOf('/') + 1) : '', ra = function (a) {
+        }, "undefined" !== typeof print && ("undefined" === typeof console && (console = {}), console.log = print,
+            console.warn = console.error = "undefined" !== typeof printErr ? printErr : print); else if (ea || Z)Z ? M = self.location.href : document.currentScript && (M = document.currentScript.src), f && (M = f), M = 0 !== M.indexOf("blob:") ? M.substr(0, M.lastIndexOf("/") + 1) : "", ra = function (a) {
             var c = new XMLHttpRequest;
-            c.open('GET', a, !1);
+            c.open("GET", a, !1);
             c.send(null);
             return c.responseText
         }, Z && (la = function (a) {
             var c = new XMLHttpRequest;
-            c.open('GET', a, !1);
-            c.responseType = 'arraybuffer';
+            c.open("GET", a, !1);
+            c.responseType = "arraybuffer";
             c.send(null);
             return new Uint8Array(c.response)
         });
@@ -627,9 +627,9 @@ var DracoDecoderModule = function () {
         a.thisProgram && (na = a.thisProgram);
         var da;
         a.wasmBinary && (da = a.wasmBinary);
-        'object' !== typeof WebAssembly && Y('no native wasm support detected');
-        var ia, gb = new WebAssembly.Table({initial: 381, maximum: 381, element: 'anyfunc'}), za = !1, xa = 'undefined' !== typeof TextDecoder ? new TextDecoder('utf8') : void 0;
-        'undefined' !== typeof TextDecoder && new TextDecoder('utf-16le');
+        "object" !== typeof WebAssembly && Y("no native wasm support detected");
+        var ia, gb = new WebAssembly.Table({initial: 381, maximum: 381, element: "anyfunc"}), za = !1, xa = "undefined" !== typeof TextDecoder ? new TextDecoder("utf8") : void 0;
+        "undefined" !== typeof TextDecoder && new TextDecoder("utf-16le");
         var T, ca, P, Ja = a.TOTAL_MEMORY || 16777216;
         if (ia = a.wasmMemory ?
             a.wasmMemory : new WebAssembly.Memory({initial: Ja / 65536}))var ka = ia.buffer;
@@ -639,7 +639,7 @@ var DracoDecoderModule = function () {
         var Fa = [], Ca = [], Da = [], Ea = [], Ba = !1, aa = 0, sa = null, ja = null;
         a.preloadedImages = {};
         a.preloadedAudios = {};
-        var U = 'draco_decoder.wasm';
+        var U = "draco_decoder.wasm";
         va(U) || (U = v(U));
         Ca.push({func: function () {
             hb()
@@ -662,7 +662,7 @@ var DracoDecoderModule = function () {
             }}, Ka = {__cxa_allocate_exception: function (a) {
             return ib(a)
         }, __cxa_throw: function (a, c, b) {
-            'uncaught_exception'in ta ? ta.uncaught_exceptions++ : ta.uncaught_exceptions = 1;
+            "uncaught_exception"in ta ? ta.uncaught_exceptions++ : ta.uncaught_exceptions = 1;
             throw a;
         }, abort: function () {
             z()
@@ -717,7 +717,7 @@ var DracoDecoderModule = function () {
                 P[d >> 2] = e;
                 return 0
             } catch (ua) {
-                return'undefined' !== typeof FS && ua instanceof FS.ErrnoError || z(ua), ua.errno
+                return"undefined" !== typeof FS && ua instanceof FS.ErrnoError || z(ua), ua.errno
             }
         }, memory: ia, setTempRet0: function (a) {
         }, table: gb}, La = function () {
@@ -736,7 +736,7 @@ var DracoDecoderModule = function () {
                 return Ma().then(function (a) {
                     return WebAssembly.instantiate(a, d)
                 }).then(a, function (a) {
-                    Y('failed to asynchronously prepare wasm: ' + a);
+                    Y("failed to asynchronously prepare wasm: " + a);
                     z(a)
                 })
             }
@@ -747,15 +747,15 @@ var DracoDecoderModule = function () {
             if (a.instantiateWasm)try {
                 return a.instantiateWasm(d, e)
             } catch (Na) {
-                return Y('Module.instantiateWasm callback failed with error: ' + Na), !1
+                return Y("Module.instantiateWasm callback failed with error: " + Na), !1
             }
             (function () {
-                if (da || 'function' !== typeof WebAssembly.instantiateStreaming || va(U) || 'function' !== typeof fetch)return b(c);
+                if (da || "function" !== typeof WebAssembly.instantiateStreaming || va(U) || "function" !== typeof fetch)return b(c);
                 fetch(U,
-                    {credentials: 'same-origin'}).then(function (a) {
+                    {credentials: "same-origin"}).then(function (a) {
                         return WebAssembly.instantiateStreaming(a, d).then(c, function (a) {
-                            Y('wasm streaming compile failed: ' + a);
-                            Y('falling back to ArrayBuffer instantiation');
+                            Y("wasm streaming compile failed: " + a);
+                            Y("falling back to ArrayBuffer instantiation");
                             b(c)
                         })
                     })
@@ -1169,7 +1169,7 @@ var DracoDecoderModule = function () {
             fa || (ja = c)
         };
         a.run = ma;
-        if (a.preInit)for ('function' == typeof a.preInit && (a.preInit = [a.preInit]); 0 < a.preInit.length;)a.preInit.pop()();
+        if (a.preInit)for ("function" == typeof a.preInit && (a.preInit = [a.preInit]); 0 < a.preInit.length;)a.preInit.pop()();
         ma();
         p.prototype = Object.create(p.prototype);
         p.prototype.constructor = p;
@@ -1183,7 +1183,7 @@ var DracoDecoderModule = function () {
         };
         a.NULL = N(0);
         a.destroy = function (a) {
-            if (!a.__destroy__)throw'Error: Cannot destroy object. (Did you create it yourself?)';
+            if (!a.__destroy__)throw"Error: Cannot destroy object. (Did you create it yourself?)";
             a.__destroy__();
             delete u(a.__class__)[a.ptr]
         };
@@ -1251,7 +1251,7 @@ var DracoDecoderModule = function () {
         a.DracoUInt16Array = A;
         A.prototype.GetValue = A.prototype.GetValue = function (a) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
+            a && "object" === typeof a && (a = a.ptr);
             return nb(c, a)
         };
         A.prototype.size = A.prototype.size = function () {
@@ -1282,7 +1282,7 @@ var DracoDecoderModule = function () {
         C.prototype.GetValue =
             C.prototype.GetValue = function (a) {
                 var c = this.ptr;
-                a && 'object' === typeof a && (a = a.ptr);
+                a && "object" === typeof a && (a = a.ptr);
                 return tb(c, a)
             };
         C.prototype.size = C.prototype.size = function () {
@@ -1298,7 +1298,7 @@ var DracoDecoderModule = function () {
         a.DracoUInt32Array = D;
         D.prototype.GetValue = D.prototype.GetValue = function (a) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
+            a && "object" === typeof a && (a = a.ptr);
             return wb(c, a)
         };
         D.prototype.size = D.prototype.size =
@@ -1315,7 +1315,7 @@ var DracoDecoderModule = function () {
         a.AttributeOctahedronTransform = E;
         E.prototype.InitFromAttribute = E.prototype.InitFromAttribute = function (a) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
+            a && "object" === typeof a && (a = a.ptr);
             return!!zb(c, a)
         };
         E.prototype.quantization_bits = E.prototype.quantization_bits = function () {
@@ -1380,7 +1380,7 @@ var DracoDecoderModule = function () {
         a.AttributeQuantizationTransform = w;
         w.prototype.InitFromAttribute = w.prototype.InitFromAttribute = function (a) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
+            a && "object" === typeof a && (a = a.ptr);
             return!!Ob(c, a)
         };
         w.prototype.quantization_bits = w.prototype.quantization_bits = function () {
@@ -1388,7 +1388,7 @@ var DracoDecoderModule = function () {
         };
         w.prototype.min_value = w.prototype.min_value = function (a) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
+            a && "object" === typeof a && (a = a.ptr);
             return Qb(c, a)
         };
         w.prototype.range = w.prototype.range = function () {
@@ -1405,7 +1405,7 @@ var DracoDecoderModule = function () {
         F.prototype.GetValue = F.prototype.GetValue =
             function (a) {
                 var c = this.ptr;
-                a && 'object' === typeof a && (a = a.ptr);
+                a && "object" === typeof a && (a = a.ptr);
                 return Tb(c, a)
             };
         F.prototype.size = F.prototype.size = function () {
@@ -1422,49 +1422,49 @@ var DracoDecoderModule = function () {
         r.prototype.HasEntry = r.prototype.HasEntry = function (a, b) {
             var c = this.ptr;
             n.prepare();
-            a && 'object' === typeof a && (a = a.ptr);
-            b = b && 'object' === typeof b ? b.ptr : V(b);
+            a && "object" === typeof a && (a = a.ptr);
+            b = b && "object" === typeof b ? b.ptr : V(b);
             return!!Wb(c,
                 a, b)
         };
         r.prototype.GetIntEntry = r.prototype.GetIntEntry = function (a, b) {
             var c = this.ptr;
             n.prepare();
-            a && 'object' === typeof a && (a = a.ptr);
-            b = b && 'object' === typeof b ? b.ptr : V(b);
+            a && "object" === typeof a && (a = a.ptr);
+            b = b && "object" === typeof b ? b.ptr : V(b);
             return Xb(c, a, b)
         };
         r.prototype.GetIntEntryArray = r.prototype.GetIntEntryArray = function (a, b, d) {
             var c = this.ptr;
             n.prepare();
-            a && 'object' === typeof a && (a = a.ptr);
-            b = b && 'object' === typeof b ? b.ptr : V(b);
-            d && 'object' === typeof d && (d = d.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b = b && "object" === typeof b ? b.ptr : V(b);
+            d && "object" === typeof d && (d = d.ptr);
             Yb(c, a, b, d)
         };
         r.prototype.GetDoubleEntry = r.prototype.GetDoubleEntry = function (a, b) {
             var c = this.ptr;
             n.prepare();
-            a && 'object' === typeof a && (a = a.ptr);
-            b = b && 'object' === typeof b ? b.ptr : V(b);
+            a && "object" === typeof a && (a = a.ptr);
+            b = b && "object" === typeof b ? b.ptr : V(b);
             return Zb(c, a, b)
         };
         r.prototype.GetStringEntry = r.prototype.GetStringEntry = function (a, b) {
             var c = this.ptr;
             n.prepare();
-            a && 'object' === typeof a && (a = a.ptr);
-            b = b && 'object' === typeof b ? b.ptr : V(b);
+            a && "object" === typeof a && (a = a.ptr);
+            b = b && "object" === typeof b ? b.ptr : V(b);
             return X($b(c, a, b))
         };
         r.prototype.NumEntries = r.prototype.NumEntries = function (a) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
+            a && "object" === typeof a && (a = a.ptr);
             return ac(c, a)
         };
         r.prototype.GetEntryName = r.prototype.GetEntryName = function (a, b) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
             return X(bc(c, a, b))
         };
         r.prototype.__destroy__ = r.prototype.__destroy__ = function () {
@@ -1477,7 +1477,7 @@ var DracoDecoderModule = function () {
         a.DracoInt16Array = G;
         G.prototype.GetValue = G.prototype.GetValue = function (a) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
+            a && "object" === typeof a && (a = a.ptr);
             return dc(c, a)
         };
         G.prototype.size = G.prototype.size = function () {
@@ -1494,7 +1494,7 @@ var DracoDecoderModule = function () {
         a.DracoFloat32Array = H;
         H.prototype.GetValue = H.prototype.GetValue = function (a) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
+            a && "object" === typeof a && (a = a.ptr);
             return gc(c, a)
         };
         H.prototype.size = H.prototype.size = function () {
@@ -1520,12 +1520,12 @@ var DracoDecoderModule = function () {
         K.prototype.Init = K.prototype.Init = function (a, b) {
             var c = this.ptr;
             n.prepare();
-            if ('object' == typeof a && 'object' === typeof a) {
+            if ("object" == typeof a && "object" === typeof a) {
                 var e = n.alloc(a, T);
                 n.copy(a, T, e);
                 a = e
             }
-            b && 'object' === typeof b && (b = b.ptr);
+            b && "object" === typeof b && (b = b.ptr);
             kc(c, a, b)
         };
         K.prototype.__destroy__ = K.prototype.__destroy__ = function () {
@@ -1539,175 +1539,175 @@ var DracoDecoderModule = function () {
         a.Decoder = g;
         g.prototype.GetEncodedGeometryType = g.prototype.GetEncodedGeometryType = function (a) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
+            a && "object" === typeof a && (a = a.ptr);
             return mc(c, a)
         };
         g.prototype.DecodeBufferToPointCloud = g.prototype.DecodeBufferToPointCloud = function (a, b) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
             return N(nc(c, a, b), x)
         };
         g.prototype.DecodeBufferToMesh = g.prototype.DecodeBufferToMesh = function (a, b) {
             var c = this.ptr;
-            a && 'object' === typeof a &&
+            a && "object" === typeof a &&
             (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
+            b && "object" === typeof b && (b = b.ptr);
             return N(oc(c, a, b), x)
         };
         g.prototype.GetAttributeId = g.prototype.GetAttributeId = function (a, b) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
             return pc(c, a, b)
         };
         g.prototype.GetAttributeIdByName = g.prototype.GetAttributeIdByName = function (a, b) {
             var c = this.ptr;
             n.prepare();
-            a && 'object' === typeof a && (a = a.ptr);
-            b = b && 'object' === typeof b ? b.ptr : V(b);
+            a && "object" === typeof a && (a = a.ptr);
+            b = b && "object" === typeof b ? b.ptr : V(b);
             return qc(c, a, b)
         };
         g.prototype.GetAttributeIdByMetadataEntry = g.prototype.GetAttributeIdByMetadataEntry =
             function (a, b, d) {
                 var c = this.ptr;
                 n.prepare();
-                a && 'object' === typeof a && (a = a.ptr);
-                b = b && 'object' === typeof b ? b.ptr : V(b);
-                d = d && 'object' === typeof d ? d.ptr : V(d);
+                a && "object" === typeof a && (a = a.ptr);
+                b = b && "object" === typeof b ? b.ptr : V(b);
+                d = d && "object" === typeof d ? d.ptr : V(d);
                 return rc(c, a, b, d)
             };
         g.prototype.GetAttribute = g.prototype.GetAttribute = function (a, b) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
             return N(sc(c, a, b), q)
         };
         g.prototype.GetAttributeByUniqueId = g.prototype.GetAttributeByUniqueId = function (a, b) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
             return N(tc(c, a, b), q)
         };
         g.prototype.GetMetadata = g.prototype.GetMetadata = function (a) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
+            a && "object" === typeof a && (a = a.ptr);
             return N(uc(c, a), L)
         };
         g.prototype.GetAttributeMetadata = g.prototype.GetAttributeMetadata = function (a, b) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
             return N(vc(c, a, b), L)
         };
         g.prototype.GetFaceFromMesh = g.prototype.GetFaceFromMesh = function (a, b, d) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
-            d && 'object' === typeof d && (d = d.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
+            d && "object" === typeof d && (d = d.ptr);
             return!!wc(c, a, b, d)
         };
         g.prototype.GetTriangleStripsFromMesh = g.prototype.GetTriangleStripsFromMesh = function (a, b) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
             return xc(c, a, b)
         };
         g.prototype.GetTrianglesUInt16Array = g.prototype.GetTrianglesUInt16Array = function (a, b, d) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
-            d && 'object' === typeof d && (d = d.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
+            d && "object" === typeof d && (d = d.ptr);
             return!!yc(c, a, b, d)
         };
         g.prototype.GetTrianglesUInt32Array = g.prototype.GetTrianglesUInt32Array =
             function (a, b, d) {
                 var c = this.ptr;
-                a && 'object' === typeof a && (a = a.ptr);
-                b && 'object' === typeof b && (b = b.ptr);
-                d && 'object' === typeof d && (d = d.ptr);
+                a && "object" === typeof a && (a = a.ptr);
+                b && "object" === typeof b && (b = b.ptr);
+                d && "object" === typeof d && (d = d.ptr);
                 return!!zc(c, a, b, d)
             };
         g.prototype.GetAttributeFloat = g.prototype.GetAttributeFloat = function (a, b, d) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
-            d && 'object' === typeof d && (d = d.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
+            d && "object" === typeof d && (d = d.ptr);
             return!!Ac(c, a, b, d)
         };
         g.prototype.GetAttributeFloatForAllPoints = g.prototype.GetAttributeFloatForAllPoints = function (a, b, d) {
             var c = this.ptr;
-            a && 'object' === typeof a &&
+            a && "object" === typeof a &&
             (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
-            d && 'object' === typeof d && (d = d.ptr);
+            b && "object" === typeof b && (b = b.ptr);
+            d && "object" === typeof d && (d = d.ptr);
             return!!Bc(c, a, b, d)
         };
         g.prototype.GetAttributeIntForAllPoints = g.prototype.GetAttributeIntForAllPoints = function (a, b, d) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
-            d && 'object' === typeof d && (d = d.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
+            d && "object" === typeof d && (d = d.ptr);
             return!!Cc(c, a, b, d)
         };
         g.prototype.GetAttributeInt8ForAllPoints = g.prototype.GetAttributeInt8ForAllPoints = function (a, b, d) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b &&
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b &&
             (b = b.ptr);
-            d && 'object' === typeof d && (d = d.ptr);
+            d && "object" === typeof d && (d = d.ptr);
             return!!Dc(c, a, b, d)
         };
         g.prototype.GetAttributeUInt8ForAllPoints = g.prototype.GetAttributeUInt8ForAllPoints = function (a, b, d) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
-            d && 'object' === typeof d && (d = d.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
+            d && "object" === typeof d && (d = d.ptr);
             return!!Ec(c, a, b, d)
         };
         g.prototype.GetAttributeInt16ForAllPoints = g.prototype.GetAttributeInt16ForAllPoints = function (a, b, d) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
-            d && 'object' === typeof d &&
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
+            d && "object" === typeof d &&
             (d = d.ptr);
             return!!Fc(c, a, b, d)
         };
         g.prototype.GetAttributeUInt16ForAllPoints = g.prototype.GetAttributeUInt16ForAllPoints = function (a, b, d) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
-            d && 'object' === typeof d && (d = d.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
+            d && "object" === typeof d && (d = d.ptr);
             return!!Gc(c, a, b, d)
         };
         g.prototype.GetAttributeInt32ForAllPoints = g.prototype.GetAttributeInt32ForAllPoints = function (a, b, d) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
-            d && 'object' === typeof d && (d = d.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
+            d && "object" === typeof d && (d = d.ptr);
             return!!Hc(c,
                 a, b, d)
         };
         g.prototype.GetAttributeUInt32ForAllPoints = g.prototype.GetAttributeUInt32ForAllPoints = function (a, b, d) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
-            d && 'object' === typeof d && (d = d.ptr);
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
+            d && "object" === typeof d && (d = d.ptr);
             return!!Ic(c, a, b, d)
         };
         g.prototype.GetAttributeDataArrayForAllPoints = g.prototype.GetAttributeDataArrayForAllPoints = function (a, b, d, e, f) {
             var c = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
-            b && 'object' === typeof b && (b = b.ptr);
-            d && 'object' === typeof d && (d = d.ptr);
-            e && 'object' === typeof e &&
+            a && "object" === typeof a && (a = a.ptr);
+            b && "object" === typeof b && (b = b.ptr);
+            d && "object" === typeof d && (d = d.ptr);
+            e && "object" === typeof e &&
             (e = e.ptr);
-            f && 'object' === typeof f && (f = f.ptr);
+            f && "object" === typeof f && (f = f.ptr);
             return!!Jc(c, a, b, d, e, f)
         };
         g.prototype.SkipAttributeTransform = g.prototype.SkipAttributeTransform = function (a) {
             var b = this.ptr;
-            a && 'object' === typeof a && (a = a.ptr);
+            a && "object" === typeof a && (a = a.ptr);
             Kc(b, a)
         };
         g.prototype.__destroy__ = g.prototype.__destroy__ = function () {
@@ -1747,7 +1747,7 @@ var DracoDecoderModule = function () {
         I.prototype.GetValue =
             I.prototype.GetValue = function (a) {
                 var b = this.ptr;
-                a && 'object' === typeof a && (a = a.ptr);
+                a && "object" === typeof a && (a = a.ptr);
                 return Rc(b, a)
             };
         I.prototype.size = I.prototype.size = function () {
@@ -1803,11 +1803,11 @@ var DracoDecoderModule = function () {
 
             Ba ? c() : Da.unshift(c)
         })();
-        if ('function' === typeof a.onModuleParsed)a.onModuleParsed();
+        if ("function" === typeof a.onModuleParsed)a.onModuleParsed();
         return m
     }
 }();
-'object' === typeof exports && 'object' === typeof module ? module.exports = DracoDecoderModule : 'function' === typeof define && define.amd ? define([], function () {
+"object" === typeof exports && "object" === typeof module ? module.exports = DracoDecoderModule : "function" === typeof define && define.amd ? define([], function () {
     return DracoDecoderModule
-}) : 'object' === typeof exports && (exports.DracoDecoderModule = DracoDecoderModule);
+}) : "object" === typeof exports && (exports.DracoDecoderModule = DracoDecoderModule);
 }

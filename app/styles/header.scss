@@ -1,0 +1,39 @@
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: rgba(16, 16, 16, 0.65);
+
+    nav{
+        width: 100%;
+    }
+
+    .input-group{
+        height: 36px;
+        background: #f3f6fb;
+        border-radius:3px;
+
+        input{
+            height: 36px;
+            background: #f3f6fb;
+        }
+    }
+
+    .container{
+        width: 100% !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+
+
+        .navbar-expand-lg
+        {
+            .navbar-collapse
+            {
+                display: flex !important;
+                flex-basis: auto;
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
 /**
- * Cesium - https://github.com/AnalyticalGraphicsInc/cesium
+ * Cesium - https://github.com/CesiumGS/cesium
  *
- * Copyright 2011-2017 Cesium Contributors
+ * Copyright 2011-2020 Cesium Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@
  * Columbus View (Pat. Pend.)
  *
  * Portions licensed separately.
- * See https://github.com/AnalyticalGraphicsInc/cesium/blob/master/LICENSE.md for full licensing details.
+ * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
-define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographic-fe4be337', './Cartesian2-85064f09', './BoundingSphere-775c5788', './Cartesian4-5af5bb24', './RuntimeError-ba10bc3e', './WebGLConstants-4c11ee5f', './ComponentDatatype-5862616f', './FeatureDetection-7bd32c34', './Transforms-913163ed', './buildModuleUrl-9d43158d', './AttributeCompression-84a90a13', './IntersectionTests-397d9494', './Plane-8390418f', './WebMercatorProjection-80c70558', './createTaskProcessorWorker', './EllipsoidTangentPlane-605dc181', './OrientedBoundingBox-64cb80e5', './TerrainEncoding-a807a704'], function (when, Check, _Math, Cartographic, Cartesian2, BoundingSphere, Cartesian4, RuntimeError, WebGLConstants, ComponentDatatype, FeatureDetection, Transforms, buildModuleUrl, AttributeCompression, IntersectionTests, Plane, WebMercatorProjection, createTaskProcessorWorker, EllipsoidTangentPlane, OrientedBoundingBox, TerrainEncoding) { 'use strict';
+define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographic-fe4be337', './Cartesian2-85064f09', './BoundingSphere-775c5788', './Cartesian4-5af5bb24', './RuntimeError-ba10bc3e', './WebGLConstants-4c11ee5f', './ComponentDatatype-5862616f', './FeatureDetection-7bd32c34', './Transforms-a1cf7267', './buildModuleUrl-e7952659', './AttributeCompression-84a90a13', './IntersectionTests-397d9494', './Plane-8390418f', './WebMercatorProjection-80c70558', './createTaskProcessorWorker', './EllipsoidTangentPlane-e324bfa4', './OrientedBoundingBox-0ede1598', './TerrainEncoding-a807a704'], function (when, Check, _Math, Cartographic, Cartesian2, BoundingSphere, Cartesian4, RuntimeError, WebGLConstants, ComponentDatatype, FeatureDetection, Transforms, buildModuleUrl, AttributeCompression, IntersectionTests, Plane, WebMercatorProjection, createTaskProcessorWorker, EllipsoidTangentPlane, OrientedBoundingBox, TerrainEncoding) { 'use strict';
 
     /**
          * The encoding that is used for a heightmap
@@ -700,7 +700,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
                 }
               }
               if ((block.encoding === 1) && (blockPtr !== block.numValidPixels)) {
-                throw 'Block and Mask do not match';
+                throw "Block and Mask do not match";
               }
               blockIdx++;
             }
@@ -715,25 +715,25 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
 
         var formatFileInfo = function(data) {
           return {
-            'fileIdentifierString': data.fileIdentifierString,
-            'fileVersion': data.fileVersion,
-            'imageType': data.imageType,
-            'height': data.height,
-            'width': data.width,
-            'maxZError': data.maxZError,
-            'eofOffset': data.eofOffset,
-            'mask': data.mask ? {
-              'numBlocksX': data.mask.numBlocksX,
-              'numBlocksY': data.mask.numBlocksY,
-              'numBytes': data.mask.numBytes,
-              'maxValue': data.mask.maxValue
+            "fileIdentifierString": data.fileIdentifierString,
+            "fileVersion": data.fileVersion,
+            "imageType": data.imageType,
+            "height": data.height,
+            "width": data.width,
+            "maxZError": data.maxZError,
+            "eofOffset": data.eofOffset,
+            "mask": data.mask ? {
+              "numBlocksX": data.mask.numBlocksX,
+              "numBlocksY": data.mask.numBlocksY,
+              "numBytes": data.mask.numBytes,
+              "maxValue": data.mask.maxValue
             } : null,
-            'pixels': {
-              'numBlocksX': data.pixels.numBlocksX,
-              'numBlocksY': data.pixels.numBlocksY,
-              'numBytes': data.pixels.numBytes,
-              'maxValue': data.pixels.maxValue,
-              'noDataValue': data.noDataValue
+            "pixels": {
+              "numBlocksX": data.pixels.numBlocksX,
+              "numBlocksY": data.pixels.numBlocksY,
+              "numBytes": data.pixels.numBytes,
+              "maxValue": data.pixels.maxValue,
+              "noDataValue": data.noDataValue
             }
           };
         };
@@ -761,8 +761,8 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
           // File header
           var fileIdView = new Uint8Array(input, fp, 10);
           data.fileIdentifierString = String.fromCharCode.apply(null, fileIdView);
-          if (data.fileIdentifierString.trim() !== 'CntZImage') {
-            throw 'Unexpected file identifier string: ' + data.fileIdentifierString;
+          if (data.fileIdentifierString.trim() !== "CntZImage") {
+            throw "Unexpected file identifier string: " + data.fileIdentifierString;
           }
           fp += 10;
           var view = new DataView(input, fp, 24);
@@ -801,7 +801,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
                 ip += 2;
               } while (ip < data.mask.numBytes);
               if ((cnt !== -32768) || (op < bitset.length)) {
-                throw 'Unexpected end of mask RLE encoding';
+                throw "Unexpected end of mask RLE encoding";
               }
               data.mask.bitset = bitset;
               fp += data.mask.numBytes;
@@ -841,7 +841,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
               var headerByte = view.getUint8(0); size++;
               block.encoding = headerByte & 63;
               if (block.encoding > 3) {
-                throw 'Invalid block encoding (' + block.encoding + ')';
+                throw "Invalid block encoding (" + block.encoding + ")";
               }
               if (block.encoding === 2) {
                 fp++;
@@ -857,7 +857,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
                 } else if (headerByte === 0) {
                   block.offset = view.getFloat32(1, true); size += 4;
                 } else {
-                  throw 'Invalid block offset type';
+                  throw "Invalid block offset type";
                 }
 
                 if (block.encoding === 1) {
@@ -872,7 +872,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
                   } else if (headerByte === 0) {
                     block.numValidPixels = view.getUint32(size, true); size += 4;
                   } else {
-                    throw 'Invalid valid pixel count type';
+                    throw "Invalid valid pixel count type";
                   }
                 }
               }
@@ -886,7 +886,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
               if (block.encoding === 0) {
                 var numPixels = (data.pixels.numBytes - 1) / 4;
                 if (numPixels !== Math.floor(numPixels)) {
-                  throw 'uncompressed block has invalid length';
+                  throw "uncompressed block has invalid length";
                 }
                 arrayBuf = new ArrayBuffer(numPixels * 4);
                 store8 = new Uint8Array(arrayBuf);
@@ -1228,8 +1228,8 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
             var fileIdView = new Uint8Array(input, ptr, 6);
             var headerInfo = {};
             headerInfo.fileIdentifierString = String.fromCharCode.apply(null, fileIdView);
-            if (headerInfo.fileIdentifierString.lastIndexOf('Lerc2', 0) !== 0) {
-              throw 'Unexpected file identifier string (expect Lerc2 ): ' + headerInfo.fileIdentifierString;
+            if (headerInfo.fileIdentifierString.lastIndexOf("Lerc2", 0) !== 0) {
+              throw "Unexpected file identifier string (expect Lerc2 ): " + headerInfo.fileIdentifierString;
             }
             ptr += 6;
             var view = new DataView(input, ptr, 8);
@@ -1272,7 +1272,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
               keyLength = fileVersion >= 4 ? 52 : 48;
               checksum = this.computeChecksumFletcher32(new Uint8Array(input, ptr - keyLength, headerInfo.blobSize - 14));
               if (checksum !== headerInfo.checksum) {
-                throw 'Checksum failed.';
+                throw "Checksum failed.";
               }
             }
             return true;
@@ -1324,7 +1324,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
 
             // Mask Data
             if ((0 === numValidPixel || numPixels === numValidPixel) && 0 !== mask.numBytes) {
-              throw ('invalid mask');
+              throw ("invalid mask");
             }
             var bitset, resultMask;
             if (numValidPixel === 0) {
@@ -1351,7 +1351,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
                 ip += 2;
               } while (ip < mask.numBytes);
               if ((cnt !== -32768) || (op < bitset.length)) {
-                throw 'Unexpected end of mask RLE encoding';
+                throw "Unexpected end of mask RLE encoding";
               }
 
               resultMask = new Uint8Array(numPixels);
@@ -1438,7 +1438,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
             data.ptr += 16;
             var version = view.getInt32(0, true);
             if (version < 2) {
-              throw 'unsupported Huffman version';
+              throw "unsupported Huffman version";
             }
             var size = view.getInt32(4, true);
             var i0 = view.getInt32(8, true);
@@ -1506,7 +1506,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
               numBitsLUTQick = numBitsLUT;
             }
             if (numBitsLUT >= 30) {
-              console.log('WARning, large NUM LUT BITS IS ' + numBitsLUT);
+              console.log("WARning, large NUM LUT BITS IS " + numBitsLUT);
             }
             var decodeLut = [], entry, code, numEntries, jj, currentBit, node;
             for (i = i0; i < i1; i++) {
@@ -1751,7 +1751,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
               } else if (n === 4) {
                 numElements = view.getUint32(blockPtr, true); blockPtr += 4;
               } else {
-                throw 'Invalid valid pixel count type';
+                throw "Invalid valid pixel count type";
               }
               //fix: huffman codes are bit stuffed, but not bound by data's max value, so need to use originalUnstuff
               //offset = offset || 0;
@@ -1880,14 +1880,14 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
                   bits67 = (headerByte >> 6) & 0xFF;
                   testCode = (headerByte >> 2) & 15;    // use bits 2345 for integrity check
                   if (testCode !== (((blockX * microBlockSize) >> 3) & 15)) {
-                    throw 'integrity issue';
+                    throw "integrity issue";
                     //return false;
                   }
 
                   blockEncoding = headerByte & 3;
                   if (blockEncoding > 3) {
                     data.ptr += blockPtr;
-                    throw 'Invalid block encoding (' + blockEncoding + ')';
+                    throw "Invalid block encoding (" + blockEncoding + ")";
                   }
                   else if (blockEncoding === 2) { //constant 0
                     data.counter.constant++;
@@ -1994,27 +1994,27 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
 
           formatFileInfo: function(data) {
             return {
-              'fileIdentifierString': data.headerInfo.fileIdentifierString,
-              'fileVersion': data.headerInfo.fileVersion,
-              'imageType': data.headerInfo.imageType,
-              'height': data.headerInfo.height,
-              'width': data.headerInfo.width,
-              'numValidPixel': data.headerInfo.numValidPixel,
-              'microBlockSize': data.headerInfo.microBlockSize,
-              'blobSize': data.headerInfo.blobSize,
-              'maxZError': data.headerInfo.maxZError,
-              'pixelType': Lerc2Helpers.getPixelType(data.headerInfo.imageType),
-              'eofOffset': data.eofOffset,
-              'mask': data.mask ? {
-                'numBytes': data.mask.numBytes
+              "fileIdentifierString": data.headerInfo.fileIdentifierString,
+              "fileVersion": data.headerInfo.fileVersion,
+              "imageType": data.headerInfo.imageType,
+              "height": data.headerInfo.height,
+              "width": data.headerInfo.width,
+              "numValidPixel": data.headerInfo.numValidPixel,
+              "microBlockSize": data.headerInfo.microBlockSize,
+              "blobSize": data.headerInfo.blobSize,
+              "maxZError": data.headerInfo.maxZError,
+              "pixelType": Lerc2Helpers.getPixelType(data.headerInfo.imageType),
+              "eofOffset": data.eofOffset,
+              "mask": data.mask ? {
+                "numBytes": data.mask.numBytes
               } : null,
-              'pixels': {
-                'numBlocksX': data.pixels.numBlocksX,
-                'numBlocksY': data.pixels.numBlocksY,
+              "pixels": {
+                "numBlocksX": data.pixels.numBlocksX,
+                "numBlocksY": data.pixels.numBlocksY,
                 //"numBytes": data.pixels.numBytes,
-                'maxValue': data.headerInfo.zMax,
-                'minValue': data.headerInfo.zMin,
-                'noDataValue': data.noDataValue
+                "maxValue": data.headerInfo.zMax,
+                "minValue": data.headerInfo.zMin,
+                "noDataValue": data.noDataValue
               }
             };
           },
@@ -2095,31 +2095,31 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
             var tp;
             switch (t) {
               case 0: //char
-                tp = 'S8';
+                tp = "S8";
                 break;
               case 1: //byte
-                tp = 'U8';
+                tp = "U8";
                 break;
               case 2: //short
-                tp = 'S16';
+                tp = "S16";
                 break;
               case 3: //ushort
-                tp = 'U16';
+                tp = "U16";
                 break;
               case 4:
-                tp = 'S32';
+                tp = "S32";
                 break;
               case 5:
-                tp = 'U32';
+                tp = "U32";
                 break;
               case 6:
-                tp = 'F32';
+                tp = "F32";
                 break;
               case 7:
-                tp = 'F64'; //not supported
+                tp = "F64"; //not supported
                 break;
               default:
-                tp = 'F32';
+                tp = "F32";
             }
             return tp;
           },
@@ -2253,7 +2253,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
                 temp = view.getFloat64(blockPtr, true);
                 break;
               default:
-                throw ('the decoder does not understand this pixel type');
+                throw ("the decoder does not understand this pixel type");
             }
             return temp;
           }
@@ -2365,7 +2365,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
                     data.ptr++;
                     data.encodeMode = flagHuffman;
                     if (flagHuffman > 2 || (fileVersion < 4 && flagHuffman > 1)) {
-                      throw 'Invalid Huffman flag ' + flagHuffman;
+                      throw "Invalid Huffman flag " + flagHuffman;
                     }
                     if (flagHuffman) {//1 - delta Huffman, 2 - Huffman
                       //console.log("Huffman");
@@ -2483,23 +2483,23 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographi
         **/
         decode: function(encodedData, options) {
           if (!isPlatformLittleEndian) {
-            throw 'Big endian system is not supported.';
+            throw "Big endian system is not supported.";
           }
           options = options || {};
           var inputOffset = options.inputOffset || 0;
           var fileIdView = new Uint8Array(encodedData, inputOffset, 10);
           var fileIdentifierString = String.fromCharCode.apply(null, fileIdView);
           var lerc, majorVersion;
-          if (fileIdentifierString.trim() === 'CntZImage') {
+          if (fileIdentifierString.trim() === "CntZImage") {
             lerc = LercDecode;
             majorVersion = 1;
           }
-          else if (fileIdentifierString.substring(0, 5) === 'Lerc2') {
+          else if (fileIdentifierString.substring(0, 5) === "Lerc2") {
             lerc = Lerc2Decode;
             majorVersion = 2;
           }
           else {
-            throw 'Unexpected file identifier string: ' + fileIdentifierString;
+            throw "Unexpected file identifier string: " + fileIdentifierString;
           }
 
           var iPlane = 0, eof = encodedData.byteLength - 10, encodedMaskData, bandMasks = [], bandMask, maskData;

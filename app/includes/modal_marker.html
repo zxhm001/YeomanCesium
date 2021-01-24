@@ -1,0 +1,27 @@
+<div id="modal_marker" class="modal fade modal-fixed-right overflow-hidden" data-backdrop="static" aria-labelledby="marker-modal-label" 
+    data-options='{"autoShow":true,"autoShowDelay":3000,"showOnce":true}'>
+    <div class="modal-dialog modal-dialog-vertical" role="dialog">
+        <div class="modal-content border-0 vh-100 scrollbar">
+            <div class="modal-header bg-shape">
+                <div class="z-index-1 py-1 light">
+                    <h5 class="text-white" id="marker-modal-label"><i class="i bi-pencil-fill"></i>动态标会</h5>
+                </div>
+                <button class="btn-close z-index-1 mt-0" type="button" data-dismiss="modal" aria-label="Close"><i class="bi bi-x" style="color: #fff;"></i></button>
+            </div>
+            <div class="modal-body px-card">
+                <ul class="nav nav-tabs nav-fill" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#plotPanel" role="tab" aria-controls="plotPanel" aria-selected="true">标会面板</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#stylePanel" role="tab" aria-controls="stylePanel" aria-selected="true">标会面板</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="plotPanel" title="标绘面板" class="tab-pane fade active show" role="tabpanel" style="height: 100%;overflow: hidden;"></div>
+                    <div id="stylePanel" title="属性面板" class="tab-pane fade" role="tabpanel" style="width: 320px;overflow: hidden;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

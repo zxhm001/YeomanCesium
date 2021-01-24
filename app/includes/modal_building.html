@@ -1,0 +1,19 @@
+<div id="modal_building" class="modal fade modal-fixed-right overflow-hidden" data-backdrop="static" aria-labelledby="building-modal-label" 
+    data-options='{"autoShow":true,"autoShowDelay":3000,"showOnce":true}'>
+    <div class="modal-dialog modal-dialog-vertical" role="dialog">
+        <div class="modal-content border-0 vh-100 scrollbar">
+            <div class="modal-header bg-shape">
+                <div class="z-index-1 py-1 light">
+                    <h5 class="text-white" id="building-modal-label"><i class="bi bi-house-fill"></i>建筑列表</h5>
+                </div>
+                <button class="btn-close z-index-1 mt-0" type="button" data-dismiss="modal" aria-label="Close"><i class="bi bi-x" style="color: #fff;"></i></button>
+            </div>
+            <div class="modal-body px-card">
+                <div id="building_tree" class="ztree"></div>
+                <div class="btn-group">
+                    <input id="btn_building_marker" type="button" class="btn btn-primary" value="自动标注">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

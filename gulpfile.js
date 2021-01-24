@@ -56,6 +56,17 @@ function copySmWebglSDK()
     .pipe(dest('dist/scripts/Cesium'));
 }
 
+function copyplotPanelControl()
+{
+  return src('app/libs/plotPanelControl/**')
+    .pipe(dest('dist/scripts/plotPanelControl'));
+}
+
+function copyData(){
+  return src('app/data/**')
+    .pipe(dest('dist/data'));
+}
+
 async function modernizr() {
   const readConfig = () => new Promise((resolve, reject) => {
     fs.readFile(`${__dirname}/modernizr.json`, 'utf8', (err, data) => {
@@ -159,7 +170,7 @@ const build = series(
   clean,
   parallel(
     lint,
-    series(parallel(styles, scripts, modernizr), html,copySmWebglSDK),
+    series(parallel(styles, scripts, modernizr), html,copyData,copySmWebglSDK,copyplotPanelControl),
     images,
     fonts,
     extras

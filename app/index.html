@@ -6,14 +6,18 @@
     <meta name="description" content="">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>超图WEBGLSDK</title>
+    <title>新世纪安防平台</title>
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
     <!-- build:css styles/vendor.css -->
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css" type="text/css" />
+    <link rel="stylesheet" href="/node_modules/ztree/css/metroStyle/metroStyle.css" type="text/css" />
     <!-- endbuild -->
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/modal.css">
     <!-- endbuild -->
     <!-- build:js scripts/modernizr.js -->
     <script src="scripts/modernizr.js"></script>
@@ -28,18 +32,120 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     @@include('./includes/header.html')
+    <nav id="sidebar" class="navbar">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse show">
+          <ul class="navbar-nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link dropdown-indicator" href="#person" data-toggle="collapse" aria-expanded="true" aria-controls="person" role="button">
+                <i class="bi bi-person-fill"></i>人员
+              </a>
+              <ul id="person" class="collapse show">
+                <li class="nav-item">
+                  <a class="nav-link" role="button" href="#modal_person" data-toggle="modal">人员定位</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" role="button">人员部署</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link dropdown-indicator" href="#car" data-toggle="collapse" aria-expanded="false" aria-controls="car" role="button">
+                <i class="bi bi-speedometer"></i>车辆
+              </a>
+              <ul id="car" class="collapse">
+                <li class="nav-item">
+                  <a class="nav-link" role="button" href="#modal_car" data-toggle="modal">车辆定位</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" role="button">车辆部署</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link dropdown-indicator" href="#uav" data-toggle="collapse" aria-expanded="false" aria-controls="uav" role="button">
+                <i class="bi bi-record-circle-fill"></i>无人机
+              </a>
+              <ul id="uav" class="collapse">
+                <li class="nav-item">
+                  <a class="nav-link" role="button" href="#modal_uav" data-toggle="modal">无人机定位</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" role="button">无人机部署</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" role="button" href="#modal_camera" data-toggle="modal">
+                <i class="bi bi-camera-video-fill"></i>摄像头
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link dropdown-indicator" href="#building" data-toggle="collapse" aria-expanded="false" aria-controls="building" role="button">
+                <i class="bi bi-house-fill"></i>重点建筑
+              </a>
+              <ul id="building" class="collapse">
+                <li class="nav-item">
+                  <a class="nav-link" role="button" href="#modal_building" data-toggle="modal">建筑列表</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" role="button">建筑标会</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link dropdown-indicator" href="#region" data-toggle="collapse" aria-expanded="false" aria-controls="region" role="button">
+                <i class="bi bi-heptagon-half"></i>重点区域
+              </a>
+              <ul id="region" class="collapse">
+                <li class="nav-item">
+                  <a class="nav-link" role="button" href="#modal_region" data-toggle="modal">区域列表</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" role="button">区域标会</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" role="button" href="#modal_marker" data-toggle="modal">
+                <i class="bi bi-pencil-fill"></i>态势推演
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="status_bar"></div>
+    </nav>
     <div id="cesium_container">
     </div>
+    <!--modal-->
+    @@include('./includes/modal_person.html')
+    @@include('./includes/modal_car.html')
+    @@include('./includes/modal_uav.html')
+    @@include('./includes/modal_camera.html')
+    @@include('./includes/modal_building.html')
+    @@include('./includes/modal_region.html')
+    @@include('./includes/modal_marker.html')
+    <!--end modal-->
     @@include('./includes/footer.html')
     <!-- build:js scripts/vendor.js -->
     <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/node_modules/ztree/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript" src="/node_modules/turf/turf.min.js"></script>
     <!-- endbuild -->
     <!-- build:js scripts/Cesium/Cesium.js -->
-    <script src="libs/Cesium/Cesium.js"></script>
+    <script type="text/javascript" src="libs/Cesium/Cesium.js"></script>
     <!-- endbuild -->
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
+    <script src="scripts/person.js"></script>
+    <script src="scripts/car.js"></script>
+    <script src="scripts/camera.js"></script>
+    <script src="scripts/uav.js"></script>
+    <script src="scripts/buildling.js"></script>
+    <script src="scripts/region.js"></script>
+    <script src="scripts/marker.js"></script>
     <!-- endbuild -->
 </body>
 

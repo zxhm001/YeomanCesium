@@ -1,7 +1,7 @@
 /**
- * Cesium - https://github.com/AnalyticalGraphicsInc/cesium
+ * Cesium - https://github.com/CesiumGS/cesium
  *
- * Copyright 2011-2017 Cesium Contributors
+ * Copyright 2011-2020 Cesium Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  * Columbus View (Pat. Pend.)
  *
  * Portions licensed separately.
- * See https://github.com/AnalyticalGraphicsInc/cesium/blob/master/LICENSE.md for full licensing details.
+ * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
 define(['exports', './when-8d13db60'], function (exports, when) { 'use strict';
 
@@ -606,14 +606,14 @@ define(['exports', './when-8d13db60'], function (exports, when) { 'use strict';
 
     function isPCBroswer() {
         var sUserAgent = window.navigator.userAgent.toLowerCase();
-        var bIsIpad = sUserAgent.match(/ipad/i) == 'ipad';
-        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == 'iphone os';
-        var bIsMidp = sUserAgent.match(/midp/i) == 'midp';
-        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == 'rv:1.2.3.4';
-        var bIsUc = sUserAgent.match(/ucweb/i) == 'ucweb';
-        var bIsAndroid = sUserAgent.match(/android/i) == 'android';
-        var bIsCE = sUserAgent.match(/windows ce/i) == 'windows ce';
-        var bIsWM = sUserAgent.match(/windows mobile/i) == 'windows mobile';
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";
+        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
         if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
             return false;
         } else {

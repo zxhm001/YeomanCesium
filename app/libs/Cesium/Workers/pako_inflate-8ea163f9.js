@@ -1,7 +1,7 @@
 /**
- * Cesium - https://github.com/AnalyticalGraphicsInc/cesium
+ * Cesium - https://github.com/CesiumGS/cesium
  *
- * Copyright 2011-2017 Cesium Contributors
+ * Copyright 2011-2020 Cesium Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,13 @@
  * Columbus View (Pat. Pend.)
  *
  * Portions licensed separately.
- * See https://github.com/AnalyticalGraphicsInc/cesium/blob/master/LICENSE.md for full licensing details.
+ * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
 define(['exports'], function (exports) { 'use strict';
 
     var tmp = {};
 
-    /* pako 1.0.4 nodeca/pako */(function(f){tmp = f();})(function(){return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=='function'&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error('Cannot find module \''+o+'\'');throw f.code='MODULE_NOT_FOUND',f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r);}return n[o].exports}var i=typeof require=='function'&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+    /* pako 1.0.4 nodeca/pako */(function(f){tmp = f();})(function(){return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r);}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 
         var TYPED_OK =  (typeof Uint8Array !== 'undefined') &&
@@ -312,7 +312,7 @@ define(['exports'], function (exports) { 'use strict';
             return (pos + _utf8len[buf[pos]] > max) ? pos : max;
         };
 
-    },{'./common':1}],3:[function(require,module,exports){
+    },{"./common":1}],3:[function(require,module,exports){
 
     // Note: adler32 takes 12% for level 0 and 2% for level 6.
     // It doesn't worth to make additional optimizationa as in original.
@@ -2342,7 +2342,7 @@ define(['exports'], function (exports) { 'use strict';
          exports.inflateUndermine = inflateUndermine;
          */
 
-    },{'../utils/common':1,'./adler32':3,'./crc32':5,'./inffast':7,'./inftrees':9}],9:[function(require,module,exports){
+    },{"../utils/common":1,"./adler32":3,"./crc32":5,"./inffast":7,"./inftrees":9}],9:[function(require,module,exports){
 
 
         var utils = require('../utils/common');
@@ -2668,7 +2668,7 @@ define(['exports'], function (exports) { 'use strict';
             return 0;
         };
 
-    },{'../utils/common':1}],10:[function(require,module,exports){
+    },{"../utils/common":1}],10:[function(require,module,exports){
 
         module.exports = {
             2:      'need dictionary',     /* Z_NEED_DICT       2  */
@@ -2712,7 +2712,7 @@ define(['exports'], function (exports) { 'use strict';
 
         module.exports = ZStream;
 
-    },{}],'/lib/inflate.js':[function(require,module,exports){
+    },{}],"/lib/inflate.js":[function(require,module,exports){
 
 
         var zlib_inflate = require('./zlib/inflate');
@@ -3131,7 +3131,7 @@ define(['exports'], function (exports) { 'use strict';
         exports.inflateRaw = inflateRaw;
         exports.ungzip  = inflate;
 
-    },{'./utils/common':1,'./utils/strings':2,'./zlib/constants':4,'./zlib/gzheader':6,'./zlib/inflate':8,'./zlib/messages':10,'./zlib/zstream':11}]},{},[])('/lib/inflate.js')
+    },{"./utils/common":1,"./utils/strings":2,"./zlib/constants":4,"./zlib/gzheader":6,"./zlib/inflate":8,"./zlib/messages":10,"./zlib/zstream":11}]},{},[])("/lib/inflate.js")
     });
 
     var pako = tmp;

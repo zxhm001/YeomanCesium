@@ -1,7 +1,7 @@
 /**
- * Cesium - https://github.com/AnalyticalGraphicsInc/cesium
+ * Cesium - https://github.com/CesiumGS/cesium
  *
- * Copyright 2011-2017 Cesium Contributors
+ * Copyright 2011-2020 Cesium Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@
  * Columbus View (Pat. Pend.)
  *
  * Portions licensed separately.
- * See https://github.com/AnalyticalGraphicsInc/cesium/blob/master/LICENSE.md for full licensing details.
+ * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
-define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9e6', './defined-21f7e510', './pbf-9fe59c76'], function (when, createTaskProcessorWorker, earcut2_2_1, defined, pbf) { 'use strict';
+define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9e6', './pbf-9fe59c76'], function (when, createTaskProcessorWorker, earcut2_2_1, pbf) { 'use strict';
 
     function DictionaryCoder(strings) {
         this._stringToNumber = {};
@@ -428,81 +428,81 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     // http://www.w3.org/TR/css3-color/
     var kCSSColorTable = {
-        'transparent': [0,0,0,0], 'aliceblue': [240,248,255,1],
-        'antiquewhite': [250,235,215,1], 'aqua': [0,255,255,1],
-        'aquamarine': [127,255,212,1], 'azure': [240,255,255,1],
-        'beige': [245,245,220,1], 'bisque': [255,228,196,1],
-        'black': [0,0,0,1], 'blanchedalmond': [255,235,205,1],
-        'blue': [0,0,255,1], 'blueviolet': [138,43,226,1],
-        'brown': [165,42,42,1], 'burlywood': [222,184,135,1],
-        'cadetblue': [95,158,160,1], 'chartreuse': [127,255,0,1],
-        'chocolate': [210,105,30,1], 'coral': [255,127,80,1],
-        'cornflowerblue': [100,149,237,1], 'cornsilk': [255,248,220,1],
-        'crimson': [220,20,60,1], 'cyan': [0,255,255,1],
-        'darkblue': [0,0,139,1], 'darkcyan': [0,139,139,1],
-        'darkgoldenrod': [184,134,11,1], 'darkgray': [169,169,169,1],
-        'darkgreen': [0,100,0,1], 'darkgrey': [169,169,169,1],
-        'darkkhaki': [189,183,107,1], 'darkmagenta': [139,0,139,1],
-        'darkolivegreen': [85,107,47,1], 'darkorange': [255,140,0,1],
-        'darkorchid': [153,50,204,1], 'darkred': [139,0,0,1],
-        'darksalmon': [233,150,122,1], 'darkseagreen': [143,188,143,1],
-        'darkslateblue': [72,61,139,1], 'darkslategray': [47,79,79,1],
-        'darkslategrey': [47,79,79,1], 'darkturquoise': [0,206,209,1],
-        'darkviolet': [148,0,211,1], 'deeppink': [255,20,147,1],
-        'deepskyblue': [0,191,255,1], 'dimgray': [105,105,105,1],
-        'dimgrey': [105,105,105,1], 'dodgerblue': [30,144,255,1],
-        'firebrick': [178,34,34,1], 'floralwhite': [255,250,240,1],
-        'forestgreen': [34,139,34,1], 'fuchsia': [255,0,255,1],
-        'gainsboro': [220,220,220,1], 'ghostwhite': [248,248,255,1],
-        'gold': [255,215,0,1], 'goldenrod': [218,165,32,1],
-        'gray': [128,128,128,1], 'green': [0,128,0,1],
-        'greenyellow': [173,255,47,1], 'grey': [128,128,128,1],
-        'honeydew': [240,255,240,1], 'hotpink': [255,105,180,1],
-        'indianred': [205,92,92,1], 'indigo': [75,0,130,1],
-        'ivory': [255,255,240,1], 'khaki': [240,230,140,1],
-        'lavender': [230,230,250,1], 'lavenderblush': [255,240,245,1],
-        'lawngreen': [124,252,0,1], 'lemonchiffon': [255,250,205,1],
-        'lightblue': [173,216,230,1], 'lightcoral': [240,128,128,1],
-        'lightcyan': [224,255,255,1], 'lightgoldenrodyellow': [250,250,210,1],
-        'lightgray': [211,211,211,1], 'lightgreen': [144,238,144,1],
-        'lightgrey': [211,211,211,1], 'lightpink': [255,182,193,1],
-        'lightsalmon': [255,160,122,1], 'lightseagreen': [32,178,170,1],
-        'lightskyblue': [135,206,250,1], 'lightslategray': [119,136,153,1],
-        'lightslategrey': [119,136,153,1], 'lightsteelblue': [176,196,222,1],
-        'lightyellow': [255,255,224,1], 'lime': [0,255,0,1],
-        'limegreen': [50,205,50,1], 'linen': [250,240,230,1],
-        'magenta': [255,0,255,1], 'maroon': [128,0,0,1],
-        'mediumaquamarine': [102,205,170,1], 'mediumblue': [0,0,205,1],
-        'mediumorchid': [186,85,211,1], 'mediumpurple': [147,112,219,1],
-        'mediumseagreen': [60,179,113,1], 'mediumslateblue': [123,104,238,1],
-        'mediumspringgreen': [0,250,154,1], 'mediumturquoise': [72,209,204,1],
-        'mediumvioletred': [199,21,133,1], 'midnightblue': [25,25,112,1],
-        'mintcream': [245,255,250,1], 'mistyrose': [255,228,225,1],
-        'moccasin': [255,228,181,1], 'navajowhite': [255,222,173,1],
-        'navy': [0,0,128,1], 'oldlace': [253,245,230,1],
-        'olive': [128,128,0,1], 'olivedrab': [107,142,35,1],
-        'orange': [255,165,0,1], 'orangered': [255,69,0,1],
-        'orchid': [218,112,214,1], 'palegoldenrod': [238,232,170,1],
-        'palegreen': [152,251,152,1], 'paleturquoise': [175,238,238,1],
-        'palevioletred': [219,112,147,1], 'papayawhip': [255,239,213,1],
-        'peachpuff': [255,218,185,1], 'peru': [205,133,63,1],
-        'pink': [255,192,203,1], 'plum': [221,160,221,1],
-        'powderblue': [176,224,230,1], 'purple': [128,0,128,1],
-        'rebeccapurple': [102,51,153,1],
-        'red': [255,0,0,1], 'rosybrown': [188,143,143,1],
-        'royalblue': [65,105,225,1], 'saddlebrown': [139,69,19,1],
-        'salmon': [250,128,114,1], 'sandybrown': [244,164,96,1],
-        'seagreen': [46,139,87,1], 'seashell': [255,245,238,1],
-        'sienna': [160,82,45,1], 'silver': [192,192,192,1],
-        'skyblue': [135,206,235,1], 'slateblue': [106,90,205,1],
-        'slategray': [112,128,144,1], 'slategrey': [112,128,144,1],
-        'snow': [255,250,250,1], 'springgreen': [0,255,127,1],
-        'steelblue': [70,130,180,1], 'tan': [210,180,140,1],
-        'teal': [0,128,128,1], 'thistle': [216,191,216,1],
-        'tomato': [255,99,71,1], 'turquoise': [64,224,208,1],
-        'violet': [238,130,238,1], 'wheat': [245,222,179,1],
-        'white': [255,255,255,1], 'whitesmoke': [245,245,245,1],
-        'yellow': [255,255,0,1], 'yellowgreen': [154,205,50,1]};
+        "transparent": [0,0,0,0], "aliceblue": [240,248,255,1],
+        "antiquewhite": [250,235,215,1], "aqua": [0,255,255,1],
+        "aquamarine": [127,255,212,1], "azure": [240,255,255,1],
+        "beige": [245,245,220,1], "bisque": [255,228,196,1],
+        "black": [0,0,0,1], "blanchedalmond": [255,235,205,1],
+        "blue": [0,0,255,1], "blueviolet": [138,43,226,1],
+        "brown": [165,42,42,1], "burlywood": [222,184,135,1],
+        "cadetblue": [95,158,160,1], "chartreuse": [127,255,0,1],
+        "chocolate": [210,105,30,1], "coral": [255,127,80,1],
+        "cornflowerblue": [100,149,237,1], "cornsilk": [255,248,220,1],
+        "crimson": [220,20,60,1], "cyan": [0,255,255,1],
+        "darkblue": [0,0,139,1], "darkcyan": [0,139,139,1],
+        "darkgoldenrod": [184,134,11,1], "darkgray": [169,169,169,1],
+        "darkgreen": [0,100,0,1], "darkgrey": [169,169,169,1],
+        "darkkhaki": [189,183,107,1], "darkmagenta": [139,0,139,1],
+        "darkolivegreen": [85,107,47,1], "darkorange": [255,140,0,1],
+        "darkorchid": [153,50,204,1], "darkred": [139,0,0,1],
+        "darksalmon": [233,150,122,1], "darkseagreen": [143,188,143,1],
+        "darkslateblue": [72,61,139,1], "darkslategray": [47,79,79,1],
+        "darkslategrey": [47,79,79,1], "darkturquoise": [0,206,209,1],
+        "darkviolet": [148,0,211,1], "deeppink": [255,20,147,1],
+        "deepskyblue": [0,191,255,1], "dimgray": [105,105,105,1],
+        "dimgrey": [105,105,105,1], "dodgerblue": [30,144,255,1],
+        "firebrick": [178,34,34,1], "floralwhite": [255,250,240,1],
+        "forestgreen": [34,139,34,1], "fuchsia": [255,0,255,1],
+        "gainsboro": [220,220,220,1], "ghostwhite": [248,248,255,1],
+        "gold": [255,215,0,1], "goldenrod": [218,165,32,1],
+        "gray": [128,128,128,1], "green": [0,128,0,1],
+        "greenyellow": [173,255,47,1], "grey": [128,128,128,1],
+        "honeydew": [240,255,240,1], "hotpink": [255,105,180,1],
+        "indianred": [205,92,92,1], "indigo": [75,0,130,1],
+        "ivory": [255,255,240,1], "khaki": [240,230,140,1],
+        "lavender": [230,230,250,1], "lavenderblush": [255,240,245,1],
+        "lawngreen": [124,252,0,1], "lemonchiffon": [255,250,205,1],
+        "lightblue": [173,216,230,1], "lightcoral": [240,128,128,1],
+        "lightcyan": [224,255,255,1], "lightgoldenrodyellow": [250,250,210,1],
+        "lightgray": [211,211,211,1], "lightgreen": [144,238,144,1],
+        "lightgrey": [211,211,211,1], "lightpink": [255,182,193,1],
+        "lightsalmon": [255,160,122,1], "lightseagreen": [32,178,170,1],
+        "lightskyblue": [135,206,250,1], "lightslategray": [119,136,153,1],
+        "lightslategrey": [119,136,153,1], "lightsteelblue": [176,196,222,1],
+        "lightyellow": [255,255,224,1], "lime": [0,255,0,1],
+        "limegreen": [50,205,50,1], "linen": [250,240,230,1],
+        "magenta": [255,0,255,1], "maroon": [128,0,0,1],
+        "mediumaquamarine": [102,205,170,1], "mediumblue": [0,0,205,1],
+        "mediumorchid": [186,85,211,1], "mediumpurple": [147,112,219,1],
+        "mediumseagreen": [60,179,113,1], "mediumslateblue": [123,104,238,1],
+        "mediumspringgreen": [0,250,154,1], "mediumturquoise": [72,209,204,1],
+        "mediumvioletred": [199,21,133,1], "midnightblue": [25,25,112,1],
+        "mintcream": [245,255,250,1], "mistyrose": [255,228,225,1],
+        "moccasin": [255,228,181,1], "navajowhite": [255,222,173,1],
+        "navy": [0,0,128,1], "oldlace": [253,245,230,1],
+        "olive": [128,128,0,1], "olivedrab": [107,142,35,1],
+        "orange": [255,165,0,1], "orangered": [255,69,0,1],
+        "orchid": [218,112,214,1], "palegoldenrod": [238,232,170,1],
+        "palegreen": [152,251,152,1], "paleturquoise": [175,238,238,1],
+        "palevioletred": [219,112,147,1], "papayawhip": [255,239,213,1],
+        "peachpuff": [255,218,185,1], "peru": [205,133,63,1],
+        "pink": [255,192,203,1], "plum": [221,160,221,1],
+        "powderblue": [176,224,230,1], "purple": [128,0,128,1],
+        "rebeccapurple": [102,51,153,1],
+        "red": [255,0,0,1], "rosybrown": [188,143,143,1],
+        "royalblue": [65,105,225,1], "saddlebrown": [139,69,19,1],
+        "salmon": [250,128,114,1], "sandybrown": [244,164,96,1],
+        "seagreen": [46,139,87,1], "seashell": [255,245,238,1],
+        "sienna": [160,82,45,1], "silver": [192,192,192,1],
+        "skyblue": [135,206,235,1], "slateblue": [106,90,205,1],
+        "slategray": [112,128,144,1], "slategrey": [112,128,144,1],
+        "snow": [255,250,250,1], "springgreen": [0,255,127,1],
+        "steelblue": [70,130,180,1], "tan": [210,180,140,1],
+        "teal": [0,128,128,1], "thistle": [216,191,216,1],
+        "tomato": [255,99,71,1], "turquoise": [64,224,208,1],
+        "violet": [238,130,238,1], "wheat": [245,222,179,1],
+        "white": [255,255,255,1], "whitesmoke": [245,245,245,1],
+        "yellow": [255,255,0,1], "yellowgreen": [154,205,50,1]};
 
     function clamp_css_byte(i) {  // Clamp to integer 0 .. 255.
         i = Math.round(i);  // Seems to be what Chrome does (vs truncation).
@@ -670,7 +670,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         var g = ref[1];
         var b = ref[2];
         var a = ref[3];
-        return ('rgba(' + (Math.round(r)) + ',' + (Math.round(g)) + ',' + (Math.round(b)) + ',' + a + ')');
+        return ("rgba(" + (Math.round(r)) + "," + (Math.round(g)) + "," + (Math.round(b)) + "," + a + ")");
     };
 
     Color$1.prototype.toArray = function toArray() {
@@ -714,8 +714,8 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         if (type.kind === 'array') {
             var itemType = toString$2(type.itemType);
             return typeof type.N === 'number' ?
-                ('array<' + itemType + ', ' + (type.N) + '>') :
-                type.itemType.kind === 'value' ? 'array' : ('array<' + itemType + '>');
+                ("array<" + itemType + ", " + (type.N) + ">") :
+                type.itemType.kind === 'value' ? 'array' : ("array<" + itemType + ">");
         } else {
             return type.kind;
         }
@@ -760,7 +760,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             }
         }
 
-        return ('Expected ' + (toString$2(expected)) + ' but found ' + (toString$2(t)) + ' instead.');
+        return ("Expected " + (toString$2(expected)) + " but found " + (toString$2(t)) + " instead.");
     }
 
     var Collator = function Collator(caseSensitive       , diacriticSensitive       , locale             ) {
@@ -829,24 +829,24 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     Formatted$1.prototype.serialize = function serialize() {
-        var serialized = ['format'];
+        var serialized = ["format"];
         for (var i = 0, list = this.sections; i < list.length; i += 1) {
             var section = list[i];
 
             if (section.image) {
-                serialized.push(['image', section.image.name]);
+                serialized.push(["image", section.image.name]);
                 continue;
             }
             serialized.push(section.text);
             var options = {};
             if (section.fontStack) {
-                options['text-font'] = ['literal', section.fontStack.split(',')];
+                options["text-font"] = ["literal", section.fontStack.split(',')];
             }
             if (section.scale) {
-                options['font-scale'] = section.scale;
+                options["font-scale"] = section.scale;
             }
             if (section.textColor) {
-                options['text-color'] = (['rgba']          ).concat(section.textColor.toArray());
+                options["text-color"] = (["rgba"]          ).concat(section.textColor.toArray());
             }
             serialized.push(options);
         }
@@ -867,7 +867,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     ResolvedImage$1.prototype.serialize = function serialize() {
-        return ['image', this.name];
+        return ["image", this.name];
     };
 
     var NullType$1 = {kind: 'null'};
@@ -899,12 +899,12 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 typeof b === 'number' && b >= 0 && b <= 255
             )) {
             var value = typeof a === 'number' ? [r, g, b, a] : [r, g, b];
-            return ('Invalid rgba value [' + (value.join(', ')) + ']: \'r\', \'g\', and \'b\' must be between 0 and 255.');
+            return ("Invalid rgba value [" + (value.join(', ')) + "]: 'r', 'g', and 'b' must be between 0 and 255.");
         }
         if (!(
             typeof a === 'undefined' || (typeof a === 'number' && a >= 0 && a <= 1)
             )) {
-            return ('Invalid rgba value [' + ([r, g, b, a].join(', ')) + ']: \'a\' must be between 0 and 1.');
+            return ("Invalid rgba value [" + ([r, g, b, a].join(', ')) + "]: 'a' must be between 0 and 1.");
         }
         return null;
     };
@@ -1030,7 +1030,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     Assertion.parse = function parse(args, context) {
         if (args.length < 2) {
-            return context.error('Expected at least one argument.');
+            return context.error("Expected at least one argument.");
         }
 
         var i = 1;
@@ -1088,7 +1088,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             if (!error) {
                 return value;
             } else if (i === this.args.length - 1) {
-                throw new RuntimeError(('Expected value to be of type ' + (toString(this.type)) + ', but found ' + (toString(Values$1.typeOf(value))) + ' instead.'));
+                throw new RuntimeError(("Expected value to be of type " + (toString(this.type)) + ", but found " + (toString(Values$1.typeOf(value))) + " instead."));
             }
         }
 
@@ -1147,7 +1147,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     At.parse = function parse(args, context) {
         if (args.length !== 3) {
-            return context.error(('Expected 2 arguments, but found ' + (args.length - 1) + ' instead.'));
+            return context.error(("Expected 2 arguments, but found " + (args.length - 1) + " instead."));
         }
 
         var index = context.parse(args[1], 1, NumberType$4);
@@ -1166,15 +1166,15 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         var array = ((this.input.evaluate(ctx) )          );
 
         if (index < 0) {
-            throw new RuntimeError(('Array index out of bounds: ' + index + ' < 0.'));
+            throw new RuntimeError(("Array index out of bounds: " + index + " < 0."));
         }
 
         if (index >= array.length) {
-            throw new RuntimeError(('Array index out of bounds: ' + index + ' > ' + (array.length - 1) + '.'));
+            throw new RuntimeError(("Array index out of bounds: " + index + " > " + (array.length - 1) + "."));
         }
 
         if (index !== Math.floor(index)) {
-            throw new RuntimeError(('Array index must be an integer, but found ' + index + ' instead.'));
+            throw new RuntimeError(("Array index must be an integer, but found " + index + " instead."));
         }
 
         return array[index];
@@ -1190,7 +1190,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     At.prototype.serialize = function serialize() {
-        return ['at', this.index.serialize(), this.input.serialize()];
+        return ["at", this.index.serialize(), this.input.serialize()];
     };
 
     var BooleanType$3 = {kind: 'boolean'};
@@ -1203,10 +1203,10 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     Case.parse = function parse(args, context) {
         if (args.length < 4) {
-            return context.error(('Expected at least 3 arguments, but found only ' + (args.length - 1) + '.'));
+            return context.error(("Expected at least 3 arguments, but found only " + (args.length - 1) + "."));
         }
         if (args.length % 2 !== 0) {
-            return context.error('Expected an odd number of arguments.');
+            return context.error("Expected an odd number of arguments.");
         }
 
         var outputType;
@@ -1279,7 +1279,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     Case.prototype.serialize = function serialize() {
-        var serialized = ['case'];
+        var serialized = ["case"];
         this.eachChild(function (child) {
             serialized.push(child.serialize());
         });
@@ -1295,7 +1295,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     Coalesce.parse = function parse(args, context) {
         if (args.length < 2) {
-            return context.error('Expectected at least one argument.');
+            return context.error("Expectected at least one argument.");
         }
         var outputType = (null );
         var expectedType = context.expectedType;
@@ -1372,7 +1372,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     Coalesce.prototype.serialize = function serialize() {
-        var serialized = ['coalesce'];
+        var serialized = ["coalesce"];
         this.eachChild(function (child) {
             serialized.push(child.serialize());
         });
@@ -1406,14 +1406,14 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     Coercion.parse = function parse(args, context) {
         if (args.length < 2) {
-            return context.error('Expected at least one argument.');
+            return context.error("Expected at least one argument.");
         }
 
         var name = (args[0] );
         assert_1(types$1[name], name);
 
         if ((name === 'to-boolean' || name === 'to-string') && args.length !== 2) {
-            return context.error('Expected one argument.');
+            return context.error("Expected one argument.");
         }
 
         var type = types$1[name];
@@ -1450,7 +1450,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                     }
                 } else if (Array.isArray(input)) {
                     if (input.length < 3 || input.length > 4) {
-                        error = 'Invalid rbga value ' + (JSON.stringify(input)) + ': expected an array containing either three or four numeric values.';
+                        error = "Invalid rbga value " + (JSON.stringify(input)) + ": expected an array containing either three or four numeric values.";
                     } else {
                         error = validateRGBA(input[0], input[1], input[2], input[3]);
                     }
@@ -1459,7 +1459,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                     }
                 }
             }
-            throw new RuntimeError(error || ('Could not parse color from value \'' + (typeof input === 'string' ? input : String(JSON.stringify(input))) + '\''));
+            throw new RuntimeError(error || ("Could not parse color from value '" + (typeof input === 'string' ? input : String(JSON.stringify(input))) + "'"));
         } else if (this.type.kind === 'number') {
             var value = null;
             for (var i$1 = 0, list$1 = this.args; i$1 < list$1.length; i$1 += 1) {
@@ -1475,7 +1475,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 }
                 return num;
             }
-            throw new RuntimeError(('Could not convert ' + (JSON.stringify(value)) + ' to number.'));
+            throw new RuntimeError(("Could not convert " + (JSON.stringify(value)) + " to number."));
         } else if (this.type.kind === 'formatted') {
             // There is no explicit 'to-formatted' but this coercion can be implicitly
             // created by properties that expect the 'formatted' type.
@@ -1510,7 +1510,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             return new ImageExpression(this.args[0]).serialize();
         }
 
-        var serialized = [('to-' + (this.type.kind))];
+        var serialized = [("to-" + (this.type.kind))];
         this.eachChild(function (child) {
             serialized.push(child.serialize());
         });
@@ -1530,12 +1530,12 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     CollatorExpression.parse = function parse(args, context) {
         if (args.length !== 2) {
-            return context.error('Expected one argument.');
+            return context.error("Expected one argument.");
         }
 
         var options = (args[1] );
-        if (typeof options !== 'object' || Array.isArray(options)) {
-            return context.error('Collator options argument must be an object.');
+        if (typeof options !== "object" || Array.isArray(options)) {
+            return context.error("Collator options argument must be an object.");
         }
 
         var caseSensitive = context.parse(
@@ -1588,7 +1588,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         if (this.locale) {
             options['locale'] = this.locale.serialize();
         }
-        return ['collator', options];
+        return ["collator", options];
     };
 
     var BooleanType$6 = {kind: 'boolean'};
@@ -1680,7 +1680,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
             Comparison.parse = function parse(args, context) {
                 if (args.length !== 3 && args.length !== 4) {
-                    return context.error('Expected two or three arguments.');
+                    return context.error("Expected two or three arguments.");
                 }
 
                 var op = (args[0]     );
@@ -1690,14 +1690,14 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                     return null;
                 }
                 if (!isComparableType$1(op, lhs.type)) {
-                    return context.concat(1).error(('"' + op + '" comparisons are not supported for type \'' + (toString(lhs.type)) + '\'.'));
+                    return context.concat(1).error(("\"" + op + "\" comparisons are not supported for type '" + (toString(lhs.type)) + "'."));
                 }
                 var rhs = context.parse(args[2], 2, ValueType$6);
                 if (!rhs) {
                     return null;
                 }
                 if (!isComparableType$1(op, rhs.type)) {
-                    return context.concat(2).error(('"' + op + '" comparisons are not supported for type \'' + (toString(rhs.type)) + '\'.'));
+                    return context.concat(2).error(("\"" + op + "\" comparisons are not supported for type '" + (toString(rhs.type)) + "'."));
                 }
 
                 if (
@@ -1705,7 +1705,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                         lhs.type.kind !== 'value' &&
                         rhs.type.kind !== 'value'
                     ) {
-                    return context.error(('Cannot compare types \'' + (toString(lhs.type)) + '\' and \'' + (toString(rhs.type)) + '\'.'));
+                    return context.error(("Cannot compare types '" + (toString(lhs.type)) + "' and '" + (toString(rhs.type)) + "'."));
                 }
 
                 if (isOrderComparison) {
@@ -1727,7 +1727,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                             lhs.type.kind !== 'value' &&
                             rhs.type.kind !== 'value'
                         ) {
-                        return context.error('Cannot use collator to compare non-string types.');
+                        return context.error("Cannot use collator to compare non-string types.");
                     }
                     collator = context.parse(args[3], 3, CollatorType$2);
                     if (!collator) {
@@ -1747,7 +1747,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                     var rt = Values$1.typeOf(rhs);
                     // check that type is string or number, and equal
                     if (lt.kind !== rt.kind || !(lt.kind === 'string' || lt.kind === 'number')) {
-                        throw new RuntimeError(('Expected arguments for "' + op + '" to be (string, string) or (number, number), but found (' + (lt.kind) + ', ' + (rt.kind) + ') instead.'));
+                        throw new RuntimeError(("Expected arguments for \"" + op + "\" to be (string, string) or (number, number), but found (" + (lt.kind) + ", " + (rt.kind) + ") instead."));
                     }
                 }
 
@@ -1819,12 +1819,12 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     FormatExpression$1.parse = function parse(args, context) {
         if (args.length < 2) {
-            return context.error('Expected at least one argument.');
+            return context.error("Expected at least one argument.");
         }
 
         var firstArg = args[1];
         if (!Array.isArray(firstArg) && typeof firstArg === 'object') {
-            return context.error('First argument must be an image or text section.');
+            return context.error("First argument must be an image or text section.");
         }
 
         var sections = [];
@@ -1832,7 +1832,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         for (var i = 1; i <= args.length - 1; ++i) {
             var arg = (args[i] );
 
-            if (nextTokenMayBeObject && typeof arg === 'object' && !Array.isArray(arg)) {
+            if (nextTokenMayBeObject && typeof arg === "object" && !Array.isArray(arg)) {
                 nextTokenMayBeObject = false;
 
                 var scale = null;
@@ -1871,7 +1871,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
                 var kind = content.type.kind;
                 if (kind !== 'string' && kind !== 'value' && kind !== 'null' && kind !== 'resolvedImage') {
-                    return context.error('Formatted text type must be \'string\', \'value\', \'image\' or \'null\'.');
+                    return context.error("Formatted text type must be 'string', 'value', 'image' or 'null'.");
                 }
 
                 nextTokenMayBeObject = true;
@@ -1925,7 +1925,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     FormatExpression$1.prototype.serialize = function serialize() {
-        var serialized = ['format'];
+        var serialized = ["format"];
         for (var i = 0, list = this.sections; i < list.length; i += 1) {
             var section = list[i];
 
@@ -1955,12 +1955,12 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     ImageExpression$1.parse = function parse(args, context) {
         if (args.length !== 2) {
-            return context.error('Expected two arguments.');
+            return context.error("Expected two arguments.");
         }
 
         var name = context.parse(args[1], 1, StringType$6);
         if (!name) {
-            return context.error('No image name provided.');
+            return context.error("No image name provided.");
         }
 
         return new ImageExpression$1(name);
@@ -1987,7 +1987,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     ImageExpression$1.prototype.serialize = function serialize() {
-        return ['image', this.input.serialize()];
+        return ["image", this.input.serialize()];
     };
 
     var Interpolate$1 = function Interpolate(type, operator, interpolation, input, stops) {
@@ -2029,7 +2029,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         var rest = args.slice(3);
 
         if (!Array.isArray(interpolation) || interpolation.length === 0) {
-            return context.error('Expected an interpolation type expression.', 1);
+            return context.error("Expected an interpolation type expression.", 1);
         }
 
         if (interpolation[0] === 'linear') {
@@ -2037,7 +2037,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         } else if (interpolation[0] === 'exponential') {
             var base = interpolation[1];
             if (typeof base !== 'number') {
-                return context.error('Exponential interpolation requires a numeric base.', 1, 1);
+                return context.error("Exponential interpolation requires a numeric base.", 1, 1);
             }
             interpolation = {
                 name: 'exponential',
@@ -2059,15 +2059,15 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 controlPoints: (controlPoints )
             };
         } else {
-            return context.error(('Unknown interpolation type ' + (String(interpolation[0]))), 1, 0);
+            return context.error(("Unknown interpolation type " + (String(interpolation[0]))), 1, 0);
         }
 
         if (args.length - 1 < 4) {
-            return context.error(('Expected at least 4 arguments, but found only ' + (args.length - 1) + '.'));
+            return context.error(("Expected at least 4 arguments, but found only " + (args.length - 1) + "."));
         }
 
         if ((args.length - 1) % 2 !== 0) {
-            return context.error('Expected an even number of arguments.');
+            return context.error("Expected an even number of arguments.");
         }
 
         input = context.parse(input, 2, NumberType);
@@ -2114,7 +2114,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 typeof outputType.N === 'number'
             )
             ) {
-            return context.error(('Type ' + (toString(outputType)) + ' is not interpolatable.'));
+            return context.error(("Type " + (toString(outputType)) + " is not interpolatable."));
         }
 
         return new Interpolate$1(outputType, (operator ), interpolation, input, stops);
@@ -2175,15 +2175,15 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     Interpolate$1.prototype.serialize = function serialize() {
         var interpolation;
         if (this.interpolation.name === 'linear') {
-            interpolation = ['linear'];
+            interpolation = ["linear"];
         } else if (this.interpolation.name === 'exponential') {
             if (this.interpolation.base === 1) {
-                interpolation = ['linear'];
+                interpolation = ["linear"];
             } else {
-                interpolation = ['exponential', this.interpolation.base];
+                interpolation = ["exponential", this.interpolation.base];
             }
         } else {
-            interpolation = ['cubic-bezier' ].concat(this.interpolation.controlPoints);
+            interpolation = ["cubic-bezier" ].concat(this.interpolation.controlPoints);
         }
 
         var serialized = [this.operator, interpolation, this.input.serialize()];
@@ -2275,7 +2275,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     In.parse = function parse(args, context) {
         if (args.length !== 3) {
-            return context.error(('Expected 2 arguments, but found ' + (args.length - 1) + ' instead.'));
+            return context.error(("Expected 2 arguments, but found " + (args.length - 1) + " instead."));
         }
 
         var needle = context.parse(args[1], 1, ValueType$8);
@@ -2287,7 +2287,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         }
 
         if (!isComparableType(needle.type)) {
-            return context.error(('Expected first argument to be of type boolean, string, number or null, but found ' + (toString(needle.type)) + ' instead'));
+            return context.error(("Expected first argument to be of type boolean, string, number or null, but found " + (toString(needle.type)) + " instead"));
         }
 
         return new In(needle, haystack);
@@ -2302,11 +2302,11 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         }
 
         if (!isComparableRuntimeValue(needle)) {
-            throw new RuntimeError(('Expected first argument to be of type boolean, string or number, but found ' + (toString(typeOf(needle))) + ' instead.'));
+            throw new RuntimeError(("Expected first argument to be of type boolean, string or number, but found " + (toString(typeOf(needle))) + " instead."));
         }
 
         if (!isSearchableRuntimeValue(haystack)) {
-            throw new RuntimeError(('Expected second argument to be of type array or string, but found ' + (toString(typeOf(haystack))) + ' instead.'));
+            throw new RuntimeError(("Expected second argument to be of type array or string, but found " + (toString(typeOf(haystack))) + " instead."));
         }
 
         return haystack.indexOf(needle) >= 0;
@@ -2322,7 +2322,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     In.prototype.serialize = function serialize() {
-        return ['in', this.needle.serialize(), this.haystack.serialize()];
+        return ["in", this.needle.serialize(), this.haystack.serialize()];
     };
 
     var Let = function Let(bindings, result) {
@@ -2346,7 +2346,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     Let.parse = function parse(args, context) {
         if (args.length < 4) {
-            return context.error(('Expected at least 3 arguments, but found ' + (args.length - 1) + ' instead.'));
+            return context.error(("Expected at least 3 arguments, but found " + (args.length - 1) + " instead."));
         }
 
         var bindings = [];
@@ -2354,11 +2354,11 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             var name = args[i];
 
             if (typeof name !== 'string') {
-                return context.error(('Expected string, but found ' + (typeof name) + ' instead.'), i);
+                return context.error(("Expected string, but found " + (typeof name) + " instead."), i);
             }
 
             if (/[^a-zA-Z0-9_]/.test(name)) {
-                return context.error('Variable names must contain only alphanumeric characters or \'_\'.', i);
+                return context.error("Variable names must contain only alphanumeric characters or '_'.", i);
             }
 
             var value = context.parse(args[i + 1], i + 1);
@@ -2382,7 +2382,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     Let.prototype.serialize = function serialize() {
-        var serialized = ['let'];
+        var serialized = ["let"];
         for (var i = 0, list = this.bindings; i < list.length; i += 1) {
             var ref = list[i];
             var name = ref[0];
@@ -2403,7 +2403,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     Length.parse = function parse(args, context) {
         if (args.length !== 2) {
-            return context.error(('Expected 1 argument, but found ' + (args.length - 1) + ' instead.'));
+            return context.error(("Expected 1 argument, but found " + (args.length - 1) + " instead."));
         }
 
         var input = context.parse(args[1], 1);
@@ -2412,7 +2412,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         }
 
         if (input.type.kind !== 'array' && input.type.kind !== 'string' && input.type.kind !== 'value') {
-            return context.error(('Expected argument of type string or array, but found ' + (toString(input.type)) + ' instead.'));
+            return context.error(("Expected argument of type string or array, but found " + (toString(input.type)) + " instead."));
         }
 
         return new Length(input);
@@ -2425,7 +2425,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         } else if (Array.isArray(input)) {
             return input.length;
         } else {
-            throw new RuntimeError(('Expected value to be of type string or array, but found ' + (toString(typeOf(input))) + ' instead.'));
+            throw new RuntimeError(("Expected value to be of type string or array, but found " + (toString(typeOf(input))) + " instead."));
         }
     };
 
@@ -2438,7 +2438,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     Length.prototype.serialize = function serialize() {
-        var serialized = ['length'];
+        var serialized = ["length"];
         this.eachChild(function (child) {
             serialized.push(child.serialize());
         });
@@ -2452,11 +2452,11 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     Literal.parse = function parse(args, context) {
         if (args.length !== 2) {
-            return context.error(('\'literal\' expression requires exactly one argument, but found ' + (args.length - 1) + ' instead.'));
+            return context.error(("'literal' expression requires exactly one argument, but found " + (args.length - 1) + " instead."));
         }
 
         if (!Values$1.isValue(args[1])) {
-            return context.error('invalid value');
+            return context.error("invalid value");
         }
 
         var value = (args[1] );
@@ -2490,12 +2490,12 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     Literal.prototype.serialize = function serialize() {
         if (this.type.kind === 'array' || this.type.kind === 'object') {
-            return ['literal', this.value];
+            return ["literal", this.value];
         } else if (this.value instanceof Color) {
             // Constant-folding can generate Literal expressions that you
             // couldn't actually generate with a "literal" expression,
             // so we have to implement an equivalent serialization here
-            return ['rgba'].concat(this.value.toArray());
+            return ["rgba"].concat(this.value.toArray());
         } else if (this.value instanceof Formatted$1) {
             // Same as Color
             return this.value.serialize();
@@ -2522,10 +2522,10 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     Match.parse = function parse(args, context) {
         if (args.length < 5) {
-            return context.error(('Expected at least 4 arguments, but found only ' + (args.length - 1) + '.'));
+            return context.error(("Expected at least 4 arguments, but found only " + (args.length - 1) + "."));
         }
         if (args.length % 2 !== 1) {
-            return context.error('Expected an even number of arguments.');
+            return context.error("Expected an even number of arguments.");
         }
 
         var inputType;
@@ -2552,12 +2552,12 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 var label = list[i$1];
 
                 if (typeof label !== 'number' && typeof label !== 'string') {
-                    return labelContext.error('Branch labels must be numbers or strings.');
+                    return labelContext.error("Branch labels must be numbers or strings.");
                 } else if (typeof label === 'number' && Math.abs(label) > Number.MAX_SAFE_INTEGER) {
-                    return labelContext.error(('Branch labels must be integers no larger than ' + (Number.MAX_SAFE_INTEGER) + '.'));
+                    return labelContext.error(("Branch labels must be integers no larger than " + (Number.MAX_SAFE_INTEGER) + "."));
 
                 } else if (typeof label === 'number' && Math.floor(label) !== label) {
-                    return labelContext.error('Numeric branch labels must be integer values.');
+                    return labelContext.error("Numeric branch labels must be integer values.");
 
                 } else if (!inputType) {
                     inputType = Values$1.typeOf(label);
@@ -2624,7 +2624,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     Match.prototype.serialize = function serialize() {
         var this$1 = this;
 
-        var serialized = ['match', this.input.serialize()];
+        var serialized = ["match", this.input.serialize()];
 
         // Sort so serialization has an arbitrary defined order, even though
         // branch order doesn't affect evaluation
@@ -2684,7 +2684,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     NumberFormat.parse = function parse(args, context) {
         if (args.length !== 3) {
-            return context.error('Expected two arguments.');
+            return context.error("Expected two arguments.");
         }
 
         var number = context.parse(args[1], 1, NumberType$8);
@@ -2693,8 +2693,8 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         }
 
         var options = (args[2]   );
-        if (typeof options !== 'object' || Array.isArray(options)) {
-            return context.error('NumberFormat options argument must be an object.');
+        if (typeof options !== "object" || Array.isArray(options)) {
+            return context.error("NumberFormat options argument must be an object.");
         }
 
         var locale = null;
@@ -2735,7 +2735,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     NumberFormat.prototype.evaluate = function evaluate(ctx) {
         return new Intl.NumberFormat(this.locale ? this.locale.evaluate(ctx) : [],
             {
-                style: this.currency ? 'currency' : 'decimal',
+                style: this.currency ? "currency" : "decimal",
                 currency: this.currency ? this.currency.evaluate(ctx) : undefined,
                 minimumFractionDigits: this.minFractionDigits ? this.minFractionDigits.evaluate(ctx) : undefined,
                 maximumFractionDigits: this.maxFractionDigits ? this.maxFractionDigits.evaluate(ctx) : undefined,
@@ -2776,7 +2776,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         if (this.maxFractionDigits) {
             options['max-fraction-digits'] = this.maxFractionDigits.serialize();
         }
-        return ['number-format', this.number.serialize(), options];
+        return ["number-format", this.number.serialize(), options];
     };
 
     /**
@@ -2831,11 +2831,11 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     Step.parse = function parse(args, context) {
         if (args.length - 1 < 4) {
-            return context.error(('Expected at least 4 arguments, but found only ' + (args.length - 1) + '.'));
+            return context.error(("Expected at least 4 arguments, but found only " + (args.length - 1) + "."));
         }
 
         if ((args.length - 1) % 2 !== 0) {
-            return context.error('Expected an even number of arguments.');
+            return context.error("Expected an even number of arguments.");
         }
 
         var input = context.parse(args[1], 1, NumberType$9);
@@ -2916,7 +2916,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     Step.prototype.serialize = function serialize() {
-        var serialized = ['step', this.input.serialize()];
+        var serialized = ["step", this.input.serialize()];
         for (var i = 0; i < this.labels.length; i++) {
             if (i > 0) {
                 serialized.push(this.labels[i]);
@@ -2934,12 +2934,12 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     Var.parse = function parse(args, context) {
         if (args.length !== 2 || typeof args[1] !== 'string') {
-            return context.error('\'var\' expression requires exactly one string literal argument.');
+            return context.error("'var' expression requires exactly one string literal argument.");
         }
 
         var name = args[1];
         if (!context.scope.has(name)) {
-            return context.error(('Unknown variable "' + name + '". Make sure "' + name + '" has been bound in an enclosing "let" expression before using it.'), 1);
+            return context.error(("Unknown variable \"" + name + "\". Make sure \"" + name + "\" has been bound in an enclosing \"let\" expression before using it."), 1);
         }
 
         return new Var(name, context.scope.get(name));
@@ -2957,7 +2957,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     Var.prototype.serialize = function serialize() {
-        return ['var', this.name];
+        return ["var", this.name];
     };
 
     var expressions = {
@@ -3062,7 +3062,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         if ((expressions[name$1]     )._classRegistryKey) {
             continue;
         }
-        WebWorkerTransfer.register(('Expression_' + name$1), expressions[name$1]);
+        WebWorkerTransfer.register(("Expression_" + name$1), expressions[name$1]);
     }
 
     function isArrayBuffer(val) {
@@ -3134,7 +3134,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             var klass = (input.constructor     );
             var name = klass._classRegistryKey;
             if (!name) {
-                throw new Error('can\'t serialize object of unregistered class');
+                throw new Error("can't serialize object of unregistered class");
             }
             //assert(registry[name]);
 
@@ -3177,7 +3177,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             return properties;
         }
 
-        throw new Error(('can\'t serialize object of type ' + (typeof input)));
+        throw new Error(("can't serialize object of type " + (typeof input)));
     };
 
     WebWorkerTransfer.deserialize = function (input) {
@@ -3207,7 +3207,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             var ref = registry[name];
             var klass = ref.klass;
             if (!klass) {
-                throw new Error(('can\'t deserialize unregistered class ' + name));
+                throw new Error(("can't deserialize unregistered class " + name));
             }
 
             if (klass.deserialize) {
@@ -3227,7 +3227,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             }
             return result;
         }
-        throw new Error(('can\'t deserialize object of type ' + (typeof input)));
+        throw new Error(("can't deserialize object of type " + (typeof input)));
     };
 
     var ZoomHistory = function ZoomHistory() {
@@ -3451,7 +3451,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     StructArray.serialize = function serialize(array, transferables) {
         //assert_1(!array.isTransferred);
         if(array.isTransferred){
-            console.log('StructArray array.isTransferred.');
+            console.log("StructArray array.isTransferred.");
         }
 
         array._trim();
@@ -4107,7 +4107,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         this.value = value;
         this.names = names;
         this.uniformNames = this.names.map(function (name) {
-            return ('u_' + name);
+            return ("u_" + name);
         });
         this.type = type;
         this.maxValue = -Infinity;
@@ -4115,7 +4115,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     ConstantBinder.prototype.defines = function defines() {
         return this.names.map(function (name) {
-            return ('#define HAS_UNIFORM_u_' + name);
+            return ("#define HAS_UNIFORM_u_" + name);
         });
     };
     ConstantBinder.prototype.setConstantPatternPositions = function setConstantPatternPositions() {
@@ -4157,7 +4157,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         this.value = value;
         this.names = names;
         this.uniformNames = this.names.map(function (name) {
-            return ('u_' + name);
+            return ("u_" + name);
         });
         this.type = type;
         this.maxValue = -Infinity;
@@ -4166,7 +4166,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     CrossFadedConstantBinder.prototype.defines = function defines() {
         return this.names.map(function (name) {
-            return ('#define HAS_UNIFORM_u_' + name);
+            return ("#define HAS_UNIFORM_u_" + name);
         });
     };
 
@@ -4186,10 +4186,10 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     CrossFadedConstantBinder.prototype.setUniforms = function setUniforms(context, uniform, globals, currentValue, uniformName) {
         var pos = this.patternPositions;
-        if (uniformName === 'u_pattern_to' && pos.patternTo) {
+        if (uniformName === "u_pattern_to" && pos.patternTo) {
             uniform.set(pos.patternTo);
         }
-        if (uniformName === 'u_pattern_from' && pos.patternFrom) {
+        if (uniformName === "u_pattern_from" && pos.patternFrom) {
             uniform.set(pos.patternFrom);
         }
     };
@@ -4203,12 +4203,12 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         this.names = names;
         this.type = type;
         this.uniformNames = this.names.map(function (name) {
-            return ('a_' + name);
+            return ("a_" + name);
         });
         this.maxValue = -Infinity;
         this.paintVertexAttributes = names.map(function (name) {
                 return ({
-                    name: ('a_' + name),
+                    name: ("a_" + name),
                     type: 'Float32',
                     components: type === 'color' ? 2 : 1,
                     offset: 0
@@ -4293,7 +4293,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         this.expression = expression;
         this.names = names;
         this.uniformNames = this.names.map(function (name) {
-            return ('u_' + name + '_t');
+            return ("u_" + name + "_t");
         });
         this.type = type;
         this.useIntegerZoom = useIntegerZoom;
@@ -4302,7 +4302,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         var PaintVertexArray = layout;
         this.paintVertexAttributes = names.map(function (name) {
             return {
-                name: ('a_' + name),
+                name: ("a_" + name),
                 type: 'Float32',
                 components: type === 'color' ? 4 : 2,
                 offset: 0
@@ -4398,7 +4398,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         this.names = names;
         this.type = type;
         this.uniformNames = this.names.map(function (name) {
-            return ('u_' + name + '_t');
+            return ("u_" + name + "_t");
         });
         this.useIntegerZoom = useIntegerZoom;
         this.zoom = zoom;
@@ -4407,7 +4407,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
         this.paintVertexAttributes = names.map(function (name) {
                 return ({
-                    name: ('a_' + name),
+                    name: ("a_" + name),
                     type: 'Uint16',
                     components: 4,
                     offset: 0
@@ -4576,23 +4576,23 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             if (isCrossFaded) {
                 if (value.value.kind === 'constant') {
                     self.binders[property] = new CrossFadedConstantBinder(value.value.value, names, type);
-                    keys.push(('/u_' + property));
+                    keys.push(("/u_" + property));
                 } else {
                     var StructArrayLayout = layoutType(property, type, 'source');
                     self.binders[property] = new CrossFadedCompositeBinder(value.value, names, type, useIntegerZoom, zoom, StructArrayLayout, layer.id);
-                    keys.push(('/a_' + property));
+                    keys.push(("/a_" + property));
                 }
             } else if (value.value.kind === 'constant') {
                 self.binders[property] = new ConstantBinder(value.value.value, names, type);
-                keys.push(('/u_' + property));
+                keys.push(("/u_" + property));
             } else if (value.value.kind === 'source') {
                 var StructArrayLayout$1 = layoutType(property, type, 'source');
                 self.binders[property] = new SourceExpressionBinder(value.value, names, type, StructArrayLayout$1);
-                keys.push(('/a_' + property));
+                keys.push(("/a_" + property));
             } else {
                 var StructArrayLayout$2 = layoutType(property, type, 'composite');
                 self.binders[property] = new CompositeExpressionBinder(value.value, names, type, useIntegerZoom, zoom, StructArrayLayout$2);
-                keys.push(('/z_' + property));
+                keys.push(("/z_" + property));
             }
         }
 
@@ -4747,7 +4747,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         };
 
         return attributeNameExceptions[property] ||
-            [property.replace((type + '-'), '').replace(/-/g, '_')];
+            [property.replace((type + "-"), '').replace(/-/g, '_')];
     }
 
     function getLayoutException(property) {
@@ -4858,10 +4858,10 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         for (var i = 0, list = layers; i < list.length; i += 1) {
             var layer = list[i];
 
-            var patternProperty = layer.paint.get((type + '-pattern'));
+            var patternProperty = layer.paint.get((type + "-pattern"));
 
             var patternPropertyValue = patternProperty.value;
-            if (patternPropertyValue.kind !== 'constant') {
+            if (patternPropertyValue.kind !== "constant") {
                 var min = patternPropertyValue.evaluate({zoom: zoom - 1}, patternFeature, {}, options.availableImages);
                 var mid = patternPropertyValue.evaluate({zoom: zoom}, patternFeature, {}, options.availableImages);
                 var max = patternPropertyValue.evaluate({zoom: zoom + 1}, patternFeature, {}, options.availableImages);
@@ -5060,10 +5060,10 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     LineBucket.prototype.clear = function clear() {
-        if (defined.defined(this.layoutVertexArray)) {
+        if (when.defined(this.layoutVertexArray)) {
             this.layoutVertexArray = null;
         }
-        if (defined.defined(this.indexArray)) {
+        if (when.defined(this.indexArray)) {
             this.indexArray = null;
         }
     };
@@ -5629,7 +5629,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         for (var i = 0, list = layers; i < list.length; i += 1) {
             var layer = list[i];
 
-            var patternProperty = layer.paint.get((type + '-pattern'));
+            var patternProperty = layer.paint.get((type + "-pattern"));
             if (!patternProperty.isConstant()) {
                 hasPattern = true;
             }
@@ -5909,10 +5909,10 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     	}
 
     	var asm2wasmImports = { // special asm2wasm imports
-    		'f64-rem': function(x, y) {
+    		"f64-rem": function(x, y) {
     			return x % y;
     		},
-    		'debugger': function() {
+    		"debugger": function() {
     			debugger;
     		}
     	};
@@ -6492,8 +6492,8 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     	  }
     	}
 
-    	Module['preloadedImages'] = {}; // maps url to image data
-    	Module['preloadedAudios'] = {}; // maps url to audio data
+    	Module["preloadedImages"] = {}; // maps url to image data
+    	Module["preloadedAudios"] = {}; // maps url to audio data
 
 
 
@@ -6550,7 +6550,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     		if (Module['readBinary']) {
     		  return Module['readBinary'](wasmBinaryFile);
     		} else {
-    		  throw 'both async and sync fetching of the wasm failed';
+    		  throw "both async and sync fetching of the wasm failed";
     		}
     	  }
     	  catch (err) {
@@ -6564,7 +6564,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     	  if (!Module['wasmBinary'] && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) && typeof fetch === 'function') {
     		return fetch(wasmBinaryFile, { credentials: 'same-origin' }).then(function(response) {
     		  if (!response['ok']) {
-    			throw 'failed to load wasm binary file at \'' + wasmBinaryFile + '\'';
+    			throw "failed to load wasm binary file at '" + wasmBinaryFile + "'";
     		  }
     		  return response['arrayBuffer']();
     		}).catch(function () {
@@ -6760,12 +6760,12 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     			caught: false,
     			rethrown: false
     		  };
-    		  if (!('uncaught_exception' in __ZSt18uncaught_exceptionv)) {
+    		  if (!("uncaught_exception" in __ZSt18uncaught_exceptionv)) {
     			__ZSt18uncaught_exceptionv.uncaught_exception = 1;
     		  } else {
     			__ZSt18uncaught_exceptionv.uncaught_exception++;
     		  }
-    		  throw ptr + ' - Exception catching is disabled, this exception cannot be caught. Compile with -s DISABLE_EXCEPTION_CATCHING=0 or DISABLE_EXCEPTION_CATCHING=2 to catch.';
+    		  throw ptr + " - Exception catching is disabled, this exception cannot be caught. Compile with -s DISABLE_EXCEPTION_CATCHING=0 or DISABLE_EXCEPTION_CATCHING=2 to catch.";
     		}
 
     	  function ___cxa_uncaught_exception() {
@@ -6814,7 +6814,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     	  
     	  function flush_NO_FILESYSTEM() {
     		  // flush anything remaining in the buffers during shutdown
-    		  var fflush = Module['_fflush'];
+    		  var fflush = Module["_fflush"];
     		  if (fflush) fflush(0);
     		  var buffers = SYSCALLS.buffers;
     		  if (buffers[1].length) SYSCALLS.printChar(1, 10);
@@ -6967,342 +6967,342 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     	// ASM_LIBRARY EXTERN PRIMITIVES: Math_max,Math_min,Int8Array,Int32Array
 
 
-    	function nullFunc_ii(x) { err('Invalid function pointer called with signature \'ii\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+    	function nullFunc_ii(x) { err("Invalid function pointer called with signature 'ii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
-    	function nullFunc_iidiiii(x) { err('Invalid function pointer called with signature \'iidiiii\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+    	function nullFunc_iidiiii(x) { err("Invalid function pointer called with signature 'iidiiii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
-    	function nullFunc_iiii(x) { err('Invalid function pointer called with signature \'iiii\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+    	function nullFunc_iiii(x) { err("Invalid function pointer called with signature 'iiii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
-    	function nullFunc_jiji(x) { err('Invalid function pointer called with signature \'jiji\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+    	function nullFunc_jiji(x) { err("Invalid function pointer called with signature 'jiji'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
-    	function nullFunc_v(x) { err('Invalid function pointer called with signature \'v\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+    	function nullFunc_v(x) { err("Invalid function pointer called with signature 'v'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
-    	function nullFunc_vi(x) { err('Invalid function pointer called with signature \'vi\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+    	function nullFunc_vi(x) { err("Invalid function pointer called with signature 'vi'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
-    	function nullFunc_vii(x) { err('Invalid function pointer called with signature \'vii\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+    	function nullFunc_vii(x) { err("Invalid function pointer called with signature 'vii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
-    	function nullFunc_viiii(x) { err('Invalid function pointer called with signature \'viiii\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+    	function nullFunc_viiii(x) { err("Invalid function pointer called with signature 'viiii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
-    	function nullFunc_viiiii(x) { err('Invalid function pointer called with signature \'viiiii\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+    	function nullFunc_viiiii(x) { err("Invalid function pointer called with signature 'viiiii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
-    	function nullFunc_viiiiii(x) { err('Invalid function pointer called with signature \'viiiiii\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+    	function nullFunc_viiiiii(x) { err("Invalid function pointer called with signature 'viiiiii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
     	var asmGlobalArg = {};
 
     	var asmLibraryArg = {
-    	  'abort': abort,
-    	  'setTempRet0': setTempRet0,
-    	  'getTempRet0': getTempRet0,
-    	  'abortStackOverflow': abortStackOverflow,
-    	  'nullFunc_ii': nullFunc_ii,
-    	  'nullFunc_iidiiii': nullFunc_iidiiii,
-    	  'nullFunc_iiii': nullFunc_iiii,
-    	  'nullFunc_jiji': nullFunc_jiji,
-    	  'nullFunc_v': nullFunc_v,
-    	  'nullFunc_vi': nullFunc_vi,
-    	  'nullFunc_vii': nullFunc_vii,
-    	  'nullFunc_viiii': nullFunc_viiii,
-    	  'nullFunc_viiiii': nullFunc_viiiii,
-    	  'nullFunc_viiiiii': nullFunc_viiiiii,
-    	  '___cxa_allocate_exception': ___cxa_allocate_exception,
-    	  '___cxa_begin_catch': ___cxa_begin_catch,
-    	  '___cxa_throw': ___cxa_throw,
-    	  '___cxa_uncaught_exception': ___cxa_uncaught_exception,
-    	  '___exception_addRef': ___exception_addRef,
-    	  '___exception_deAdjust': ___exception_deAdjust,
-    	  '___gxx_personality_v0': ___gxx_personality_v0,
-    	  '___lock': ___lock,
-    	  '___setErrNo': ___setErrNo,
-    	  '___syscall140': ___syscall140,
-    	  '___syscall146': ___syscall146,
-    	  '___syscall54': ___syscall54,
-    	  '___syscall6': ___syscall6,
-    	  '___unlock': ___unlock,
-    	  '_abort': _abort,
-    	  '_emscripten_get_heap_size': _emscripten_get_heap_size,
-    	  '_emscripten_memcpy_big': _emscripten_memcpy_big,
-    	  '_emscripten_resize_heap': _emscripten_resize_heap,
-    	  'abortOnCannotGrowMemory': abortOnCannotGrowMemory,
-    	  'emscripten_realloc_buffer': emscripten_realloc_buffer,
-    	  'flush_NO_FILESYSTEM': flush_NO_FILESYSTEM,
-    	  'tempDoublePtr': tempDoublePtr,
-    	  'DYNAMICTOP_PTR': DYNAMICTOP_PTR
+    	  "abort": abort,
+    	  "setTempRet0": setTempRet0,
+    	  "getTempRet0": getTempRet0,
+    	  "abortStackOverflow": abortStackOverflow,
+    	  "nullFunc_ii": nullFunc_ii,
+    	  "nullFunc_iidiiii": nullFunc_iidiiii,
+    	  "nullFunc_iiii": nullFunc_iiii,
+    	  "nullFunc_jiji": nullFunc_jiji,
+    	  "nullFunc_v": nullFunc_v,
+    	  "nullFunc_vi": nullFunc_vi,
+    	  "nullFunc_vii": nullFunc_vii,
+    	  "nullFunc_viiii": nullFunc_viiii,
+    	  "nullFunc_viiiii": nullFunc_viiiii,
+    	  "nullFunc_viiiiii": nullFunc_viiiiii,
+    	  "___cxa_allocate_exception": ___cxa_allocate_exception,
+    	  "___cxa_begin_catch": ___cxa_begin_catch,
+    	  "___cxa_throw": ___cxa_throw,
+    	  "___cxa_uncaught_exception": ___cxa_uncaught_exception,
+    	  "___exception_addRef": ___exception_addRef,
+    	  "___exception_deAdjust": ___exception_deAdjust,
+    	  "___gxx_personality_v0": ___gxx_personality_v0,
+    	  "___lock": ___lock,
+    	  "___setErrNo": ___setErrNo,
+    	  "___syscall140": ___syscall140,
+    	  "___syscall146": ___syscall146,
+    	  "___syscall54": ___syscall54,
+    	  "___syscall6": ___syscall6,
+    	  "___unlock": ___unlock,
+    	  "_abort": _abort,
+    	  "_emscripten_get_heap_size": _emscripten_get_heap_size,
+    	  "_emscripten_memcpy_big": _emscripten_memcpy_big,
+    	  "_emscripten_resize_heap": _emscripten_resize_heap,
+    	  "abortOnCannotGrowMemory": abortOnCannotGrowMemory,
+    	  "emscripten_realloc_buffer": emscripten_realloc_buffer,
+    	  "flush_NO_FILESYSTEM": flush_NO_FILESYSTEM,
+    	  "tempDoublePtr": tempDoublePtr,
+    	  "DYNAMICTOP_PTR": DYNAMICTOP_PTR
     	};
     	// EMSCRIPTEN_START_ASM
-    	var asm =Module['asm']// EMSCRIPTEN_END_ASM
+    	var asm =Module["asm"]// EMSCRIPTEN_END_ASM
     	(asmGlobalArg, asmLibraryArg, buffer);
 
-    	var real___ZSt18uncaught_exceptionv = asm['__ZSt18uncaught_exceptionv'];
-    	asm['__ZSt18uncaught_exceptionv'] = function() {
+    	var real___ZSt18uncaught_exceptionv = asm["__ZSt18uncaught_exceptionv"];
+    	asm["__ZSt18uncaught_exceptionv"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real___ZSt18uncaught_exceptionv.apply(null, arguments);
     	};
 
-    	var real____cxa_can_catch = asm['___cxa_can_catch'];
-    	asm['___cxa_can_catch'] = function() {
+    	var real____cxa_can_catch = asm["___cxa_can_catch"];
+    	asm["___cxa_can_catch"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real____cxa_can_catch.apply(null, arguments);
     	};
 
-    	var real____cxa_is_pointer_type = asm['___cxa_is_pointer_type'];
-    	asm['___cxa_is_pointer_type'] = function() {
+    	var real____cxa_is_pointer_type = asm["___cxa_is_pointer_type"];
+    	asm["___cxa_is_pointer_type"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real____cxa_is_pointer_type.apply(null, arguments);
     	};
 
-    	var real____errno_location = asm['___errno_location'];
-    	asm['___errno_location'] = function() {
+    	var real____errno_location = asm["___errno_location"];
+    	asm["___errno_location"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real____errno_location.apply(null, arguments);
     	};
 
-    	var real__earcut = asm['_earcut'];
-    	asm['_earcut'] = function() {
+    	var real__earcut = asm["_earcut"];
+    	asm["_earcut"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real__earcut.apply(null, arguments);
     	};
 
-    	var real__fflush = asm['_fflush'];
-    	asm['_fflush'] = function() {
+    	var real__fflush = asm["_fflush"];
+    	asm["_fflush"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real__fflush.apply(null, arguments);
     	};
 
-    	var real__free = asm['_free'];
-    	asm['_free'] = function() {
+    	var real__free = asm["_free"];
+    	asm["_free"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real__free.apply(null, arguments);
     	};
 
-    	var real__llvm_maxnum_f64 = asm['_llvm_maxnum_f64'];
-    	asm['_llvm_maxnum_f64'] = function() {
+    	var real__llvm_maxnum_f64 = asm["_llvm_maxnum_f64"];
+    	asm["_llvm_maxnum_f64"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real__llvm_maxnum_f64.apply(null, arguments);
     	};
 
-    	var real__llvm_minnum_f64 = asm['_llvm_minnum_f64'];
-    	asm['_llvm_minnum_f64'] = function() {
+    	var real__llvm_minnum_f64 = asm["_llvm_minnum_f64"];
+    	asm["_llvm_minnum_f64"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real__llvm_minnum_f64.apply(null, arguments);
     	};
 
-    	var real__malloc = asm['_malloc'];
-    	asm['_malloc'] = function() {
+    	var real__malloc = asm["_malloc"];
+    	asm["_malloc"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real__malloc.apply(null, arguments);
     	};
 
-    	var real__sbrk = asm['_sbrk'];
-    	asm['_sbrk'] = function() {
+    	var real__sbrk = asm["_sbrk"];
+    	asm["_sbrk"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real__sbrk.apply(null, arguments);
     	};
 
-    	var real_establishStackSpace = asm['establishStackSpace'];
-    	asm['establishStackSpace'] = function() {
+    	var real_establishStackSpace = asm["establishStackSpace"];
+    	asm["establishStackSpace"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real_establishStackSpace.apply(null, arguments);
     	};
 
-    	var real_stackAlloc = asm['stackAlloc'];
-    	asm['stackAlloc'] = function() {
+    	var real_stackAlloc = asm["stackAlloc"];
+    	asm["stackAlloc"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real_stackAlloc.apply(null, arguments);
     	};
 
-    	var real_stackRestore = asm['stackRestore'];
-    	asm['stackRestore'] = function() {
+    	var real_stackRestore = asm["stackRestore"];
+    	asm["stackRestore"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real_stackRestore.apply(null, arguments);
     	};
 
-    	var real_stackSave = asm['stackSave'];
-    	asm['stackSave'] = function() {
+    	var real_stackSave = asm["stackSave"];
+    	asm["stackSave"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
     	  return real_stackSave.apply(null, arguments);
     	};
-    	Module['asm'] = asm;
-    	var __ZSt18uncaught_exceptionv = Module['__ZSt18uncaught_exceptionv'] = function() {
+    	Module["asm"] = asm;
+    	var __ZSt18uncaught_exceptionv = Module["__ZSt18uncaught_exceptionv"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['__ZSt18uncaught_exceptionv'].apply(null, arguments)
+    	  return Module["asm"]["__ZSt18uncaught_exceptionv"].apply(null, arguments)
     	};
 
-    	var ___cxa_can_catch = Module['___cxa_can_catch'] = function() {
+    	var ___cxa_can_catch = Module["___cxa_can_catch"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['___cxa_can_catch'].apply(null, arguments)
+    	  return Module["asm"]["___cxa_can_catch"].apply(null, arguments)
     	};
 
-    	var ___cxa_is_pointer_type = Module['___cxa_is_pointer_type'] = function() {
+    	var ___cxa_is_pointer_type = Module["___cxa_is_pointer_type"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['___cxa_is_pointer_type'].apply(null, arguments)
+    	  return Module["asm"]["___cxa_is_pointer_type"].apply(null, arguments)
     	};
 
-    	var ___errno_location = Module['___errno_location'] = function() {
+    	var ___errno_location = Module["___errno_location"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['___errno_location'].apply(null, arguments)
+    	  return Module["asm"]["___errno_location"].apply(null, arguments)
     	};
 
-    	var _earcut = Module['_earcut'] = function() {
+    	var _earcut = Module["_earcut"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['_earcut'].apply(null, arguments)
+    	  return Module["asm"]["_earcut"].apply(null, arguments)
     	};
 
-    	var _emscripten_replace_memory = Module['_emscripten_replace_memory'] = function() {
+    	var _emscripten_replace_memory = Module["_emscripten_replace_memory"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['_emscripten_replace_memory'].apply(null, arguments)
+    	  return Module["asm"]["_emscripten_replace_memory"].apply(null, arguments)
     	};
 
-    	var _fflush = Module['_fflush'] = function() {
+    	var _fflush = Module["_fflush"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['_fflush'].apply(null, arguments)
+    	  return Module["asm"]["_fflush"].apply(null, arguments)
     	};
 
-    	var _free = Module['_free'] = function() {
+    	var _free = Module["_free"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['_free'].apply(null, arguments)
+    	  return Module["asm"]["_free"].apply(null, arguments)
     	};
 
-    	var _llvm_maxnum_f64 = Module['_llvm_maxnum_f64'] = function() {
+    	var _llvm_maxnum_f64 = Module["_llvm_maxnum_f64"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['_llvm_maxnum_f64'].apply(null, arguments)
+    	  return Module["asm"]["_llvm_maxnum_f64"].apply(null, arguments)
     	};
 
-    	var _llvm_minnum_f64 = Module['_llvm_minnum_f64'] = function() {
+    	var _llvm_minnum_f64 = Module["_llvm_minnum_f64"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['_llvm_minnum_f64'].apply(null, arguments)
+    	  return Module["asm"]["_llvm_minnum_f64"].apply(null, arguments)
     	};
 
-    	var _malloc = Module['_malloc'] = function() {
+    	var _malloc = Module["_malloc"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['_malloc'].apply(null, arguments)
+    	  return Module["asm"]["_malloc"].apply(null, arguments)
     	};
 
-    	var _memcpy = Module['_memcpy'] = function() {
+    	var _memcpy = Module["_memcpy"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['_memcpy'].apply(null, arguments)
+    	  return Module["asm"]["_memcpy"].apply(null, arguments)
     	};
 
-    	var _memset = Module['_memset'] = function() {
+    	var _memset = Module["_memset"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['_memset'].apply(null, arguments)
+    	  return Module["asm"]["_memset"].apply(null, arguments)
     	};
 
-    	var _sbrk = Module['_sbrk'] = function() {
+    	var _sbrk = Module["_sbrk"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['_sbrk'].apply(null, arguments)
+    	  return Module["asm"]["_sbrk"].apply(null, arguments)
     	};
 
-    	var establishStackSpace = Module['establishStackSpace'] = function() {
+    	var establishStackSpace = Module["establishStackSpace"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['establishStackSpace'].apply(null, arguments)
+    	  return Module["asm"]["establishStackSpace"].apply(null, arguments)
     	};
 
-    	var stackAlloc = Module['stackAlloc'] = function() {
+    	var stackAlloc = Module["stackAlloc"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['stackAlloc'].apply(null, arguments)
+    	  return Module["asm"]["stackAlloc"].apply(null, arguments)
     	};
 
-    	var stackRestore = Module['stackRestore'] = function() {
+    	var stackRestore = Module["stackRestore"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['stackRestore'].apply(null, arguments)
+    	  return Module["asm"]["stackRestore"].apply(null, arguments)
     	};
 
-    	var stackSave = Module['stackSave'] = function() {
+    	var stackSave = Module["stackSave"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['stackSave'].apply(null, arguments)
+    	  return Module["asm"]["stackSave"].apply(null, arguments)
     	};
 
-    	var dynCall_ii = Module['dynCall_ii'] = function() {
+    	var dynCall_ii = Module["dynCall_ii"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['dynCall_ii'].apply(null, arguments)
+    	  return Module["asm"]["dynCall_ii"].apply(null, arguments)
     	};
 
-    	var dynCall_iidiiii = Module['dynCall_iidiiii'] = function() {
+    	var dynCall_iidiiii = Module["dynCall_iidiiii"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['dynCall_iidiiii'].apply(null, arguments)
+    	  return Module["asm"]["dynCall_iidiiii"].apply(null, arguments)
     	};
 
-    	var dynCall_iiii = Module['dynCall_iiii'] = function() {
+    	var dynCall_iiii = Module["dynCall_iiii"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['dynCall_iiii'].apply(null, arguments)
+    	  return Module["asm"]["dynCall_iiii"].apply(null, arguments)
     	};
 
-    	var dynCall_jiji = Module['dynCall_jiji'] = function() {
+    	var dynCall_jiji = Module["dynCall_jiji"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['dynCall_jiji'].apply(null, arguments)
+    	  return Module["asm"]["dynCall_jiji"].apply(null, arguments)
     	};
 
-    	var dynCall_v = Module['dynCall_v'] = function() {
+    	var dynCall_v = Module["dynCall_v"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['dynCall_v'].apply(null, arguments)
+    	  return Module["asm"]["dynCall_v"].apply(null, arguments)
     	};
 
-    	var dynCall_vi = Module['dynCall_vi'] = function() {
+    	var dynCall_vi = Module["dynCall_vi"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['dynCall_vi'].apply(null, arguments)
+    	  return Module["asm"]["dynCall_vi"].apply(null, arguments)
     	};
 
-    	var dynCall_vii = Module['dynCall_vii'] = function() {
+    	var dynCall_vii = Module["dynCall_vii"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['dynCall_vii'].apply(null, arguments)
+    	  return Module["asm"]["dynCall_vii"].apply(null, arguments)
     	};
 
-    	var dynCall_viiii = Module['dynCall_viiii'] = function() {
+    	var dynCall_viiii = Module["dynCall_viiii"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['dynCall_viiii'].apply(null, arguments)
+    	  return Module["asm"]["dynCall_viiii"].apply(null, arguments)
     	};
 
-    	var dynCall_viiiii = Module['dynCall_viiiii'] = function() {
+    	var dynCall_viiiii = Module["dynCall_viiiii"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['dynCall_viiiii'].apply(null, arguments)
+    	  return Module["asm"]["dynCall_viiiii"].apply(null, arguments)
     	};
 
-    	var dynCall_viiiiii = Module['dynCall_viiiiii'] = function() {
+    	var dynCall_viiiiii = Module["dynCall_viiiiii"] = function() {
     	  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
     	  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-    	  return Module['asm']['dynCall_viiiiii'].apply(null, arguments)
+    	  return Module["asm"]["dynCall_viiiiii"].apply(null, arguments)
     	};
 
 
@@ -7311,77 +7311,77 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     	Module['asm'] = asm;
 
-    	if (!Module['intArrayFromString']) Module['intArrayFromString'] = function() { abort('\'intArrayFromString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['intArrayToString']) Module['intArrayToString'] = function() { abort('\'intArrayToString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	Module['ccall'] = ccall;
-    	Module['cwrap'] = cwrap;
-    	if (!Module['setValue']) Module['setValue'] = function() { abort('\'setValue\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	Module['getValue'] = getValue;
-    	if (!Module['allocate']) Module['allocate'] = function() { abort('\'allocate\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['getMemory']) Module['getMemory'] = function() { abort('\'getMemory\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-    	if (!Module['AsciiToString']) Module['AsciiToString'] = function() { abort('\'AsciiToString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['stringToAscii']) Module['stringToAscii'] = function() { abort('\'stringToAscii\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['UTF8ArrayToString']) Module['UTF8ArrayToString'] = function() { abort('\'UTF8ArrayToString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['UTF8ToString']) Module['UTF8ToString'] = function() { abort('\'UTF8ToString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['stringToUTF8Array']) Module['stringToUTF8Array'] = function() { abort('\'stringToUTF8Array\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['stringToUTF8']) Module['stringToUTF8'] = function() { abort('\'stringToUTF8\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['lengthBytesUTF8']) Module['lengthBytesUTF8'] = function() { abort('\'lengthBytesUTF8\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['UTF16ToString']) Module['UTF16ToString'] = function() { abort('\'UTF16ToString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['stringToUTF16']) Module['stringToUTF16'] = function() { abort('\'stringToUTF16\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['lengthBytesUTF16']) Module['lengthBytesUTF16'] = function() { abort('\'lengthBytesUTF16\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['UTF32ToString']) Module['UTF32ToString'] = function() { abort('\'UTF32ToString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['stringToUTF32']) Module['stringToUTF32'] = function() { abort('\'stringToUTF32\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['lengthBytesUTF32']) Module['lengthBytesUTF32'] = function() { abort('\'lengthBytesUTF32\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['allocateUTF8']) Module['allocateUTF8'] = function() { abort('\'allocateUTF8\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['stackTrace']) Module['stackTrace'] = function() { abort('\'stackTrace\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['addOnPreRun']) Module['addOnPreRun'] = function() { abort('\'addOnPreRun\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['addOnInit']) Module['addOnInit'] = function() { abort('\'addOnInit\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['addOnPreMain']) Module['addOnPreMain'] = function() { abort('\'addOnPreMain\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['addOnExit']) Module['addOnExit'] = function() { abort('\'addOnExit\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['addOnPostRun']) Module['addOnPostRun'] = function() { abort('\'addOnPostRun\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['writeStringToMemory']) Module['writeStringToMemory'] = function() { abort('\'writeStringToMemory\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['writeArrayToMemory']) Module['writeArrayToMemory'] = function() { abort('\'writeArrayToMemory\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['writeAsciiToMemory']) Module['writeAsciiToMemory'] = function() { abort('\'writeAsciiToMemory\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['addRunDependency']) Module['addRunDependency'] = function() { abort('\'addRunDependency\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-    	if (!Module['removeRunDependency']) Module['removeRunDependency'] = function() { abort('\'removeRunDependency\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-    	if (!Module['ENV']) Module['ENV'] = function() { abort('\'ENV\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['FS']) Module['FS'] = function() { abort('\'FS\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['FS_createFolder']) Module['FS_createFolder'] = function() { abort('\'FS_createFolder\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-    	if (!Module['FS_createPath']) Module['FS_createPath'] = function() { abort('\'FS_createPath\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-    	if (!Module['FS_createDataFile']) Module['FS_createDataFile'] = function() { abort('\'FS_createDataFile\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-    	if (!Module['FS_createPreloadedFile']) Module['FS_createPreloadedFile'] = function() { abort('\'FS_createPreloadedFile\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-    	if (!Module['FS_createLazyFile']) Module['FS_createLazyFile'] = function() { abort('\'FS_createLazyFile\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-    	if (!Module['FS_createLink']) Module['FS_createLink'] = function() { abort('\'FS_createLink\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-    	if (!Module['FS_createDevice']) Module['FS_createDevice'] = function() { abort('\'FS_createDevice\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-    	if (!Module['FS_unlink']) Module['FS_unlink'] = function() { abort('\'FS_unlink\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-    	if (!Module['GL']) Module['GL'] = function() { abort('\'GL\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['dynamicAlloc']) Module['dynamicAlloc'] = function() { abort('\'dynamicAlloc\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['warnOnce']) Module['warnOnce'] = function() { abort('\'warnOnce\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['loadDynamicLibrary']) Module['loadDynamicLibrary'] = function() { abort('\'loadDynamicLibrary\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['loadWebAssemblyModule']) Module['loadWebAssemblyModule'] = function() { abort('\'loadWebAssemblyModule\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['getLEB']) Module['getLEB'] = function() { abort('\'getLEB\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['getFunctionTables']) Module['getFunctionTables'] = function() { abort('\'getFunctionTables\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['alignFunctionTables']) Module['alignFunctionTables'] = function() { abort('\'alignFunctionTables\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['registerFunctions']) Module['registerFunctions'] = function() { abort('\'registerFunctions\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['addFunction']) Module['addFunction'] = function() { abort('\'addFunction\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['removeFunction']) Module['removeFunction'] = function() { abort('\'removeFunction\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['getFuncWrapper']) Module['getFuncWrapper'] = function() { abort('\'getFuncWrapper\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['prettyPrint']) Module['prettyPrint'] = function() { abort('\'prettyPrint\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['makeBigInt']) Module['makeBigInt'] = function() { abort('\'makeBigInt\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['dynCall']) Module['dynCall'] = function() { abort('\'dynCall\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['getCompilerSetting']) Module['getCompilerSetting'] = function() { abort('\'getCompilerSetting\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['stackSave']) Module['stackSave'] = function() { abort('\'stackSave\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['stackRestore']) Module['stackRestore'] = function() { abort('\'stackRestore\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['stackAlloc']) Module['stackAlloc'] = function() { abort('\'stackAlloc\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['establishStackSpace']) Module['establishStackSpace'] = function() { abort('\'establishStackSpace\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['print']) Module['print'] = function() { abort('\'print\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['printErr']) Module['printErr'] = function() { abort('\'printErr\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['getTempRet0']) Module['getTempRet0'] = function() { abort('\'getTempRet0\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['setTempRet0']) Module['setTempRet0'] = function() { abort('\'setTempRet0\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-    	if (!Module['Pointer_stringify']) Module['Pointer_stringify'] = function() { abort('\'Pointer_stringify\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };if (!Module['ALLOC_NORMAL']) Object.defineProperty(Module, 'ALLOC_NORMAL', { get: function() { abort('\'ALLOC_NORMAL\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); } });
-    	if (!Module['ALLOC_STACK']) Object.defineProperty(Module, 'ALLOC_STACK', { get: function() { abort('\'ALLOC_STACK\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); } });
-    	if (!Module['ALLOC_DYNAMIC']) Object.defineProperty(Module, 'ALLOC_DYNAMIC', { get: function() { abort('\'ALLOC_DYNAMIC\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); } });
-    	if (!Module['ALLOC_NONE']) Object.defineProperty(Module, 'ALLOC_NONE', { get: function() { abort('\'ALLOC_NONE\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); } });
+    	if (!Module["intArrayFromString"]) Module["intArrayFromString"] = function() { abort("'intArrayFromString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["intArrayToString"]) Module["intArrayToString"] = function() { abort("'intArrayToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	Module["ccall"] = ccall;
+    	Module["cwrap"] = cwrap;
+    	if (!Module["setValue"]) Module["setValue"] = function() { abort("'setValue' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	Module["getValue"] = getValue;
+    	if (!Module["allocate"]) Module["allocate"] = function() { abort("'allocate' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["getMemory"]) Module["getMemory"] = function() { abort("'getMemory' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+    	if (!Module["AsciiToString"]) Module["AsciiToString"] = function() { abort("'AsciiToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["stringToAscii"]) Module["stringToAscii"] = function() { abort("'stringToAscii' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["UTF8ArrayToString"]) Module["UTF8ArrayToString"] = function() { abort("'UTF8ArrayToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["UTF8ToString"]) Module["UTF8ToString"] = function() { abort("'UTF8ToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["stringToUTF8Array"]) Module["stringToUTF8Array"] = function() { abort("'stringToUTF8Array' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["stringToUTF8"]) Module["stringToUTF8"] = function() { abort("'stringToUTF8' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["lengthBytesUTF8"]) Module["lengthBytesUTF8"] = function() { abort("'lengthBytesUTF8' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["UTF16ToString"]) Module["UTF16ToString"] = function() { abort("'UTF16ToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["stringToUTF16"]) Module["stringToUTF16"] = function() { abort("'stringToUTF16' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["lengthBytesUTF16"]) Module["lengthBytesUTF16"] = function() { abort("'lengthBytesUTF16' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["UTF32ToString"]) Module["UTF32ToString"] = function() { abort("'UTF32ToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["stringToUTF32"]) Module["stringToUTF32"] = function() { abort("'stringToUTF32' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["lengthBytesUTF32"]) Module["lengthBytesUTF32"] = function() { abort("'lengthBytesUTF32' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["allocateUTF8"]) Module["allocateUTF8"] = function() { abort("'allocateUTF8' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["stackTrace"]) Module["stackTrace"] = function() { abort("'stackTrace' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["addOnPreRun"]) Module["addOnPreRun"] = function() { abort("'addOnPreRun' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["addOnInit"]) Module["addOnInit"] = function() { abort("'addOnInit' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["addOnPreMain"]) Module["addOnPreMain"] = function() { abort("'addOnPreMain' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["addOnExit"]) Module["addOnExit"] = function() { abort("'addOnExit' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["addOnPostRun"]) Module["addOnPostRun"] = function() { abort("'addOnPostRun' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["writeStringToMemory"]) Module["writeStringToMemory"] = function() { abort("'writeStringToMemory' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["writeArrayToMemory"]) Module["writeArrayToMemory"] = function() { abort("'writeArrayToMemory' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["writeAsciiToMemory"]) Module["writeAsciiToMemory"] = function() { abort("'writeAsciiToMemory' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["addRunDependency"]) Module["addRunDependency"] = function() { abort("'addRunDependency' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+    	if (!Module["removeRunDependency"]) Module["removeRunDependency"] = function() { abort("'removeRunDependency' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+    	if (!Module["ENV"]) Module["ENV"] = function() { abort("'ENV' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["FS"]) Module["FS"] = function() { abort("'FS' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["FS_createFolder"]) Module["FS_createFolder"] = function() { abort("'FS_createFolder' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+    	if (!Module["FS_createPath"]) Module["FS_createPath"] = function() { abort("'FS_createPath' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+    	if (!Module["FS_createDataFile"]) Module["FS_createDataFile"] = function() { abort("'FS_createDataFile' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+    	if (!Module["FS_createPreloadedFile"]) Module["FS_createPreloadedFile"] = function() { abort("'FS_createPreloadedFile' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+    	if (!Module["FS_createLazyFile"]) Module["FS_createLazyFile"] = function() { abort("'FS_createLazyFile' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+    	if (!Module["FS_createLink"]) Module["FS_createLink"] = function() { abort("'FS_createLink' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+    	if (!Module["FS_createDevice"]) Module["FS_createDevice"] = function() { abort("'FS_createDevice' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+    	if (!Module["FS_unlink"]) Module["FS_unlink"] = function() { abort("'FS_unlink' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+    	if (!Module["GL"]) Module["GL"] = function() { abort("'GL' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["dynamicAlloc"]) Module["dynamicAlloc"] = function() { abort("'dynamicAlloc' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["warnOnce"]) Module["warnOnce"] = function() { abort("'warnOnce' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["loadDynamicLibrary"]) Module["loadDynamicLibrary"] = function() { abort("'loadDynamicLibrary' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["loadWebAssemblyModule"]) Module["loadWebAssemblyModule"] = function() { abort("'loadWebAssemblyModule' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["getLEB"]) Module["getLEB"] = function() { abort("'getLEB' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["getFunctionTables"]) Module["getFunctionTables"] = function() { abort("'getFunctionTables' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["alignFunctionTables"]) Module["alignFunctionTables"] = function() { abort("'alignFunctionTables' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["registerFunctions"]) Module["registerFunctions"] = function() { abort("'registerFunctions' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["addFunction"]) Module["addFunction"] = function() { abort("'addFunction' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["removeFunction"]) Module["removeFunction"] = function() { abort("'removeFunction' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["getFuncWrapper"]) Module["getFuncWrapper"] = function() { abort("'getFuncWrapper' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["prettyPrint"]) Module["prettyPrint"] = function() { abort("'prettyPrint' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["makeBigInt"]) Module["makeBigInt"] = function() { abort("'makeBigInt' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["dynCall"]) Module["dynCall"] = function() { abort("'dynCall' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["getCompilerSetting"]) Module["getCompilerSetting"] = function() { abort("'getCompilerSetting' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["stackSave"]) Module["stackSave"] = function() { abort("'stackSave' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["stackRestore"]) Module["stackRestore"] = function() { abort("'stackRestore' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["stackAlloc"]) Module["stackAlloc"] = function() { abort("'stackAlloc' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["establishStackSpace"]) Module["establishStackSpace"] = function() { abort("'establishStackSpace' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["print"]) Module["print"] = function() { abort("'print' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["printErr"]) Module["printErr"] = function() { abort("'printErr' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["getTempRet0"]) Module["getTempRet0"] = function() { abort("'getTempRet0' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["setTempRet0"]) Module["setTempRet0"] = function() { abort("'setTempRet0' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+    	if (!Module["Pointer_stringify"]) Module["Pointer_stringify"] = function() { abort("'Pointer_stringify' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };if (!Module["ALLOC_NORMAL"]) Object.defineProperty(Module, "ALLOC_NORMAL", { get: function() { abort("'ALLOC_NORMAL' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); } });
+    	if (!Module["ALLOC_STACK"]) Object.defineProperty(Module, "ALLOC_STACK", { get: function() { abort("'ALLOC_STACK' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); } });
+    	if (!Module["ALLOC_DYNAMIC"]) Object.defineProperty(Module, "ALLOC_DYNAMIC", { get: function() { abort("'ALLOC_DYNAMIC' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); } });
+    	if (!Module["ALLOC_NONE"]) Object.defineProperty(Module, "ALLOC_NONE", { get: function() { abort("'ALLOC_NONE' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); } });
 
 
 
@@ -7392,8 +7392,8 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     	 * @this {ExitStatus}
     	 */
     	function ExitStatus(status) {
-    	  this.name = 'ExitStatus';
-    	  this.message = 'Program terminated with exit(' + status + ')';
+    	  this.name = "ExitStatus";
+    	  this.message = "Program terminated with exit(" + status + ")";
     	  this.status = status;
     	}	ExitStatus.prototype = new Error();
     	ExitStatus.prototype.constructor = ExitStatus;
@@ -7491,7 +7491,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     	}
 
 
-    	  Module['noExitRuntime'] = true;
+    	  Module["noExitRuntime"] = true;
 
     	run();
     } else {
@@ -7505,7 +7505,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     // {{MODULE_ADDITIONS}}
 
     var earcutWasmReady = false;
-    if (defined.defined(earcutWasm)) {
+    if (when.defined(earcutWasm)) {
         earcutWasm.onRuntimeInitialized = function () {
             earcutWasmReady = true;
         };
@@ -7645,13 +7645,13 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     FillBucket.prototype.clear = function clear() {
-        if (defined.defined(this.layoutVertexArray)) {
+        if (when.defined(this.layoutVertexArray)) {
             this.layoutVertexArray = null;
         }
-        if (defined.defined(this.indexArray)) {
+        if (when.defined(this.indexArray)) {
             this.indexArray = null;
         }
-        if (defined.defined(this.indexArray2)) {
+        if (when.defined(this.indexArray2)) {
             this.indexArray2 = null;
         }
     };
@@ -7705,7 +7705,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             
             var indices;
 
-            if (defined.defined(indexData) && defined.defined(indexData[feature.id])) {
+            if (when.defined(indexData) && when.defined(indexData[feature.id])) {
                 indices = indexData[feature.id];
             } else if (earcutWasmReady === true) {
                 var data = new Int32Array(flattened);
@@ -7794,7 +7794,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     StructArray$1.serialize = function serialize (array, transferables) {
         //assert_1(!array.isTransferred);
         if(array.isTransferred){
-            console.log('StructArray array.isTransferred.');
+            console.log("StructArray array.isTransferred.");
         }
 
         array._trim();
@@ -8346,7 +8346,8 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 }
 
             } else {
-                throw new Error('unknown command ' + cmd);
+                console.log('VectorTileFeature loadGeometry unknown command ' + cmd);
+                //throw new Error('unknown command ' + cmd);
             }
         }
 
@@ -8445,7 +8446,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         }
 
         var result = {
-            type: 'Feature',
+            type: "Feature",
             geometry: {
                 type: type,
                 coordinates: coords
@@ -9070,7 +9071,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         if (this.parent) {
             return this.parent.get(name);
         }
-        throw new Error((name + ' not found in scope.'));
+        throw new Error((name + " not found in scope."));
     };
 
     Scope.prototype.has = function has(name) {
@@ -9196,7 +9197,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         this.registry = registry;
         this.path = path;
         this.key = path.map(function (part) {
-            return ('[' + part + ']');
+            return ("[" + part + "]");
         }).join('');
         this.scope = scope;
         this.errors = errors;
@@ -9236,12 +9237,12 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
         if (Array.isArray(expr)) {
             if (expr.length === 0) {
-                return this.error('Expected an array with at least one element. If you wanted a literal array, use ["literal", []].');
+                return this.error("Expected an array with at least one element. If you wanted a literal array, use [\"literal\", []].");
             }
 
             var op = expr[0];
             if (typeof op !== 'string') {
-                this.error(('Expression name must be a string, but found ' + (typeof op) + ' instead. If you wanted a literal array, use ["literal", [...]].'), 0);
+                this.error(("Expression name must be a string, but found " + (typeof op) + " instead. If you wanted a literal array, use [\"literal\", [...]]."), 0);
                 return null;
             }
 
@@ -9290,13 +9291,13 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 return parsed;
             }
 
-            return this.error(('Unknown expression "' + op + '". If you wanted a literal array, use ["literal", [...]].'), 0);
+            return this.error(("Unknown expression \"" + op + "\". If you wanted a literal array, use [\"literal\", [...]]."), 0);
         } else if (typeof expr === 'undefined') {
-            return this.error('\'undefined\' value invalid. Use null instead.');
+            return this.error("'undefined' value invalid. Use null instead.");
         } else if (typeof expr === 'object') {
-            return this.error('Bare objects invalid. Use ["literal", {...}] instead.');
+            return this.error("Bare objects invalid. Use [\"literal\", {...}] instead.");
         } else {
-            return this.error(('Expected an array, but found ' + (typeof expr) + ' instead.'));
+            return this.error(("Expected an array, but found " + (typeof expr) + " instead."));
         }
     };
 
@@ -9331,8 +9332,8 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         var keys = [], len = arguments.length - 1;
         while (len-- > 0) keys[ len ] = arguments[ len + 1 ];
 
-        var key = '' + (this.key) + (keys.map(function (k) {
-            return ('[' + k + ']');
+        var key = "" + (this.key) + (keys.map(function (k) {
+            return ("[" + k + "]");
         }).join(''));
         this.errors.push(new ParsingError(key, error$1));
     };
@@ -9385,7 +9386,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         var op = (args[0] );
         var definition = CompoundExpression$1.definitions[op];
         if (!definition) {
-            return context.error(('Unknown expression "' + op + '". If you wanted a literal array, use ["literal", [...]].'), 0);
+            return context.error(("Unknown expression \"" + op + "\". If you wanted a literal array, use [\"literal\", [...]]."), 0);
         }
 
         // Now check argument types against each signature
@@ -9443,7 +9444,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
             if (Array.isArray(params)) {
                 if (params.length !== parsedArgs.length) {
-                    signatureContext.error(('Expected ' + (params.length) + ' arguments, but found ' + (parsedArgs.length) + ' instead.'));
+                    signatureContext.error(("Expected " + (params.length) + " arguments, but found " + (parsedArgs.length) + " instead."));
                     continue;
                 }
             }
@@ -9483,7 +9484,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 }
                 actualTypes.push(toString(parsed$1.type));
             }
-            context.error(('Expected arguments of type ' + signatures + ', but found (' + (actualTypes.join(', ')) + ') instead.'));
+            context.error(("Expected arguments of type " + signatures + ", but found (" + (actualTypes.join(', ')) + ") instead."));
         }
 
         return null;
@@ -9499,9 +9500,9 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     function stringifySignature(signature) {
         if (Array.isArray(signature)) {
-            return ('(' + (signature.map(toString).join(', ')) + ')');
+            return ("(" + (signature.map(toString).join(', ')) + ")");
         } else {
-            return ('(' + (toString(signature.type)) + '...)');
+            return ("(" + (toString(signature.type)) + "...)");
         }
     }
     var NumberType$a = {kind: 'number'};
@@ -9958,13 +9959,13 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                     return false;
                 }
                 if(/^%.*[^%]$/.test(b)) { // 以百分号开头并且不以百分号结尾
-                    b = b.replace('%', '');
+                    b = b.replace("%", "");
                     return properties[a].endsWith(b);
                 } else if(/^(?!%).+%$/.test(b)) { // 以百分号结尾并且不以百分号开头
-                    b = b.replace('%', '');
+                    b = b.replace("%", "");
                     return properties[a].startsWith(b);
                 } else { // 百分号开头百分号结尾 or 不含百分号
-                    b = b.replace(/%/g, '');
+                    b = b.replace(/%/g, "");
                     return (properties[a].indexOf(b)) > -1;
                 }
             }
@@ -10273,9 +10274,9 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 return this._defaultValue;
             }
             if (this._enumValues && !(val in this._enumValues)) {
-                throw new RuntimeError(('Expected value to be one of ' + (Object.keys(this._enumValues).map(function (v) {
+                throw new RuntimeError(("Expected value to be one of " + (Object.keys(this._enumValues).map(function (v) {
                     return JSON.stringify(v);
-                }).join(', ')) + ', but found ' + (JSON.stringify(val)) + ' instead.'));
+                }).join(', ')) + ", but found " + (JSON.stringify(val)) + " instead."));
             }
             return val;
         } catch (e) {
@@ -10428,7 +10429,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         }
 
         if (parameters.colorSpace && parameters.colorSpace !== 'rgb' && !colorSpaces[parameters.colorSpace]) { // eslint-disable-line import/namespace
-            throw new Error(('Unknown color space: ' + (parameters.colorSpace)));
+            throw new Error(("Unknown color space: " + (parameters.colorSpace)));
         }
 
         var innerFun;
@@ -10455,7 +10456,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         } else if (type === 'identity') {
             innerFun = evaluateIdentityFunction;
         } else {
-            throw new Error(('Unknown function type "' + type + '"'));
+            throw new Error(("Unknown function type \"" + type + "\""));
         }
 
         if (zoomAndFeatureDependent) {
@@ -10565,7 +10566,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             if (expression.result === 'error') {
                 // this should have been caught in validation
                 throw new Error(expression.value.map(function (err) {
-                    return ((err.key) + ': ' + (err.message));
+                    return ((err.key) + ": " + (err.message));
                 }).join(', '));
             }
             return expression.value;
@@ -10665,7 +10666,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         var compiled = Expression.createExpression(filter, filterSpec);
         if (compiled.result === 'error') {
             throw new Error(compiled.value.map(function (err) {
-                return ((err.key) + ': ' + (err.message));
+                return ((err.key) + ": " + (err.message));
             }).join(', '));
         } else {
             return function (globalProperties, feature) {
@@ -10709,11 +10710,11 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     function convertComparisonOp(property, value, op) {
         switch (property) {
             case '$type':
-                return [('filter-type-' + op), value];
+                return [("filter-type-" + op), value];
             case '$id':
-                return [('filter-id-' + op), value];
+                return [("filter-id-" + op), value];
             default:
-                return [('filter-' + op), property, value];
+                return [("filter-" + op), property, value];
         }
     }
 
@@ -10727,9 +10728,9 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         }
         switch (property) {
             case '$type':
-                return ['filter-type-in', ['literal', values]];
+                return ["filter-type-in", ['literal', values]];
             case '$id':
-                return ['filter-id-in', ['literal', values]];
+                return ["filter-id-in", ['literal', values]];
             default:
                 if (values.length > 200 && !values.some(function (v) {
                     return typeof v !== typeof values[0];
@@ -10746,9 +10747,9 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             case '$type':
                 return true;
             case '$id':
-                return ['filter-has-id'];
+                return ["filter-has-id"];
             default:
-                return ['filter-has', property];
+                return ["filter-has", property];
         }
     }
 
@@ -10849,7 +10850,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     //                        // `feature-state` expression evaluation requires feature state to be available
     //                        featureState = sourceFeatureState.getState(styleLayer.sourceLayer || '_geojsonTileLayer', feature.id);
     //                    }
-                    return styleLayer.queryIntersectsFeature(queryGeometry, feature, featureState, featureGeometry, this$1.z, args.transform, pixelsToTileUnits, args.pixelPosMatrix);
+                    return styleLayer.queryIntersectsFeature(queryGeometry, feature, featureState, featureGeometry, this$1.z, args.transform, pixelsToTileUnits, args.pixelPosMatrix, args.adjustScale);
                 }
             );
         };
@@ -10987,18 +10988,18 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             for (var i$1 = 0, list = obj; i$1 < list.length; i$1 += 1) {
                 var val = list[i$1];
 
-                str$1 += (stringify(val)) + ',';
+                str$1 += (stringify(val)) + ",";
             }
-            return (str$1 + ']');
+            return (str$1 + "]");
         }
 
         var keys = Object.keys(obj).sort();
 
         var str = '{';
         for (var i = 0; i < keys.length; i++) {
-            str += (JSON.stringify(keys[i])) + ':' + (stringify(obj[keys[i]])) + ',';
+            str += (JSON.stringify(keys[i])) + ":" + (stringify(obj[keys[i]])) + ",";
         }
-        return (str + '}');
+        return (str + "}");
     }
 
     function getKey(layer) {
@@ -11006,7 +11007,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         for (var i = 0, list = refProperties; i < list.length; i += 1) {
             var k = list[i];
 
-            key += '/' + (stringify(layer[k]));
+            key += "/" + (stringify(layer[k]));
         }
         return key;
     }
@@ -11185,6 +11186,15 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         this.indexBuffer.destroy();
         this.programConfigurations.destroy();
         this.segments.destroy();
+    };
+
+    CircleBucket.prototype.clear = function clear() {
+        if (when.defined(this.layoutVertexArray)) {
+            this.layoutVertexArray = null;
+        }
+        if (when.defined(this.indexArray)) {
+            this.indexArray = null;
+        }
     };
 
     CircleBucket.prototype.addFeature = function addFeature(feature, geometry, index) {
@@ -11491,7 +11501,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         }
         var pt = Point.convert(translate)._mult(pixelsToTileUnits);
 
-        if (translateAnchor === 'viewport') {
+        if (translateAnchor === "viewport") {
             pt._rotate(-bearing);
         }
 
@@ -11663,7 +11673,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
             var transition = this.getTransition(property);
             if (transition !== undefined) {
-                result[(property + '-transition')] = transition;
+                result[(property + "-transition")] = transition;
             }
         }
         return result;
@@ -11757,7 +11767,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     StyleLayer.prototype.setLayoutProperty = function setLayoutProperty(name, value, options) {
 
         if (value !== null && value !== undefined) {
-            var key = 'layers.' + (this.id) + '.layout.' + name;
+            var key = "layers." + (this.id) + ".layout." + name;
     //            if (this._validate(validateLayoutProperty$1, key, name, value, options)) {
     //                return;
     //            }
@@ -11782,7 +11792,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     StyleLayer.prototype.setPaintProperty = function setPaintProperty(name, value, options) {
 
         if (value !== null && value !== undefined) {
-            var key = 'layers.' + (this.id) + '.paint.' + name;
+            var key = "layers." + (this.id) + ".paint." + name;
     //            if (this._validate(validatePaintProperty$1, key, name, value, options)) {
     //                return false;
     //            }
@@ -11793,7 +11803,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             return false;
         } else {
             var transitionable = this._transitionablePaint._values[name];
-            var isCrossFadedProperty = transitionable.property.specification['property-type'] === 'cross-faded-data-driven';
+            var isCrossFadedProperty = transitionable.property.specification["property-type"] === 'cross-faded-data-driven';
             var wasDataDriven = transitionable.value.isDataDriven();
             var oldValue = transitionable.value;
 
@@ -11928,91 +11938,91 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     var $root = {
         version: {
             required: true,
-            type: 'enum',
+            type: "enum",
             values: [
                 8
             ]
         },
         name: {
-            type: 'string'
+            type: "string"
         },
         metadata: {
-            type: '*'
+            type: "*"
         },
         center: {
-            type: 'array',
-            value: 'number'
+            type: "array",
+            value: "number"
         },
         zoom: {
-            type: 'number'
+            type: "number"
         },
         bearing: {
-            type: 'number',
-            'default': 0,
+            type: "number",
+            "default": 0,
             period: 360,
-            units: 'degrees'
+            units: "degrees"
         },
         pitch: {
-            type: 'number',
-            'default': 0,
-            units: 'degrees'
+            type: "number",
+            "default": 0,
+            units: "degrees"
         },
         light: {
-            type: 'light'
+            type: "light"
         },
         sources: {
             required: true,
-            type: 'sources'
+            type: "sources"
         },
         sprite: {
-            type: 'string'
+            type: "string"
         },
         glyphs: {
-            type: 'string'
+            type: "string"
         },
         transition: {
-            type: 'transition'
+            type: "transition"
         },
         layers: {
             required: true,
-            type: 'array',
-            value: 'layer'
+            type: "array",
+            value: "layer"
         }
     };
     var sources = {
-        '*': {
-            type: 'source'
+        "*": {
+            type: "source"
         }
     };
     var source = [
-        'source_vector',
-        'source_raster',
-        'source_raster_dem',
-        'source_geojson',
-        'source_video',
-        'source_image'
+        "source_vector",
+        "source_raster",
+        "source_raster_dem",
+        "source_geojson",
+        "source_video",
+        "source_image"
     ];
     var source_vector = {
         type: {
             required: true,
-            type: 'enum',
+            type: "enum",
             values: {
                 vector: {
                 }
             }
         },
         url: {
-            type: 'string'
+            type: "string"
         },
         tiles: {
-            type: 'array',
-            value: 'string'
+            type: "array",
+            value: "string"
         },
         bounds: {
-            type: 'array',
-            value: 'number',
+            type: "array",
+            value: "number",
             length: 4,
-            'default': [
+            "default": [
                 -180,
                 -85.051129,
                 180,
@@ -12020,51 +12030,51 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             ]
         },
         scheme: {
-            type: 'enum',
+            type: "enum",
             values: {
                 xyz: {
                 },
                 tms: {
                 }
             },
-            'default': 'xyz'
+            "default": "xyz"
         },
         minzoom: {
-            type: 'number',
-            'default': 0
+            type: "number",
+            "default": 0
         },
         maxzoom: {
-            type: 'number',
-            'default': 22
+            type: "number",
+            "default": 22
         },
         attribution: {
-            type: 'string'
+            type: "string"
         },
-        '*': {
-            type: '*'
+        "*": {
+            type: "*"
         }
     };
     var source_raster = {
         type: {
             required: true,
-            type: 'enum',
+            type: "enum",
             values: {
                 raster: {
                 }
             }
         },
         url: {
-            type: 'string'
+            type: "string"
         },
         tiles: {
-            type: 'array',
-            value: 'string'
+            type: "array",
+            value: "string"
         },
         bounds: {
-            type: 'array',
-            value: 'number',
+            type: "array",
+            value: "number",
             length: 4,
-            'default': [
+            "default": [
                 -180,
                 -85.051129,
                 180,
@@ -12072,56 +12082,56 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             ]
         },
         minzoom: {
-            type: 'number',
-            'default': 0
+            type: "number",
+            "default": 0
         },
         maxzoom: {
-            type: 'number',
-            'default': 22
+            type: "number",
+            "default": 22
         },
         tileSize: {
-            type: 'number',
-            'default': 512,
-            units: 'pixels'
+            type: "number",
+            "default": 512,
+            units: "pixels"
         },
         scheme: {
-            type: 'enum',
+            type: "enum",
             values: {
                 xyz: {
                 },
                 tms: {
                 }
             },
-            'default': 'xyz'
+            "default": "xyz"
         },
         attribution: {
-            type: 'string'
+            type: "string"
         },
-        '*': {
-            type: '*'
+        "*": {
+            type: "*"
         }
     };
     var source_raster_dem = {
         type: {
             required: true,
-            type: 'enum',
+            type: "enum",
             values: {
-                'raster-dem': {
+                "raster-dem": {
                 }
             }
         },
         url: {
-            type: 'string'
+            type: "string"
         },
         tiles: {
-            type: 'array',
-            value: 'string'
+            type: "array",
+            value: "string"
         },
         bounds: {
-            type: 'array',
-            value: 'number',
+            type: "array",
+            value: "number",
             length: 4,
-            'default': [
+            "default": [
                 -180,
                 -85.051129,
                 180,
@@ -12129,92 +12139,92 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             ]
         },
         minzoom: {
-            type: 'number',
-            'default': 0
+            type: "number",
+            "default": 0
         },
         maxzoom: {
-            type: 'number',
-            'default': 22
+            type: "number",
+            "default": 22
         },
         tileSize: {
-            type: 'number',
-            'default': 512,
-            units: 'pixels'
+            type: "number",
+            "default": 512,
+            units: "pixels"
         },
         attribution: {
-            type: 'string'
+            type: "string"
         },
         encoding: {
-            type: 'enum',
+            type: "enum",
             values: {
                 terrarium: {
                 },
                 mapbox: {
                 }
             },
-            'default': 'mapbox'
+            "default": "mapbox"
         },
-        '*': {
-            type: '*'
+        "*": {
+            type: "*"
         }
     };
     var source_geojson = {
         type: {
             required: true,
-            type: 'enum',
+            type: "enum",
             values: {
                 geojson: {
                 }
             }
         },
         data: {
-            type: '*'
+            type: "*"
         },
         maxzoom: {
-            type: 'number',
-            'default': 18
+            type: "number",
+            "default": 18
         },
         attribution: {
-            type: 'string'
+            type: "string"
         },
         buffer: {
-            type: 'number',
-            'default': 128,
+            type: "number",
+            "default": 128,
             maximum: 512,
             minimum: 0
         },
         tolerance: {
-            type: 'number',
-            'default': 0.375
+            type: "number",
+            "default": 0.375
         },
         cluster: {
-            type: 'boolean',
-            'default': false
+            type: "boolean",
+            "default": false
         },
         clusterRadius: {
-            type: 'number',
-            'default': 50,
+            type: "number",
+            "default": 50,
             minimum: 0
         },
         clusterMaxZoom: {
-            type: 'number'
+            type: "number"
         },
         clusterProperties: {
-            type: '*'
+            type: "*"
         },
         lineMetrics: {
-            type: 'boolean',
-            'default': false
+            type: "boolean",
+            "default": false
         },
         generateId: {
-            type: 'boolean',
-            'default': false
+            type: "boolean",
+            "default": false
         }
     };
     var source_video = {
         type: {
             required: true,
-            type: 'enum',
+            type: "enum",
             values: {
                 video: {
                 }
@@ -12222,24 +12232,24 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         },
         urls: {
             required: true,
-            type: 'array',
-            value: 'string'
+            type: "array",
+            value: "string"
         },
         coordinates: {
             required: true,
-            type: 'array',
+            type: "array",
             length: 4,
             value: {
-                type: 'array',
+                type: "array",
                 length: 2,
-                value: 'number'
+                value: "number"
             }
         }
     };
     var source_image = {
         type: {
             required: true,
-            type: 'enum',
+            type: "enum",
             values: {
                 image: {
                 }
@@ -12247,26 +12257,26 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         },
         url: {
             required: true,
-            type: 'string'
+            type: "string"
         },
         coordinates: {
             required: true,
-            type: 'array',
+            type: "array",
             length: 4,
             value: {
-                type: 'array',
+                type: "array",
                 length: 2,
-                value: 'number'
+                value: "number"
             }
         }
     };
     var layer = {
         id: {
-            type: 'string',
+            type: "string",
             required: true
         },
         type: {
-            type: 'enum',
+            type: "enum",
             values: {
                 fill: {
                 },
@@ -12278,7 +12288,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 },
                 heatmap: {
                 },
-                'fill-extrusion': {
+                "fill-extrusion": {
                 },
                 raster: {
                 },
@@ -12290,122 +12300,122 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             required: true
         },
         metadata: {
-            type: '*'
+            type: "*"
         },
         source: {
-            type: 'string'
+            type: "string"
         },
-        'source-layer': {
-            type: 'string'
+        "source-layer": {
+            type: "string"
         },
         minzoom: {
-            type: 'number',
+            type: "number",
             minimum: 0,
             maximum: 24
         },
         maxzoom: {
-            type: 'number',
+            type: "number",
             minimum: 0,
             maximum: 24
         },
         filter: {
-            type: 'filter'
+            type: "filter"
         },
         layout: {
-            type: 'layout'
+            type: "layout"
         },
         paint: {
-            type: 'paint'
+            type: "paint"
         }
     };
     var layout = [
-        'layout_fill',
-        'layout_line',
-        'layout_circle',
-        'layout_heatmap',
-        'layout_fill-extrusion',
-        'layout_symbol',
-        'layout_raster',
-        'layout_hillshade',
-        'layout_background'
+        "layout_fill",
+        "layout_line",
+        "layout_circle",
+        "layout_heatmap",
+        "layout_fill-extrusion",
+        "layout_symbol",
+        "layout_raster",
+        "layout_hillshade",
+        "layout_background"
     ];
     var layout_background = {
         visibility: {
-            type: 'enum',
+            type: "enum",
             values: {
                 visible: {
                 },
                 none: {
                 }
             },
-            'default': 'visible',
-            'property-type': 'constant'
+            "default": "visible",
+            "property-type": "constant"
         }
     };
     var layout_fill = {
-        'fill-sort-key': {
-            type: 'number',
+        "fill-sort-key": {
+            type: "number",
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
         visibility: {
-            type: 'enum',
+            type: "enum",
             values: {
                 visible: {
                 },
                 none: {
                 }
             },
-            'default': 'visible',
-            'property-type': 'constant'
+            "default": "visible",
+            "property-type": "constant"
         }
     };
     var layout_circle = {
-        'circle-sort-key': {
-            type: 'number',
+        "circle-sort-key": {
+            type: "number",
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
         visibility: {
-            type: 'enum',
+            type: "enum",
             values: {
                 visible: {
                 },
                 none: {
                 }
             },
-            'default': 'visible',
-            'property-type': 'constant'
+            "default": "visible",
+            "property-type": "constant"
         }
     };
     var layout_heatmap = {
         visibility: {
-            type: 'enum',
+            type: "enum",
             values: {
                 visible: {
                 },
                 none: {
                 }
             },
-            'default': 'visible',
-            'property-type': 'constant'
+            "default": "visible",
+            "property-type": "constant"
         }
     };
     var layout_line = {
-        'line-cap': {
-            type: 'enum',
+        "line-cap": {
+            type: "enum",
             values: {
                 butt: {
                 },
@@ -12414,17 +12424,17 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 square: {
                 }
             },
-            'default': 'butt',
+            "default": "butt",
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'line-join': {
-            type: 'enum',
+        "line-join": {
+            type: "enum",
             values: {
                 bevel: {
                 },
@@ -12433,195 +12443,195 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 miter: {
                 }
             },
-            'default': 'miter',
+            "default": "miter",
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'line-miter-limit': {
-            type: 'number',
-            'default': 2,
+        "line-miter-limit": {
+            type: "number",
+            "default": 2,
             requires: [
                 {
-                    'line-join': 'miter'
+                    "line-join": "miter"
                 }
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'line-round-limit': {
-            type: 'number',
-            'default': 1.05,
+        "line-round-limit": {
+            type: "number",
+            "default": 1.05,
             requires: [
                 {
-                    'line-join': 'round'
+                    "line-join": "round"
                 }
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'line-sort-key': {
-            type: 'number',
+        "line-sort-key": {
+            type: "number",
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
         visibility: {
-            type: 'enum',
+            type: "enum",
             values: {
                 visible: {
                 },
                 none: {
                 }
             },
-            'default': 'visible',
-            'property-type': 'constant'
+            "default": "visible",
+            "property-type": "constant"
         }
     };
     var layout_symbol = {
-        'symbol-placement': {
-            type: 'enum',
+        "symbol-placement": {
+            type: "enum",
             values: {
                 point: {
                 },
                 line: {
                 },
-                'line-center': {
+                "line-center": {
                 }
             },
-            'default': 'point',
+            "default": "point",
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'symbol-spacing': {
-            type: 'number',
-            'default': 250,
+        "symbol-spacing": {
+            type: "number",
+            "default": 250,
             minimum: 1,
-            units: 'pixels',
+            units: "pixels",
             requires: [
                 {
-                    'symbol-placement': 'line'
+                    "symbol-placement": "line"
                 }
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'symbol-avoid-edges': {
-            type: 'boolean',
-            'default': false,
+        "symbol-avoid-edges": {
+            type: "boolean",
+            "default": false,
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'symbol-sort-key': {
-            type: 'number',
+        "symbol-sort-key": {
+            type: "number",
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'symbol-z-order': {
-            type: 'enum',
+        "symbol-z-order": {
+            type: "enum",
             values: {
                 auto: {
                 },
-                'viewport-y': {
+                "viewport-y": {
                 },
                 source: {
                 }
             },
-            'default': 'auto',
+            "default": "auto",
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'icon-allow-overlap': {
-            type: 'boolean',
-            'default': false,
+        "icon-allow-overlap": {
+            type: "boolean",
+            "default": false,
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'icon-ignore-placement': {
-            type: 'boolean',
-            'default': false,
+        "icon-ignore-placement": {
+            type: "boolean",
+            "default": false,
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'icon-optional': {
-            type: 'boolean',
-            'default': false,
+        "icon-optional": {
+            type: "boolean",
+            "default": false,
             requires: [
-                'icon-image',
-                'text-field'
+                "icon-image",
+                "text-field"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'icon-rotation-alignment': {
-            type: 'enum',
+        "icon-rotation-alignment": {
+            type: "enum",
             values: {
                 map: {
                 },
@@ -12630,37 +12640,37 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 auto: {
                 }
             },
-            'default': 'auto',
+            "default": "auto",
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'icon-size': {
-            type: 'number',
-            'default': 1,
+        "icon-size": {
+            type: "number",
+            "default": 1,
             minimum: 0,
-            units: 'factor of the original icon size',
+            units: "factor of the original icon size",
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'icon-text-fit': {
-            type: 'enum',
+        "icon-text-fit": {
+            type: "enum",
             values: {
                 none: {
                 },
@@ -12671,139 +12681,139 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 both: {
                 }
             },
-            'default': 'none',
+            "default": "none",
             requires: [
-                'icon-image',
-                'text-field'
+                "icon-image",
+                "text-field"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'icon-text-fit-padding': {
-            type: 'array',
-            value: 'number',
+        "icon-text-fit-padding": {
+            type: "array",
+            value: "number",
             length: 4,
-            'default': [
+            "default": [
                 0,
                 0,
                 0,
                 0
             ],
-            units: 'pixels',
+            units: "pixels",
             requires: [
-                'icon-image',
-                'text-field',
+                "icon-image",
+                "text-field",
                 {
-                    'icon-text-fit': [
-                        'both',
-                        'width',
-                        'height'
+                    "icon-text-fit": [
+                        "both",
+                        "width",
+                        "height"
                     ]
                 }
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'icon-image': {
-            type: 'resolvedImage',
+        "icon-image": {
+            type: "resolvedImage",
             tokens: true,
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'icon-rotate': {
-            type: 'number',
-            'default': 0,
+        "icon-rotate": {
+            type: "number",
+            "default": 0,
             period: 360,
-            units: 'degrees',
+            units: "degrees",
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'icon-padding': {
-            type: 'number',
-            'default': 2,
+        "icon-padding": {
+            type: "number",
+            "default": 2,
             minimum: 0,
-            units: 'pixels',
+            units: "pixels",
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'icon-keep-upright': {
-            type: 'boolean',
-            'default': false,
+        "icon-keep-upright": {
+            type: "boolean",
+            "default": false,
             requires: [
-                'icon-image',
+                "icon-image",
                 {
-                    'icon-rotation-alignment': 'map'
+                    "icon-rotation-alignment": "map"
                 },
                 {
-                    'symbol-placement': [
-                        'line',
-                        'line-center'
+                    "symbol-placement": [
+                        "line",
+                        "line-center"
                     ]
                 }
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'icon-offset': {
-            type: 'array',
-            value: 'number',
+        "icon-offset": {
+            type: "array",
+            value: "number",
             length: 2,
-            'default': [
+            "default": [
                 0,
                 0
             ],
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'icon-anchor': {
-            type: 'enum',
+        "icon-anchor": {
+            type: "enum",
             values: {
                 center: {
                 },
@@ -12815,30 +12825,30 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 },
                 bottom: {
                 },
-                'top-left': {
+                "top-left": {
                 },
-                'top-right': {
+                "top-right": {
                 },
-                'bottom-left': {
+                "bottom-left": {
                 },
-                'bottom-right': {
+                "bottom-right": {
                 }
             },
-            'default': 'center',
+            "default": "center",
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'icon-pitch-alignment': {
-            type: 'enum',
+        "icon-pitch-alignment": {
+            type: "enum",
             values: {
                 map: {
                 },
@@ -12847,20 +12857,20 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 auto: {
                 }
             },
-            'default': 'auto',
+            "default": "auto",
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'text-pitch-alignment': {
-            type: 'enum',
+        "text-pitch-alignment": {
+            type: "enum",
             values: {
                 map: {
                 },
@@ -12869,20 +12879,20 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 auto: {
                 }
             },
-            'default': 'auto',
+            "default": "auto",
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'text-rotation-alignment': {
-            type: 'enum',
+        "text-rotation-alignment": {
+            type: "enum",
             values: {
                 map: {
                 },
@@ -12891,117 +12901,117 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 auto: {
                 }
             },
-            'default': 'auto',
+            "default": "auto",
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'text-field': {
-            type: 'formatted',
-            'default': '',
+        "text-field": {
+            type: "formatted",
+            "default": "",
             tokens: true,
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-font': {
-            type: 'array',
-            value: 'string',
-            'default': [
-                'Open Sans Regular',
-                'Arial Unicode MS Regular'
+        "text-font": {
+            type: "array",
+            value: "string",
+            "default": [
+                "Open Sans Regular",
+                "Arial Unicode MS Regular"
             ],
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-size': {
-            type: 'number',
-            'default': 16,
+        "text-size": {
+            type: "number",
+            "default": 16,
             minimum: 0,
-            units: 'pixels',
+            units: "pixels",
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-max-width': {
-            type: 'number',
-            'default': 10,
+        "text-max-width": {
+            type: "number",
+            "default": 10,
             minimum: 0,
-            units: 'ems',
+            units: "ems",
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-line-height': {
-            type: 'number',
-            'default': 1.2,
-            units: 'ems',
+        "text-line-height": {
+            type: "number",
+            "default": 1.2,
+            units: "ems",
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'text-letter-spacing': {
-            type: 'number',
-            'default': 0,
-            units: 'ems',
+        "text-letter-spacing": {
+            type: "number",
+            "default": 0,
+            units: "ems",
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-justify': {
-            type: 'enum',
+        "text-justify": {
+            type: "enum",
             values: {
                 auto: {
                 },
@@ -13012,38 +13022,38 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 right: {
                 }
             },
-            'default': 'center',
+            "default": "center",
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-radial-offset': {
-            type: 'number',
-            units: 'ems',
-            'default': 0,
+        "text-radial-offset": {
+            type: "number",
+            units: "ems",
+            "default": 0,
             requires: [
-                'text-field'
+                "text-field"
             ],
-            'property-type': 'data-driven',
+            "property-type": "data-driven",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             }
         },
-        'text-variable-anchor': {
-            type: 'array',
-            value: 'enum',
+        "text-variable-anchor": {
+            type: "array",
+            value: "enum",
             values: {
                 center: {
                 },
@@ -13055,33 +13065,33 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 },
                 bottom: {
                 },
-                'top-left': {
+                "top-left": {
                 },
-                'top-right': {
+                "top-right": {
                 },
-                'bottom-left': {
+                "bottom-left": {
                 },
-                'bottom-right': {
+                "bottom-right": {
                 }
             },
             requires: [
-                'text-field',
+                "text-field",
                 {
-                    'symbol-placement': [
-                        'point'
+                    "symbol-placement": [
+                        "point"
                     ]
                 }
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'text-anchor': {
-            type: 'enum',
+        "text-anchor": {
+            type: "enum",
             values: {
                 center: {
                 },
@@ -13093,55 +13103,55 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 },
                 bottom: {
                 },
-                'top-left': {
+                "top-left": {
                 },
-                'top-right': {
+                "top-right": {
                 },
-                'bottom-left': {
+                "bottom-left": {
                 },
-                'bottom-right': {
+                "bottom-right": {
                 }
             },
-            'default': 'center',
+            "default": "center",
             requires: [
-                'text-field',
+                "text-field",
                 {
-                    '!': 'text-variable-anchor'
+                    "!": "text-variable-anchor"
                 }
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-max-angle': {
-            type: 'number',
-            'default': 45,
-            units: 'degrees',
+        "text-max-angle": {
+            type: "number",
+            "default": 45,
+            units: "degrees",
             requires: [
-                'text-field',
+                "text-field",
                 {
-                    'symbol-placement': [
-                        'line',
-                        'line-center'
+                    "symbol-placement": [
+                        "line",
+                        "line-center"
                     ]
                 }
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'text-writing-mode': {
-            type: 'array',
-            value: 'enum',
+        "text-writing-mode": {
+            type: "array",
+            value: "enum",
             values: {
                 horizontal: {
                 },
@@ -13149,79 +13159,79 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 }
             },
             requires: [
-                'text-field',
+                "text-field",
                 {
-                    'symbol-placement': [
-                        'point'
+                    "symbol-placement": [
+                        "point"
                     ]
                 }
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'text-rotate': {
-            type: 'number',
-            'default': 0,
+        "text-rotate": {
+            type: "number",
+            "default": 0,
             period: 360,
-            units: 'degrees',
+            units: "degrees",
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-padding': {
-            type: 'number',
-            'default': 2,
+        "text-padding": {
+            type: "number",
+            "default": 2,
             minimum: 0,
-            units: 'pixels',
+            units: "pixels",
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'text-keep-upright': {
-            type: 'boolean',
-            'default': true,
+        "text-keep-upright": {
+            type: "boolean",
+            "default": true,
             requires: [
-                'text-field',
+                "text-field",
                 {
-                    'text-rotation-alignment': 'map'
+                    "text-rotation-alignment": "map"
                 },
                 {
-                    'symbol-placement': [
-                        'line',
-                        'line-center'
+                    "symbol-placement": [
+                        "line",
+                        "line-center"
                     ]
                 }
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'text-transform': {
-            type: 'enum',
+        "text-transform": {
+            type: "enum",
             values: {
                 none: {
                 },
@@ -13230,146 +13240,146 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 lowercase: {
                 }
             },
-            'default': 'none',
+            "default": "none",
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-offset': {
-            type: 'array',
-            value: 'number',
-            units: 'ems',
+        "text-offset": {
+            type: "array",
+            value: "number",
+            units: "ems",
             length: 2,
-            'default': [
+            "default": [
                 0,
                 0
             ],
             requires: [
-                'text-field',
+                "text-field",
                 {
-                    '!': 'text-radial-offset'
+                    "!": "text-radial-offset"
                 }
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-allow-overlap': {
-            type: 'boolean',
-            'default': false,
+        "text-allow-overlap": {
+            type: "boolean",
+            "default": false,
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'text-ignore-placement': {
-            type: 'boolean',
-            'default': false,
+        "text-ignore-placement": {
+            type: "boolean",
+            "default": false,
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'text-optional': {
-            type: 'boolean',
-            'default': false,
+        "text-optional": {
+            type: "boolean",
+            "default": false,
             requires: [
-                'text-field',
-                'icon-image'
+                "text-field",
+                "icon-image"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
         visibility: {
-            type: 'enum',
+            type: "enum",
             values: {
                 visible: {
                 },
                 none: {
                 }
             },
-            'default': 'visible',
-            'property-type': 'constant'
+            "default": "visible",
+            "property-type": "constant"
         }
     };
     var layout_raster = {
         visibility: {
-            type: 'enum',
+            type: "enum",
             values: {
                 visible: {
                 },
                 none: {
                 }
             },
-            'default': 'visible',
-            'property-type': 'constant'
+            "default": "visible",
+            "property-type": "constant"
         }
     };
     var layout_hillshade = {
         visibility: {
-            type: 'enum',
+            type: "enum",
             values: {
                 visible: {
                 },
                 none: {
                 }
             },
-            'default': 'visible',
-            'property-type': 'constant'
+            "default": "visible",
+            "property-type": "constant"
         }
     };
     var filter = {
-        type: 'array',
-        value: '*'
+        type: "array",
+        value: "*"
     };
     var filter_operator = {
-        type: 'enum',
+        type: "enum",
         values: {
-            '==': {
+            "==": {
             },
-            '!=': {
+            "!=": {
             },
-            '>': {
+            ">": {
             },
-            '>=': {
+            ">=": {
             },
-            '<': {
+            "<": {
             },
-            '<=': {
+            "<=": {
             },
-            'in': {
+            "in": {
             },
-            '!in': {
+            "!in": {
             },
             all: {
             },
@@ -13379,12 +13389,12 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             },
             has: {
             },
-            '!has': {
+            "!has": {
             }
         }
     };
     var geometry_type = {
-        type: 'enum',
+        type: "enum",
         values: {
             Point: {
             },
@@ -13395,636 +13405,636 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         }
     };
     var function_stop = {
-        type: 'array',
+        type: "array",
         minimum: 0,
         maximum: 24,
         value: [
-            'number',
-            'color'
+            "number",
+            "color"
         ],
         length: 2
     };
     var expression = {
-        type: 'array',
-        value: '*',
+        type: "array",
+        value: "*",
         minimum: 1
     };
     var expression_name = {
-        type: 'enum',
+        type: "enum",
         values: {
-            'let': {
-                group: 'Variable binding'
+            "let": {
+                group: "Variable binding"
             },
-            'var': {
-                group: 'Variable binding'
+            "var": {
+                group: "Variable binding"
             },
             literal: {
-                group: 'Types'
+                group: "Types"
             },
             array: {
-                group: 'Types'
+                group: "Types"
             },
             at: {
-                group: 'Lookup'
+                group: "Lookup"
             },
-            'in': {
-                group: 'Lookup'
+            "in": {
+                group: "Lookup"
             },
-            'case': {
-                group: 'Decision'
+            "case": {
+                group: "Decision"
             },
             match: {
-                group: 'Decision'
+                group: "Decision"
             },
             coalesce: {
-                group: 'Decision'
+                group: "Decision"
             },
             step: {
-                group: 'Ramps, scales, curves'
+                group: "Ramps, scales, curves"
             },
             interpolate: {
-                group: 'Ramps, scales, curves'
+                group: "Ramps, scales, curves"
             },
-            'interpolate-hcl': {
-                group: 'Ramps, scales, curves'
+            "interpolate-hcl": {
+                group: "Ramps, scales, curves"
             },
-            'interpolate-lab': {
-                group: 'Ramps, scales, curves'
+            "interpolate-lab": {
+                group: "Ramps, scales, curves"
             },
             ln2: {
-                group: 'Math'
+                group: "Math"
             },
             pi: {
-                group: 'Math'
+                group: "Math"
             },
             e: {
-                group: 'Math'
+                group: "Math"
             },
-            'typeof': {
-                group: 'Types'
+            "typeof": {
+                group: "Types"
             },
             string: {
-                group: 'Types'
+                group: "Types"
             },
             number: {
-                group: 'Types'
+                group: "Types"
             },
             boolean: {
-                group: 'Types'
+                group: "Types"
             },
             object: {
-                group: 'Types'
+                group: "Types"
             },
             collator: {
-                group: 'Types'
+                group: "Types"
             },
             format: {
-                group: 'Types'
+                group: "Types"
             },
             image: {
-                group: 'Types'
+                group: "Types"
             },
-            'number-format': {
-                group: 'Types'
+            "number-format": {
+                group: "Types"
             },
-            'to-string': {
-                group: 'Types'
+            "to-string": {
+                group: "Types"
             },
-            'to-number': {
-                group: 'Types'
+            "to-number": {
+                group: "Types"
             },
-            'to-boolean': {
-                group: 'Types'
+            "to-boolean": {
+                group: "Types"
             },
-            'to-rgba': {
-                group: 'Color'
+            "to-rgba": {
+                group: "Color"
             },
-            'to-color': {
-                group: 'Types'
+            "to-color": {
+                group: "Types"
             },
             rgb: {
-                group: 'Color'
+                group: "Color"
             },
             rgba: {
-                group: 'Color'
+                group: "Color"
             },
             get: {
-                group: 'Lookup'
+                group: "Lookup"
             },
             has: {
-                group: 'Lookup'
+                group: "Lookup"
             },
             length: {
-                group: 'Lookup'
+                group: "Lookup"
             },
             properties: {
-                group: 'Feature data'
+                group: "Feature data"
             },
-            'feature-state': {
-                group: 'Feature data'
+            "feature-state": {
+                group: "Feature data"
             },
-            'geometry-type': {
-                group: 'Feature data'
+            "geometry-type": {
+                group: "Feature data"
             },
             id: {
-                group: 'Feature data'
+                group: "Feature data"
             },
             zoom: {
-                group: 'Zoom'
+                group: "Zoom"
             },
-            'heatmap-density': {
-                group: 'Heatmap'
+            "heatmap-density": {
+                group: "Heatmap"
             },
-            'line-progress': {
-                group: 'Feature data'
+            "line-progress": {
+                group: "Feature data"
             },
             accumulated: {
-                group: 'Feature data'
+                group: "Feature data"
             },
-            '+': {
-                group: 'Math'
+            "+": {
+                group: "Math"
             },
-            '*': {
-                group: 'Math'
+            "*": {
+                group: "Math"
             },
-            '-': {
-                group: 'Math'
+            "-": {
+                group: "Math"
             },
-            '/': {
-                group: 'Math'
+            "/": {
+                group: "Math"
             },
-            '%': {
-                group: 'Math'
+            "%": {
+                group: "Math"
             },
-            '^': {
-                group: 'Math'
+            "^": {
+                group: "Math"
             },
             sqrt: {
-                group: 'Math'
+                group: "Math"
             },
             log10: {
-                group: 'Math'
+                group: "Math"
             },
             ln: {
-                group: 'Math'
+                group: "Math"
             },
             log2: {
-                group: 'Math'
+                group: "Math"
             },
             sin: {
-                group: 'Math'
+                group: "Math"
             },
             cos: {
-                group: 'Math'
+                group: "Math"
             },
             tan: {
-                group: 'Math'
+                group: "Math"
             },
             asin: {
-                group: 'Math'
+                group: "Math"
             },
             acos: {
-                group: 'Math'
+                group: "Math"
             },
             atan: {
-                group: 'Math'
+                group: "Math"
             },
             min: {
-                group: 'Math'
+                group: "Math"
             },
             max: {
-                group: 'Math'
+                group: "Math"
             },
             round: {
-                group: 'Math'
+                group: "Math"
             },
             abs: {
-                group: 'Math'
+                group: "Math"
             },
             ceil: {
-                group: 'Math'
+                group: "Math"
             },
             floor: {
-                group: 'Math'
+                group: "Math"
             },
-            '==': {
-                group: 'Decision'
+            "==": {
+                group: "Decision"
             },
-            '!=': {
-                group: 'Decision'
+            "!=": {
+                group: "Decision"
             },
-            '>': {
-                group: 'Decision'
+            ">": {
+                group: "Decision"
             },
-            '<': {
-                group: 'Decision'
+            "<": {
+                group: "Decision"
             },
-            '>=': {
-                group: 'Decision'
+            ">=": {
+                group: "Decision"
             },
-            '<=': {
-                group: 'Decision'
+            "<=": {
+                group: "Decision"
             },
             all: {
-                group: 'Decision'
+                group: "Decision"
             },
             any: {
-                group: 'Decision'
+                group: "Decision"
             },
-            '!': {
-                group: 'Decision'
+            "!": {
+                group: "Decision"
             },
-            'is-supported-script': {
-                group: 'String'
+            "is-supported-script": {
+                group: "String"
             },
             upcase: {
-                group: 'String'
+                group: "String"
             },
             downcase: {
-                group: 'String'
+                group: "String"
             },
             concat: {
-                group: 'String'
+                group: "String"
             },
-            'resolved-locale': {
-                group: 'String'
+            "resolved-locale": {
+                group: "String"
             }
         }
     };
     var light = {
         anchor: {
-            type: 'enum',
-            'default': 'viewport',
+            type: "enum",
+            "default": "viewport",
             values: {
                 map: {
                 },
                 viewport: {
                 }
             },
-            'property-type': 'data-constant',
+            "property-type": "data-constant",
             transition: false,
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             }
         },
         position: {
-            type: 'array',
-            'default': [
+            type: "array",
+            "default": [
                 1.15,
                 210,
                 30
             ],
             length: 3,
-            value: 'number',
-            'property-type': 'data-constant',
+            value: "number",
+            "property-type": "data-constant",
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             }
         },
         color: {
-            type: 'color',
-            'property-type': 'data-constant',
-            'default': '#ffffff',
+            type: "color",
+            "property-type": "data-constant",
+            "default": "#ffffff",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
             transition: true
         },
         intensity: {
-            type: 'number',
-            'property-type': 'data-constant',
-            'default': 0.5,
+            type: "number",
+            "property-type": "data-constant",
+            "default": 0.5,
             minimum: 0,
             maximum: 1,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
             transition: true
         }
     };
     var paint = [
-        'paint_fill',
-        'paint_line',
-        'paint_circle',
-        'paint_heatmap',
-        'paint_fill-extrusion',
-        'paint_symbol',
-        'paint_raster',
-        'paint_hillshade',
-        'paint_background'
+        "paint_fill",
+        "paint_line",
+        "paint_circle",
+        "paint_heatmap",
+        "paint_fill-extrusion",
+        "paint_symbol",
+        "paint_raster",
+        "paint_hillshade",
+        "paint_background"
     ];
     var paint_fill = {
-        'fill-antialias': {
-            type: 'boolean',
-            'default': true,
+        "fill-antialias": {
+            type: "boolean",
+            "default": true,
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'fill-opacity': {
-            type: 'number',
-            'default': 1,
+        "fill-opacity": {
+            type: "number",
+            "default": 1,
             minimum: 0,
             maximum: 1,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'fill-color': {
-            type: 'color',
-            'default': '#000000',
+        "fill-color": {
+            type: "color",
+            "default": "#000000",
             transition: true,
             requires: [
                 {
-                    '!': 'fill-pattern'
+                    "!": "fill-pattern"
                 }
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'fill-outline-color': {
-            type: 'color',
+        "fill-outline-color": {
+            type: "color",
             transition: true,
             requires: [
                 {
-                    '!': 'fill-pattern'
+                    "!": "fill-pattern"
                 },
                 {
-                    'fill-antialias': true
+                    "fill-antialias": true
                 }
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'fill-translate': {
-            type: 'array',
-            value: 'number',
+        "fill-translate": {
+            type: "array",
+            value: "number",
             length: 2,
-            'default': [
+            "default": [
                 0,
                 0
             ],
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'fill-translate-anchor': {
-            type: 'enum',
+        "fill-translate-anchor": {
+            type: "enum",
             values: {
                 map: {
                 },
                 viewport: {
                 }
             },
-            'default': 'map',
+            "default": "map",
             requires: [
-                'fill-translate'
+                "fill-translate"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'fill-pattern': {
-            type: 'resolvedImage',
+        "fill-pattern": {
+            type: "resolvedImage",
             transition: true,
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'cross-faded-data-driven'
+            "property-type": "cross-faded-data-driven"
         }
     };
     var paint_line = {
-        'line-opacity': {
-            type: 'number',
-            'default': 1,
+        "line-opacity": {
+            type: "number",
+            "default": 1,
             minimum: 0,
             maximum: 1,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'line-color': {
-            type: 'color',
-            'default': '#000000',
+        "line-color": {
+            type: "color",
+            "default": "#000000",
             transition: true,
             requires: [
                 {
-                    '!': 'line-pattern'
+                    "!": "line-pattern"
                 }
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'line-translate': {
-            type: 'array',
-            value: 'number',
+        "line-translate": {
+            type: "array",
+            value: "number",
             length: 2,
-            'default': [
+            "default": [
                 0,
                 0
             ],
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'line-translate-anchor': {
-            type: 'enum',
+        "line-translate-anchor": {
+            type: "enum",
             values: {
                 map: {
                 },
                 viewport: {
                 }
             },
-            'default': 'map',
+            "default": "map",
             requires: [
-                'line-translate'
+                "line-translate"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'line-width': {
-            type: 'number',
-            'default': 1,
+        "line-width": {
+            type: "number",
+            "default": 1,
             minimum: 0,
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'line-gap-width': {
-            type: 'number',
-            'default': 0,
+        "line-gap-width": {
+            type: "number",
+            "default": 0,
             minimum: 0,
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'line-offset': {
-            type: 'number',
-            'default': 0,
+        "line-offset": {
+            type: "number",
+            "default": 0,
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'line-blur': {
-            type: 'number',
-            'default': 0,
+        "line-blur": {
+            type: "number",
+            "default": 0,
             minimum: 0,
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'line-dasharray': {
-            type: 'array',
-            value: 'number',
+        "line-dasharray": {
+            type: "array",
+            value: "number",
             minimum: 0,
             transition: true,
-            units: 'line widths',
+            units: "line widths",
             requires: [
                 {
-                    '!': 'line-pattern'
+                    "!": "line-pattern"
                 }
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'cross-faded'
+            "property-type": "cross-faded"
         },
-        'line-pattern': {
-            type: 'resolvedImage',
+        "line-pattern": {
+            type: "resolvedImage",
             transition: true,
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom',
-                    'feature'
+                    "zoom",
+                    "feature"
                 ]
             },
-            'property-type': 'cross-faded-data-driven'
+            "property-type": "cross-faded-data-driven"
         },
-        'line-gradient': {
-            type: 'color',
+        "line-gradient": {
+            type: "color",
             transition: false,
             requires: [
                 {
-                    '!': 'line-dasharray'
+                    "!": "line-dasharray"
                 },
                 {
-                    '!': 'line-pattern'
+                    "!": "line-pattern"
                 },
                 {
-                    source: 'geojson',
+                    source: "geojson",
                     has: {
                         lineMetrics: true
                     }
@@ -14033,809 +14043,809 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
             expression: {
                 interpolated: true,
                 parameters: [
-                    'line-progress'
+                    "line-progress"
                 ]
             },
-            'property-type': 'color-ramp'
+            "property-type": "color-ramp"
         }
     };
     var paint_circle = {
-        'circle-radius': {
-            type: 'number',
-            'default': 5,
+        "circle-radius": {
+            type: "number",
+            "default": 5,
             minimum: 0,
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'circle-color': {
-            type: 'color',
-            'default': '#000000',
+        "circle-color": {
+            type: "color",
+            "default": "#000000",
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'circle-blur': {
-            type: 'number',
-            'default': 0,
+        "circle-blur": {
+            type: "number",
+            "default": 0,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'circle-opacity': {
-            type: 'number',
-            'default': 1,
+        "circle-opacity": {
+            type: "number",
+            "default": 1,
             minimum: 0,
             maximum: 1,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'circle-translate': {
-            type: 'array',
-            value: 'number',
+        "circle-translate": {
+            type: "array",
+            value: "number",
             length: 2,
-            'default': [
+            "default": [
                 0,
                 0
             ],
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'circle-translate-anchor': {
-            type: 'enum',
+        "circle-translate-anchor": {
+            type: "enum",
             values: {
                 map: {
                 },
                 viewport: {
                 }
             },
-            'default': 'map',
+            "default": "map",
             requires: [
-                'circle-translate'
+                "circle-translate"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'circle-pitch-scale': {
-            type: 'enum',
+        "circle-pitch-scale": {
+            type: "enum",
             values: {
                 map: {
                 },
                 viewport: {
                 }
             },
-            'default': 'map',
+            "default": "map",
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'circle-pitch-alignment': {
-            type: 'enum',
+        "circle-pitch-alignment": {
+            type: "enum",
             values: {
                 map: {
                 },
                 viewport: {
                 }
             },
-            'default': 'viewport',
+            "default": "viewport",
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'circle-stroke-width': {
-            type: 'number',
-            'default': 0,
+        "circle-stroke-width": {
+            type: "number",
+            "default": 0,
             minimum: 0,
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'circle-stroke-color': {
-            type: 'color',
-            'default': '#000000',
+        "circle-stroke-color": {
+            type: "color",
+            "default": "#000000",
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'circle-stroke-opacity': {
-            type: 'number',
-            'default': 1,
+        "circle-stroke-opacity": {
+            type: "number",
+            "default": 1,
             minimum: 0,
             maximum: 1,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         }
     };
     var paint_heatmap = {
-        'heatmap-radius': {
-            type: 'number',
-            'default': 30,
+        "heatmap-radius": {
+            type: "number",
+            "default": 30,
             minimum: 1,
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'heatmap-weight': {
-            type: 'number',
-            'default': 1,
+        "heatmap-weight": {
+            type: "number",
+            "default": 1,
             minimum: 0,
             transition: false,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'heatmap-intensity': {
-            type: 'number',
-            'default': 1,
+        "heatmap-intensity": {
+            type: "number",
+            "default": 1,
             minimum: 0,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'heatmap-color': {
-            type: 'color',
-            'default': [
-                'interpolate',
+        "heatmap-color": {
+            type: "color",
+            "default": [
+                "interpolate",
                 [
-                    'linear'
+                    "linear"
                 ],
                 [
-                    'heatmap-density'
+                    "heatmap-density"
                 ],
                 0,
-                'rgba(0, 0, 255, 0)',
+                "rgba(0, 0, 255, 0)",
                 0.1,
-                'royalblue',
+                "royalblue",
                 0.3,
-                'cyan',
+                "cyan",
                 0.5,
-                'lime',
+                "lime",
                 0.7,
-                'yellow',
+                "yellow",
                 1,
-                'red'
+                "red"
             ],
             transition: false,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'heatmap-density'
+                    "heatmap-density"
                 ]
             },
-            'property-type': 'color-ramp'
+            "property-type": "color-ramp"
         },
-        'heatmap-opacity': {
-            type: 'number',
-            'default': 1,
+        "heatmap-opacity": {
+            type: "number",
+            "default": 1,
             minimum: 0,
             maximum: 1,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         }
     };
     var paint_symbol = {
-        'icon-opacity': {
-            type: 'number',
-            'default': 1,
+        "icon-opacity": {
+            type: "number",
+            "default": 1,
             minimum: 0,
             maximum: 1,
             transition: true,
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'icon-color': {
-            type: 'color',
-            'default': '#000000',
+        "icon-color": {
+            type: "color",
+            "default": "#000000",
             transition: true,
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'icon-halo-color': {
-            type: 'color',
-            'default': 'rgba(0, 0, 0, 0)',
+        "icon-halo-color": {
+            type: "color",
+            "default": "rgba(0, 0, 0, 0)",
             transition: true,
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'icon-halo-width': {
-            type: 'number',
-            'default': 0,
+        "icon-halo-width": {
+            type: "number",
+            "default": 0,
             minimum: 0,
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'icon-halo-blur': {
-            type: 'number',
-            'default': 0,
+        "icon-halo-blur": {
+            type: "number",
+            "default": 0,
             minimum: 0,
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'icon-translate': {
-            type: 'array',
-            value: 'number',
+        "icon-translate": {
+            type: "array",
+            value: "number",
             length: 2,
-            'default': [
+            "default": [
                 0,
                 0
             ],
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             requires: [
-                'icon-image'
+                "icon-image"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'icon-translate-anchor': {
-            type: 'enum',
+        "icon-translate-anchor": {
+            type: "enum",
             values: {
                 map: {
                 },
                 viewport: {
                 }
             },
-            'default': 'map',
+            "default": "map",
             requires: [
-                'icon-image',
-                'icon-translate'
+                "icon-image",
+                "icon-translate"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'text-opacity': {
-            type: 'number',
-            'default': 1,
+        "text-opacity": {
+            type: "number",
+            "default": 1,
             minimum: 0,
             maximum: 1,
             transition: true,
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-color': {
-            type: 'color',
-            'default': '#000000',
+        "text-color": {
+            type: "color",
+            "default": "#000000",
             transition: true,
             overridable: true,
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-halo-color': {
-            type: 'color',
-            'default': 'rgba(0, 0, 0, 0)',
+        "text-halo-color": {
+            type: "color",
+            "default": "rgba(0, 0, 0, 0)",
             transition: true,
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-halo-width': {
-            type: 'number',
-            'default': 0,
+        "text-halo-width": {
+            type: "number",
+            "default": 0,
             minimum: 0,
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-halo-blur': {
-            type: 'number',
-            'default': 0,
+        "text-halo-blur": {
+            type: "number",
+            "default": 0,
             minimum: 0,
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom',
-                    'feature',
-                    'feature-state'
+                    "zoom",
+                    "feature",
+                    "feature-state"
                 ]
             },
-            'property-type': 'data-driven'
+            "property-type": "data-driven"
         },
-        'text-translate': {
-            type: 'array',
-            value: 'number',
+        "text-translate": {
+            type: "array",
+            value: "number",
             length: 2,
-            'default': [
+            "default": [
                 0,
                 0
             ],
             transition: true,
-            units: 'pixels',
+            units: "pixels",
             requires: [
-                'text-field'
+                "text-field"
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'text-translate-anchor': {
-            type: 'enum',
+        "text-translate-anchor": {
+            type: "enum",
             values: {
                 map: {
                 },
                 viewport: {
                 }
             },
-            'default': 'map',
+            "default": "map",
             requires: [
-                'text-field',
-                'text-translate'
+                "text-field",
+                "text-translate"
             ],
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         }
     };
     var paint_raster = {
-        'raster-opacity': {
-            type: 'number',
-            'default': 1,
+        "raster-opacity": {
+            type: "number",
+            "default": 1,
             minimum: 0,
             maximum: 1,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'raster-hue-rotate': {
-            type: 'number',
-            'default': 0,
+        "raster-hue-rotate": {
+            type: "number",
+            "default": 0,
             period: 360,
             transition: true,
-            units: 'degrees',
+            units: "degrees",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'raster-brightness-min': {
-            type: 'number',
-            'default': 0,
+        "raster-brightness-min": {
+            type: "number",
+            "default": 0,
             minimum: 0,
             maximum: 1,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'raster-brightness-max': {
-            type: 'number',
-            'default': 1,
+        "raster-brightness-max": {
+            type: "number",
+            "default": 1,
             minimum: 0,
             maximum: 1,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'raster-saturation': {
-            type: 'number',
-            'default': 0,
+        "raster-saturation": {
+            type: "number",
+            "default": 0,
             minimum: -1,
             maximum: 1,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'raster-contrast': {
-            type: 'number',
-            'default': 0,
+        "raster-contrast": {
+            type: "number",
+            "default": 0,
             minimum: -1,
             maximum: 1,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'raster-resampling': {
-            type: 'enum',
+        "raster-resampling": {
+            type: "enum",
             values: {
                 linear: {
                 },
                 nearest: {
                 }
             },
-            'default': 'linear',
+            "default": "linear",
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'raster-fade-duration': {
-            type: 'number',
-            'default': 300,
+        "raster-fade-duration": {
+            type: "number",
+            "default": 300,
             minimum: 0,
             transition: false,
-            units: 'milliseconds',
+            units: "milliseconds",
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         }
     };
     var paint_hillshade = {
-        'hillshade-illumination-direction': {
-            type: 'number',
-            'default': 335,
+        "hillshade-illumination-direction": {
+            type: "number",
+            "default": 335,
             minimum: 0,
             maximum: 359,
             transition: false,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'hillshade-illumination-anchor': {
-            type: 'enum',
+        "hillshade-illumination-anchor": {
+            type: "enum",
             values: {
                 map: {
                 },
                 viewport: {
                 }
             },
-            'default': 'viewport',
+            "default": "viewport",
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'hillshade-exaggeration': {
-            type: 'number',
-            'default': 0.5,
+        "hillshade-exaggeration": {
+            type: "number",
+            "default": 0.5,
             minimum: 0,
             maximum: 1,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'hillshade-shadow-color': {
-            type: 'color',
-            'default': '#000000',
+        "hillshade-shadow-color": {
+            type: "color",
+            "default": "#000000",
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'hillshade-highlight-color': {
-            type: 'color',
-            'default': '#FFFFFF',
+        "hillshade-highlight-color": {
+            type: "color",
+            "default": "#FFFFFF",
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'hillshade-accent-color': {
-            type: 'color',
-            'default': '#000000',
+        "hillshade-accent-color": {
+            type: "color",
+            "default": "#000000",
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         }
     };
     var paint_background = {
-        'background-color': {
-            type: 'color',
-            'default': '#000000',
+        "background-color": {
+            type: "color",
+            "default": "#000000",
             transition: true,
             requires: [
                 {
-                    '!': 'background-pattern'
+                    "!": "background-pattern"
                 }
             ],
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         },
-        'background-pattern': {
-            type: 'resolvedImage',
+        "background-pattern": {
+            type: "resolvedImage",
             transition: true,
             expression: {
                 interpolated: false,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'cross-faded'
+            "property-type": "cross-faded"
         },
-        'background-opacity': {
-            type: 'number',
-            'default': 1,
+        "background-opacity": {
+            type: "number",
+            "default": 1,
             minimum: 0,
             maximum: 1,
             transition: true,
             expression: {
                 interpolated: true,
                 parameters: [
-                    'zoom'
+                    "zoom"
                 ]
             },
-            'property-type': 'data-constant'
+            "property-type": "data-constant"
         }
     };
     var transition = {
         duration: {
-            type: 'number',
-            'default': 300,
+            type: "number",
+            "default": 300,
             minimum: 0,
-            units: 'milliseconds'
+            units: "milliseconds"
         },
         delay: {
-            type: 'number',
-            'default': 0,
+            type: "number",
+            "default": 0,
             minimum: 0,
-            units: 'milliseconds'
+            units: "milliseconds"
         }
     };
 
@@ -14856,17 +14866,17 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         layout_fill: layout_fill,
         layout_circle: layout_circle,
         layout_heatmap: layout_heatmap,
-        'layout_fill-extrusion': {
+        "layout_fill-extrusion": {
             visibility: {
-                type: 'enum',
+                type: "enum",
                 values: {
                     visible: {
                     },
                     none: {
                     }
                 },
-                'default': 'visible',
-                'property-type': 'constant'
+                "default": "visible",
+                "property-type": "constant"
             }
         },
         layout_line: layout_line,
@@ -14876,25 +14886,25 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         filter: filter,
         filter_operator: filter_operator,
         geometry_type: geometry_type,
-        'function': {
+        "function": {
             expression: {
-                type: 'expression'
+                type: "expression"
             },
             stops: {
-                type: 'array',
-                value: 'function_stop'
+                type: "array",
+                value: "function_stop"
             },
             base: {
-                type: 'number',
-                'default': 1,
+                type: "number",
+                "default": 1,
                 minimum: 0
             },
             property: {
-                type: 'string',
-                'default': '$zoom'
+                type: "string",
+                "default": "$zoom"
             },
             type: {
-                type: 'enum',
+                type: "enum",
                 values: {
                     identity: {
                     },
@@ -14905,10 +14915,10 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                     categorical: {
                     }
                 },
-                'default': 'exponential'
+                "default": "exponential"
             },
             colorSpace: {
-                type: 'enum',
+                type: "enum",
                 values: {
                     rgb: {
                     },
@@ -14917,10 +14927,10 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                     hcl: {
                     }
                 },
-                'default': 'rgb'
+                "default": "rgb"
             },
-            'default': {
-                type: '*',
+            "default": {
+                type: "*",
                 required: false
             }
         },
@@ -14930,136 +14940,136 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         light: light,
         paint: paint,
         paint_fill: paint_fill,
-        'paint_fill-extrusion': {
-            'fill-extrusion-opacity': {
-                type: 'number',
-                'default': 1,
+        "paint_fill-extrusion": {
+            "fill-extrusion-opacity": {
+                type: "number",
+                "default": 1,
                 minimum: 0,
                 maximum: 1,
                 transition: true,
                 expression: {
                     interpolated: true,
                     parameters: [
-                        'zoom'
+                        "zoom"
                     ]
                 },
-                'property-type': 'data-constant'
+                "property-type": "data-constant"
             },
-            'fill-extrusion-color': {
-                type: 'color',
-                'default': '#000000',
+            "fill-extrusion-color": {
+                type: "color",
+                "default": "#000000",
                 transition: true,
                 requires: [
                     {
-                        '!': 'fill-extrusion-pattern'
+                        "!": "fill-extrusion-pattern"
                     }
                 ],
                 expression: {
                     interpolated: true,
                     parameters: [
-                        'zoom',
-                        'feature',
-                        'feature-state'
+                        "zoom",
+                        "feature",
+                        "feature-state"
                     ]
                 },
-                'property-type': 'data-driven'
+                "property-type": "data-driven"
             },
-            'fill-extrusion-translate': {
-                type: 'array',
-                value: 'number',
+            "fill-extrusion-translate": {
+                type: "array",
+                value: "number",
                 length: 2,
-                'default': [
+                "default": [
                     0,
                     0
                 ],
                 transition: true,
-                units: 'pixels',
+                units: "pixels",
                 expression: {
                     interpolated: true,
                     parameters: [
-                        'zoom'
+                        "zoom"
                     ]
                 },
-                'property-type': 'data-constant'
+                "property-type": "data-constant"
             },
-            'fill-extrusion-translate-anchor': {
-                type: 'enum',
+            "fill-extrusion-translate-anchor": {
+                type: "enum",
                 values: {
                     map: {
                     },
                     viewport: {
                     }
                 },
-                'default': 'map',
+                "default": "map",
                 requires: [
-                    'fill-extrusion-translate'
+                    "fill-extrusion-translate"
                 ],
                 expression: {
                     interpolated: false,
                     parameters: [
-                        'zoom'
+                        "zoom"
                     ]
                 },
-                'property-type': 'data-constant'
+                "property-type": "data-constant"
             },
-            'fill-extrusion-pattern': {
-                type: 'resolvedImage',
+            "fill-extrusion-pattern": {
+                type: "resolvedImage",
                 transition: true,
                 expression: {
                     interpolated: false,
                     parameters: [
-                        'zoom',
-                        'feature'
+                        "zoom",
+                        "feature"
                     ]
                 },
-                'property-type': 'cross-faded-data-driven'
+                "property-type": "cross-faded-data-driven"
             },
-            'fill-extrusion-height': {
-                type: 'number',
-                'default': 0,
+            "fill-extrusion-height": {
+                type: "number",
+                "default": 0,
                 minimum: 0,
-                units: 'meters',
+                units: "meters",
                 transition: true,
                 expression: {
                     interpolated: true,
                     parameters: [
-                        'zoom',
-                        'feature',
-                        'feature-state'
+                        "zoom",
+                        "feature",
+                        "feature-state"
                     ]
                 },
-                'property-type': 'data-driven'
+                "property-type": "data-driven"
             },
-            'fill-extrusion-base': {
-                type: 'number',
-                'default': 0,
+            "fill-extrusion-base": {
+                type: "number",
+                "default": 0,
                 minimum: 0,
-                units: 'meters',
+                units: "meters",
                 transition: true,
                 requires: [
-                    'fill-extrusion-height'
+                    "fill-extrusion-height"
                 ],
                 expression: {
                     interpolated: true,
                     parameters: [
-                        'zoom',
-                        'feature',
-                        'feature-state'
+                        "zoom",
+                        "feature",
+                        "feature-state"
                     ]
                 },
-                'property-type': 'data-driven'
+                "property-type": "data-driven"
             },
-            'fill-extrusion-vertical-gradient': {
-                type: 'boolean',
-                'default': true,
+            "fill-extrusion-vertical-gradient": {
+                type: "boolean",
+                "default": true,
                 transition: false,
                 expression: {
                     interpolated: false,
                     parameters: [
-                        'zoom'
+                        "zoom"
                     ]
                 },
-                'property-type': 'data-constant'
+                "property-type": "data-constant"
             }
         },
         paint_line: paint_line,
@@ -15070,24 +15080,24 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         paint_hillshade: paint_hillshade,
         paint_background: paint_background,
         transition: transition,
-        'property-type': {
-            'data-driven': {
-                type: 'property-type'
+        "property-type": {
+            "data-driven": {
+                type: "property-type"
             },
-            'cross-faded': {
-                type: 'property-type'
+            "cross-faded": {
+                type: "property-type"
             },
-            'cross-faded-data-driven': {
-                type: 'property-type'
+            "cross-faded-data-driven": {
+                type: "property-type"
             },
-            'color-ramp': {
-                type: 'property-type'
+            "color-ramp": {
+                type: "property-type"
             },
-            'data-constant': {
-                type: 'property-type'
+            "data-constant": {
+                type: "property-type"
             },
             constant: {
-                type: 'property-type'
+                type: "property-type"
             }
         }
     };
@@ -15285,21 +15295,21 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     }
 
     var layout$2 = new Properties({
-        'circle-sort-key': new DataDrivenProperty(StyleSpec['layout_circle']['circle-sort-key'])
+        "circle-sort-key": new DataDrivenProperty(StyleSpec["layout_circle"]["circle-sort-key"])
     });
 
     var paint$1 = new Properties({
-        'circle-radius': new DataDrivenProperty(StyleSpec['paint_circle']['circle-radius']),
-        'circle-color': new DataDrivenProperty(StyleSpec['paint_circle']['circle-color']),
-        'circle-blur': new DataDrivenProperty(StyleSpec['paint_circle']['circle-blur']),
-        'circle-opacity': new DataDrivenProperty(StyleSpec['paint_circle']['circle-opacity']),
-        'circle-translate': new DataConstantProperty(StyleSpec['paint_circle']['circle-translate']),
-        'circle-translate-anchor': new DataConstantProperty(StyleSpec['paint_circle']['circle-translate-anchor']),
-        'circle-pitch-scale': new DataConstantProperty(StyleSpec['paint_circle']['circle-pitch-scale']),
-        'circle-pitch-alignment': new DataConstantProperty(StyleSpec['paint_circle']['circle-pitch-alignment']),
-        'circle-stroke-width': new DataDrivenProperty(StyleSpec['paint_circle']['circle-stroke-width']),
-        'circle-stroke-color': new DataDrivenProperty(StyleSpec['paint_circle']['circle-stroke-color']),
-        'circle-stroke-opacity': new DataDrivenProperty(StyleSpec['paint_circle']['circle-stroke-opacity'])
+        "circle-radius": new DataDrivenProperty(StyleSpec["paint_circle"]["circle-radius"]),
+        "circle-color": new DataDrivenProperty(StyleSpec["paint_circle"]["circle-color"]),
+        "circle-blur": new DataDrivenProperty(StyleSpec["paint_circle"]["circle-blur"]),
+        "circle-opacity": new DataDrivenProperty(StyleSpec["paint_circle"]["circle-opacity"]),
+        "circle-translate": new DataConstantProperty(StyleSpec["paint_circle"]["circle-translate"]),
+        "circle-translate-anchor": new DataConstantProperty(StyleSpec["paint_circle"]["circle-translate-anchor"]),
+        "circle-pitch-scale": new DataConstantProperty(StyleSpec["paint_circle"]["circle-pitch-scale"]),
+        "circle-pitch-alignment": new DataConstantProperty(StyleSpec["paint_circle"]["circle-pitch-alignment"]),
+        "circle-stroke-width": new DataDrivenProperty(StyleSpec["paint_circle"]["circle-stroke-width"]),
+        "circle-stroke-color": new DataDrivenProperty(StyleSpec["paint_circle"]["circle-stroke-color"]),
+        "circle-stroke-opacity": new DataDrivenProperty(StyleSpec["paint_circle"]["circle-stroke-opacity"])
     });
 
     // Note: without adding the explicit type annotation, Flow infers weaker types
@@ -15327,7 +15337,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                 QueryUtils.translateDistance(this.paint.get('circle-translate'));
         };
 
-        CircleStyleLayer.prototype.queryIntersectsFeature = function queryIntersectsFeature(queryGeometry, feature, featureState, geometry, zoom, transform, pixelsToTileUnits, pixelPosMatrix) {
+        CircleStyleLayer.prototype.queryIntersectsFeature = function queryIntersectsFeature(queryGeometry, feature, featureState, geometry, zoom, transform, pixelsToTileUnits, pixelPosMatrix, adjustedScale) {
             pixelPosMatrix = createMat4();
             var translatedPolygon = QueryUtils.translate(queryGeometry,
                 this.paint.get('circle-translate'),
@@ -15357,9 +15367,9 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
                     var adjustedSize = transformedSize;
                     var projectedCenter = transformMat4([], [point.x, point.y, 0, 1], pixelPosMatrix);
                     if (this.paint.get('circle-pitch-scale') === 'viewport' && this.paint.get('circle-pitch-alignment') === 'map') ; else if (this.paint.get('circle-pitch-scale') === 'map' && this.paint.get('circle-pitch-alignment') === 'viewport') ;
-                    adjustedSize *= 10.0;
 
-                    if (IntersectionTest.polygonIntersectsBufferedPoint(transformedPolygon, transformedPoint, adjustedSize)) {
+                    adjustedScale = when.defined(adjustedScale) ? adjustedScale : 10.0;
+                    if (IntersectionTest.polygonIntersectsBufferedPoint(transformedPolygon, transformedPoint, adjustedSize * adjustedScale)) {
                         return true;
                     }
                 }
@@ -15481,17 +15491,17 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     WebWorkerTransfer.register('DataDrivenProperty', DataDrivenProperty);
 
     var layout$4 = new Properties({
-        'fill-sort-key': new DataDrivenProperty(StyleSpec['layout_fill']['fill-sort-key'])
+        "fill-sort-key": new DataDrivenProperty(StyleSpec["layout_fill"]["fill-sort-key"])
     });
 
     var paint$4 = new Properties({
-        'fill-antialias': new DataConstantProperty(StyleSpec['paint_fill']['fill-antialias']),
-        'fill-opacity': new DataDrivenProperty(StyleSpec['paint_fill']['fill-opacity']),
-        'fill-color': new DataDrivenProperty(StyleSpec['paint_fill']['fill-color']),
-        'fill-outline-color': new DataDrivenProperty(StyleSpec['paint_fill']['fill-outline-color']),
-        'fill-translate': new DataConstantProperty(StyleSpec['paint_fill']['fill-translate']),
-        'fill-translate-anchor': new DataConstantProperty(StyleSpec['paint_fill']['fill-translate-anchor']),
-        'fill-pattern': new CrossFadedDataDrivenProperty(StyleSpec['paint_fill']['fill-pattern']),
+        "fill-antialias": new DataConstantProperty(StyleSpec["paint_fill"]["fill-antialias"]),
+        "fill-opacity": new DataDrivenProperty(StyleSpec["paint_fill"]["fill-opacity"]),
+        "fill-color": new DataDrivenProperty(StyleSpec["paint_fill"]["fill-color"]),
+        "fill-outline-color": new DataDrivenProperty(StyleSpec["paint_fill"]["fill-outline-color"]),
+        "fill-translate": new DataConstantProperty(StyleSpec["paint_fill"]["fill-translate"]),
+        "fill-translate-anchor": new DataConstantProperty(StyleSpec["paint_fill"]["fill-translate-anchor"]),
+        "fill-pattern": new CrossFadedDataDrivenProperty(StyleSpec["paint_fill"]["fill-pattern"]),
     });
 
     // Note: without adding the explicit type annotation, Flow infers weaker types
@@ -15602,26 +15612,26 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     WebWorkerTransfer.register('ColorRampProperty', ColorRampProperty);
 
     var layout$6 = new Properties({
-        'line-cap': new DataConstantProperty(StyleSpec['layout_line']['line-cap']),
-        'line-join': new DataDrivenProperty(StyleSpec['layout_line']['line-join']),
-        'line-miter-limit': new DataConstantProperty(StyleSpec['layout_line']['line-miter-limit']),
-        'line-round-limit': new DataConstantProperty(StyleSpec['layout_line']['line-round-limit']),
-        'line-sort-key': new DataDrivenProperty(StyleSpec['layout_line']['line-sort-key'])
+        "line-cap": new DataConstantProperty(StyleSpec["layout_line"]["line-cap"]),
+        "line-join": new DataDrivenProperty(StyleSpec["layout_line"]["line-join"]),
+        "line-miter-limit": new DataConstantProperty(StyleSpec["layout_line"]["line-miter-limit"]),
+        "line-round-limit": new DataConstantProperty(StyleSpec["layout_line"]["line-round-limit"]),
+        "line-sort-key": new DataDrivenProperty(StyleSpec["layout_line"]["line-sort-key"])
     });
 
 
     var paint$6 = new Properties({
-        'line-opacity': new DataDrivenProperty(StyleSpec['paint_line']['line-opacity']),
-        'line-color': new DataDrivenProperty(StyleSpec['paint_line']['line-color']),
-        'line-translate': new DataConstantProperty(StyleSpec['paint_line']['line-translate']),
-        'line-translate-anchor': new DataConstantProperty(StyleSpec['paint_line']['line-translate-anchor']),
-        'line-width': new DataDrivenProperty(StyleSpec['paint_line']['line-width']),
-        'line-gap-width': new DataDrivenProperty(StyleSpec['paint_line']['line-gap-width']),
-        'line-offset': new DataDrivenProperty(StyleSpec['paint_line']['line-offset']),
-        'line-blur': new DataDrivenProperty(StyleSpec['paint_line']['line-blur']),
-        'line-dasharray': new CrossFadedProperty(StyleSpec['paint_line']['line-dasharray']),
-        'line-pattern': new CrossFadedDataDrivenProperty(StyleSpec['paint_line']['line-pattern']),
-        'line-gradient': new ColorRampProperty(StyleSpec['paint_line']['line-gradient'])
+        "line-opacity": new DataDrivenProperty(StyleSpec["paint_line"]["line-opacity"]),
+        "line-color": new DataDrivenProperty(StyleSpec["paint_line"]["line-color"]),
+        "line-translate": new DataConstantProperty(StyleSpec["paint_line"]["line-translate"]),
+        "line-translate-anchor": new DataConstantProperty(StyleSpec["paint_line"]["line-translate-anchor"]),
+        "line-width": new DataDrivenProperty(StyleSpec["paint_line"]["line-width"]),
+        "line-gap-width": new DataDrivenProperty(StyleSpec["paint_line"]["line-gap-width"]),
+        "line-offset": new DataDrivenProperty(StyleSpec["paint_line"]["line-offset"]),
+        "line-blur": new DataDrivenProperty(StyleSpec["paint_line"]["line-blur"]),
+        "line-dasharray": new CrossFadedProperty(StyleSpec["paint_line"]["line-dasharray"]),
+        "line-pattern": new CrossFadedDataDrivenProperty(StyleSpec["paint_line"]["line-pattern"]),
+        "line-gradient": new ColorRampProperty(StyleSpec["paint_line"]["line-gradient"])
     });
 
     // Note: without adding the explicit type annotation, Flow infers weaker types
@@ -15907,7 +15917,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
         function getKey(text, geom, onRight) {
             var point = onRight ? geom[0][geom[0].length - 1] : geom[0][0];
-            return (text + ':' + (point.x) + ':' + (point.y));
+            return (text + ":" + (point.x) + ":" + (point.y));
         }
 
         for (var k = 0; k < features.length; k++) {
@@ -15989,7 +15999,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
 
     var SectionOptions = function SectionOptions() {
         this.scale = 1.0;
-        this.fontStack = '';
+        this.fontStack = "";
         this.imageName = null;
     };
 
@@ -16007,7 +16017,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     };
 
     var TaggedString = function TaggedString() {
-        this.text = '';
+        this.text = "";
         this.sectionIndex = [];
         this.sections = [];
         this.imageSectionID = null;
@@ -17882,69 +17892,69 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
     var FormattedType$4 = {kind: 'formatted'};
 
     var layout$7 = new Properties({
-        'symbol-placement': new DataConstantProperty(StyleSpec['layout_symbol']['symbol-placement']),
-        'symbol-spacing': new DataConstantProperty(StyleSpec['layout_symbol']['symbol-spacing']),
-        'symbol-avoid-edges': new DataConstantProperty(StyleSpec['layout_symbol']['symbol-avoid-edges']),
-        'symbol-sort-key': new DataDrivenProperty(StyleSpec['layout_symbol']['symbol-sort-key']),
-        'symbol-z-order': new DataConstantProperty(StyleSpec['layout_symbol']['symbol-z-order']),
-        'icon-allow-overlap': new DataConstantProperty(StyleSpec['layout_symbol']['icon-allow-overlap']),
-        'icon-ignore-placement': new DataConstantProperty(StyleSpec['layout_symbol']['icon-ignore-placement']),
-        'icon-optional': new DataConstantProperty(StyleSpec['layout_symbol']['icon-optional']),
-        'icon-rotation-alignment': new DataConstantProperty(StyleSpec['layout_symbol']['icon-rotation-alignment']),
-        'icon-size': new DataDrivenProperty(StyleSpec['layout_symbol']['icon-size']),
-        'icon-text-fit': new DataConstantProperty(StyleSpec['layout_symbol']['icon-text-fit']),
-        'icon-text-fit-padding': new DataConstantProperty(StyleSpec['layout_symbol']['icon-text-fit-padding']),
-        'icon-image': new DataDrivenProperty(StyleSpec['layout_symbol']['icon-image']),
-        'icon-rotate': new DataDrivenProperty(StyleSpec['layout_symbol']['icon-rotate']),
-        'icon-padding': new DataConstantProperty(StyleSpec['layout_symbol']['icon-padding']),
-        'icon-keep-upright': new DataConstantProperty(StyleSpec['layout_symbol']['icon-keep-upright']),
-        'icon-offset': new DataDrivenProperty(StyleSpec['layout_symbol']['icon-offset']),
-        'icon-anchor': new DataDrivenProperty(StyleSpec['layout_symbol']['icon-anchor']),
-        'icon-pitch-alignment': new DataConstantProperty(StyleSpec['layout_symbol']['icon-pitch-alignment']),
-        'text-pitch-alignment': new DataConstantProperty(StyleSpec['layout_symbol']['text-pitch-alignment']),
-        'text-rotation-alignment': new DataConstantProperty(StyleSpec['layout_symbol']['text-rotation-alignment']),
-        'text-field': new DataDrivenProperty(StyleSpec['layout_symbol']['text-field']),
-        'text-font': new DataDrivenProperty(StyleSpec['layout_symbol']['text-font']),
-        'text-size': new DataDrivenProperty(StyleSpec['layout_symbol']['text-size']),
-        'text-max-width': new DataDrivenProperty(StyleSpec['layout_symbol']['text-max-width']),
-        'text-line-height': new DataConstantProperty(StyleSpec['layout_symbol']['text-line-height']),
-        'text-letter-spacing': new DataDrivenProperty(StyleSpec['layout_symbol']['text-letter-spacing']),
-        'text-justify': new DataDrivenProperty(StyleSpec['layout_symbol']['text-justify']),
-        'text-radial-offset': new DataDrivenProperty(StyleSpec['layout_symbol']['text-radial-offset']),
-        'text-variable-anchor': new DataConstantProperty(StyleSpec['layout_symbol']['text-variable-anchor']),
-        'text-anchor': new DataDrivenProperty(StyleSpec['layout_symbol']['text-anchor']),
-        'text-max-angle': new DataConstantProperty(StyleSpec['layout_symbol']['text-max-angle']),
-        'text-writing-mode': new DataConstantProperty(StyleSpec['layout_symbol']['text-writing-mode']),
-        'text-rotate': new DataDrivenProperty(StyleSpec['layout_symbol']['text-rotate']),
-        'text-padding': new DataConstantProperty(StyleSpec['layout_symbol']['text-padding']),
-        'text-keep-upright': new DataConstantProperty(StyleSpec['layout_symbol']['text-keep-upright']),
-        'text-transform': new DataDrivenProperty(StyleSpec['layout_symbol']['text-transform']),
-        'text-offset': new DataDrivenProperty(StyleSpec['layout_symbol']['text-offset']),
-        'text-allow-overlap': new DataConstantProperty(StyleSpec['layout_symbol']['text-allow-overlap']),
-        'text-ignore-placement': new DataConstantProperty(StyleSpec['layout_symbol']['text-ignore-placement']),
-        'text-optional': new DataConstantProperty(StyleSpec['layout_symbol']['text-optional'])
+        "symbol-placement": new DataConstantProperty(StyleSpec["layout_symbol"]["symbol-placement"]),
+        "symbol-spacing": new DataConstantProperty(StyleSpec["layout_symbol"]["symbol-spacing"]),
+        "symbol-avoid-edges": new DataConstantProperty(StyleSpec["layout_symbol"]["symbol-avoid-edges"]),
+        "symbol-sort-key": new DataDrivenProperty(StyleSpec["layout_symbol"]["symbol-sort-key"]),
+        "symbol-z-order": new DataConstantProperty(StyleSpec["layout_symbol"]["symbol-z-order"]),
+        "icon-allow-overlap": new DataConstantProperty(StyleSpec["layout_symbol"]["icon-allow-overlap"]),
+        "icon-ignore-placement": new DataConstantProperty(StyleSpec["layout_symbol"]["icon-ignore-placement"]),
+        "icon-optional": new DataConstantProperty(StyleSpec["layout_symbol"]["icon-optional"]),
+        "icon-rotation-alignment": new DataConstantProperty(StyleSpec["layout_symbol"]["icon-rotation-alignment"]),
+        "icon-size": new DataDrivenProperty(StyleSpec["layout_symbol"]["icon-size"]),
+        "icon-text-fit": new DataConstantProperty(StyleSpec["layout_symbol"]["icon-text-fit"]),
+        "icon-text-fit-padding": new DataConstantProperty(StyleSpec["layout_symbol"]["icon-text-fit-padding"]),
+        "icon-image": new DataDrivenProperty(StyleSpec["layout_symbol"]["icon-image"]),
+        "icon-rotate": new DataDrivenProperty(StyleSpec["layout_symbol"]["icon-rotate"]),
+        "icon-padding": new DataConstantProperty(StyleSpec["layout_symbol"]["icon-padding"]),
+        "icon-keep-upright": new DataConstantProperty(StyleSpec["layout_symbol"]["icon-keep-upright"]),
+        "icon-offset": new DataDrivenProperty(StyleSpec["layout_symbol"]["icon-offset"]),
+        "icon-anchor": new DataDrivenProperty(StyleSpec["layout_symbol"]["icon-anchor"]),
+        "icon-pitch-alignment": new DataConstantProperty(StyleSpec["layout_symbol"]["icon-pitch-alignment"]),
+        "text-pitch-alignment": new DataConstantProperty(StyleSpec["layout_symbol"]["text-pitch-alignment"]),
+        "text-rotation-alignment": new DataConstantProperty(StyleSpec["layout_symbol"]["text-rotation-alignment"]),
+        "text-field": new DataDrivenProperty(StyleSpec["layout_symbol"]["text-field"]),
+        "text-font": new DataDrivenProperty(StyleSpec["layout_symbol"]["text-font"]),
+        "text-size": new DataDrivenProperty(StyleSpec["layout_symbol"]["text-size"]),
+        "text-max-width": new DataDrivenProperty(StyleSpec["layout_symbol"]["text-max-width"]),
+        "text-line-height": new DataConstantProperty(StyleSpec["layout_symbol"]["text-line-height"]),
+        "text-letter-spacing": new DataDrivenProperty(StyleSpec["layout_symbol"]["text-letter-spacing"]),
+        "text-justify": new DataDrivenProperty(StyleSpec["layout_symbol"]["text-justify"]),
+        "text-radial-offset": new DataDrivenProperty(StyleSpec["layout_symbol"]["text-radial-offset"]),
+        "text-variable-anchor": new DataConstantProperty(StyleSpec["layout_symbol"]["text-variable-anchor"]),
+        "text-anchor": new DataDrivenProperty(StyleSpec["layout_symbol"]["text-anchor"]),
+        "text-max-angle": new DataConstantProperty(StyleSpec["layout_symbol"]["text-max-angle"]),
+        "text-writing-mode": new DataConstantProperty(StyleSpec["layout_symbol"]["text-writing-mode"]),
+        "text-rotate": new DataDrivenProperty(StyleSpec["layout_symbol"]["text-rotate"]),
+        "text-padding": new DataConstantProperty(StyleSpec["layout_symbol"]["text-padding"]),
+        "text-keep-upright": new DataConstantProperty(StyleSpec["layout_symbol"]["text-keep-upright"]),
+        "text-transform": new DataDrivenProperty(StyleSpec["layout_symbol"]["text-transform"]),
+        "text-offset": new DataDrivenProperty(StyleSpec["layout_symbol"]["text-offset"]),
+        "text-allow-overlap": new DataConstantProperty(StyleSpec["layout_symbol"]["text-allow-overlap"]),
+        "text-ignore-placement": new DataConstantProperty(StyleSpec["layout_symbol"]["text-ignore-placement"]),
+        "text-optional": new DataConstantProperty(StyleSpec["layout_symbol"]["text-optional"])
     });
 
 
     var paint$7 = new Properties({
-        'icon-opacity': new DataDrivenProperty(StyleSpec['paint_symbol']['icon-opacity']),
-        'icon-color': new DataDrivenProperty(StyleSpec['paint_symbol']['icon-color']),
-        'icon-halo-color': new DataDrivenProperty(StyleSpec['paint_symbol']['icon-halo-color']),
-        'icon-halo-width': new DataDrivenProperty(StyleSpec['paint_symbol']['icon-halo-width']),
-        'icon-halo-blur': new DataDrivenProperty(StyleSpec['paint_symbol']['icon-halo-blur']),
-        'icon-translate': new DataConstantProperty(StyleSpec['paint_symbol']['icon-translate']),
-        'icon-translate-anchor': new DataConstantProperty(StyleSpec['paint_symbol']['icon-translate-anchor']),
-        'text-opacity': new DataDrivenProperty(StyleSpec['paint_symbol']['text-opacity']),
-        'text-color': new DataDrivenProperty(StyleSpec['paint_symbol']['text-color'], { runtimeType: ColorType$7, getOverride: function (o) {
+        "icon-opacity": new DataDrivenProperty(StyleSpec["paint_symbol"]["icon-opacity"]),
+        "icon-color": new DataDrivenProperty(StyleSpec["paint_symbol"]["icon-color"]),
+        "icon-halo-color": new DataDrivenProperty(StyleSpec["paint_symbol"]["icon-halo-color"]),
+        "icon-halo-width": new DataDrivenProperty(StyleSpec["paint_symbol"]["icon-halo-width"]),
+        "icon-halo-blur": new DataDrivenProperty(StyleSpec["paint_symbol"]["icon-halo-blur"]),
+        "icon-translate": new DataConstantProperty(StyleSpec["paint_symbol"]["icon-translate"]),
+        "icon-translate-anchor": new DataConstantProperty(StyleSpec["paint_symbol"]["icon-translate-anchor"]),
+        "text-opacity": new DataDrivenProperty(StyleSpec["paint_symbol"]["text-opacity"]),
+        "text-color": new DataDrivenProperty(StyleSpec["paint_symbol"]["text-color"], { runtimeType: ColorType$7, getOverride: function (o) {
             return o.textColor;
         }, hasOverride: function (o) {
             return !!o.textColor;
         } }),
-        'text-halo-color': new DataDrivenProperty(StyleSpec['paint_symbol']['text-halo-color']),
-        'text-halo-width': new DataDrivenProperty(StyleSpec['paint_symbol']['text-halo-width']),
-        'text-halo-blur': new DataDrivenProperty(StyleSpec['paint_symbol']['text-halo-blur']),
-        'text-translate': new DataConstantProperty(StyleSpec['paint_symbol']['text-translate']),
-        'text-translate-anchor': new DataConstantProperty(StyleSpec['paint_symbol']['text-translate-anchor'])
+        "text-halo-color": new DataDrivenProperty(StyleSpec["paint_symbol"]["text-halo-color"]),
+        "text-halo-width": new DataDrivenProperty(StyleSpec["paint_symbol"]["text-halo-width"]),
+        "text-halo-blur": new DataDrivenProperty(StyleSpec["paint_symbol"]["text-halo-blur"]),
+        "text-translate": new DataConstantProperty(StyleSpec["paint_symbol"]["text-translate"]),
+        "text-translate-anchor": new DataConstantProperty(StyleSpec["paint_symbol"]["text-translate-anchor"])
     });
 
     // Note: without adding the explicit type annotation, Flow infers weaker types
@@ -18237,6 +18247,7 @@ define(['./when-8d13db60', './createTaskProcessorWorker', './earcut-2.2.1-b404d9
         }
         catch (err) {
         }
+        result.pickId = parameters.pickId;
         return result;
     }
 

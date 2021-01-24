@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml>
+  <Document>
+    <Placemark>
+      <name>旗忠网球中心西场馆</name>
+      <visibility>1</visibility>
+      <Polygon>
+        <altitudeMode>clampToGround</altitudeMode>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>
+              121.350426139,31.0419908543,0
+              121.3513271993,31.0419769359,0
+              121.3513616261,31.0409413785,0
+              121.350402672,31.0409645938,0
+              121.350426139,31.0419908543,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>
+

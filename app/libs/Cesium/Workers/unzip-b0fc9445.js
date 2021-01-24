@@ -1,7 +1,7 @@
 /**
- * Cesium - https://github.com/AnalyticalGraphicsInc/cesium
+ * Cesium - https://github.com/CesiumGS/cesium
  *
- * Copyright 2011-2017 Cesium Contributors
+ * Copyright 2011-2020 Cesium Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  * Columbus View (Pat. Pend.)
  *
  * Portions licensed separately.
- * See https://github.com/AnalyticalGraphicsInc/cesium/blob/master/LICENSE.md for full licensing details.
+ * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
 define(['exports'], function (exports) { 'use strict';
 
@@ -286,10 +286,10 @@ define(['exports'], function (exports) { 'use strict';
 		}
 
 		var asm2wasmImports = { // special asm2wasm imports
-			'f64-rem': function(x, y) {
+			"f64-rem": function(x, y) {
 				return x % y;
 			},
-			'debugger': function() {
+			"debugger": function() {
 				debugger;
 			}
 		};
@@ -871,8 +871,8 @@ define(['exports'], function (exports) { 'use strict';
 		  }
 		}
 
-		Module['preloadedImages'] = {}; // maps url to image data
-		Module['preloadedAudios'] = {}; // maps url to audio data
+		Module["preloadedImages"] = {}; // maps url to image data
+		Module["preloadedAudios"] = {}; // maps url to audio data
 
 
 
@@ -929,7 +929,7 @@ define(['exports'], function (exports) { 'use strict';
 			if (Module['readBinary']) {
 			  return Module['readBinary'](wasmBinaryFile);
 			} else {
-			  throw 'both async and sync fetching of the wasm failed';
+			  throw "both async and sync fetching of the wasm failed";
 			}
 		  }
 		  catch (err) {
@@ -943,7 +943,7 @@ define(['exports'], function (exports) { 'use strict';
 		  if (!Module['wasmBinary'] && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) && typeof fetch === 'function') {
 			return fetch(wasmBinaryFile, { credentials: 'same-origin' }).then(function(response) {
 			  if (!response['ok']) {
-				throw 'failed to load wasm binary file at \'' + wasmBinaryFile + '\'';
+				throw "failed to load wasm binary file at '" + wasmBinaryFile + "'";
 			  }
 			  return response['arrayBuffer']();
 			}).catch(function () {
@@ -1129,7 +1129,7 @@ define(['exports'], function (exports) { 'use strict';
 		  
 		  function flush_NO_FILESYSTEM() {
 			  // flush anything remaining in the buffers during shutdown
-			  var fflush = Module['_fflush'];
+			  var fflush = Module["_fflush"];
 			  if (fflush) fflush(0);
 			  var buffers = SYSCALLS.buffers;
 			  if (buffers[1].length) SYSCALLS.printChar(1, 10);
@@ -1276,241 +1276,241 @@ define(['exports'], function (exports) { 'use strict';
 		// ASM_LIBRARY EXTERN PRIMITIVES: Int8Array,Int32Array
 
 
-		function nullFunc_ii(x) { err('Invalid function pointer called with signature \'ii\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+		function nullFunc_ii(x) { err("Invalid function pointer called with signature 'ii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
-		function nullFunc_iiii(x) { err('Invalid function pointer called with signature \'iiii\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+		function nullFunc_iiii(x) { err("Invalid function pointer called with signature 'iiii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
-		function nullFunc_jiji(x) { err('Invalid function pointer called with signature \'jiji\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+		function nullFunc_jiji(x) { err("Invalid function pointer called with signature 'jiji'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
-		function nullFunc_vii(x) { err('Invalid function pointer called with signature \'vii\'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)');  err('Build with ASSERTIONS=2 for more info.');abort(x); }
+		function nullFunc_vii(x) { err("Invalid function pointer called with signature 'vii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  err("Build with ASSERTIONS=2 for more info.");abort(x); }
 
 		var asmGlobalArg = {};
 
 		var asmLibraryArg = {
-		  'abort': abort,
-		  'setTempRet0': setTempRet0,
-		  'getTempRet0': getTempRet0,
-		  'abortStackOverflow': abortStackOverflow,
-		  'nullFunc_ii': nullFunc_ii,
-		  'nullFunc_iiii': nullFunc_iiii,
-		  'nullFunc_jiji': nullFunc_jiji,
-		  'nullFunc_vii': nullFunc_vii,
-		  '___lock': ___lock,
-		  '___setErrNo': ___setErrNo,
-		  '___syscall140': ___syscall140,
-		  '___syscall146': ___syscall146,
-		  '___syscall54': ___syscall54,
-		  '___syscall6': ___syscall6,
-		  '___unlock': ___unlock,
-		  '_emscripten_get_heap_size': _emscripten_get_heap_size,
-		  '_emscripten_memcpy_big': _emscripten_memcpy_big,
-		  '_emscripten_resize_heap': _emscripten_resize_heap,
-		  'abortOnCannotGrowMemory': abortOnCannotGrowMemory,
-		  'emscripten_realloc_buffer': emscripten_realloc_buffer,
-		  'flush_NO_FILESYSTEM': flush_NO_FILESYSTEM,
-		  'tempDoublePtr': tempDoublePtr,
-		  'DYNAMICTOP_PTR': DYNAMICTOP_PTR
+		  "abort": abort,
+		  "setTempRet0": setTempRet0,
+		  "getTempRet0": getTempRet0,
+		  "abortStackOverflow": abortStackOverflow,
+		  "nullFunc_ii": nullFunc_ii,
+		  "nullFunc_iiii": nullFunc_iiii,
+		  "nullFunc_jiji": nullFunc_jiji,
+		  "nullFunc_vii": nullFunc_vii,
+		  "___lock": ___lock,
+		  "___setErrNo": ___setErrNo,
+		  "___syscall140": ___syscall140,
+		  "___syscall146": ___syscall146,
+		  "___syscall54": ___syscall54,
+		  "___syscall6": ___syscall6,
+		  "___unlock": ___unlock,
+		  "_emscripten_get_heap_size": _emscripten_get_heap_size,
+		  "_emscripten_memcpy_big": _emscripten_memcpy_big,
+		  "_emscripten_resize_heap": _emscripten_resize_heap,
+		  "abortOnCannotGrowMemory": abortOnCannotGrowMemory,
+		  "emscripten_realloc_buffer": emscripten_realloc_buffer,
+		  "flush_NO_FILESYSTEM": flush_NO_FILESYSTEM,
+		  "tempDoublePtr": tempDoublePtr,
+		  "DYNAMICTOP_PTR": DYNAMICTOP_PTR
 		};
 		// EMSCRIPTEN_START_ASM
-		var asm =Module['asm']// EMSCRIPTEN_END_ASM
+		var asm =Module["asm"]// EMSCRIPTEN_END_ASM
 		(asmGlobalArg, asmLibraryArg, buffer);
 
-		var real____errno_location = asm['___errno_location'];
-		asm['___errno_location'] = function() {
+		var real____errno_location = asm["___errno_location"];
+		asm["___errno_location"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
 		  return real____errno_location.apply(null, arguments);
 		};
 
-		var real__fflush = asm['_fflush'];
-		asm['_fflush'] = function() {
+		var real__fflush = asm["_fflush"];
+		asm["_fflush"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
 		  return real__fflush.apply(null, arguments);
 		};
 
-		var real__free = asm['_free'];
-		asm['_free'] = function() {
+		var real__free = asm["_free"];
+		asm["_free"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
 		  return real__free.apply(null, arguments);
 		};
 
-		var real__freePointer = asm['_freePointer'];
-		asm['_freePointer'] = function() {
+		var real__freePointer = asm["_freePointer"];
+		asm["_freePointer"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
 		  return real__freePointer.apply(null, arguments);
 		};
 
-		var real__llvm_bswap_i32 = asm['_llvm_bswap_i32'];
-		asm['_llvm_bswap_i32'] = function() {
+		var real__llvm_bswap_i32 = asm["_llvm_bswap_i32"];
+		asm["_llvm_bswap_i32"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
 		  return real__llvm_bswap_i32.apply(null, arguments);
 		};
 
-		var real__malloc = asm['_malloc'];
-		asm['_malloc'] = function() {
+		var real__malloc = asm["_malloc"];
+		asm["_malloc"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
 		  return real__malloc.apply(null, arguments);
 		};
 
-		var real__sbrk = asm['_sbrk'];
-		asm['_sbrk'] = function() {
+		var real__sbrk = asm["_sbrk"];
+		asm["_sbrk"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
 		  return real__sbrk.apply(null, arguments);
 		};
 
-		var real__unzip = asm['_unzip'];
-		asm['_unzip'] = function() {
+		var real__unzip = asm["_unzip"];
+		asm["_unzip"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
 		  return real__unzip.apply(null, arguments);
 		};
 
-		var real_establishStackSpace = asm['establishStackSpace'];
-		asm['establishStackSpace'] = function() {
+		var real_establishStackSpace = asm["establishStackSpace"];
+		asm["establishStackSpace"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
 		  return real_establishStackSpace.apply(null, arguments);
 		};
 
-		var real_stackAlloc = asm['stackAlloc'];
-		asm['stackAlloc'] = function() {
+		var real_stackAlloc = asm["stackAlloc"];
+		asm["stackAlloc"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
 		  return real_stackAlloc.apply(null, arguments);
 		};
 
-		var real_stackRestore = asm['stackRestore'];
-		asm['stackRestore'] = function() {
+		var real_stackRestore = asm["stackRestore"];
+		asm["stackRestore"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
 		  return real_stackRestore.apply(null, arguments);
 		};
 
-		var real_stackSave = asm['stackSave'];
-		asm['stackSave'] = function() {
+		var real_stackSave = asm["stackSave"];
+		asm["stackSave"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
 		  return real_stackSave.apply(null, arguments);
 		};
-		Module['asm'] = asm;
-		var ___errno_location = Module['___errno_location'] = function() {
+		Module["asm"] = asm;
+		var ___errno_location = Module["___errno_location"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['___errno_location'].apply(null, arguments)
+		  return Module["asm"]["___errno_location"].apply(null, arguments)
 		};
 
-		var _emscripten_replace_memory = Module['_emscripten_replace_memory'] = function() {
+		var _emscripten_replace_memory = Module["_emscripten_replace_memory"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['_emscripten_replace_memory'].apply(null, arguments)
+		  return Module["asm"]["_emscripten_replace_memory"].apply(null, arguments)
 		};
 
-		var _fflush = Module['_fflush'] = function() {
+		var _fflush = Module["_fflush"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['_fflush'].apply(null, arguments)
+		  return Module["asm"]["_fflush"].apply(null, arguments)
 		};
 
-		var _free = Module['_free'] = function() {
+		var _free = Module["_free"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['_free'].apply(null, arguments)
+		  return Module["asm"]["_free"].apply(null, arguments)
 		};
 
-		var _freePointer = Module['_freePointer'] = function() {
+		var _freePointer = Module["_freePointer"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['_freePointer'].apply(null, arguments)
+		  return Module["asm"]["_freePointer"].apply(null, arguments)
 		};
 
-		var _llvm_bswap_i32 = Module['_llvm_bswap_i32'] = function() {
+		var _llvm_bswap_i32 = Module["_llvm_bswap_i32"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['_llvm_bswap_i32'].apply(null, arguments)
+		  return Module["asm"]["_llvm_bswap_i32"].apply(null, arguments)
 		};
 
-		var _malloc = Module['_malloc'] = function() {
+		var _malloc = Module["_malloc"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['_malloc'].apply(null, arguments)
+		  return Module["asm"]["_malloc"].apply(null, arguments)
 		};
 
-		var _memcpy = Module['_memcpy'] = function() {
+		var _memcpy = Module["_memcpy"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['_memcpy'].apply(null, arguments)
+		  return Module["asm"]["_memcpy"].apply(null, arguments)
 		};
 
-		var _memset = Module['_memset'] = function() {
+		var _memset = Module["_memset"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['_memset'].apply(null, arguments)
+		  return Module["asm"]["_memset"].apply(null, arguments)
 		};
 
-		var _sbrk = Module['_sbrk'] = function() {
+		var _sbrk = Module["_sbrk"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['_sbrk'].apply(null, arguments)
+		  return Module["asm"]["_sbrk"].apply(null, arguments)
 		};
 
-		var _unzip = Module['_unzip'] = function() {
+		var _unzip = Module["_unzip"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['_unzip'].apply(null, arguments)
+		  return Module["asm"]["_unzip"].apply(null, arguments)
 		};
 
-		var establishStackSpace = Module['establishStackSpace'] = function() {
+		var establishStackSpace = Module["establishStackSpace"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['establishStackSpace'].apply(null, arguments)
+		  return Module["asm"]["establishStackSpace"].apply(null, arguments)
 		};
 
-		var stackAlloc = Module['stackAlloc'] = function() {
+		var stackAlloc = Module["stackAlloc"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['stackAlloc'].apply(null, arguments)
+		  return Module["asm"]["stackAlloc"].apply(null, arguments)
 		};
 
-		var stackRestore = Module['stackRestore'] = function() {
+		var stackRestore = Module["stackRestore"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['stackRestore'].apply(null, arguments)
+		  return Module["asm"]["stackRestore"].apply(null, arguments)
 		};
 
-		var stackSave = Module['stackSave'] = function() {
+		var stackSave = Module["stackSave"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['stackSave'].apply(null, arguments)
+		  return Module["asm"]["stackSave"].apply(null, arguments)
 		};
 
-		var dynCall_ii = Module['dynCall_ii'] = function() {
+		var dynCall_ii = Module["dynCall_ii"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['dynCall_ii'].apply(null, arguments)
+		  return Module["asm"]["dynCall_ii"].apply(null, arguments)
 		};
 
-		var dynCall_iiii = Module['dynCall_iiii'] = function() {
+		var dynCall_iiii = Module["dynCall_iiii"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['dynCall_iiii'].apply(null, arguments)
+		  return Module["asm"]["dynCall_iiii"].apply(null, arguments)
 		};
 
-		var dynCall_jiji = Module['dynCall_jiji'] = function() {
+		var dynCall_jiji = Module["dynCall_jiji"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['dynCall_jiji'].apply(null, arguments)
+		  return Module["asm"]["dynCall_jiji"].apply(null, arguments)
 		};
 
-		var dynCall_vii = Module['dynCall_vii'] = function() {
+		var dynCall_vii = Module["dynCall_vii"] = function() {
 		  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
 		  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-		  return Module['asm']['dynCall_vii'].apply(null, arguments)
+		  return Module["asm"]["dynCall_vii"].apply(null, arguments)
 		};
 
 
@@ -1519,77 +1519,77 @@ define(['exports'], function (exports) { 'use strict';
 
 		Module['asm'] = asm;
 
-		if (!Module['intArrayFromString']) Module['intArrayFromString'] = function() { abort('\'intArrayFromString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['intArrayToString']) Module['intArrayToString'] = function() { abort('\'intArrayToString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		Module['ccall'] = ccall;
-		Module['cwrap'] = cwrap;
-		if (!Module['setValue']) Module['setValue'] = function() { abort('\'setValue\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		Module['getValue'] = getValue;
-		if (!Module['allocate']) Module['allocate'] = function() { abort('\'allocate\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['getMemory']) Module['getMemory'] = function() { abort('\'getMemory\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-		if (!Module['AsciiToString']) Module['AsciiToString'] = function() { abort('\'AsciiToString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['stringToAscii']) Module['stringToAscii'] = function() { abort('\'stringToAscii\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['UTF8ArrayToString']) Module['UTF8ArrayToString'] = function() { abort('\'UTF8ArrayToString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['UTF8ToString']) Module['UTF8ToString'] = function() { abort('\'UTF8ToString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['stringToUTF8Array']) Module['stringToUTF8Array'] = function() { abort('\'stringToUTF8Array\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['stringToUTF8']) Module['stringToUTF8'] = function() { abort('\'stringToUTF8\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['lengthBytesUTF8']) Module['lengthBytesUTF8'] = function() { abort('\'lengthBytesUTF8\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['UTF16ToString']) Module['UTF16ToString'] = function() { abort('\'UTF16ToString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['stringToUTF16']) Module['stringToUTF16'] = function() { abort('\'stringToUTF16\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['lengthBytesUTF16']) Module['lengthBytesUTF16'] = function() { abort('\'lengthBytesUTF16\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['UTF32ToString']) Module['UTF32ToString'] = function() { abort('\'UTF32ToString\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['stringToUTF32']) Module['stringToUTF32'] = function() { abort('\'stringToUTF32\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['lengthBytesUTF32']) Module['lengthBytesUTF32'] = function() { abort('\'lengthBytesUTF32\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['allocateUTF8']) Module['allocateUTF8'] = function() { abort('\'allocateUTF8\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['stackTrace']) Module['stackTrace'] = function() { abort('\'stackTrace\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['addOnPreRun']) Module['addOnPreRun'] = function() { abort('\'addOnPreRun\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['addOnInit']) Module['addOnInit'] = function() { abort('\'addOnInit\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['addOnPreMain']) Module['addOnPreMain'] = function() { abort('\'addOnPreMain\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['addOnExit']) Module['addOnExit'] = function() { abort('\'addOnExit\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['addOnPostRun']) Module['addOnPostRun'] = function() { abort('\'addOnPostRun\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['writeStringToMemory']) Module['writeStringToMemory'] = function() { abort('\'writeStringToMemory\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['writeArrayToMemory']) Module['writeArrayToMemory'] = function() { abort('\'writeArrayToMemory\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['writeAsciiToMemory']) Module['writeAsciiToMemory'] = function() { abort('\'writeAsciiToMemory\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['addRunDependency']) Module['addRunDependency'] = function() { abort('\'addRunDependency\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-		if (!Module['removeRunDependency']) Module['removeRunDependency'] = function() { abort('\'removeRunDependency\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-		if (!Module['ENV']) Module['ENV'] = function() { abort('\'ENV\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['FS']) Module['FS'] = function() { abort('\'FS\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['FS_createFolder']) Module['FS_createFolder'] = function() { abort('\'FS_createFolder\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-		if (!Module['FS_createPath']) Module['FS_createPath'] = function() { abort('\'FS_createPath\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-		if (!Module['FS_createDataFile']) Module['FS_createDataFile'] = function() { abort('\'FS_createDataFile\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-		if (!Module['FS_createPreloadedFile']) Module['FS_createPreloadedFile'] = function() { abort('\'FS_createPreloadedFile\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-		if (!Module['FS_createLazyFile']) Module['FS_createLazyFile'] = function() { abort('\'FS_createLazyFile\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-		if (!Module['FS_createLink']) Module['FS_createLink'] = function() { abort('\'FS_createLink\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-		if (!Module['FS_createDevice']) Module['FS_createDevice'] = function() { abort('\'FS_createDevice\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-		if (!Module['FS_unlink']) Module['FS_unlink'] = function() { abort('\'FS_unlink\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you'); };
-		if (!Module['GL']) Module['GL'] = function() { abort('\'GL\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['dynamicAlloc']) Module['dynamicAlloc'] = function() { abort('\'dynamicAlloc\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['warnOnce']) Module['warnOnce'] = function() { abort('\'warnOnce\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['loadDynamicLibrary']) Module['loadDynamicLibrary'] = function() { abort('\'loadDynamicLibrary\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['loadWebAssemblyModule']) Module['loadWebAssemblyModule'] = function() { abort('\'loadWebAssemblyModule\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['getLEB']) Module['getLEB'] = function() { abort('\'getLEB\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['getFunctionTables']) Module['getFunctionTables'] = function() { abort('\'getFunctionTables\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['alignFunctionTables']) Module['alignFunctionTables'] = function() { abort('\'alignFunctionTables\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['registerFunctions']) Module['registerFunctions'] = function() { abort('\'registerFunctions\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['addFunction']) Module['addFunction'] = function() { abort('\'addFunction\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['removeFunction']) Module['removeFunction'] = function() { abort('\'removeFunction\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['getFuncWrapper']) Module['getFuncWrapper'] = function() { abort('\'getFuncWrapper\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['prettyPrint']) Module['prettyPrint'] = function() { abort('\'prettyPrint\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['makeBigInt']) Module['makeBigInt'] = function() { abort('\'makeBigInt\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['dynCall']) Module['dynCall'] = function() { abort('\'dynCall\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['getCompilerSetting']) Module['getCompilerSetting'] = function() { abort('\'getCompilerSetting\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['stackSave']) Module['stackSave'] = function() { abort('\'stackSave\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['stackRestore']) Module['stackRestore'] = function() { abort('\'stackRestore\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['stackAlloc']) Module['stackAlloc'] = function() { abort('\'stackAlloc\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['establishStackSpace']) Module['establishStackSpace'] = function() { abort('\'establishStackSpace\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['print']) Module['print'] = function() { abort('\'print\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['printErr']) Module['printErr'] = function() { abort('\'printErr\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['getTempRet0']) Module['getTempRet0'] = function() { abort('\'getTempRet0\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['setTempRet0']) Module['setTempRet0'] = function() { abort('\'setTempRet0\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };
-		if (!Module['Pointer_stringify']) Module['Pointer_stringify'] = function() { abort('\'Pointer_stringify\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); };if (!Module['ALLOC_NORMAL']) Object.defineProperty(Module, 'ALLOC_NORMAL', { get: function() { abort('\'ALLOC_NORMAL\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); } });
-		if (!Module['ALLOC_STACK']) Object.defineProperty(Module, 'ALLOC_STACK', { get: function() { abort('\'ALLOC_STACK\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); } });
-		if (!Module['ALLOC_DYNAMIC']) Object.defineProperty(Module, 'ALLOC_DYNAMIC', { get: function() { abort('\'ALLOC_DYNAMIC\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); } });
-		if (!Module['ALLOC_NONE']) Object.defineProperty(Module, 'ALLOC_NONE', { get: function() { abort('\'ALLOC_NONE\' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)'); } });
+		if (!Module["intArrayFromString"]) Module["intArrayFromString"] = function() { abort("'intArrayFromString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["intArrayToString"]) Module["intArrayToString"] = function() { abort("'intArrayToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		Module["ccall"] = ccall;
+		Module["cwrap"] = cwrap;
+		if (!Module["setValue"]) Module["setValue"] = function() { abort("'setValue' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		Module["getValue"] = getValue;
+		if (!Module["allocate"]) Module["allocate"] = function() { abort("'allocate' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["getMemory"]) Module["getMemory"] = function() { abort("'getMemory' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+		if (!Module["AsciiToString"]) Module["AsciiToString"] = function() { abort("'AsciiToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["stringToAscii"]) Module["stringToAscii"] = function() { abort("'stringToAscii' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["UTF8ArrayToString"]) Module["UTF8ArrayToString"] = function() { abort("'UTF8ArrayToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["UTF8ToString"]) Module["UTF8ToString"] = function() { abort("'UTF8ToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["stringToUTF8Array"]) Module["stringToUTF8Array"] = function() { abort("'stringToUTF8Array' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["stringToUTF8"]) Module["stringToUTF8"] = function() { abort("'stringToUTF8' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["lengthBytesUTF8"]) Module["lengthBytesUTF8"] = function() { abort("'lengthBytesUTF8' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["UTF16ToString"]) Module["UTF16ToString"] = function() { abort("'UTF16ToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["stringToUTF16"]) Module["stringToUTF16"] = function() { abort("'stringToUTF16' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["lengthBytesUTF16"]) Module["lengthBytesUTF16"] = function() { abort("'lengthBytesUTF16' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["UTF32ToString"]) Module["UTF32ToString"] = function() { abort("'UTF32ToString' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["stringToUTF32"]) Module["stringToUTF32"] = function() { abort("'stringToUTF32' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["lengthBytesUTF32"]) Module["lengthBytesUTF32"] = function() { abort("'lengthBytesUTF32' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["allocateUTF8"]) Module["allocateUTF8"] = function() { abort("'allocateUTF8' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["stackTrace"]) Module["stackTrace"] = function() { abort("'stackTrace' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["addOnPreRun"]) Module["addOnPreRun"] = function() { abort("'addOnPreRun' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["addOnInit"]) Module["addOnInit"] = function() { abort("'addOnInit' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["addOnPreMain"]) Module["addOnPreMain"] = function() { abort("'addOnPreMain' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["addOnExit"]) Module["addOnExit"] = function() { abort("'addOnExit' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["addOnPostRun"]) Module["addOnPostRun"] = function() { abort("'addOnPostRun' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["writeStringToMemory"]) Module["writeStringToMemory"] = function() { abort("'writeStringToMemory' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["writeArrayToMemory"]) Module["writeArrayToMemory"] = function() { abort("'writeArrayToMemory' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["writeAsciiToMemory"]) Module["writeAsciiToMemory"] = function() { abort("'writeAsciiToMemory' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["addRunDependency"]) Module["addRunDependency"] = function() { abort("'addRunDependency' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+		if (!Module["removeRunDependency"]) Module["removeRunDependency"] = function() { abort("'removeRunDependency' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+		if (!Module["ENV"]) Module["ENV"] = function() { abort("'ENV' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["FS"]) Module["FS"] = function() { abort("'FS' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["FS_createFolder"]) Module["FS_createFolder"] = function() { abort("'FS_createFolder' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+		if (!Module["FS_createPath"]) Module["FS_createPath"] = function() { abort("'FS_createPath' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+		if (!Module["FS_createDataFile"]) Module["FS_createDataFile"] = function() { abort("'FS_createDataFile' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+		if (!Module["FS_createPreloadedFile"]) Module["FS_createPreloadedFile"] = function() { abort("'FS_createPreloadedFile' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+		if (!Module["FS_createLazyFile"]) Module["FS_createLazyFile"] = function() { abort("'FS_createLazyFile' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+		if (!Module["FS_createLink"]) Module["FS_createLink"] = function() { abort("'FS_createLink' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+		if (!Module["FS_createDevice"]) Module["FS_createDevice"] = function() { abort("'FS_createDevice' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+		if (!Module["FS_unlink"]) Module["FS_unlink"] = function() { abort("'FS_unlink' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ). Alternatively, forcing filesystem support (-s FORCE_FILESYSTEM=1) can export this for you"); };
+		if (!Module["GL"]) Module["GL"] = function() { abort("'GL' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["dynamicAlloc"]) Module["dynamicAlloc"] = function() { abort("'dynamicAlloc' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["warnOnce"]) Module["warnOnce"] = function() { abort("'warnOnce' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["loadDynamicLibrary"]) Module["loadDynamicLibrary"] = function() { abort("'loadDynamicLibrary' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["loadWebAssemblyModule"]) Module["loadWebAssemblyModule"] = function() { abort("'loadWebAssemblyModule' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["getLEB"]) Module["getLEB"] = function() { abort("'getLEB' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["getFunctionTables"]) Module["getFunctionTables"] = function() { abort("'getFunctionTables' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["alignFunctionTables"]) Module["alignFunctionTables"] = function() { abort("'alignFunctionTables' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["registerFunctions"]) Module["registerFunctions"] = function() { abort("'registerFunctions' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["addFunction"]) Module["addFunction"] = function() { abort("'addFunction' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["removeFunction"]) Module["removeFunction"] = function() { abort("'removeFunction' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["getFuncWrapper"]) Module["getFuncWrapper"] = function() { abort("'getFuncWrapper' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["prettyPrint"]) Module["prettyPrint"] = function() { abort("'prettyPrint' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["makeBigInt"]) Module["makeBigInt"] = function() { abort("'makeBigInt' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["dynCall"]) Module["dynCall"] = function() { abort("'dynCall' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["getCompilerSetting"]) Module["getCompilerSetting"] = function() { abort("'getCompilerSetting' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["stackSave"]) Module["stackSave"] = function() { abort("'stackSave' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["stackRestore"]) Module["stackRestore"] = function() { abort("'stackRestore' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["stackAlloc"]) Module["stackAlloc"] = function() { abort("'stackAlloc' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["establishStackSpace"]) Module["establishStackSpace"] = function() { abort("'establishStackSpace' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["print"]) Module["print"] = function() { abort("'print' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["printErr"]) Module["printErr"] = function() { abort("'printErr' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["getTempRet0"]) Module["getTempRet0"] = function() { abort("'getTempRet0' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["setTempRet0"]) Module["setTempRet0"] = function() { abort("'setTempRet0' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };
+		if (!Module["Pointer_stringify"]) Module["Pointer_stringify"] = function() { abort("'Pointer_stringify' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); };if (!Module["ALLOC_NORMAL"]) Object.defineProperty(Module, "ALLOC_NORMAL", { get: function() { abort("'ALLOC_NORMAL' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); } });
+		if (!Module["ALLOC_STACK"]) Object.defineProperty(Module, "ALLOC_STACK", { get: function() { abort("'ALLOC_STACK' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); } });
+		if (!Module["ALLOC_DYNAMIC"]) Object.defineProperty(Module, "ALLOC_DYNAMIC", { get: function() { abort("'ALLOC_DYNAMIC' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); } });
+		if (!Module["ALLOC_NONE"]) Object.defineProperty(Module, "ALLOC_NONE", { get: function() { abort("'ALLOC_NONE' was not exported. add it to EXTRA_EXPORTED_RUNTIME_METHODS (see the FAQ)"); } });
 
 
 
@@ -1600,8 +1600,8 @@ define(['exports'], function (exports) { 'use strict';
 		 * @this {ExitStatus}
 		 */
 		function ExitStatus(status) {
-		  this.name = 'ExitStatus';
-		  this.message = 'Program terminated with exit(' + status + ')';
+		  this.name = "ExitStatus";
+		  this.message = "Program terminated with exit(" + status + ")";
 		  this.status = status;
 		}	ExitStatus.prototype = new Error();
 		ExitStatus.prototype.constructor = ExitStatus;
@@ -1699,7 +1699,7 @@ define(['exports'], function (exports) { 'use strict';
 		}
 
 
-		  Module['noExitRuntime'] = true;
+		  Module["noExitRuntime"] = true;
 
 		run();
 	} else {

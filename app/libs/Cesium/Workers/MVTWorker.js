@@ -1,7 +1,7 @@
 /**
- * Cesium - https://github.com/AnalyticalGraphicsInc/cesium
+ * Cesium - https://github.com/CesiumGS/cesium
  *
- * Copyright 2011-2017 Cesium Contributors
+ * Copyright 2011-2020 Cesium Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  * Columbus View (Pat. Pend.)
  *
  * Portions licensed separately.
- * See https://github.com/AnalyticalGraphicsInc/cesium/blob/master/LICENSE.md for full licensing details.
+ * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
 define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDetection-7bd32c34', './createTaskProcessorWorker', './Color-69f1845f', './pbf-9fe59c76'], function (when, Check, _Math, FeatureDetection, createTaskProcessorWorker, Color, pbf) { 'use strict';
 
@@ -101,7 +101,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
         if(filterArray.length > 1){
             filterFieldName = filterArray[1];
             // TODO: 系统字段暂不处理
-            if(filterFieldName[0] === '$' ){
+            if(filterFieldName[0] === "$" ){
                 return null;
             }
         }
@@ -116,7 +116,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
     }
 
     function isOperator(key) {
-        return ['==', '===', '>=', '<=', '>', '<', '!=', 'has'].indexOf(key) !== -1;
+        return ["==", "===", ">=", "<=", ">", "<", "!=", "has"].indexOf(key) !== -1;
     }
 
     function equalFunction(properties, fieldName, testValue){
@@ -148,14 +148,14 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
     }
 
     var compareFunctions = {
-        '==' : equalFunction,
-        '===' : equalFunction,
-        '>' : greaterFunction,
-        '<' : lessFunction,
-        '>=' : greaterEqualFunction,
-        '<=' : lessEqualFunction,
-        '!=' : notEqualFunction,
-        'has' : hasFunction
+        "==" : equalFunction,
+        "===" : equalFunction,
+        ">" : greaterFunction,
+        "<" : lessFunction,
+        ">=" : greaterEqualFunction,
+        "<=" : lessEqualFunction,
+        "!=" : notEqualFunction,
+        "has" : hasFunction
     };
 
     function MvtStyle(openlayer, useOffscreen) {
@@ -175,16 +175,16 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
     MvtStyle.prototype.getStyle = function() {
         var openlayer = this._openlayer;
         var fill = new openlayer.style.Fill({
-            color: ''
+            color: ""
         });
-        fill.setColor('#ffffff');
+        fill.setColor("#ffffff");
 
         var stroke = new openlayer.style.Stroke({
-            color: '',
+            color: "",
             width: 1
         });
         stroke.setWidth(1);
-        stroke.setColor('#000000');
+        stroke.setColor("#000000");
 
         var fillAndOutlineStyle = new openlayer.style.Style({
             fill: fill,
@@ -195,8 +195,8 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
     };
 
     function parseMapboxColorString(colorString){
-        var tempS = colorString.substring(colorString.indexOf('(') + 1, colorString.indexOf(')'));
-        tempS = tempS.split(',');
+        var tempS = colorString.substring(colorString.indexOf("(") + 1, colorString.indexOf(")"));
+        tempS = tempS.split(",");
         var resultColor = [];
         resultColor.push(parseFloat(tempS[0]));
         resultColor.push(parseFloat(tempS[1]));
@@ -233,70 +233,70 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
         if(!when.defined(type) || !when.defined(paint)){
             return this.getStyle();
         }
-        if(type == 'fill'){
+        if(type == "fill"){
             var fillStyle = new openlayer.style.Style({
             });
             var fill = new openlayer.style.Fill({
-                color: '[255,255,255,1]'
+                color: "[255,255,255,1]"
             });
             fillStyle.setFill(fill);
-            var fillOpcatiy = paint['fill-opacity'];
-            if (when.defined(paint['fill-color'])) {
-                var fillColor = parseMapboxColorString(paint['fill-color']);
+            var fillOpcatiy = paint["fill-opacity"];
+            if (when.defined(paint["fill-color"])) {
+                var fillColor = parseMapboxColorString(paint["fill-color"]);
                 if(when.defined(fillOpcatiy)){
                     fillColor[3] *= fillOpcatiy;
                 }
                 fill.setColor(fillColor);
             }
-            if (when.defined(paint['fill-outline-color'])) {
+            if (when.defined(paint["fill-outline-color"])) {
                 var fillOutlineStroke = new openlayer.style.Stroke({
-                    color: '',
+                    color: "",
                     width: 1
                 });
-                fillOutlineStroke.setColor(paint['fill-outline-color']);
+                fillOutlineStroke.setColor(paint["fill-outline-color"]);
                 fillStyle.setStroke(fillOutlineStroke);
             }
-            if (when.defined(paint['fill-pattern'])) {
-                fillStyle.fillPatternName = paint['fill-pattern'];
+            if (when.defined(paint["fill-pattern"])) {
+                fillStyle.fillPatternName = paint["fill-pattern"];
             }
             return fillStyle;
         }
-        else if(type == 'line'){
+        else if(type == "line"){
             var lineStyle = new openlayer.style.Style({
             });
             var lineStroke = new openlayer.style.Stroke({
-                color: '#000000',
+                color: "#000000",
                 width: 1
             });
             lineStyle.setStroke(lineStroke);
-            var lineOpcatiy = paint['line-opacity'];
-            if (when.defined(paint['line-color'])) {
-                var lineColor = parseMapboxColorString(paint['line-color']);
+            var lineOpcatiy = paint["line-opacity"];
+            if (when.defined(paint["line-color"])) {
+                var lineColor = parseMapboxColorString(paint["line-color"]);
                 if(when.defined(lineOpcatiy)){
                     lineColor[3] *= lineOpcatiy;
                 }
             }
-            if (when.defined(paint['line-width'])) {
-                var lineWidth = paint['line-width'];
+            if (when.defined(paint["line-width"])) {
+                var lineWidth = paint["line-width"];
                 lineStroke.setWidth(lineWidth);
             }
 
-            if (when.defined(paint['line-dasharray'])) {
-                var lineDasharray = paint['line-dasharray'];
+            if (when.defined(paint["line-dasharray"])) {
+                var lineDasharray = paint["line-dasharray"];
                 lineStroke.setLineDash(lineDasharray);
             }
 
             if(when.defined(layout)){
-                if (when.defined(layout['line-cap'])) {
-                    var lineCap = layout['line-cap'];
+                if (when.defined(layout["line-cap"])) {
+                    var lineCap = layout["line-cap"];
                     lineStroke.setLineCap(lineCap);
                 }
-                if (when.defined(layout['line-join'])) {
-                    var lineJoin = layout['line-join'];
+                if (when.defined(layout["line-join"])) {
+                    var lineJoin = layout["line-join"];
                     lineStroke.setLineJoin(lineJoin);
                 }
-                if (when.defined(layout['line-miter-limit'])) {
-                    var lineMiterLimit = layout['line-miter-limit'];
+                if (when.defined(layout["line-miter-limit"])) {
+                    var lineMiterLimit = layout["line-miter-limit"];
                     lineStroke.setMiterLimit(lineMiterLimit);
                 }
             }
@@ -304,24 +304,24 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
             lineStroke.setColor(lineColor);
             return lineStyle;
         }
-        else if(type == 'symbol'){
+        else if(type == "symbol"){
             var iconStyle = new openlayer.style.Style({
             });
-            if(when.defined(layout) && when.defined(layout['icon-image'])){
+            if(when.defined(layout) && when.defined(layout["icon-image"])){
                 iconStyle.hasIconImage = true;
             }
-            if(when.defined(layout) && when.defined(layout['text-field'])){
+            if(when.defined(layout) && when.defined(layout["text-field"])){
                 iconStyle.hasTextStyle = true;
             }
             return iconStyle;
         }
-        else if(type == 'circle'){
-            var circleRadius = paint['circle-radius'];
-            var circleColor = paint['circle-color'];
-            var circleStrokeColor = paint['circle-stroke-color'];
-            var circleOpacity = paint['circle-opacity'];
-            var circleStrokeOpacity = paint['circle-stroke-opacity'];
-            var circleStrokeWidth = paint['circle-stroke-width'];
+        else if(type == "circle"){
+            var circleRadius = paint["circle-radius"];
+            var circleColor = paint["circle-color"];
+            var circleStrokeColor = paint["circle-stroke-color"];
+            var circleOpacity = paint["circle-opacity"];
+            var circleStrokeOpacity = paint["circle-stroke-opacity"];
+            var circleStrokeWidth = paint["circle-stroke-width"];
             var iconImg = new openlayer.style.Circle({
                 radius: circleRadius,
                 stroke: circleStrokeWidth === 0 ? undefined : new openlayer.style.Stroke({
@@ -366,7 +366,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
                 expandWidth = lineWidth * 2 + lineWidthExpand;
             }
             var scratchIDStroke = new openlayer.style.Stroke({
-                color: '',
+                color: "",
                 width: expandWidth
             });
             scratchIDStroke.setColor(cssColor);
@@ -388,7 +388,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
         }
         else{
             var scratchIDFill = new openlayer.style.Fill({
-                color: ''
+                color: ""
             });
             scratchIDFill.setColor(cssColor);
             var resultStyle = new openlayer.style.Style({
@@ -396,7 +396,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
             });
             if(when.defined(lineWidth)){
                 var scratchIDStroke = new openlayer.style.Stroke({
-                    color: '',
+                    color: "",
                     width: when.defined(lineWidth) ? lineWidth * 2 : 4
                 });
                 scratchIDStroke.setColor(cssColor);
@@ -473,13 +473,13 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
         text.setOffsetY(textOffset[1] * textSize + textTranslate[1]);
         var opacity = paint['text-opacity'];
         var textColorFill = new openlayer.style.Fill();
-        var textColor = paint['text-color'];
+        var textColor = paint["text-color"];
         if(when.defined(textColor)){
             textColor = parseMapboxColorString(textColor);
             textColorFill.setColor(textColor);
         }
         text.setFill(textColorFill);
-        var textHaloColor = paint['text-halo-color'];
+        var textHaloColor = paint["text-halo-color"];
         if (when.defined(textHaloColor)) {
             var textHalo = new openlayer.style.Stroke();
             textHaloColor = parseMapboxColorString(textHaloColor);
@@ -528,7 +528,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
         var openlayer = this._openlayer;
         var paint = mapboxStyleLayer.paint;
         var layout = mapboxStyleLayer.layout;
-        var iconSize = when.defaultValue(layout['icon-size'], 1);
+        var iconSize = when.defaultValue(layout["icon-size"], 1);
         var iconColor = paint['icon-color'];
         var iconTranslate = when.defaultValue(paint['icon-translate'], [0.0, 0.0]);
         var iconTranslateAnchor = when.defaultValue(paint['icon-translate-anchor'], 'map');
@@ -537,7 +537,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
         var anchorOffset = anchorOffsetAndIconAnchor.anchorOffset;
         var iconOffset = when.defaultValue(layout['iconoffset'], [0.0, 0.0]);
         var iconOpacity = when.defaultValue(layout['icon-opacity'], 1.0);
-        var spriteImageName = layout['icon-image'];
+        var spriteImageName = layout["icon-image"];
         if(!when.defined(spriteImageDatas[spriteImageName])){
             console.log('miss icon-image ' + spriteImageName);
             return;
@@ -578,7 +578,7 @@ define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDete
     };
 
     var VALUE_EXTENT = 4096;
-    var replays = ['Default', 'Polygon', 'LineString', 'Image', 'Symbol', 'Text'];
+    var replays = ["Default", "Polygon", "LineString", "Image", "Symbol", "Text"];
 
     function MvtRenderer2D(options) {
         this._mvtStyleClass = options.mvtStyle;
