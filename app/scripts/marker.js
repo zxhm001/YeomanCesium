@@ -6,7 +6,11 @@ $(function(){
     var inited = false;
 
     $('#modal_marker').on('show.bs.modal', function (event) {
-        window.open('http://localhost:8090/iserver/iClient/for3D/webgl/zh/examples/webgl/plot_dynamicPlot.html')
+        if (!inited) {
+            var serverUrl = 'http://support.supermap.com.cn:8090/iserver/services/plot-jingyong/rest/plot';
+            InitPlot(serverUrl);
+            inited = true;
+        }
     });
 
     function InitPlot(serverUrl) {
@@ -23,9 +27,8 @@ $(function(){
         });
 
         plotting = Cesium.Plotting.getInstance(serverUrl, viewer.scene);
-        //标绘面板
-        initPlotPanel('plotPanel', serverUrl, plotDrawControl, plotEditControl, plotting);
-        stylePanel = new StylePanel('stylePanel', plotEditControl, plotting);
+        var plotPanel = new PlotPanel('plotPanel', serverUrl, plotDrawControl, plotEditControl, plotting);
+        var stylePanel = new StylePanel('stylePanel', plotEditControl, plotting);
     }
 
      //删除指定标号
@@ -38,4 +41,11 @@ $(function(){
             deleteSeleGeo();
         }
     }); 
+
+    $('#nav_style_panel').on('click',function(){
+        setTimeout(function(){
+            $('#pg').propertygrid();
+        },200);
+        
+    })
 }());

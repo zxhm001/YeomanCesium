@@ -50,16 +50,10 @@ function scripts() {
     .pipe(server.reload({stream: true}));
 };
 
-function copySmWebglSDK()
+function copyLibs()
 {
-  return src('app/libs/Cesium/**')
-    .pipe(dest('dist/scripts/Cesium'));
-}
-
-function copyplotPanelControl()
-{
-  return src('app/libs/plotPanelControl/**')
-    .pipe(dest('dist/scripts/plotPanelControl'));
+  return src('app/libs/**')
+    .pipe(dest('dist/scripts'));
 }
 
 function copyData(){
@@ -170,7 +164,7 @@ const build = series(
   clean,
   parallel(
     lint,
-    series(parallel(styles, scripts, modernizr), html,copyData,copySmWebglSDK,copyplotPanelControl),
+    series(parallel(styles, scripts, modernizr), html,copyData,copyLibs),
     images,
     fonts,
     extras

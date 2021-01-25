@@ -59,6 +59,7 @@
     }
 
     .modal-body{
+        height: 100%;
         .btn-group{
             width: 100%;
         }
@@ -97,5 +98,17 @@
     .tab-content
     {
         height: 100%;
+    }
+
+    .panel {
+        height: 100%;
+    }
+
+    .combo-p {
+        height: 150px;
+    }
+
+    .propertygrid {
+        overflow: auto;
     }
 }
