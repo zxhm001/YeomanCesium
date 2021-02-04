@@ -46,43 +46,19 @@
         <div class="collapse navbar-collapse show">
           <ul class="navbar-nav flex-column">
             <li class="nav-item">
-              <a class="nav-link dropdown-indicator" href="#person" data-toggle="collapse" aria-expanded="true" aria-controls="person" role="button">
+              <a class="nav-link" href="#modal_person" data-toggle="modal" role="button">
                 <i class="bi bi-person-fill"></i>人员
               </a>
-              <ul id="person" class="collapse show">
-                <li class="nav-item">
-                  <a class="nav-link" role="button" href="#modal_person" data-toggle="modal">人员定位</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" role="button">人员部署</a>
-                </li>
-              </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link dropdown-indicator" href="#car" data-toggle="collapse" aria-expanded="false" aria-controls="car" role="button">
+              <a class="nav-link" href="#modal_car" data-toggle="modal" role="button">
                 <i class="bi bi-speedometer"></i>车辆
               </a>
-              <ul id="car" class="collapse">
-                <li class="nav-item">
-                  <a class="nav-link" role="button" href="#modal_car" data-toggle="modal">车辆定位</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" role="button">车辆部署</a>
-                </li>
-              </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link dropdown-indicator" href="#uav" data-toggle="collapse" aria-expanded="false" aria-controls="uav" role="button">
+              <a class="nav-link" href="#modal_uav" data-toggle="modal" role="button">
                 <i class="bi bi-record-circle-fill"></i>无人机
               </a>
-              <ul id="uav" class="collapse">
-                <li class="nav-item">
-                  <a class="nav-link" role="button" href="#modal_uav" data-toggle="modal">无人机定位</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" role="button">无人机部署</a>
-                </li>
-              </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link" role="button" href="#modal_camera" data-toggle="modal">
@@ -90,28 +66,34 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link dropdown-indicator" href="#building" data-toggle="collapse" aria-expanded="false" aria-controls="building" role="button">
+              <a class="nav-link" href="#modal_building" data-toggle="modal" role="button">
                 <i class="bi bi-house-fill"></i>重点建筑
               </a>
-              <ul id="building" class="collapse">
-                <li class="nav-item">
-                  <a class="nav-link" role="button" href="#modal_building" data-toggle="modal">建筑列表</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" role="button">建筑标会</a>
-                </li>
-              </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link dropdown-indicator" href="#region" data-toggle="collapse" aria-expanded="false" aria-controls="region" role="button">
+              <a class="nav-link" href="#modal_region" data-toggle="modal" role="button">
                 <i class="bi bi-heptagon-half"></i>重点区域
               </a>
-              <ul id="region" class="collapse">
+            </li>
+            <li class="nav-item">
+              <a class="nav-link dropdown-indicator" href="#deploy" data-toggle="collapse" aria-expanded="false" aria-controls="deploy" role="button">
+                <i class="bi bi-easel-fill"></i>部署
+              </a>
+              <ul id="deploy" class="collapse">
                 <li class="nav-item">
-                  <a class="nav-link" role="button" href="#modal_region" data-toggle="modal">区域列表</a>
+                  <a class="nav-link" data-type="person" role="button">人员</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" role="button">区域标会</a>
+                  <a class="nav-link" data-type="car" role="button">车辆</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-type="camera" role="button">视频设备</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-type="defence" role="button">反制设备</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-type="region" role="button">区域</a>
                 </li>
               </ul>
             </li>
@@ -134,6 +116,7 @@
     @@include('./includes/modal_camera.html')
     @@include('./includes/modal_building.html')
     @@include('./includes/modal_region.html')
+    @@include('./includes/modal_deploy.html')
     @@include('./includes/modal_marker.html')
     <!--end modal-->
     @@include('./includes/footer.html')
@@ -172,6 +155,7 @@
     <script src="scripts/buildling.js"></script>
     <script src="scripts/region.js"></script>
     <script src="scripts/marker.js"></script>
+    <script src="scripts/deploy.js"></script>
     <!-- endbuild -->
 </body>
 

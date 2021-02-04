@@ -112,3 +112,46 @@
         overflow: auto;
     }
 }
+
+#modal_deploy
+{
+    #symbol_list
+    {
+        width: 100%;
+        height: 320px;
+        border: 1px solid #333;
+        
+        .symbol-item
+        {
+            margin: 5px;
+            width:92px;
+            text-align: center;
+            display: inline-block;
+            cursor: pointer;
+
+            img{
+                width: 92px;
+                height: 92px;
+            }
+
+            p{
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow:ellipsis;
+            }
+        }
+    }
+
+    form{
+        margin-top: 10px;
+
+        label{
+            padding-right: 0 !important;
+        }
+
+        .input-shed{
+            width: 32% !important;
+            display: inline-block !important;
+        }
+    }
+}

@@ -27,7 +27,8 @@ function init(){
         id:'person_1',
         position: new Cesium.Cartesian3.fromDegrees(121.35481, 31.04185, 22.45),
         model: {
-            uri: '/data/person.glb'
+            uri: '/data/model/police.glb',
+            scale:20
         }
     });
 
@@ -69,7 +70,7 @@ function init(){
         position: carPositionProperty,
         orientation: new Cesium.VelocityOrientationProperty(carPositionProperty),
         model: {
-            uri: '/data/car.glb',
+            uri: '/data/model/police_car.glb',
             scale:15
         },
         path:{
@@ -86,7 +87,7 @@ function init(){
         position: uavPositionProperty,
         orientation: new Cesium.VelocityOrientationProperty(uavPositionProperty),
         model: {
-            uri: '/data/uav.glb',
+            uri: '/data/model/uav.glb',
             scale:1
         },
         path:{
@@ -103,7 +104,7 @@ function init(){
         id:'camera_1',
         position: new Cesium.Cartesian3.fromDegrees(121.3511845, 31.04098, 24.54),
         model: {
-            uri: '/data/camera.glb',
+            uri: '/data/model/camera.glb',
             scale:0.1
         }
     }); 
