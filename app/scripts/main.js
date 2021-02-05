@@ -1,8 +1,12 @@
 function init(){
-    window.viewer = new Cesium.Viewer('cesium_container');
+    window.viewer = new Cesium.Viewer('cesium_container',{
+        'selectionIndicator': false
+    });
     var url = 'http://localhost:8090/iserver/services/3D-SHAB/rest/realspace';
     var promise = viewer.scene.open(url);
     Cesium.when(promise,function(layer){
+        //初始化其他模块
+        window.Deploy.init();
         console.log(layers);
     });
 
@@ -108,7 +112,6 @@ function init(){
             scale:0.1
         }
     }); 
-
 }
 
 if (typeof Cesium !== 'undefined') {
