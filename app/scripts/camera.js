@@ -1,6 +1,26 @@
 $(function(){
     var zTreeObj,viewshed3D;
 
+    var data = [{
+        name:'闵行区',
+        children:[
+            {
+                name:'江川路街道',
+                children:[
+                    {
+                        name:'网格1',
+                        children:[
+                            {
+                                name:'摄像头1',
+                                model:'camera_1'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }];
+
     $('#modal_camera').on('show.bs.modal', function (event) {
         Camera.showCameraTree();
     });
@@ -72,25 +92,6 @@ $(function(){
                     }
                 }
             };
-            var data = [{
-                name:'闵行区',
-                children:[
-                    {
-                        name:'江川路街道',
-                        children:[
-                            {
-                                name:'网格1',
-                                children:[
-                                    {
-                                        name:'摄像头1',
-                                        model:'camera_1'
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }];
             zTreeObj = $.fn.zTree.init($('#camera_tree'), setting, data);
         }
 
@@ -112,9 +113,26 @@ $(function(){
             viewshed3D.build();
         }
 
+        function add(name,modelId)
+        {
+            var newNode = {
+                name:name,
+                model:modelId
+            };
+            if (zTreeObj) {
+                var parentNode = zTreeObj.getNodeByParam('name','网格1');
+                zTreeObj.addNodes(parentNode,-1,newNode);
+            }
+            else
+            {
+                data[0].children[0].children[0].children.push(newNode);
+            }
+        }
+
         return{
             showCameraTree:showCameraTree,
-            showViewshed:showViewshed
+            showViewshed:showViewshed,
+            add:add
         }
     }
 

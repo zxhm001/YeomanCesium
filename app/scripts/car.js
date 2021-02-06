@@ -1,6 +1,21 @@
 $(function(){
     var zTreeObj;
 
+    var data = [{
+        name:'闵行区',
+        children:[
+            {
+                name:'江川路街道',
+                children:[
+                    {
+                        name:'车辆1',
+                        model:'car_1'
+                    }
+                ]
+            }
+        ]
+    }];
+
     $('#modal_car').on('show.bs.modal', function (event) {
         Car.showCarTree();
     });
@@ -30,25 +45,29 @@ $(function(){
                     }
                 }
             };
-            var data = [{
-                name:'闵行区',
-                children:[
-                    {
-                        name:'江川路街道',
-                        children:[
-                            {
-                                name:'车辆1',
-                                model:'car_1'
-                            }
-                        ]
-                    }
-                ]
-            }];
             zTreeObj = $.fn.zTree.init($('#car_tree'), setting, data);
         }
 
+        function add(name,modelId)
+        {
+            var newNode = {
+                name:name,
+                model:modelId
+            };
+            if (zTreeObj) {
+                var parentNode = zTreeObj.getNodeByParam('name','江川路街道');
+                zTreeObj.addNodes(parentNode,-1,newNode);
+            }
+            else
+            {
+                data[0].children[0].children.push(newNode);
+            }
+        }
+            
+
         return{
-            showCarTree:showCarTree
+            showCarTree:showCarTree,
+            add:add
         }
     }
 

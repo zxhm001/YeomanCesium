@@ -25,17 +25,6 @@ function init(){
     }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
 
-    //加载模型
-    var person = viewer.entities.add({
-        name: '人员1',
-        id:'person_1',
-        position: new Cesium.Cartesian3.fromDegrees(121.35481, 31.04185, 22.45),
-        model: {
-            uri: '/data/model/police.glb',
-            scale:20
-        }
-    });
-
     var carpositions = [];
     carpositions.push(new Cesium.Cartesian3.fromDegrees(121.35152, 31.03718, 15.84));
     carpositions.push(new Cesium.Cartesian3.fromDegrees(121.35116, 31.03892, 15.75));
@@ -68,6 +57,17 @@ function init(){
     viewer.clock.stopTime = stop.clone();
     viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP;
 
+    //加载模型
+    var person = viewer.entities.add({
+        name: '人员1',
+        id:'person_1',
+        position: new Cesium.Cartesian3.fromDegrees(121.35481, 31.04185, 22.45),
+        model: {
+            uri: '/data/model/police.glb',
+            scale:10
+        }
+    });
+
     var car = viewer.entities.add({
         name: '车辆1',
         id:'car_1',
@@ -92,7 +92,7 @@ function init(){
         orientation: new Cesium.VelocityOrientationProperty(uavPositionProperty),
         model: {
             uri: '/data/model/uav.glb',
-            scale:1
+            scale:2
         },
         path:{
             resolution: 1,
@@ -110,6 +110,16 @@ function init(){
         model: {
             uri: '/data/model/camera.glb',
             scale:0.1
+        }
+    }); 
+
+    var gun = viewer.entities.add({
+        name: '反制枪1',
+        id:'gun_1',
+        position: new Cesium.Cartesian3.fromDegrees(121.35528, 31.04082, 17.5),
+        model: {
+            uri: '/data/model/gun.glb',
+            scale:2
         }
     }); 
 }

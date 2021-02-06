@@ -6,21 +6,21 @@ $(function () {
                 name: '警察',
                 model: '/data/model/police.glb',
                 image: '/images/model/police.png',
-                scale: 20,
+                scale: 10,
                 params: ['name', 'location']
             },
             {
                 name: '医护人员',
                 model: '/data/model/doctor.glb',
                 image: '/images/model/doctor.png',
-                scale: 2,
+                scale: 1.2,
                 params: ['name', 'location']
             },
             {
                 name: '保安',
                 model: '/data/model/guard.glb',
                 image: '/images/model/guard.png',
-                scale: 1,
+                scale: 0.45,
                 params: ['name', 'location']
             }
         ],
@@ -43,14 +43,14 @@ $(function () {
                 name: '救护车',
                 model: '/data/model/ambulance.glb',
                 image: '/images/model/ambulance.png',
-                scale: 1,
+                scale: 1.5,
                 params: ['license', 'location', 'path']
             },
             {
                 name: '警用摩托',
                 model: '/data/model/motorcycle.glb',
                 image: '/images/model/motorcycle.png',
-                scale: 1,
+                scale: 0.02,
                 params: ['license', 'location', 'path']
             },
             {
@@ -73,7 +73,7 @@ $(function () {
                 name: '无人机',
                 model: '/data/model/uav.glb',
                 image: '/images/model/uav.png',
-                scale: 1,
+                scale: 2,
                 params: ['license', 'location', 'video', 'path', 'control']
             }
         ],
@@ -82,14 +82,14 @@ $(function () {
                 name: '反制枪',
                 model: '/data/model/gun.glb',
                 image: '/images/model/gun.png',
-                scale: 1,
+                scale: 2,
                 params: ['name', 'location', 'shed']
             },
             {
                 name: '大型反制设备',
                 model: '/data/model/smoking.glb',
                 image: '/images/model/smoking.png',
-                scale: 1,
+                scale: 10,
                 params: ['name', 'location', 'shed']
             }
         ],
@@ -185,7 +185,7 @@ $(function () {
                     },
                     label:{
                         text: key,
-                        font: '36px Helvetica',
+                        font: '20px Helvetica',
                         fillColor: Cesium.Color.WHITE,
                         outlineColor: Cesium.Color.BLACK,
                         outlineWidth: 2,
@@ -194,7 +194,32 @@ $(function () {
                         scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
                     }
                 });
-
+                switch (_currentModel.name) {
+                    case '警车':
+                    case '消防车': 
+                    case '救护车':
+                    case '警用摩托':
+                    case '反制车':
+                        Car.add(key,_currentModel.name + '_' + key);
+                        break;
+                    case '警察':
+                    case '医护人员':
+                    case '保安':
+                        Person.add(key,_currentModel.name + '_' + key);
+                        break;
+                    case '摄像头':
+                        Camera.add(key,_currentModel.name + '_' + key);
+                        break;
+                    case '无人机':
+                        UAV.add(key,_currentModel.name + '_' + key);
+                        break;
+                    case '反制枪':
+                    case '大型反制设备':
+                        Defence.add(key,_currentModel.name + '_' + key);
+                        break;
+                    default:
+                        break;
+                }
                 $('.deploy-params')[0].reset()
                 $('.deploy-params').hide();
                 $('.deploy-params .form-group').hide();
