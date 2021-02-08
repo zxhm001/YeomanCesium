@@ -83,14 +83,14 @@ $(function () {
                 model: '/data/model/gun.glb',
                 image: '/images/model/gun.png',
                 scale: 2,
-                params: ['name', 'location', 'shed'],
+                params: ['name', 'location', 'range'],
             },
             {
                 name: '大型反制设备',
                 model: '/data/model/smoking.glb',
                 image: '/images/model/smoking.png',
                 scale: 10,
-                params: ['name', 'location', 'shed'],
+                params: ['name', 'location', 'range'],
             }
         ],
         region: [
@@ -195,6 +195,7 @@ $(function () {
                             scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
                         }
                     });
+                    var params = $(".deploy-params").serializeToJSON();
                     switch (_currentModel.name) {
                         case '警车':
                         case '消防车': 
@@ -216,7 +217,7 @@ $(function () {
                             break;
                         case '反制枪':
                         case '大型反制设备':
-                            Defence.add(key,_currentModel.name + '_' + key);
+                            Defence.add(key,_currentModel.name + '_' + key,params);
                             break;
                         default:
                             break;

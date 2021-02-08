@@ -1,5 +1,5 @@
 $(function(){
-    var zTreeObj,viewshed3D;
+    var zTreeObj,_rangeEntity;
     var data = [{
         name:'闵行区',
         children:[
@@ -8,7 +8,11 @@ $(function(){
                 children:[
                     {
                         name:'反制枪1',
-                        model:'gun_1'
+                        model:'gun_1',
+                        params:
+                        {
+                            range:100
+                        }
                     }
                 ]
             }
@@ -20,16 +24,19 @@ $(function(){
     });
 
     $('#modal_defence').on('hide.bs.modal', function (event) {
-        if (viewshed3D) {
-            viewshed3D.distance = 0.01;
+        if (_rangeEntity) {
+            viewer.entities.remove(_rangeEntity);
         }
     });
 
-    $('#btn_defence_viewshed').on('click',function(){
+    $('#btn_defence_range').on('click',function(){
+        if (_rangeEntity) {
+            viewer.entities.remove(_rangeEntity);
+        }
         var nodes = zTreeObj.getSelectedNodes();
         if (nodes.length > 0 && nodes[0].model) {
             var model = viewer.entities.getById(nodes[0].model);
-            Defence.showViewshed(model._position._value);
+            Defence.showRange(model._position._value,nodes[0].params.range);
         }
     });
 
@@ -49,30 +56,62 @@ $(function(){
             zTreeObj = $.fn.zTree.init($('#defence_tree'), setting, data);
         }
 
+        var r1 = 1,r2 = 1;
+        var _maxR = 100;
+
         //TODO:对于辐射范围可能应该用圆形
-        function showViewshed(position)
+        function showRange(position,maxR)
         {
-            var cartographic = Cesium.Cartographic.fromCartesian(position);
-            var longitude = Cesium.Math.toDegrees(cartographic.longitude);
-            var latitude = Cesium.Math.toDegrees(cartographic.latitude);
-            var height = cartographic.height;
-            if (!viewshed3D) {
-                viewshed3D = new Cesium.ViewShed3D(viewer.scene);
+            if (_rangeEntity) {
+                viewer.entities.remove(_rangeEntity);
             }
-            viewshed3D.direction = 90;
-            viewshed3D.pitch = -15;
-            viewshed3D.distance = 100;
-            viewshed3D.verticalFov = 90;
-            viewshed3D.horizontalFov = 120;
-            viewshed3D.viewPosition = [longitude, latitude, height];
-            viewshed3D.build();
+            _maxR = maxR;
+            var cartographic = Cesium.Cartographic.fromCartesian(position);
+            var height = cartographic.height;
+            _rangeEntity = viewer.entities.add({
+                position:position,
+                ellipse : {
+                    semiMinorAxis :new Cesium.CallbackProperty(setR1,false),
+                    semiMajorAxis :new Cesium.CallbackProperty(setR2,false),
+                    height:height,
+                    material:new Cesium.ImageMaterialProperty({
+                        image:'/images/ellipse.png',
+                        repeat:new Cesium.Cartesian2(1.0, 1.0),
+                        transparent:true,
+                        color:new Cesium.CallbackProperty(function () {
+                            var alp=1-r1/maxR;
+                            return Cesium.Color.WHITE.withAlpha(alp)
+                        },false)
+                    })
+                }
+            });
         }
 
-        function add(name,modelId)
+        
+        function setR1()
+        {
+            r1=r1+1;
+            if(r1>=_maxR){
+                r1=1;
+            }
+            return r1;
+        }
+
+        function setR2()
+        {
+            r2=r2+1;
+            if(r2>=_maxR){
+                r2=1;
+            }
+            return r2;
+        }
+
+        function add(name,modelId,params)
         {
             var newNode = {
                 name:name,
-                model:modelId
+                model:modelId,
+                params:params
             };
             if (zTreeObj) {
                 var parentNode = zTreeObj.getNodeByParam('name','江川路街道');
@@ -86,7 +125,7 @@ $(function(){
 
         return{
             showDefenceTree:showDefenceTree,
-            showViewshed:showViewshed,
+            showRange:showRange,
             add:add
         };
     }
