@@ -61,6 +61,16 @@ function copyData(){
     .pipe(dest('dist/data'));
 }
 
+function copyBootstrapFonts(){
+  return src('node_modules/bootstrap-icons/font/fonts/**')
+    .pipe(dest('dist/styles/fonts'));
+}
+
+function copyZtreeImg(){
+  return src('node_modules/ztree/css/metroStyle/img/**')
+    .pipe(dest('dist/styles/img'));
+}
+
 async function modernizr() {
   const readConfig = () => new Promise((resolve, reject) => {
     fs.readFile(`${__dirname}/modernizr.json`, 'utf8', (err, data) => {
@@ -164,7 +174,7 @@ const build = series(
   clean,
   parallel(
     lint,
-    series(parallel(styles, scripts, modernizr), html,copyData,copyLibs),
+    series(parallel(styles, scripts, modernizr), html,copyData,copyLibs,copyBootstrapFonts,copyZtreeImg),
     images,
     fonts,
     extras

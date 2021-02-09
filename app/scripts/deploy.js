@@ -156,7 +156,7 @@ $(function () {
 
 
             $('#deploy_add').on('click',function(){
-                var key = "";
+                var key = '';
                 if (_currentModel.params.includes('name')) {
                     key = $('#deploy_input_name').val();
                 }
@@ -190,12 +190,12 @@ $(function () {
                             fillColor: Cesium.Color.WHITE,
                             outlineColor: Cesium.Color.BLACK,
                             outlineWidth: 2,
-                            eyeOffset:new Cesium.Cartesian3(0.0, 5, 0.0),
+                            eyeOffset:new Cesium.Cartesian3(0.0, 2.5, 0.0),
                             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
                             scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
                         }
                     });
-                    var params = $(".deploy-params").serializeToJSON();
+                    var params = $('.deploy-params').serializeToJSON();
                     switch (_currentModel.name) {
                         case '警车':
                         case '消防车': 

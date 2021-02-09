@@ -60,13 +60,10 @@ $(function(){
                 name:name,
                 model:modelId
             };
+            data[0].children[0].children.push(newNode);
             if (zTreeObj) {
                 var parentNode = zTreeObj.getNodeByParam('name','江川路街道');
                 zTreeObj.addNodes(parentNode,-1,newNode);
-            }
-            else
-            {
-                data[0].children[0].children.push(newNode);
             }
         }
 
