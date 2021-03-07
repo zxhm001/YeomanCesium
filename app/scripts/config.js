@@ -95,6 +95,5 @@ $(function(){
     }
 
     window.SysConfig = config();
-
     SysConfig.loadConfigs();
 }());
