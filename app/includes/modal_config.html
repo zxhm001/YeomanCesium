@@ -1,0 +1,44 @@
+<div id="modal_config" class="modal fade modal-fixed-right overflow-hidden" data-backdrop="static" aria-labelledby="config-modal-label" 
+    data-options='{"autoShow":true,"autoShowDelay":3000,"showOnce":true}'>
+    <div class="modal-dialog modal-dialog-vertical" role="dialog">
+        <div class="modal-content border-0 vh-100 scrollbar">
+            <div class="modal-header bg-shape">
+                <div class="z-index-1 py-1 light">
+                    <h5 class="text-white" id="config-modal-label"><i class="bi bi-gear-fill"></i>配置</h5>
+                </div>
+                <button class="btn-close z-index-1 mt-0" type="button" data-dismiss="modal" aria-label="Close"><i class="bi bi-x" style="color: #fff;"></i></button>
+            </div>
+            <div class="modal-body px-card">
+                <form class="config-params">
+                    <div class="form-group row">
+                        <label for="config_input_name" class="col-sm-3 col-form-label">模型标注大小</label>
+                        <div class="col-sm-9">
+                            <input name="mlsize" type="text" class="form-control" id="config_input_mlsize">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="config_input_mlcolor" class="col-sm-3 col-form-label">模型标注颜色</label>
+                        <div class="col-sm-9">
+                            <input name="mlcolor" type="text" class="form-control" id="config_input_mlcolor">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="config_input_blsize" class="col-sm-3 col-form-label">建筑标注大小</label>
+                        <div class="col-sm-9">
+                            <input name="blsize" type="text" class="form-control" id="config_input_blsize">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="config_input_blcolor" class="col-sm-3 col-form-label">建筑标注颜色</label>
+                        <div class="col-sm-9">
+                            <input name="blcolor" type="text" class="form-control" id="config_input_blcolor">
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <input type="button" id="config_save" class="btn btn-primary" value="保存">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

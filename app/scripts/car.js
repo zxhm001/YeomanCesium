@@ -7,10 +7,10 @@ $(function(){
             {
                 name:'江川路街道',
                 children:[
-                    {
-                        name:'车辆1',
-                        model:'car_1'
-                    }
+                    // {
+                    //     name:'车辆1',
+                    //     model:'car_1'
+                    // }
                 ]
             }
         ]
@@ -31,6 +31,10 @@ $(function(){
             viewer.trackedEntity = model;
         }
     });
+
+    setTimeout(() => {
+        Car.loadCars();
+    }, 2000);
       
     function car(){
 
@@ -60,11 +64,76 @@ $(function(){
                 zTreeObj.addNodes(parentNode,-1,newNode);
             }
         }
+
+        function loadCars()
+        {
+            $.get(API_ROOT + '/api/car',function(response){
+                if (response.succeeded) {
+                    response.data.forEach(car => {
+                        if (car.id != 1) {
+                            addEntity(car.id,car.license,car.type,car.longitude,car.latitude,car.height,car.path);
+                        }
+                        add(car.license,'car_' + car.id);
+                    });
+                }
+            });
+        }
+
+        function addEntity(key,license,type,lng,lat,height,path)
+        {
+            var uri = '';
+            var scale = 1;
+            switch (type) {
+                case '警车':
+                    uri = '/data/model/police_car.glb';
+                    scale = 15;
+                    break;
+                case '消防车':
+                    uri = '/data/model/fire_truck.glb';
+                    scale = 1;
+                    break;
+                case '救护车':
+                    uri = '/data/model/ambulance.glb';
+                    scale = 1.5;
+                    break;
+                case '警用摩托':
+                    uri = '/data/model/motorcycle.glb';
+                    scale = 0.02;
+                    break;
+                case '反制车':
+                    uri = '/data/model/armored_car.glb';
+                    scale = 1;
+                    break;
+                default:
+                    break;
+            }
+
+            viewer.entities.add({
+                name: license,
+                id:'car_' + key,
+                position: new Cesium.Cartesian3.fromDegrees(lng, lat, height),
+                model: {
+                    uri: uri,
+                    scale:scale
+                },
+                label:{
+                    text: license,
+                    font: SysConfig.getConfig().model_label_size + 'px Helvetica',
+                    fillColor: Cesium.Color.fromCssColorString(SysConfig.getConfig().model_label_color),
+                    outlineColor: Cesium.Color.BLACK,
+                    outlineWidth: 2,
+                    eyeOffset:new Cesium.Cartesian3(0.0, 4, 0.0),
+                    style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                    scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
+                }
+            });                   
+        }
             
 
         return{
             showCarTree:showCarTree,
-            add:add
+            add:add,
+            loadCars:loadCars
         }
     }
 

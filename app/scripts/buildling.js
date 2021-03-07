@@ -36,22 +36,9 @@ $(function () {
                         var polygon = turf.polygon([lnglats], { name: 'building' });
                         var centroid = turf.centroid(polygon);
                         var coords = centroid.geometry.coordinates;
-                        var hegiht = viewer.scene.getHeight(coords[0],coords[1]);
-                        var label = new Cesium.Entity({
-                            position : Cesium.Cartesian3.fromDegrees(coords[0], coords[1],hegiht + 5),
-                            name : '标注_' + geometry,
-                            id:'label_' + geometry,
-                            label:{
-                                text: nodes[0].name,
-                                font: '36px Helvetica',
-                                fillColor: Cesium.Color.WHITE,
-                                outlineColor: Cesium.Color.BLACK,
-                                outlineWidth: 2,
-                                style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                                scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
-                            }
-                        });
-                        viewer.entities.add(label);
+                        var height = viewer.scene.getHeight(coords[0],coords[1]);
+                        Building.addEnitiy(geometry,nodes[0].name,coords[0],coords[1],height + 5);
+                        Building.persistence(geometry,nodes[0].name,coords[0],coords[1],height + 5);
                         console.log(centroid);
                     }
                     
@@ -60,8 +47,13 @@ $(function () {
         }
     });
 
-    function building() {
+    setTimeout(() => {
+        Building.loadLabels();
+    }, 2000);
 
+
+    function building() {
+        
         function showBuildingTree() {
             var setting = {
                 callback: {
@@ -80,7 +72,6 @@ $(function () {
                                         entity.polygon.outline = false;
                                         entity.polygon.material  = Cesium.Color.RED.withAlpha(0.4);
                                     }
-                                    
                                 });
                                 viewer.dataSources.add(ds);
                                 viewer.flyTo(ds);
@@ -116,8 +107,72 @@ $(function () {
             zTreeObj = $.fn.zTree.init($('#building_tree'), setting, data);
         }
 
+        function persistence(key,text,lng,lat,height){
+            var url = API_ROOT + '/api/label';
+            var data = {
+                key:key,
+                text: text,
+                longitude: lng,
+                latitude: lat,
+                height: height
+            };
+            $.ajax({
+                type: 'POST',
+                url: url,
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.succeeded) {
+                        Toast.show('提示','添加成功');
+                    }
+                    else
+                    {
+                        console.error(response.errors);
+                    }
+                    console.log(response);
+                },
+                error: function (err) {
+                    console.error(err);
+                }
+            });
+        }
+
+        function addEnitiy(key,text,lng,lat,height)
+        {
+            var label = new Cesium.Entity({
+                position : Cesium.Cartesian3.fromDegrees(lng, lat,height),
+                name : '标注_' + key,
+                id:'label_' + key,
+                label:{
+                    text: text,
+                    font: SysConfig.getConfig().building_label_size + 'px Helvetica',
+                    fillColor: Cesium.Color.fromCssColorString(SysConfig.getConfig().building_label_color),
+                    outlineColor: Cesium.Color.BLACK,
+                    outlineWidth: 2,
+                    style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                    scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
+                }
+            });
+            viewer.entities.add(label);
+        }
+
+        function loadLabels()
+        {
+            $.get(API_ROOT + '/api/label',function(response){
+                if (response.succeeded) {
+                    response.data.forEach(label => {
+                        addEnitiy(label.key,label.text,label.longitude,label.latitude,label.height);
+                    });
+                }
+            });
+        }
+
         return {
-            showBuildingTree: showBuildingTree
+            showBuildingTree: showBuildingTree,
+            persistence:persistence,
+            addEnitiy:addEnitiy,
+            loadLabels:loadLabels
         }
     }
 

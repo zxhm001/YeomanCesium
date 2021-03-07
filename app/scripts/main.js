@@ -7,11 +7,67 @@ function init(){
     Cesium.when(promise,function(layer){
         //初始化其他模块
         window.Deploy.init();
+        window.s3mLayer = layer;
         console.log(layers);
     });
 
+    var _currentEntity = null;
+    var _moving = false;
+
     //显示经纬度
     var handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
+
+    handler.setInputAction(function(e){
+        var entity = viewer.scene.pick(e.position);
+        if (entity && entity.id.id != 'car_1' && entity.id.id != 'uav_1') {
+            // debugger
+            console.log(entity.id.id);
+            _moving = true;
+            _currentEntity = entity;
+            viewer.scene.screenSpaceCameraController.enableRotate = false;
+        }
+    }, Cesium.ScreenSpaceEventType.LEFT_DOWN);
+
+    handler.setInputAction(function(e){
+        _moving = false;
+        if (_currentEntity) {
+            var cartographic = Cesium.Cartographic.fromCartesian(_currentEntity.id.position._value);
+            var longitude = Cesium.Math.toDegrees(cartographic.longitude);
+            var latitude = Cesium.Math.toDegrees(cartographic.latitude);
+            var entityId = _currentEntity.id.id;
+            var type = entityId.split('_')[0];
+            var id = parseInt(entityId.split('_')[1]);
+            var data = {
+                id:id,
+                longitude:longitude,
+                latitude:latitude,
+                height:cartographic.height
+            };
+            var url = API_ROOT + '/api/' + type + '/position';
+            $.ajax({
+                type: 'PUT',
+                url: url,
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.succeeded) {
+                    }
+                    else
+                    {
+                        console.error(response.errors);
+                    }
+                    console.log(response);
+                },
+                error: function (err) {
+                    console.error(err);
+                }
+            });
+        }
+        _currentEntity = null;
+        viewer.scene.screenSpaceCameraController.enableRotate = true;
+    }, Cesium.ScreenSpaceEventType.LEFT_UP);
+
     handler.setInputAction(function(event) {
         var position = viewer.scene.pickPosition(event.endPosition);
         if (!position) {
@@ -22,6 +78,11 @@ function init(){
         var latitude = Cesium.Math.toDegrees(cartographic.latitude);
         var text = longitude.toFixed(5) + '°,' + latitude.toFixed(5) + '°,' + cartographic.height.toFixed(3) + 'm';
         $('#status_bar').text(text);
+        if (_moving && _currentEntity) {
+            var height = viewer.scene.getHeight(longitude,latitude);
+            var cartesian = Cesium.Cartesian3.fromDegrees(longitude,latitude,height);
+            _currentEntity.id.position = cartesian;
+        }
     }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
 
@@ -57,19 +118,8 @@ function init(){
     viewer.clock.stopTime = stop.clone();
     viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP;
 
-    //加载模型
-    var person = viewer.entities.add({
-        name: '人员1',
-        id:'person_1',
-        position: new Cesium.Cartesian3.fromDegrees(121.35481, 31.04185, 22.45),
-        model: {
-            uri: '/data/model/police.glb',
-            scale:10
-        }
-    });
-
     var car = viewer.entities.add({
-        name: '车辆1',
+        name: 'JC_00001',
         id:'car_1',
         position: carPositionProperty,
         orientation: new Cesium.VelocityOrientationProperty(carPositionProperty),
@@ -83,10 +133,20 @@ function init(){
             width: 10
         },
         viewFrom: new Cesium.Cartesian3(30, 0, 30),
+        // label:{
+        //     text: 'JC_00001',
+        //     font: '20px Helvetica',
+        //     fillColor: Cesium.Color.WHITE,
+        //     outlineColor: Cesium.Color.BLACK,
+        //     outlineWidth: 2,
+        //     eyeOffset:new Cesium.Cartesian3(0.0, 4, 0.0),
+        //     style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+        //     scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
+        // }
     });
 
     var uav = viewer.entities.add({
-        name: '无人机1',
+        name: 'U_00001',
         id:'uav_1',
         position: uavPositionProperty,
         orientation: new Cesium.VelocityOrientationProperty(uavPositionProperty),
@@ -100,28 +160,17 @@ function init(){
             width: 10
         },
         viewFrom: new Cesium.Cartesian3(30, 0, 30),
+        // label:{
+        //     text: 'U_00001',
+        //     font: '20px Helvetica',
+        //     fillColor: Cesium.Color.WHITE,
+        //     outlineColor: Cesium.Color.BLACK,
+        //     outlineWidth: 2,
+        //     eyeOffset:new Cesium.Cartesian3(0.0, 1, 0.0),
+        //     style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+        //     scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
+        // }
     });
-
-
-    var camera = viewer.entities.add({
-        name: '摄像头1',
-        id:'camera_1',
-        position: new Cesium.Cartesian3.fromDegrees(121.3511845, 31.04098, 24.54),
-        model: {
-            uri: '/data/model/camera.glb',
-            scale:0.1
-        }
-    }); 
-
-    var gun = viewer.entities.add({
-        name: '反制枪1',
-        id:'gun_1',
-        position: new Cesium.Cartesian3.fromDegrees(121.35528, 31.04082, 17.5),
-        model: {
-            uri: '/data/model/gun.glb',
-            scale:2
-        }
-    }); 
 }
 
 if (typeof Cesium !== 'undefined') {

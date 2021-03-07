@@ -7,21 +7,21 @@ $(function () {
                 model: '/data/model/police.glb',
                 image: '/images/model/police.png',
                 scale: 10,
-                params: ['name', 'location'],
+                params: ['name','number', 'location'],
             },
             {
                 name: '医护人员',
                 model: '/data/model/doctor.glb',
                 image: '/images/model/doctor.png',
                 scale: 1.2,
-                params: ['name', 'location'],
+                params: ['name','number', 'location'],
             },
             {
                 name: '保安',
                 model: '/data/model/guard.glb',
                 image: '/images/model/guard.png',
                 scale: 0.45,
-                params: ['name', 'location'],
+                params: ['name','number', 'location'],
             }
         ],
         car: [
@@ -83,14 +83,14 @@ $(function () {
                 model: '/data/model/gun.glb',
                 image: '/images/model/gun.png',
                 scale: 2,
-                params: ['name', 'location', 'range'],
+                params: ['license', 'number', 'location', 'range'],
             },
             {
                 name: '大型反制设备',
                 model: '/data/model/smoking.glb',
                 image: '/images/model/smoking.png',
                 scale: 10,
-                params: ['name', 'location', 'range'],
+                params: ['license', 'number', 'location', 'range'],
             }
         ],
         region: [
@@ -172,6 +172,7 @@ $(function () {
                     Toast.show('提示','请在地图场景中左键点击选择要部署的位置或绘制区域');
                     return;
                 }
+                var params = $('.deploy-params').serializeToJSON();
                 if (_currentModel.model) {
                     if (_tempEntity) {
                         viewer.entities.remove(_tempEntity)
@@ -195,7 +196,6 @@ $(function () {
                             scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
                         }
                     });
-                    var params = $('.deploy-params').serializeToJSON();
                     switch (_currentModel.name) {
                         case '警车':
                         case '消防车': 
@@ -222,11 +222,12 @@ $(function () {
                         default:
                             break;
                     }
+                    persistenceModel(_currentModel,_pickPosition,params);
                 }
                 else if (_currentModel.color) {
                     var color = new Cesium.Color(_currentModel.color[0]/255, _currentModel.color[1]/255, _currentModel.color[2]/255)
                     Region.add(key,color,_lnglats);
-                    Toast.show('提示','添加成功');
+                    persistenceRegion(_currentModel,_lnglats,params);
                     if (_polygonHandler) {
                         _polygonHandler.clear();
                         _polygonHandler.deactivate();
@@ -349,6 +350,144 @@ $(function () {
                 _polygonHandler.activate();
             }
         };
+
+        /**
+         * 保存到服务器端
+         */
+        var persistenceModel = function(model,position,params){
+            var url = '';
+            var data = {};
+            var cartographic = Cesium.Cartographic.fromCartesian(position);
+            var longitude = Cesium.Math.toDegrees(cartographic.longitude);
+            var latitude = Cesium.Math.toDegrees(cartographic.latitude);
+            var height = cartographic.height;
+            switch (model.name) {
+                case '警车':
+                case '消防车': 
+                case '救护车':
+                case '警用摩托':
+                case '反制车':
+                    url = API_ROOT + '/api/car';
+                    data = {
+                        license:params.license,
+                        number:params.number,
+                        type:model.name,
+                        longitude:longitude,
+                        latitude:latitude,
+                        height:height
+                    };
+                    break;
+                case '警察':
+                case '医护人员':
+                case '保安':
+                    url = API_ROOT + '/api/person';
+                    data = {
+                        name:params.name,
+                        type:model.name,
+                        longitude:longitude,
+                        latitude:latitude,
+                        height:height
+                    };
+                    break;
+                case '摄像头':
+                    url = API_ROOT + '/api/camera';
+                    data = {
+                        license:params.license,
+                        longitude:longitude,
+                        latitude:latitude,
+                        height:height,
+                        direction: params.shed_direction,
+                        pitch: params.shed_angle,
+                        distance: params.shed_distance,
+                        verticalFov: 90,
+                        horizontalFov: 120
+                    };
+                    break;
+                case '无人机':
+                    url = API_ROOT + '/api/uav';
+                    data = {
+                        license:params.license,
+                        longitude:longitude,
+                        latitude:latitude,
+                        height:height
+                    };
+                    break;
+                case '反制枪':
+                case '大型反制设备':
+                    url = API_ROOT + '/api/defence';
+                    data = {
+                        name:params.name,
+                        type:model.name,
+                        number:params.number,
+                        range:params.range,
+                        longitude:longitude,
+                        latitude:latitude,
+                        height:height
+                    };
+                    break;
+                default:
+                    break;
+            }
+            $.ajax({
+                type: 'POST',
+                url: url,
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.succeeded) {
+                        Toast.show('提示','添加成功');
+                    }
+                    else
+                    {
+                        console.error(response.errors);
+                    }
+                    console.log(response);
+                },
+                error: function (err) {
+                    console.error(err);
+                }
+            });
+        };
+
+        var persistenceRegion = function(model,lnglats,params){
+            var url = API_ROOT + '/api/region';
+            var locations = [];
+            for (let i = 0; i < lnglats.length - 3; i+=3) {
+                locations.push({
+                    longitude: lnglats[i],
+                    latitude: lnglats[i + 1],
+                    height: lnglats[i + 2]
+                });
+            }
+            var data = {
+                name:params.name,
+                type:model.name,
+                locations:locations
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.succeeded) {
+                        Toast.show('提示','添加成功');
+                    }
+                    else
+                    {
+                        console.error(response.errors);
+                    }
+                    console.log(response);
+                },
+                error: function (err) {
+                    console.error(err);
+                }
+            });
+        }
+
 
         return {
             init:init,

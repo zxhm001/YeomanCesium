@@ -10,10 +10,10 @@ $(function(){
                     {
                         name:'网格1',
                         children:[
-                            {
-                                name:'摄像头1',
-                                model:'camera_1'
-                            }
+                            // {
+                            //     name:'摄像头1',
+                            //     model:'camera_1'
+                            // }
                         ]
                     }
                 ]
@@ -78,6 +78,10 @@ $(function(){
         viewshed3D.verticalFov = viewshed3D.verticalFov + 30;
         viewshed3D.horizontalFov = viewshed3D.horizontalFov + 30;
     });
+
+    setTimeout(() => {
+        Camera.loadCameras();
+    }, 2000);
       
     function camera(){
 
@@ -126,10 +130,44 @@ $(function(){
             }
         }
 
+        function addEntity(key,license,lng,lat,height){
+            viewer.entities.add({
+                name: license,
+                id:'camera_' + key,
+                position: new Cesium.Cartesian3.fromDegrees(lng, lat, height),
+                model: {
+                    uri: '/data/model/camera.glb',
+                    scale:0.1
+                },
+                label:{
+                    text: license,
+                    font: SysConfig.getConfig().model_label_size + 'px Helvetica',
+                    fillColor: Cesium.Color.fromCssColorString(SysConfig.getConfig().model_label_color),
+                    outlineColor: Cesium.Color.BLACK,
+                    outlineWidth: 2,
+                    eyeOffset:new Cesium.Cartesian3(0.0, 1.0, 0.0),
+                    style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                    scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
+                }
+            });        
+        }
+
+        function loadCameras(){
+            $.get(API_ROOT + '/api/camera',function(response){
+                if (response.succeeded) {
+                    response.data.forEach(camera => {
+                        addEntity(camera.id,camera.license,camera.longitude,camera.latitude,camera.height);
+                        add(camera.license,'camera_' + camera.id);
+                    });
+                }
+            });
+        }
+
         return{
             showCameraTree:showCameraTree,
             showViewshed:showViewshed,
-            add:add
+            add:add,
+            loadCameras:loadCameras
         }
     }
 

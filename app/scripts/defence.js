@@ -6,14 +6,14 @@ $(function(){
             {
                 name:'江川路街道',
                 children:[
-                    {
-                        name:'反制枪1',
-                        model:'gun_1',
-                        params:
-                        {
-                            range:100
-                        }
-                    }
+                    // {
+                    //     name:'反制枪1',
+                    //     model:'gun_1',
+                    //     params:
+                    //     {
+                    //         range:100
+                    //     }
+                    // }
                 ]
             }
         ]
@@ -39,6 +39,10 @@ $(function(){
             Defence.showRange(model._position._value,nodes[0].params.range);
         }
     });
+
+    setTimeout(() => {
+        Defence.loadDefences();
+    }, 2000);
 
     function defence()
     {
@@ -120,10 +124,65 @@ $(function(){
             }
         }
 
+        function addEntity(key,license,type,lng,lat,height)
+        {
+            var uri = '';
+            var scale = 1;
+            switch (type) {
+                case '反制枪':
+                    uri = '/data/model/gun.glb';
+                    scale = 2;
+                    break;
+                case '大型反制设备':
+                    uri = '/data/model/smoking.glb';
+                    scale = 10
+                    break;
+                default:
+                    break;
+            }
+            viewer.entities.add({
+                name: license,
+                id:'defence_' + key,
+                position: new Cesium.Cartesian3.fromDegrees(lng, lat, height),
+                model: {
+                    uri: uri,
+                    scale:scale
+                },
+                label:{
+                    text: license,
+                    font: SysConfig.getConfig().model_label_size +'px Helvetica',
+                    fillColor: Cesium.Color.fromCssColorString(SysConfig.getConfig().model_label_color),
+                    outlineColor: Cesium.Color.BLACK,
+                    outlineWidth: 2,
+                    eyeOffset:new Cesium.Cartesian3(0.0, 1.0, 0.0),
+                    style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                    scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
+                }
+            });  
+        }
+
+        function loadDefences()
+        {
+            $.get(API_ROOT + '/api/defence',function(response){
+                if (response.succeeded) {
+                    response.data.forEach(defence => {
+                        var numberStr = '';
+                        if (defence.number > 1) {
+                            numberStr = '(' + defence.number + ')';
+                        }
+                        var license = defence.license + numberStr;
+                        addEntity(defence.id,license,defence.type,defence.longitude,defence.latitude,defence.height);
+                        add(license,'defence_' + defence.id,{license:defence.license,range:defence.range});
+                    });
+                }
+            });
+        }
+
         return{
             showDefenceTree:showDefenceTree,
             showRange:showRange,
-            add:add
+            add:add,
+            loadDefences:loadDefences
         };
     }
     window.Defence = defence();

@@ -12,6 +12,7 @@
     <!-- build:css styles/vendor.css -->
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css" type="text/css" />
+    <link rel="stylesheet" href="/node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" type="text/css" />
     <link rel="stylesheet" href="/node_modules/ztree/css/metroStyle/metroStyle.css" type="text/css" />
     <!-- endbuild -->
     <!-- build:css styles/main.css -->
@@ -124,13 +125,15 @@
     @@include('./includes/modal_deploy.html')
     @@include('./includes/modal_marker.html')
     @@include('./includes/modal_defence.html')
+    @@include('./includes/modal_config.html')
     <!--end modal-->
     @@include('./includes/toast.html')
     @@include('./includes/footer.html')
     <!-- build:js scripts/vendor.js -->
     <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/node_modules/jquery-serializetojson/dist/jquery.serializeToJSON.min.js"></script>
-    <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/node_modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
     <script type="text/javascript" src="/node_modules/ztree/js/jquery.ztree.all.min.js"></script>
     <script type="text/javascript" src="/node_modules/turf/turf.min.js"></script>
     <!-- endbuild -->
@@ -153,6 +156,7 @@
     <script type="text/javascript" src="libs/colorpicker/js/colorpickerEditor.js"></script>
     <!-- endbuild -->
     <!-- build:js scripts/main.js -->
+    <script src="scripts/config.js"></script>
     <script src="scripts/PlotPanel.js"></script>
     <script src="scripts/StylePanel.js"></script>
     <script src="scripts/main.js"></script>

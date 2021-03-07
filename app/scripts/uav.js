@@ -7,10 +7,10 @@ $(function(){
             {
                 name:'江川路街道',
                 children:[
-                    {
-                        name:'无人机1',
-                        model:'uav_1'
-                    }
+                    // {
+                    //     name:'无人机1',
+                    //     model:'uav_1'
+                    // }
                 ]
             }
         ]
@@ -38,6 +38,10 @@ $(function(){
         $('#video_uav').show();
         $('#video_uav').trigger('play');
     });
+
+    setTimeout(() => {
+        UAV.loadUAVs();
+    }, 2000);
       
     function uav(){
         function showUAVTree(){
@@ -67,9 +71,47 @@ $(function(){
             }
         }
 
+        function loadUAVs()
+        {
+            $.get(API_ROOT + '/api/uav',function(response){
+                if (response.succeeded) {
+                    response.data.forEach(uav => {
+                        if (uav.id != 1) {
+                            addEntity(uav.id,uav.license,uav.longitude,uav.latitude,uav.height,uav.path);
+                        }
+                        add(uav.license,'uav_' + uav.id);
+                    });
+                }
+            });
+        }
+
+        function addEntity(key,license,lng,lat,height,path)
+        {
+            viewer.entities.add({
+                name: license,
+                id:'uav_' + key,
+                position: new Cesium.Cartesian3.fromDegrees(lng, lat, height),
+                model: {
+                    uri: '/data/model/uav.glb',
+                    scale:2
+                },
+                label:{
+                    text: license,
+                    font: SysConfig.getConfig().model_label_size + 'px Helvetica',
+                    fillColor: Cesium.Color.fromCssColorString(SysConfig.getConfig().model_label_color),
+                    outlineColor: Cesium.Color.BLACK,
+                    outlineWidth: 2,
+                    eyeOffset:new Cesium.Cartesian3(0.0, 1, 0.0),
+                    style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                    scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
+                }
+            });                   
+        }
+
         return{
             showUAVTree:showUAVTree,
-            add:add
+            add:add,
+            loadUAVs:loadUAVs
         }
     }
 
