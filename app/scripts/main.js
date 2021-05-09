@@ -125,7 +125,7 @@ function init(){
         orientation: new Cesium.VelocityOrientationProperty(carPositionProperty),
         model: {
             uri: '/data/model/police_car.glb',
-            scale:15
+            scale:1
         },
         path:{
             resolution: 1,
@@ -152,7 +152,7 @@ function init(){
         orientation: new Cesium.VelocityOrientationProperty(uavPositionProperty),
         model: {
             uri: '/data/model/uav.glb',
-            scale:2
+            scale:1
         },
         path:{
             resolution: 1,
@@ -170,6 +170,23 @@ function init(){
         //     style: Cesium.LabelStyle.FILL_AND_OUTLINE,
         //     scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
         // }
+    });
+    window.setExtent = function(maxx,minx,maxy,miny)
+    {
+        viewer.camera.flyTo({
+            destination : Cesium.Rectangle.fromDegrees(minx, miny, maxx, maxy)
+        });
+    }
+
+    $('.core-btn').on('click',function(){
+        // console.log(viewer.scene.camera);
+        viewer.scene.camera.setView({
+            destination : new Cesium.Cartesian3(-2844445.995988, 4668163.510785, 3288134.420725),
+            orientation : {
+                direction : new Cesium.Cartesian3(0.4687117685901372, -0.7612987345932591, 0.4480329392933161 ),
+                up : new Cesium.Cartesian3(-0.2309045971528698, 0.3839714733384412, 0.8940072565007388)
+            }
+        });
     });
 }
 

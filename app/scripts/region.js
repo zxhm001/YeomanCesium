@@ -1,35 +1,68 @@
 $(function(){
     var zTreeObj,fenceEntity;
 
-    var data = [{
-        name:'闵行区',
-        children:[
-            {
-                name:'江川路街道',
-                children:[
-                    // {
-                    //     name:'旗忠网球中心',
-                    //     lnglats:[121.3481480064,31.0425983687,18.0000000000,
-                    //         121.3569521625,31.0441519351,18.0000000000,
-                    //         121.3573941158,31.0425598188,18.0000000000,
-                    //         121.3573983609,31.0410497470,18.0000000000,
-                    //         121.3490896067,31.0388556443,18.0000000000,
-                    //         121.3481480064,31.0425983687,18.0000000000]
-                    // }
-                ]
-            }
-        ]
-    }];
+    var data = [
+        {
+            name:'安全区域',
+            children:[]
+        },
+        {
+            name:'重点区域',
+            children:[]
+        },
+        {
+            name:'危险区域',
+            children:[]
+        }
+    ];
 
     $('#modal_region').on('show.bs.modal', function (event) {
         Region.showRegionTree();
     });
 
     $('#modal_region').on('hide.bs.modal', function (event) {
-        if (fenceEntity) {
-            viewer.entities.remove(fenceEntity)
+        $('.corner-btn-group .inner .box').removeClass('active')
+        // if (fenceEntity) {
+        //     viewer.entities.remove(fenceEntity)
+        // }
+    });
+
+    $('#btn_region_delete').on('click',function(){
+        var nodes = zTreeObj.getSelectedNodes();
+        if (nodes.length > 0 && nodes[0].params) {
+            var url = API_ROOT + '/api/region/' + nodes[0].params.id;
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                success: function (response) {
+                    if (response.succeeded) {
+                        Region.showAllFence(false);
+                        var entity = viewer.entities.getById('region_' + nodes[0].params.id);
+                        if (entity) {
+                            viewer.entities.remove(entity)
+                        }
+                        zTreeObj.removeNode(nodes[0]);
+                        Toast.show('提示','删除成功');
+                    }
+                    else
+                    {
+                        console.error(response.errors);
+                    }
+                },
+                error: function (err) {
+                    console.error(err);
+                }
+            });
+        }
+        else
+        {
+            Toast.show('提示','请选择区域');
         }
     });
+
+    $('#region_show_model').on('change',function(){
+        Region.showAllFence($(this).prop('checked'));
+    })
 
     setTimeout(() => {
         Region.loadRegions();
@@ -41,50 +74,10 @@ $(function(){
             var setting = {
                 callback:{
                     onDblClick:function(event, treeId, treeNode){
-                        if (treeNode.lnglats) {
-                            if (fenceEntity) {
-                                viewer.entities.remove(fenceEntity)
-                            }
-                            var minimumHeights =  [],maximumHeights = [],dayMaximumHeights = [];
-                            for (let i = 0; i < treeNode.lnglats.length; i++) {
-                                if(i%3 == 2)
-                                {
-                                    minimumHeights.push(treeNode.lnglats[i]);
-                                    dayMaximumHeights.push(treeNode.lnglats[i]);
-                                    maximumHeights.push(treeNode.lnglats[i] + 30);
-                                }
-                            }
-                            var color = Cesium.Color.RED;
-                            if (treeNode.color) {
-                                color = treeNode.color;
-                            }
-                            fenceEntity= viewer.entities.add({
-                                wall: {
-                                    positions: new Cesium.CallbackProperty(e => {
-                                        return Cesium.Cartesian3.fromDegreesArrayHeights(treeNode.lnglats);
-                                    }, false),
-                                    minimumHeights:new Cesium.CallbackProperty(e => {
-                                        return minimumHeights;
-                                    }, false),   
-                                    maximumHeights: new Cesium.CallbackProperty(e => {
-                                        for (let i = 0; i < minimumHeights.length; i++) {
-                                            dayMaximumHeights[i] += 30 * 0.01;
-                                            if (dayMaximumHeights[i] > maximumHeights[i]) {
-                                                dayMaximumHeights[i] = minimumHeights[i];
-                                            }
-                                        }
-                                        return dayMaximumHeights;
-                                    }, false),
-                                    material: new Cesium.ImageMaterialProperty({
-                                        image: '/images/fence.png',
-                                        transparent: true,
-                                        color: color
-                                    })
-                                }
-                            });
-
-                            viewer.flyTo(fenceEntity); 
-                        }
+                        showAllFence(false);
+                        var entity = drawFenceEntity(treeNode);
+                        entity.show = true;
+                        viewer.flyTo(entity); 
                     }
                 }
             };
@@ -92,14 +85,69 @@ $(function(){
             zTreeObj = $.fn.zTree.init($('#region_tree'), setting, data);
         }
 
-        function add(name,color,lnglats)
+        function add(name,type,color,lnglats,params)
         {
             var newNode = {
                 name:name,
                 lnglats:lnglats,
-                color:color
+                color:color,
+                params:params
             };
-            data[0].children[0].children.push(newNode);
+            data.forEach(node => {
+                if (node.name == type) {
+                    node.children.push(newNode);
+                }
+            });
+        }
+
+        function drawFenceEntity(treeNode)
+        {
+            if (treeNode.lnglats) {
+                var fenceEntity = viewer.entities.getById('region_' + treeNode.params.id);
+                if (fenceEntity) {
+                    return fenceEntity;
+                }
+                var minimumHeights =  [],maximumHeights = [],dayMaximumHeights = [];
+                for (let i = 0; i < treeNode.lnglats.length; i++) {
+                    if(i%3 == 2)
+                    {
+                        minimumHeights.push(treeNode.lnglats[i]);
+                        dayMaximumHeights.push(treeNode.lnglats[i]);
+                        maximumHeights.push(treeNode.lnglats[i] + 30);
+                    }
+                }
+                var color = Cesium.Color.RED;
+                if (treeNode.color) {
+                    color = treeNode.color;
+                }
+                fenceEntity= viewer.entities.add({
+                    id:'region_' + treeNode.params.id,
+                    show:false,
+                    wall: {
+                        positions: new Cesium.CallbackProperty(e => {
+                            return Cesium.Cartesian3.fromDegreesArrayHeights(treeNode.lnglats);
+                        }, false),
+                        minimumHeights:new Cesium.CallbackProperty(e => {
+                            return minimumHeights;
+                        }, false),   
+                        maximumHeights: new Cesium.CallbackProperty(e => {
+                            for (let i = 0; i < minimumHeights.length; i++) {
+                                dayMaximumHeights[i] += 30 * 0.01;
+                                if (dayMaximumHeights[i] > maximumHeights[i]) {
+                                    dayMaximumHeights[i] = minimumHeights[i];
+                                }
+                            }
+                            return dayMaximumHeights;
+                        }, false),
+                        material: new Cesium.ImageMaterialProperty({
+                            image: '/images/fence.png',
+                            transparent: true,
+                            color: color
+                        })
+                    }
+                });
+                return fenceEntity;
+            }
         }
 
         function loadRegions(){
@@ -120,22 +168,58 @@ $(function(){
                             case '危险区域':
                                 color = new Cesium.Color(1, 0, 0);
                                 break;
+                            case '重点区域':
+                                color = new Cesium.Color(1, 0.5, 0);
+                                break;
                             case '安全区域':
                                 color = new Cesium.Color(0, 1, 0);
                                 break;
                             default:
                                 break;
                         }
-                        add(region.name,color,lnglats);
+                        add(region.name,region.type,color,lnglats,region);
                     });
                 }
             });
         }
 
+        function showAllFence(isShow){
+            var nodes = getModelNodes();
+            if (!isShow) {
+                nodes.forEach(node => {
+                    var entity = viewer.entities.getById('region_' + node.params.id);
+                    if (entity) {
+                        entity.show = false;
+                    }
+                });
+            }
+            else
+            {
+                nodes.forEach(node => {
+                    var entity = drawFenceEntity(node);
+                    entity.show = true;
+                });
+            }
+        }
+
+        function getModelNodes(){
+            var modelNodes = [];
+            data.forEach(node => {
+                node.children.forEach(subNode => {
+                    if (subNode.color) {
+                        modelNodes.push(subNode)
+                    }
+                });
+            });
+            return modelNodes;
+        }
+
         return{
             showRegionTree:showRegionTree,
             add:add,
-            loadRegions:loadRegions
+            loadRegions:loadRegions,
+            drawFenceEntity:drawFenceEntity,
+            showAllFence:showAllFence
         }
     }
 

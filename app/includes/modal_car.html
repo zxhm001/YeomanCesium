@@ -6,17 +6,25 @@
                 <div class="z-index-1 py-1 light">
                     <h5 class="text-white" id="car-modal-label"><i class="bi bi-speedometer"></i>车辆定位</h5>
                 </div>
+                <div class="z-index-1 mt-1 ml-config">
+                    <input name="mlsize" type="number" class="size-picker" id="car_label_size_input">
+                    <input name="mlcolor" type="text" class="color-picker" id="car_label_color_input">
+                </div>
                 <button class="btn-close z-index-1 mt-0" type="button" data-dismiss="modal" aria-label="Close"><i class="bi bi-x" style="color: #fff;"></i></button>
             </div>
             <div class="modal-body px-card">
                 <div id="car_tree" class="ztree"></div>
                 <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="car_show_all">
-                    <label class="form-check-label" for="car_show_all">全部显示</label>
+                    <input type="checkbox" checked class="form-check-input" id="car_show_model">
+                    <label class="form-check-label" for="car_show_model">显示模型</label>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" checked class="form-check-input" id="car_show_label">
+                    <label class="form-check-label" for="car_show_label">显示标注</label>
                 </div>
                 <div class="btn-group">
-                    <input id="btn_track_car" type="button" class="btn btn-primary" value="追踪">
-                    <input type="button" class="btn btn-secondary" value="通话">
+                    <input id="btn_car_track" type="button" class="btn btn-primary" value="追踪">
+                    <input id="btn_car_delete" type="button" class="btn btn-danger" value="删除">
                 </div>
             </div>
         </div>

@@ -1,0 +1,298 @@
+.corner-btn-group 
+{
+    position: absolute;
+    right: calc(50vw - 202px);
+    bottom: -143px;
+    width: 404px;
+    height: 404px;
+    border-radius: 202px;
+    z-index: 10;
+
+    .outter-bg{
+        position: relative;
+        width: 0px;
+        height: 0px;
+        left: 202px;
+        top: 202px;
+        border-radius: 50%;
+        background-color: rgba(15, 89, 153, 0.47);
+    }
+
+    .outter-bg.active {
+        display: block;
+    }
+
+    .outter {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: none;
+
+        .box {
+            position: absolute;
+            width: 55px;
+            height: 65px;
+            text-align: center;
+            cursor: pointer;
+            opacity: 0;
+
+            .icon {
+                width: 45px;
+                height: 40px;
+                font-size: 30px;
+                display: inline-block;
+                margin-top: -10px;
+                color: #00faff;
+            }
+
+            .outter-text {
+                color: #00faff;
+            }
+        }
+
+        .box:hover
+        {
+            .outter-text {
+                color: #ffdc36;
+            }
+    
+            .icon
+            {
+                color: #ffdc36;
+            }
+        }
+
+        &.active
+        {
+            display: block;
+        }
+
+
+        /*人员*/
+        .jingcha-box
+        {
+            left: 35px;
+            top: 150px;
+        }
+
+        .anbao-box
+        {
+            left: 100px;
+            top: 40px;
+        }
+
+        .xiaofang-box
+        {
+            left: 270px;
+            top: 40px;
+        }
+
+        .yihu-box
+        {
+            top: 150px;
+            left: 350px;
+        }
+        /*车辆*/
+        .jingche-box
+        {
+            left: 35px;
+            top: 150px;
+        }
+
+        .xiaofangche-box
+        {
+            left: 90px;
+            top: 55px;
+        }
+
+        .jiuhuche-box
+        {
+            left: 185px;
+            top: 15px;
+        }
+
+        .fanzhiche-box
+        {
+            left: 280px;
+            top: 55px;
+        }
+
+        .motuoche-box
+        {
+            top: 150px;
+            left: 350px;
+        }
+        /*设备*/
+        .guanli-box
+        {
+            left: 35px;
+            top: 150px;
+        }
+
+        .bukongqiu-box
+        {
+            left: 100px;
+            top: 40px;
+        }
+
+        .fanzhiqiang-box
+        {
+            left: 270px;
+            top: 40px;
+        }
+
+        .wurenji-box
+        {
+            top: 150px;
+            left: 350px;
+        }
+        /*建筑*/
+        .liebiao-box
+        {
+            left: 185px;
+            top: 15px;
+        }
+        /*区域*/
+        .weixian-box
+        {
+            left: 40px;
+            top: 120px;
+        }
+        .zhongdian-box
+        {
+            left: 185px;
+            top: 15px;
+        }
+        .anquan-box
+        {
+            left: 330px;
+            top: 120px;
+        }
+        /*标注*/
+        .renyuan-box
+        {
+            left: 35px;
+            top: 150px;
+        }
+
+        .cheliang-box
+        {
+            left: 100px;
+            top: 40px;
+        }
+
+        .shebei-box
+        {
+            left: 270px;
+            top: 40px;
+        }
+
+        .quyu-box
+        {
+            top: 150px;
+            left: 350px;
+        }
+    }
+
+    
+    .inner-bg {
+        position: absolute;
+        left: 90px;
+        top: 95px;
+        width: 250px;
+        height: 250px;
+        border-radius: 145px;
+        opacity: 0.5;
+        background-color: rgba(0,74,139,0.83);
+    }
+
+    .inner {
+        position: absolute;
+        left: 88px;
+        top: 88px;
+
+        .box {
+            position: absolute;
+            width: 45px;
+            height: 60px;
+            text-align: center;
+            cursor: pointer;
+
+            .icon {
+                width: 45px;
+                height: 40px;
+                font-size: 30px;
+                display: inline-block;
+                margin-top: -10px;
+                color: #00faff;
+            }
+        }
+
+        .renyuan-box
+        {
+            left: 25px;
+            top: 115px;
+        }
+
+        .cheliang-box
+        {
+            left: 35px;
+            top: 55px;
+        }
+
+        .shebei-box
+        {
+            left: 80px;
+            top: 15px;
+        }
+
+        .jianzhu-box
+        {
+            left: 125px;
+            top: 15px;
+        }
+
+        .quyu-box
+        {
+            left: 170px;
+            top: 55px;
+        }
+
+        .biaozhu-box
+        {
+            left: 180px;
+            top: 115px;
+        }
+
+        .inner-text {
+            color: #00faff;
+        }
+
+        .active
+        {
+            .inner-text {
+                color: #ffdc36;
+            }
+
+            .icon
+            {
+                color: #ffdc36;
+            }
+        } 
+    }
+
+    .core {
+        position: absolute;
+        width: 122px;
+        height: 122px;
+        left: 155px;
+        top: 159px;
+
+        .core-btn {
+            width: 115px;
+            height: 115px;
+            background-image: url(../images/earth.png);
+            cursor: pointer;
+        }
+    }
+}

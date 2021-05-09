@@ -1,0 +1,128 @@
+{
+  "id": "2527097",
+  "name": "上海安保",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3370262",
+      "name": "医生",
+      "font_class": "yisheng",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "386299",
+      "name": "危险",
+      "font_class": "weixian",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "1033984",
+      "name": "安全",
+      "font_class": "iconfontanquan",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "5077710",
+      "name": "重点标注",
+      "font_class": "zhongdianbiaozhu",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "6446348",
+      "name": "管理",
+      "font_class": "tianchongxing-",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "18931231",
+      "name": "列表",
+      "font_class": "liebiao",
+      "unicode": "e67e",
+      "unicode_decimal": 59006
+    },
+    {
+      "icon_id": "3369497",
+      "name": "救护车",
+      "font_class": "jiuhuche",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "4684432",
+      "name": "消防车",
+      "font_class": "xiaofangche",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "5273736",
+      "name": "警用摩托车",
+      "font_class": "jingyongmotuoche",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "7966763",
+      "name": "交通-通信车1",
+      "font_class": "jiaotong-tongxinche",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "9860182",
+      "name": "警车",
+      "font_class": "jingche",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "11107931",
+      "name": "枪",
+      "font_class": "qiang",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "11200524",
+      "name": "警察",
+      "font_class": "police",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "17853521",
+      "name": "安保",
+      "font_class": "anbao",
+      "unicode": "e7f9",
+      "unicode_decimal": 59385
+    },
+    {
+      "icon_id": "17853538",
+      "name": "消防员",
+      "font_class": "xiaofangyuan",
+      "unicode": "e7fd",
+      "unicode_decimal": 59389
+    },
+    {
+      "icon_id": "18323653",
+      "name": "布控球",
+      "font_class": "bukongqiu",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    },
+    {
+      "icon_id": "18528070",
+      "name": "无人机",
+      "font_class": "wurenji",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    }
+  ]
+}

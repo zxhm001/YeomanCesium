@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- build:css styles/vendor.css -->
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css" type="text/css" />
+    <link rel="stylesheet" href="/node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css"
+        type="text/css" />
+    <link rel="stylesheet" href="/node_modules/ztree/css/metroStyle/metroStyle.css" type="text/css" />
+    <!-- endbuild -->
+    <!-- build:css styles/login.css -->
+    <link rel="stylesheet" href="styles/login.css">
+    <!-- endbuild -->
+</head>
+
+<body>
+    <div class="page login-page">
+        <div class="container d-flex align-items-center">
+            <div class="form-holder has-shadow">
+                <div class="row">
+                    <!-- Logo & Information Panel-->
+                    <div class="col-lg-6">
+                        <div class="info d-flex align-items-center">
+                            <div class="content">
+                                <div class="logo">
+                                    <h1>实景三维标注平台</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Form Panel    -->
+                    <div class="col-lg-6 bg-white">
+                        <div class="form d-flex align-items-center">
+                            <div class="content">
+                                <form method="post" class="form-validate">
+                                    <div class="form-group">
+                                        <input id="login-username" type="text" name="loginUsername" required
+                                            data-msg="Please enter your username" class="input-material">
+                                        <label for="login-username" class="label-material">用户名</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="login-password" type="password" name="loginPassword" required
+                                            data-msg="Please enter your password" class="input-material">
+                                        <label for="login-password" class="label-material">密码</label>
+                                    </div><a id="login" href="/" class="btn btn-primary">用户登录</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- build:js scripts/vendor.js -->
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript"
+        src="/node_modules/jquery-serializetojson/dist/jquery.serializeToJSON.min.js"></script>
+    <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/node_modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"></script>
+    <script type="text/javascript" src="/node_modules/ztree/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript" src="/node_modules/turf/turf.min.js"></script>
+    <!-- endbuild -->
+</body>
+
+</html>

@@ -10,9 +10,12 @@
             </div>
             <div class="modal-body px-card">
                 <div id="region_tree" class="ztree"></div>
-                <div class="btn-group" style="margin-top: 1rem;">
-                    <input type="button" class="btn btn-primary" value="绘制">
-                    <input type="button" class="btn btn-danger" value="删除">
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="region_show_model">
+                    <label class="form-check-label" for="region_show_model">全部显示</label>
+                </div>
+                <div class="btn-group">
+                    <input id="btn_region_delete" type="button" class="btn btn-danger" value="删除">
                 </div>
             </div>
         </div>

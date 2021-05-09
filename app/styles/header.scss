@@ -4,36 +4,49 @@
     left: 0;
     right: 0;
     z-index: 999;
-    background: rgba(16, 16, 16, 0.65);
+    height: 72px;
+    background:url(../images/header.png);
+    background-size:cover;
+    background-repeat: round;
 
     nav{
         width: 100%;
     }
 
-    .input-group{
-        height: 36px;
-        background: #f3f6fb;
-        border-radius:3px;
-
-        input{
-            height: 36px;
-            background: #f3f6fb;
-        }
-    }
-
-    .container{
-        width: 100% !important;
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-
-
-        .navbar-expand-lg
+    .navbar
+    {
+        justify-content:center;
+        .navbar-brand
         {
-            .navbar-collapse
-            {
-                display: flex !important;
-                flex-basis: auto;
-            }
+            margin-right:0;
+            font-family: tahoma,arial,"Microsoft YaHei";
+            font-size: 28px;
+        }
+
+        .nav-menu {
+            margin-bottom: 0;
+            padding-left: 0px;
+            position: absolute;
+            right: 3rem;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        #current_user_name
+        {
+            color: #fff;
+        }
+
+        .dropdown-menu
+        {
+            position: absolute;
+            border-radius:0;
+            top: 140%;
+            left: -30px;
         }
     }
+    
 }

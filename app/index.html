@@ -6,7 +6,7 @@
     <meta name="description" content="">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>新世纪安防平台</title>
+    <title>实景三维标注平台</title>
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
     <!-- build:css styles/vendor.css -->
@@ -18,13 +18,14 @@
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/menu.css">
     <link rel="stylesheet" href="styles/modal.css">
+    <!-- endbuild -->
+    <!-- build:css scripts/iconfont/iconfont.css -->
+    <link rel="stylesheet" href="libs/iconfont/iconfont.css">
     <!-- endbuild -->
     <!-- build:js scripts/modernizr.js -->
     <script src="scripts/modernizr.js"></script>
-    <!-- endbuild -->
-    <!-- build:css scripts/Cesium/Widgets/widgets.css -->
-    <link rel="stylesheet" href="libs/Cesium/Widgets/widgets.css"/>
     <!-- endbuild -->
     <!-- build:css scripts/Cesium/Widgets/widgets.css -->
     <link rel="stylesheet" href="libs/Cesium/Widgets/widgets.css"/>
@@ -42,7 +43,8 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     @@include('./includes/header.html')
-    <nav id="sidebar" class="navbar">
+    @@include('./includes/menu_group.html')
+    <!-- <nav id="sidebar" class="navbar">
       <div class="container-fluid">
         <div class="collapse navbar-collapse show">
           <ul class="navbar-nav flex-column">
@@ -113,18 +115,18 @@
       </div>
       <div id="status_bar"></div>
     </nav>
+    -->
     <div id="cesium_container">
-    </div>
+    </div> 
+
     <!--modal-->
     @@include('./includes/modal_person.html')
+    @@include('./includes/modal_device_select.html')
     @@include('./includes/modal_car.html')
-    @@include('./includes/modal_uav.html')
-    @@include('./includes/modal_camera.html')
     @@include('./includes/modal_building.html')
     @@include('./includes/modal_region.html')
     @@include('./includes/modal_deploy.html')
-    @@include('./includes/modal_marker.html')
-    @@include('./includes/modal_defence.html')
+    @@include('./includes/modal_device.html')
     @@include('./includes/modal_config.html')
     <!--end modal-->
     @@include('./includes/toast.html')
@@ -155,19 +157,20 @@
     <!-- build:js scripts/colorpicker/js/colorpickerEditor.js -->
     <script type="text/javascript" src="libs/colorpicker/js/colorpickerEditor.js"></script>
     <!-- endbuild -->
+    <!-- build:js scripts/player/cyberplayer.js -->
+    <script type="text/javascript" src="libs/player/cyberplayer.js"></script>
+    <!-- endbuild -->
+
     <!-- build:js scripts/main.js -->
     <script src="scripts/config.js"></script>
-    <script src="scripts/PlotPanel.js"></script>
-    <script src="scripts/StylePanel.js"></script>
     <script src="scripts/main.js"></script>
+    <script src="scripts/menu.js"></script>
     <script src="scripts/person.js"></script>
     <script src="scripts/car.js"></script>
-    <script src="scripts/camera.js"></script>
-    <script src="scripts/uav.js"></script>
     <script src="scripts/buildling.js"></script>
+    <script src="scripts/device.js"></script>
     <script src="scripts/region.js"></script>
     <script src="scripts/marker.js"></script>
-    <script src="scripts/defence.js"></script>
     <script src="scripts/deploy.js"></script>
     <script src="scripts/toast.js"></script>
     <!-- endbuild -->

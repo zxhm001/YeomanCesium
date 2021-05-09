@@ -28,40 +28,46 @@
                             <input name="license" type="text" class="form-control" id="deploy_input_license">
                         </div>
                     </div>
+                    <div class="form-group row deploy-params-text">
+                        <label for="deploy_input_text" class="col-sm-3 col-form-label">标注</label>
+                        <div class="col-sm-9">
+                            <input name="text" type="text" class="form-control" id="deploy_input_text">
+                        </div>
+                    </div>
                     <div class="form-group row deploy-params-number">
                         <label for="deploy_input_number" class="col-sm-3 col-form-label">数量</label>
                         <div class="col-sm-9">
-                            <input name="number" type="text" class="form-control" id="deploy_input_number">
+                            <input name="number" value="0" type="text" class="form-control" id="deploy_input_number">
                         </div>
                     </div>
-                    <div class="form-group row deploy-params-location">
-                        <label for="deploy_input_location" class="col-sm-3 col-form-label">行政区域</label>
+                    <div class="form-group row deploy-params-device">
+                        <label for="deploy_input_device" class="col-sm-3 col-form-label">绑定设备</label>
                         <div class="col-sm-9">
-                            <input name="location" type="text" class="form-control" id="deploy_input_location">
+                            <input name="device" type="text" class="form-control" id="deploy_input_device">
                         </div>
                     </div>
-                    <div class="form-group row deploy-params-video">
-                        <label for="deploy_input_video" class="col-sm-3 col-form-label">视频接口</label>
+                    <div class="form-group row deploy-params-rtmpurl">
+                        <label for="deploy_input_rtmpurl" class="col-sm-3 col-form-label">视频接口</label>
                         <div class="col-sm-9">
-                            <input name="video" type="text" class="form-control" id="deploy_input_video">
+                            <input name="rtmpurl" type="text" class="form-control" id="deploy_input_rtmpurl">
+                        </div>
+                    </div>
+                    <div class="form-group row deploy-params-locationurl">
+                        <label for="deploy_input_locationurl" class="col-sm-3 col-form-label">位置接口</label>
+                        <div class="col-sm-9">
+                            <input name="locationurl" type="text" class="form-control" id="deploy_input_locationurl">
                         </div>
                     </div>
                     <div class="form-group row deploy-params-path">
-                        <label for="deploy_input_path" class="col-sm-3 col-form-label">位置接口</label>
+                        <label for="deploy_input_path" class="col-sm-3 col-form-label">线路</label>
                         <div class="col-sm-9">
-                            <input name="path" type="text" class="form-control" id="deploy_input_path">
-                        </div>
-                    </div>
-                    <div class="form-group row deploy-params-control">
-                        <label for="deploy_input_control" class="col-sm-3 col-form-label">控制接口</label>
-                        <div class="col-sm-9">
-                            <input name="control" type="text" class="form-control" id="deploy_input_control">
+                            <input name="path" type="button" class="form-control" id="deploy_input_path" value="绘制">
                         </div>
                     </div>
                     <div class="form-group row deploy-params-range">
                         <label for="deploy_input_range" class="col-sm-3 col-form-label">辐射范围</label>
                         <div class="col-sm-7">
-                            <input name="range" type="number" class="form-control" id="deploy_input_range" value="100">
+                            <input name="range" type="number" class="form-control" id="deploy_input_range" value="0">
                         </div>
                         <label for="deploy_input_range" class="col-sm-2 col-form-label">米</label>
                     </div>

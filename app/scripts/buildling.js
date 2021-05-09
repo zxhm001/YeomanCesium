@@ -7,6 +7,7 @@ $(function () {
 
     $('#modal_building').on('hide.bs.modal', function (event) {
         viewer.dataSources.removeAll();
+        $('.corner-btn-group .inner .box').removeClass('active')
     });
 
     $('#btn_building_marker').on('click',function(){
@@ -47,9 +48,64 @@ $(function () {
         }
     });
 
+    $('#btn_building_delete').on('click',function(){
+        var nodes = zTreeObj.getSelectedNodes();
+        if (nodes.length > 0 && nodes[0].name && nodes[0].geometry) {
+            var geometry = nodes[0].geometry;
+            var entity = viewer.entities.getById('label_' + geometry);
+            if (entity) {
+                var url = API_ROOT + '/api/label/by-key/' + geometry;
+                $.ajax({
+                    type: 'DELETE',
+                    url: url,
+                    success: function (response) {
+                        if (response.succeeded) {
+                            viewer.entities.remove(entity);
+                            Toast.show('提示','删除成功');
+                        }
+                        else
+                        {
+                            console.error(response.errors);
+                        }
+                    },
+                    error: function (err) {
+                        console.error(err);
+                    }
+                });
+            }
+            else
+            {
+                Toast.show('提示','该建筑没有标注');
+            }
+        }
+    });
+
+    $('#building_show_label').on('change',function(){
+        Building.setLabelVisible($(this).prop('checked'));
+    })
+
     setTimeout(() => {
         Building.loadLabels();
     }, 2000);
+
+    var data = [{
+        name: '闵行区',
+        children: [
+            {
+                name: '江川路街道',
+                children: [
+                    {
+                        name: '旗忠网球中心中央场馆',
+                        geometry: 'venues_center.kml'
+                    },
+                    {
+                        name: '旗忠网球中心中西场馆',
+                        geometry: 'venues_west.kml'
+                    }
+                ]
+            }
+        ]
+    }];
 
 
     function building() {
@@ -81,29 +137,7 @@ $(function () {
                     }
                 }
             };
-            var data = [{
-                name: '闵行区',
-                children: [
-                    {
-                        name: '江川路街道',
-                        children: [
-                            {
-                                name: '网格1',
-                                children: [
-                                    {
-                                        name: '旗忠网球中心中央场馆',
-                                        geometry: 'venues_center.kml'
-                                    },
-                                    {
-                                        name: '旗忠网球中心中西场馆',
-                                        geometry: 'venues_west.kml'
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }];
+            
             zTreeObj = $.fn.zTree.init($('#building_tree'), setting, data);
         }
 
@@ -142,8 +176,8 @@ $(function () {
         {
             var label = new Cesium.Entity({
                 position : Cesium.Cartesian3.fromDegrees(lng, lat,height),
-                name : '标注_' + key,
-                id:'label_' + key,
+                name : '建筑物_' + key,
+                id:'building_' + key,
                 label:{
                     text: text,
                     font: SysConfig.getConfig().building_label_size + 'px Helvetica',
@@ -168,11 +202,38 @@ $(function () {
             });
         }
 
+        function setLabelVisible(visible)
+        {
+            var modelIds = getModelNodes();
+            modelIds.forEach(modelId => {
+                var entity = viewer.entities.getById('label_' + modelId);
+                if (entity) {
+                    entity.show = visible;
+                }
+            });
+        }
+
+        function getModelNodes()
+        {
+            var modelIds = [];
+            data.forEach(node => {
+                node.children.forEach(subNode => {
+                    subNode.children.forEach(bnode => {
+                        if (bnode.geometry) {
+                            modelIds.push(bnode.geometry)
+                        }
+                    });
+                });
+            });
+            return modelIds;
+        }
+
         return {
             showBuildingTree: showBuildingTree,
             persistence:persistence,
             addEnitiy:addEnitiy,
-            loadLabels:loadLabels
+            loadLabels:loadLabels,
+            setLabelVisible:setLabelVisible
         }
     }
 
