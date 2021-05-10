@@ -12,8 +12,13 @@
     <!-- build:css styles/vendor.css -->
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
     <!-- endbuild -->
+    <!-- build:css scripts/bootstrap-icons/bootstrap-icons.css -->
+    <link rel="stylesheet" href="libs/bootstrap-icons/bootstrap-icons.css" type="text/css" />
+    <!-- endbuild -->
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/menu.css">
     <!-- endbuild -->
     <!-- build:js scripts/modernizr.js -->
     <script src="scripts/modernizr.js"></script>
@@ -30,6 +35,7 @@
     @@include('./includes/header.html')
     <div id="cesium_container">
     </div>
+    @@include('./includes/menu_group.html')
     @@include('./includes/footer.html')
     <!-- build:js scripts/vendor.js -->
     <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>

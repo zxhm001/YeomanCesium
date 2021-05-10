@@ -1,0 +1,111 @@
+.corner-btn-group 
+{
+    position: absolute;
+    right: calc(50vw - 202px);
+    bottom: -143px;
+    width: 404px;
+    height: 404px;
+    border-radius: 202px;
+    z-index: 10;
+
+    .inner-bg {
+        position: absolute;
+        left: 90px;
+        top: 95px;
+        width: 250px;
+        height: 250px;
+        border-radius: 145px;
+        opacity: 0.5;
+        background-color: rgba(0,74,139,0.83);
+    }
+
+    .inner {
+        position: absolute;
+        left: 88px;
+        top: 88px;
+
+        .box {
+            position: absolute;
+            width: 45px;
+            height: 60px;
+            text-align: center;
+            cursor: pointer;
+
+            .icon {
+                width: 45px;
+                height: 40px;
+                font-size: 30px;
+                display: inline-block;
+                margin-top: -10px;
+                color: #00faff;
+            }
+        }
+
+        .renyuan-box
+        {
+            left: 25px;
+            top: 115px;
+        }
+
+        .cheliang-box
+        {
+            left: 35px;
+            top: 55px;
+        }
+
+        .shebei-box
+        {
+            left: 80px;
+            top: 15px;
+        }
+
+        .jianzhu-box
+        {
+            left: 125px;
+            top: 15px;
+        }
+
+        .quyu-box
+        {
+            left: 170px;
+            top: 55px;
+        }
+
+        .biaozhu-box
+        {
+            left: 180px;
+            top: 115px;
+        }
+
+        .inner-text {
+            color: #00faff;
+        }
+
+        :hover
+        {
+            .inner-text {
+                color: #ffdc36;
+            }
+
+            .icon
+            {
+                color: #ffdc36;
+            }
+        } 
+    }
+
+    .core {
+        position: absolute;
+        width: 122px;
+        height: 122px;
+        left: 155px;
+        top: 159px;
+
+        .core-btn {
+            width: 115px;
+            height: 115px;
+            background-image: url(../images/earth.png);
+            cursor: pointer;
+        }
+    }
+}

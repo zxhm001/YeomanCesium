@@ -1,0 +1,52 @@
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    height: 72px;
+    background:url(../images/header.png);
+    background-size:cover;
+    background-repeat: round;
+
+    nav{
+        width: 100%;
+    }
+
+    .navbar
+    {
+        justify-content:center;
+        .navbar-brand
+        {
+            margin-right:0;
+            font-family: tahoma,arial,"Microsoft YaHei";
+            font-size: 28px;
+        }
+
+        .nav-menu {
+            margin-bottom: 0;
+            padding-left: 0px;
+            position: absolute;
+            right: 3rem;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        #current_user_name
+        {
+            color: #fff;
+        }
+
+        .dropdown-menu
+        {
+            position: absolute;
+            border-radius:0;
+            top: 140%;
+            left: -30px;
+        }
+    }
+    
+}
