@@ -11,6 +11,16 @@ function init(){
         console.log(layers);
     });
 
+    viewer.imageryLayers.addImageryProvider(new Cesium.TiandituImageryProvider({
+        mapStyle : Cesium.TiandituMapsStyle.CIA_C, 
+        token: '304bc664f193742e0ad7ad3b77d5dccd'
+    }));
+
+    viewer.imageryLayers.addImageryProvider(new Cesium.TiandituImageryProvider({
+        mapStyle: Cesium.TiandituMapsStyle.IMG_C,
+        token: '304bc664f193742e0ad7ad3b77d5dccd'
+    }), 1);
+
     var _currentEntity = null;
     var _moving = false;
 
