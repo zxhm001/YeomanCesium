@@ -21,7 +21,6 @@ $(function(){
     });
 
     $('#modal_region').on('hide.bs.modal', function (event) {
-        $('.corner-btn-group .inner .box').removeClass('active')
         // if (fenceEntity) {
         //     viewer.entities.remove(fenceEntity)
         // }

@@ -449,9 +449,9 @@ $(function () {
                         height:height,
                         locationUrl:params.locationurl,
                         rtmpUrl:params.rtmpurl,
-                        direction:params.direction,
-                        pitch:params.pitch,
-                        distance:params.distance,
+                        direction:params.shed_direction,
+                        pitch:params.shed_angle,
+                        distance:params.shed_distance,
                         verticalFov:params.verticalFov,
                         horizontalFov:params.horizontalFov
                     };

@@ -1,5 +1,5 @@
 $(function(){
-    var zTreeObj,_rangeEntity,_player;
+    var zTreeObj,viewshed3D,_rangeEntity,_player;
 
     var data = [
         {
@@ -33,10 +33,10 @@ $(function(){
     });
 
     $('#modal_device').on('hide.bs.modal', function (event) {
-        $('.corner-btn-group .inner .box').removeClass('active')
         if (_rangeEntity) {
             viewer.entities.remove(_rangeEntity);
         }
+        Device.clearViewshed();
         $('#player-container').hide();
         if (_player) {
             _player.stop();
@@ -171,6 +171,7 @@ $(function(){
                     },
                     onClick:function(event, treeId, treeNode)
                     {
+                        Device.clearViewshed();
                         if (_rangeEntity) {
                             viewer.entities.remove(_rangeEntity);
                         }
@@ -178,6 +179,9 @@ $(function(){
                             if (treeNode.params.range) {
                                 var model = viewer.entities.getById(treeNode.model);
                                 Device.showRange(model._position._value,treeNode.params.range);
+                            }
+                            if (treeNode.params.direction && treeNode.params.distance) {
+                                Device.showViewshed(treeNode.params.longitude,treeNode.params.latitude,treeNode.params.height,treeNode.params.direction,treeNode.params.pitch,treeNode.params.distance);
                             }
                         }
                     }
@@ -309,6 +313,27 @@ $(function(){
             return r2;
         }
 
+        function showViewshed(longitude,latitude,height,direction,pitch,distance)
+        {
+            if (!viewshed3D) {
+                viewshed3D = new Cesium.ViewShed3D(viewer.scene);
+            }
+            viewshed3D.direction = direction;
+            viewshed3D.pitch = pitch;
+            viewshed3D.distance = distance;
+            viewshed3D.verticalFov = 90;
+            viewshed3D.horizontalFov = 120;
+            viewshed3D.viewPosition = [longitude, latitude, height];
+            viewshed3D.build();
+        }
+
+        function clearViewshed()
+        {
+            if (viewshed3D) {
+                viewshed3D.distance = 0.01;
+            }
+        }
+
         function setModelVisible(visible)
         {
             var modelIds = getModelNodes();
@@ -349,6 +374,8 @@ $(function(){
             add:add,
             showRange:showRange,
             loadDevices:loadDevices,
+            showViewshed:showViewshed,
+            clearViewshed:clearViewshed,
             setModelVisible:setModelVisible,
             setLabelVisible:setLabelVisible
         }

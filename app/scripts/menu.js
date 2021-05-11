@@ -49,18 +49,38 @@ $(document).ready(function(){
         switch (index) {
             case 0:
                 $('#modal_person').modal('show');
+                $('#modal_car').modal('hide');
+                $('#modal_device').modal('hide');
+                $('#modal_building').modal('hide');
+                $('#modal_region').modal('hide');
                 break;
             case 1:
                 $('#modal_car').modal('show');
+                $('#modal_person').modal('hide');
+                $('#modal_device').modal('hide');
+                $('#modal_building').modal('hide');
+                $('#modal_region').modal('hide');
                 break;
             case 2:
                 $('#modal_device').modal('show');
+                $('#modal_person').modal('hide');
+                $('#modal_car').modal('hide');
+                $('#modal_building').modal('hide');
+                $('#modal_region').modal('hide');
                 break;
             case 3:
                 $('#modal_building').modal('show');
+                $('#modal_person').modal('hide');
+                $('#modal_car').modal('hide');
+                $('#modal_device').modal('hide');
+                $('#modal_region').modal('hide');
                 break;
             case 4:
                 $('#modal_region').modal('show');
+                $('#modal_person').modal('hide');
+                $('#modal_car').modal('hide');
+                $('#modal_device').modal('hide');
+                $('#modal_building').modal('hide');
                 break;
             default:
                 break;

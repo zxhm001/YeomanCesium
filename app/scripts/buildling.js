@@ -7,7 +7,6 @@ $(function () {
 
     $('#modal_building').on('hide.bs.modal', function (event) {
         viewer.dataSources.removeAll();
-        $('.corner-btn-group .inner .box').removeClass('active')
     });
 
     $('#btn_building_marker').on('click',function(){
@@ -52,7 +51,7 @@ $(function () {
         var nodes = zTreeObj.getSelectedNodes();
         if (nodes.length > 0 && nodes[0].name && nodes[0].geometry) {
             var geometry = nodes[0].geometry;
-            var entity = viewer.entities.getById('label_' + geometry);
+            var entity = viewer.entities.getById('building_' + geometry);
             if (entity) {
                 var url = API_ROOT + '/api/label/by-key/' + geometry;
                 $.ajax({

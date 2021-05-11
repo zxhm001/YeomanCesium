@@ -41,7 +41,6 @@ $(function(){
     });
 
     $('#modal_person').on('hide.bs.modal', function (event) {
-        $('.corner-btn-group .inner .box').removeClass('active')
     });
 
     $('#btn_person_delete').on('click',function(){

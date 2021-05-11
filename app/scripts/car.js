@@ -30,7 +30,6 @@ $(function(){
 
     $('#modal_car').on('hide.bs.modal', function (event) {
         viewer.trackedEntity = null;
-        $('.corner-btn-group .inner .box').removeClass('active')
     });
 
     $('#btn_car_track').on('click',function(){

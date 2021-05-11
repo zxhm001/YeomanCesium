@@ -17,7 +17,7 @@ function init(){
     }));
 
     viewer.imageryLayers.addImageryProvider(new Cesium.TiandituImageryProvider({
-        mapStyle: Cesium.TiandituMapsStyle.IMG_C,
+        mapStyle: Cesium.TiandituMapsStyle.VEC_C,
         token: '304bc664f193742e0ad7ad3b77d5dccd'
     }), 1);
 
