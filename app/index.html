@@ -6,7 +6,7 @@
     <meta name="description" content="">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>超图WEBGLSDK</title>
+    <title>仙桃市智慧住建综合管理平台</title>
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
     <!-- build:css styles/vendor.css -->
@@ -15,10 +15,15 @@
     <!-- build:css scripts/bootstrap-icons/bootstrap-icons.css -->
     <link rel="stylesheet" href="libs/bootstrap-icons/bootstrap-icons.css" type="text/css" />
     <!-- endbuild -->
+    <!-- build:css scripts/zTree_v3/css/metroStyle/metroStyle.css -->
+    <link rel="stylesheet" href="libs/zTree_v3/css/metroStyle/metroStyle.css" type="text/css" />
+    <!-- endbuild -->
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/menu.css">
+    <link rel="stylesheet" href="styles/modal.css">
+    <link rel="stylesheet" href="styles/popup.css">
     <!-- endbuild -->
     <!-- build:js scripts/modernizr.js -->
     <script src="scripts/modernizr.js"></script>
@@ -34,8 +39,10 @@
     <![endif]-->
     @@include('./includes/header.html')
     <div id="cesium_container">
+      <div id="vertical-slider" style="display: none;"></div>
     </div>
     @@include('./includes/menu_group.html')
+    @@include('./includes/modal_layer.html')
     @@include('./includes/footer.html')
     <!-- build:js scripts/vendor.js -->
     <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -44,8 +51,25 @@
     <!-- build:js scripts/Cesium/Cesium.js -->
     <script src="libs/Cesium/Cesium.js"></script>
     <!-- endbuild -->
+    <!-- build:js scripts/zTree_v3/js/jquery.ztree.all.min.js -->
+    <script src="libs/zTree_v3/js/jquery.ztree.all.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js scripts/supermap/SuperMap.Include.js -->
+    <script src="libs/supermap/SuperMap.Include.js"></script>
+    <!-- endbuild -->
+    <!-- build:js scripts/utils.js -->
+    <script src="scripts/utils/S3MTilesLayerUtils.js"></script>
+    <script src="scripts/utils/LayerCollection.js"></script>
+    <script src="scripts/utils/Popup.js"></script>
+    <!-- endbuild -->
     <!-- build:js scripts/main.js -->
+    <script src="scripts/config.js"></script>
+    <script src="scripts/scenceLayer.js"></script>
     <script src="scripts/main.js"></script>
+    <script src="scripts/mapTool.js"></script>
+    <script src="scripts/pipe.js"></script>
+    <script src="scripts/query.js"></script>
+    <script src="scripts/people.js"></script>
     <!-- endbuild -->
 </body>
 

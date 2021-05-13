@@ -21,10 +21,27 @@ html, body, #cesium_container {
     display: none !important;
 }
 
+.cesium-viewer-navigationContainer {
+  top: 72px !important;
+}
 
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
   color: #000;
   padding: 0.2em 0;
+}
+
+#vertical-slider {
+  position: absolute;
+  left: 50%;
+  top: 0px;
+  background-color: #D3D3D3;
+  width: 5px;
+  height: 100%;
+  z-index: 999;
+}
+
+#vertical-slider:hover {
+  cursor: ew-resize;
 }

@@ -1,12 +1,12 @@
 .corner-btn-group 
 {
     position: absolute;
-    right: calc(50vw - 202px);
+    right: calc(50vw - 195px);
     bottom: -143px;
     width: 404px;
     height: 404px;
     border-radius: 202px;
-    z-index: 10;
+    z-index: 1000;
 
     .inner-bg {
         position: absolute;
@@ -41,37 +41,37 @@
             }
         }
 
-        .renyuan-box
+        .tuceng-box
         {
             left: 25px;
             top: 115px;
         }
 
-        .cheliang-box
+        .duibi-box
         {
             left: 35px;
             top: 55px;
         }
 
-        .shebei-box
+        .kaiwa-box
         {
             left: 80px;
             top: 15px;
         }
 
-        .jianzhu-box
+        .renkou-box
         {
             left: 125px;
             top: 15px;
         }
 
-        .quyu-box
+        .guanxian-box
         {
             left: 170px;
             top: 55px;
         }
 
-        .biaozhu-box
+        .celiang-box
         {
             left: 180px;
             top: 115px;
@@ -81,7 +81,7 @@
             color: #00faff;
         }
 
-        :hover
+        :hover,.active
         {
             .inner-text {
                 color: #ffdc36;

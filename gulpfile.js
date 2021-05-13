@@ -56,6 +56,11 @@ function copyLibs()
     .pipe(dest('dist/scripts'));
 }
 
+function copyData(){
+  return src('app/data/**')
+    .pipe(dest('dist/data'));
+}
+
 async function modernizr() {
   const readConfig = () => new Promise((resolve, reject) => {
     fs.readFile(`${__dirname}/modernizr.json`, 'utf8', (err, data) => {
@@ -159,7 +164,7 @@ const build = series(
   clean,
   parallel(
     lint,
-    series(parallel(styles, scripts, modernizr), html,copyLibs),
+    series(parallel(styles, scripts, modernizr), html,copyData,copyLibs),
     images,
     fonts,
     extras

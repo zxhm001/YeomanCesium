@@ -1,0 +1,353 @@
+{
+    "camera":{
+        "destination":{
+            "x": -2189284.1414699224,
+            "y": 5050258.777313242,
+            "z": 3224708.0883317864
+        },
+        "direction":{
+            "x": 0.3970321007456765,
+            "y": -0.9146578689834822,
+            "z": 0.07593743269343534
+        },
+        "up":{
+            "x": -0.02956114288610831,
+            "y": 0.06995121207877097,
+            "z": 0.9971123140148146
+        }
+    },
+    "layers":[
+        {
+            "id":"0-0",
+            "name":"基础地图",
+            "type":"group",
+            "checked":true,
+            "children":[
+                {
+                    "id":"0-1-1",
+                    "name":"影像图",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/%E5%BD%B1%E5%83%8F%E5%9B%BE@YXT/config",
+                    "checked":true
+                }
+            ]
+        },
+        {
+            "id":"0-1",
+            "name":"三维场景",
+            "type":"group",
+            "checked":true,
+            "children":[
+                {
+                    "id":"0-1-1",
+                    "name":"倾斜摄影",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/qxsy/config",
+                    "checked":true
+                },
+                {
+                    "id":"0-1-2",
+                    "name":"城建规划",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/ghmx/config",
+                    "checked":true
+                }
+            ]
+        },
+        {
+            "id":"0-2",
+            "name":"地下管线",
+            "type":"group",
+            "children":[
+                {
+                    "id":"0-2-1",
+                    "name":"雨水管线",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/YS@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "YS_Line",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-2",
+                    "name":"雨水管点",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/YS_Node@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "YS_Point",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-3",
+                    "name":"移动管线",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/YD@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "YD_Line",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-4",
+                    "name":"移动管点",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/YD_Node@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "YD_Point",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-5",
+                    "name":"污水管线",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/WS@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "WS_Line",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-6",
+                    "name":"污水管点",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/WS_Node@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "WS_Point",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-7",
+                    "name":"天然气管线",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/TR@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "TR_Line",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-8",
+                    "name":"天然气管点",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/TR_Node@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "TR_Point",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-9",
+                    "name":"联通管线",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/LT@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "LT_Line",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-10",
+                    "name":"联通管点",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/LT_Node@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "LT_Point",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-11",
+                    "name":"路灯管线",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/LD@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "LD_Line",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-12",
+                    "name":"路灯管点",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/LD_Node@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "LD_Point",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-13",
+                    "name":"军用管线",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/JY@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "JY_Line",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-14",
+                    "name":"军用管点",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/JY_Node@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "JY_Point",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-15",
+                    "name":"给水管线",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/JS@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "JS_Line",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-16",
+                    "name":"给水管点",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/JS_Node@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "JS_Point",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-17",
+                    "name":"共通管线",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/GT@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "GT_Line",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-18",
+                    "name":"共通管点",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/GT_Node@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "GT_Point",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-19",
+                    "name":"电信管线",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/DX@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "DX_Line",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-20",
+                    "name":"电信管点",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/DX_Node@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "DX_Point",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-21",
+                    "name":"电视管线",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/DS@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "DS_Line",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-22",
+                    "name":"电视管点",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/DS_Node@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "DS_Point",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-23",
+                    "name":"电力管线",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/DL@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "DL_Line",
+                        "keyWord": "SmID"
+                    }
+                },
+                {
+                    "id":"0-2-24",
+                    "name":"电力管点",
+                    "type":"s3m",
+                    "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/DL_Node@pipe/config",
+                    "checked":false,
+                    "datasource": {
+                        "dataSourceName": "pipe",
+                        "dataSetName": "DL_Point",
+                        "keyWord": "SmID"
+                    }
+                }
+            ]
+        }
+    ]
+}

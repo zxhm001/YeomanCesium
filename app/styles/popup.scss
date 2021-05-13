@@ -1,0 +1,118 @@
+.custom-popup-container {
+    position: absolute;
+    width: 100%;
+}
+
+.custom-popup-size{
+    width: 170px;
+}
+
+.custom-popup {
+    position: absolute;
+    bottom: 0px;
+    left: -48px;
+    padding: 8px 8px 8px 8px;
+    border-radius: 5px;
+    background-color: rgba(22, 23, 24, 0.6);
+    color: #edffff;
+    box-shadow: 0 2px 16px #aaa;
+
+    -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,.2));
+            filter: drop-shadow(0 1px 4px rgba(0,0,0,.2));
+}
+
+.custom-tool-tip {
+    position: absolute;
+    bottom: 0px;
+    left: -48px;
+    padding: 8px 8px 8px 8px;
+    border-radius: 5px;
+    background-color: rgba(22, 23, 24, 0.6);
+    color: #edffff;
+    box-shadow: 0 2px 16px #aaa;
+
+    -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,.2));
+            filter: drop-shadow(0 1px 4px rgba(0,0,0,.2));
+}
+
+.custom-popup:after, .custom-popup:before {
+    position: absolute;
+    top: 100%;
+    width: 0;
+    height: 0;
+    content: ' ';
+    pointer-events: none;
+    border: solid transparent;
+}
+
+.custom-popup:after {
+    left: 48px;
+    margin-left: -10px;
+    border-width: 10px;
+    border-top-color: rgba(22, 23, 24, 0.6);
+}
+
+.custom-popup:before {
+    left: 48px;
+    margin-left: -11px;
+    border-width: 11px;
+    border-top-color: rgba(22, 23, 24, 0.0);
+}
+
+.custom-popup-closer {
+    position: absolute;
+    top: 2px;
+    right: 8px;
+    color: lightgray;
+    text-decoration: none;
+}
+
+.custom-popup-closer:after {
+    content: '\2716';
+}
+
+.custom-popup-content {
+    width: 100%;
+    font-size: 12px;
+    font-weight: lighter;
+}
+
+.custom-popup-content table {
+    color: #edffff;
+}
+
+.custom-popup-content td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.custom-infoBox-defaultTable {
+    width: 100%;
+    color: #edffff;
+}
+
+.custom-infoBox-defaultTable tr:nth-child(odd) {
+    background-color: rgba(84, 84, 84, 0.8);
+}
+
+.custom-infoBox-defaultTable tr:nth-child(even) {
+    background-color: rgba(84, 84, 84, 0.25);
+}
+
+.custom-infoBox-defaultTable th {
+    font-weight: normal;
+    padding: 1px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.custom-infoBox-defaultTable td {
+    padding: 1px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.custom-popup-content a {
+    color: rgb(237, 255, 0);
+    text-decoration: underline;
+}
