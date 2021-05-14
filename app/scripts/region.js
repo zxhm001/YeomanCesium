@@ -21,6 +21,7 @@ $(function(){
     });
 
     $('#modal_region').on('hide.bs.modal', function (event) {
+        $('#btn_region_delete').attr("disabled",true); 
         // if (fenceEntity) {
         //     viewer.entities.remove(fenceEntity)
         // }
@@ -77,6 +78,16 @@ $(function(){
                         var entity = drawFenceEntity(treeNode);
                         entity.show = true;
                         viewer.flyTo(entity); 
+                    },
+                    onClick:function(event, treeId, treeNode)
+                    {
+                        if (treeNode.params) {
+                            $('#btn_region_delete').attr("disabled",false); 
+                        }
+                        else
+                        {
+                            $('#btn_region_delete').attr("disabled",true); 
+                        }
                     }
                 }
             };

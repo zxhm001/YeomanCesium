@@ -7,28 +7,28 @@ $(function () {
                 model: '/data/model/police.glb',
                 image: '/images/model/police.png',
                 scale: 1,
-                params: ['name','number','device'],
+                params: ['name','number'],
             },
             {
                 name: '医护人员',
                 model: '/data/model/doctor.glb',
                 image: '/images/model/doctor.png',
                 scale: 1,
-                params: ['name','number','device'],
+                params: ['name','number'],
             },
             {
                 name: '安保人员',
                 model: '/data/model/guard.glb',
                 image: '/images/model/guard.png',
                 scale: 1,
-                params: ['name','number','device'],
+                params: ['name','number'],
             },
             {
                 name: '消防员',
                 model: '/data/model/fire_man.glb',
                 image: '/images/model/fire_man.png',
                 scale: 1,
-                params: ['name','number','device'],
+                params: ['name','number'],
             }
         ],
         car: [
@@ -81,7 +81,7 @@ $(function () {
                 model: '/data/model/uav.glb',
                 image: '/images/model/uav.png',
                 scale: 1,
-                params: ['license','name','path','locationurl','shed'],
+                params: ['license','name','rtmpurl'],
             },
             {
                 name: '布控球',
@@ -227,6 +227,7 @@ $(function () {
                             case '医护人员':
                             case '安保人员':
                             case '消防员':
+                                params.deviceId = 0;
                                 Person.add(key,_currentModel.name,modelKey + '_' + key,params);
                                 break;
                             case '反制枪':
@@ -449,9 +450,9 @@ $(function () {
                         height:height,
                         locationUrl:params.locationurl,
                         rtmpUrl:params.rtmpurl,
-                        direction:params.shed_direction,
-                        pitch:params.shed_angle,
-                        distance:params.shed_distance,
+                        direction:params.shed_direction?params.shed_direction:0,
+                        pitch:params.shed_angle?params.shed_angle:0,
+                        distance:params.shed_distance?params.shed_distance:0,
                         verticalFov:params.verticalFov,
                         horizontalFov:params.horizontalFov
                     };
@@ -476,7 +477,6 @@ $(function () {
                     {
                         console.error(response.errors);
                     }
-                    console.log(response);
                 },
                 error: function (err) {
                     console.error(err);

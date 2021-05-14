@@ -1,18 +1,30 @@
-function init(){
-    window.viewer = new Cesium.Viewer('cesium_container',{
+function init() {
+    window.viewer = new Cesium.Viewer('cesium_container', {
         'selectionIndicator': false
     });
-    var url = 'http://localhost:8090/iserver/services/3D-SHAB/rest/realspace';
-    var promise = viewer.scene.open(url);
-    Cesium.when(promise,function(layer){
-        //初始化其他模块
-        window.Deploy.init();
-        window.s3mLayer = layer;
-        console.log(layers);
-    });
+    var initCamera = {};
+
+    $.get(API_ROOT + '/api/project/current', function (response) {
+        if (response.succeeded) {
+            window.currentProject = response.data;
+            var promise = viewer.scene.open(currentProject.scence);
+            Cesium.when(promise, function (layer) {
+                //初始化其他模块
+                window.Deploy.init();
+                var camera = viewer.scene.camera;
+                initCamera.position = new Cesium.Cartesian3(camera.position.x,camera.position.y,camera.position.z);
+                initCamera.direction = new Cesium.Cartesian3(camera.direction.x,camera.direction.y,camera.direction.z);
+                initCamera.up = new Cesium.Cartesian3(camera.up.x,camera.up.y,camera.up.z);
+            });
+        }
+        else {
+            alert('连接不上服务器！请联系管理员');
+        }
+    })
+    
 
     viewer.imageryLayers.addImageryProvider(new Cesium.TiandituImageryProvider({
-        mapStyle : Cesium.TiandituMapsStyle.CIA_C, 
+        mapStyle: Cesium.TiandituMapsStyle.CIA_C,
         token: '304bc664f193742e0ad7ad3b77d5dccd'
     }));
 
@@ -27,7 +39,7 @@ function init(){
     //显示经纬度
     var handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
 
-    handler.setInputAction(function(e){
+    handler.setInputAction(function (e) {
         var entity = viewer.scene.pick(e.position);
         if (entity && entity.id.id != 'car_1' && entity.id.id != 'uav_1') {
             // debugger
@@ -38,7 +50,7 @@ function init(){
         }
     }, Cesium.ScreenSpaceEventType.LEFT_DOWN);
 
-    handler.setInputAction(function(e){
+    handler.setInputAction(function (e) {
         _moving = false;
         if (_currentEntity) {
             var cartographic = Cesium.Cartographic.fromCartesian(_currentEntity.id.position._value);
@@ -48,10 +60,10 @@ function init(){
             var type = entityId.split('_')[0];
             var id = parseInt(entityId.split('_')[1]);
             var data = {
-                id:id,
-                longitude:longitude,
-                latitude:latitude,
-                height:cartographic.height
+                id: id,
+                longitude: longitude,
+                latitude: latitude,
+                height: cartographic.height
             };
             var url = API_ROOT + '/api/' + type + '/position';
             $.ajax({
@@ -63,8 +75,7 @@ function init(){
                 success: function (response) {
                     if (response.succeeded) {
                     }
-                    else
-                    {
+                    else {
                         console.error(response.errors);
                     }
                     console.log(response);
@@ -78,7 +89,7 @@ function init(){
         viewer.scene.screenSpaceCameraController.enableRotate = true;
     }, Cesium.ScreenSpaceEventType.LEFT_UP);
 
-    handler.setInputAction(function(event) {
+    handler.setInputAction(function (event) {
         var position = viewer.scene.pickPosition(event.endPosition);
         if (!position) {
             position = Cesium.Cartesian3.fromDegrees(0, 0, 0);
@@ -89,8 +100,8 @@ function init(){
         var text = longitude.toFixed(5) + '°,' + latitude.toFixed(5) + '°,' + cartographic.height.toFixed(3) + 'm';
         $('#status_bar').text(text);
         if (_moving && _currentEntity) {
-            var height = viewer.scene.getHeight(longitude,latitude);
-            var cartesian = Cesium.Cartesian3.fromDegrees(longitude,latitude,height);
+            var height = viewer.scene.getHeight(longitude, latitude);
+            var cartesian = Cesium.Cartesian3.fromDegrees(longitude, latitude, height);
             _currentEntity.id.position = cartesian;
         }
     }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
@@ -115,7 +126,7 @@ function init(){
     for (let i = 0; i < carpositions.length; i++) {
         const carPosition = carpositions[i];
         const uavPosition = uavPositions[i];
-        var time = Cesium.JulianDate.addSeconds(start , 15 * i , new Cesium.JulianDate());
+        var time = Cesium.JulianDate.addSeconds(start, 15 * i, new Cesium.JulianDate());
         carPositionProperty.addSample(time, carPosition);
         uavPositionProperty.addSample(time, uavPosition);
         if (i == carpositions.length - 1) {
@@ -126,21 +137,21 @@ function init(){
     viewer.clock.startTime = start.clone();
     viewer.clock.currentTime = start.clone();
     viewer.clock.stopTime = stop.clone();
-    viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP;
+    viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP;
 
     var car = viewer.entities.add({
         name: 'JC_00001',
-        id:'car_1',
+        id: 'car_1',
         position: carPositionProperty,
-        orientation: new Cesium.VelocityOrientationProperty(carPositionProperty),
+        orientation: new Cesium.VelocityOrientationProperty(carPositionProperty),
         model: {
             uri: '/data/model/police_car.glb',
-            scale:1
+            scale: 1
         },
-        path:{
-            resolution: 1,
-            material: new Cesium.PolylineGlowMaterialProperty({glowPower: 0.1,color: Cesium.Color.YELLOW,}),
-            width: 10
+        path: {
+            resolution: 1,
+            material: new Cesium.PolylineGlowMaterialProperty({ glowPower: 0.1, color: Cesium.Color.YELLOW, }),
+            width: 10
         },
         viewFrom: new Cesium.Cartesian3(30, 0, 30),
         // label:{
@@ -157,17 +168,17 @@ function init(){
 
     var uav = viewer.entities.add({
         name: 'U_00001',
-        id:'uav_1',
+        id: 'uav_1',
         position: uavPositionProperty,
-        orientation: new Cesium.VelocityOrientationProperty(uavPositionProperty),
+        orientation: new Cesium.VelocityOrientationProperty(uavPositionProperty),
         model: {
             uri: '/data/model/uav.glb',
-            scale:1
+            scale: 1
         },
-        path:{
-            resolution: 1,
-            material: new Cesium.PolylineGlowMaterialProperty({glowPower: 0.1,color: Cesium.Color.YELLOW,}),
-            width: 10
+        path: {
+            resolution: 1,
+            material: new Cesium.PolylineGlowMaterialProperty({ glowPower: 0.1, color: Cesium.Color.YELLOW, }),
+            width: 10
         },
         viewFrom: new Cesium.Cartesian3(30, 0, 30),
         // label:{
@@ -181,20 +192,28 @@ function init(){
         //     scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
         // }
     });
-    window.setExtent = function(maxx,minx,maxy,miny)
-    {
+    window.setExtent = function (maxx, minx, maxy, miny) {
         viewer.camera.flyTo({
-            destination : Cesium.Rectangle.fromDegrees(minx, miny, maxx, maxy)
+            destination: Cesium.Rectangle.fromDegrees(minx, miny, maxx, maxy)
         });
     }
 
-    $('.core-btn').on('click',function(){
-        // console.log(viewer.scene.camera);
+    // $('.core-btn').on('click', function () {
+    //     viewer.scene.camera.setView({
+    //         destination: new Cesium.Cartesian3(-2844445.995988, 4668163.510785, 3288134.420725),
+    //         orientation: {
+    //             direction: new Cesium.Cartesian3(0.4687117685901372, -0.7612987345932591, 0.4480329392933161),
+    //             up: new Cesium.Cartesian3(-0.2309045971528698, 0.3839714733384412, 0.8940072565007388)
+    //         }
+    //     });
+    // });
+
+    $('.core-btn').on('click', function () {
         viewer.scene.camera.setView({
-            destination : new Cesium.Cartesian3(-2844445.995988, 4668163.510785, 3288134.420725),
-            orientation : {
-                direction : new Cesium.Cartesian3(0.4687117685901372, -0.7612987345932591, 0.4480329392933161 ),
-                up : new Cesium.Cartesian3(-0.2309045971528698, 0.3839714733384412, 0.8940072565007388)
+            destination: initCamera.position,
+            orientation: {
+                direction: initCamera.direction,
+                up: initCamera.up
             }
         });
     });

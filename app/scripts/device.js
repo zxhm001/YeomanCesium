@@ -18,14 +18,14 @@ $(function(){
             name:'对讲机',
             children:[]
         },
-        {
-            name:'记录仪',
-            children:[]
-        },
-        {
-            name:'定位器',
-            children:[]
-        }
+        // {
+        //     name:'记录仪',
+        //     children:[]
+        // },
+        // {
+        //     name:'定位器',
+        //     children:[]
+        // }
     ];
 
     $('#modal_device').on('show.bs.modal', function (event) {
@@ -41,6 +41,7 @@ $(function(){
         if (_player) {
             _player.stop();
         }
+        $('#btn_device_delete').attr("disabled",true); 
     });
 
     $('#btn_device_delete').on('click',function(){
@@ -176,6 +177,7 @@ $(function(){
                             viewer.entities.remove(_rangeEntity);
                         }
                         if (treeNode.params) {
+                            $('#btn_device_delete').attr("disabled",false); 
                             if (treeNode.params.range) {
                                 var model = viewer.entities.getById(treeNode.model);
                                 Device.showRange(model._position._value,treeNode.params.range);
@@ -183,6 +185,10 @@ $(function(){
                             if (treeNode.params.direction && treeNode.params.distance) {
                                 Device.showViewshed(treeNode.params.longitude,treeNode.params.latitude,treeNode.params.height,treeNode.params.direction,treeNode.params.pitch,treeNode.params.distance);
                             }
+                        }
+                        else
+                        {
+                            $('#btn_device_delete').attr("disabled",true); 
                         }
                     }
                 }

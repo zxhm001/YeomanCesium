@@ -30,6 +30,8 @@ $(function(){
 
     $('#modal_car').on('hide.bs.modal', function (event) {
         viewer.trackedEntity = null;
+        $('#btn_car_track').attr("disabled",true); 
+        $('#btn_car_delete').attr("disabled",true); 
     });
 
     $('#btn_car_track').on('click',function(){
@@ -93,6 +95,18 @@ $(function(){
                         if (treeNode.model) {
                             var model = viewer.entities.getById(treeNode.model);
                             viewer.flyTo(model); 
+                        }
+                    },
+                    onClick:function(event, treeId, treeNode)
+                    {
+                        if (treeNode.params) {
+                            $('#btn_car_track').attr("disabled",false); 
+                            $('#btn_car_delete').attr("disabled",false); 
+                        }
+                        else
+                        {
+                            $('#btn_car_track').attr("disabled",true); 
+                            $('#btn_car_delete').attr("disabled",true); 
                         }
                     }
                 }
