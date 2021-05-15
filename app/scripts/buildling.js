@@ -273,6 +273,7 @@ $(function(){
                             viewer.entities.remove(entity);
                         }
                         zTreeObj.removeNode(nodes[0]);
+                        Building.deleteData(nodes[0].params.id);
                         Toast.show('提示','删除成功');
                     }
                     else
@@ -321,10 +322,10 @@ $(function(){
                                 degreesArray.push(coord.latitude);
                             });
                             tempEntity= viewer.entities.add({
-                                id: 'box_entity',
+                                id: 'building_polygon',
                                 polygon: {
                                     hierarchy: Cesium.Cartesian3.fromDegreesArray(degreesArray),
-                                    material: new Cesium.Color(223 / 255, 199 / 255, 0 / 255, 0.4)
+                                    material: new Cesium.Color(223 / 255, 0 / 255, 0 / 255, 0.4)
                                 },
                                 clampToS3M: true 
                             });
@@ -401,7 +402,7 @@ $(function(){
         {
             var modelIds = getModelNodes();
             modelIds.forEach(modelId => {
-                var entity = viewer.entities.getById('label_' + modelId);
+                var entity = viewer.entities.getById(modelId);
                 if (entity) {
                     entity.show = visible;
                 }
@@ -413,11 +414,9 @@ $(function(){
             var modelIds = [];
             data.forEach(node => {
                 node.children.forEach(subNode => {
-                    subNode.children.forEach(bnode => {
-                        if (bnode.geometry) {
-                            modelIds.push(bnode.geometry)
-                        }
-                    });
+                    if (subNode.model) {
+                        modelIds.push(subNode.model)
+                    }
                 });
             });
             return modelIds;
@@ -430,12 +429,30 @@ $(function(){
             }
         }
 
+        function deleteData(id,nodes){
+            nodes = nodes||data;
+            for (let i = 0; i < nodes.length; i++) {
+                const node = nodes[i];
+                if (node.params) {
+                    if (node.params.id == id) {
+                        nodes.splice(i,1);
+                        break;
+                    }
+                }
+                else if(node.children)
+                {
+                    deleteData(id,node.children)
+                }
+            }
+        }
+
         return{
             loadBuilding:loadBuilding,
             showBuildingTree:showBuildingTree,
             setLabelVisible:setLabelVisible,
             add:add,
-            clearTempEntity:clearTempEntity
+            clearTempEntity:clearTempEntity,
+            deleteData:deleteData
         };
     }
     window.Building = building();

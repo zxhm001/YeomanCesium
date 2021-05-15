@@ -60,6 +60,7 @@ $(function(){
                             viewer.entities.remove(entity);
                         }
                         personTreeObj.removeNode(nodes[0]);
+                        Person.deleteData(nodes[0].params.id);
                         Toast.show('提示','删除成功');
                     }
                     else
@@ -419,6 +420,23 @@ $(function(){
             }
         }
 
+        function deleteData(id,nodes){
+            nodes = nodes||data;
+            for (let i = 0; i < nodes.length; i++) {
+                const node = nodes[i];
+                if (node.params) {
+                    if (node.params.id == id) {
+                        nodes.splice(i,1);
+                        break;
+                    }
+                }
+                else if(node.children)
+                {
+                    deleteData(id,node.children)
+                }
+            }
+        }
+
         return{
             showPersonTree:showPersonTree,
             add:add,
@@ -426,7 +444,8 @@ $(function(){
             setModelVisible:setModelVisible,
             setLabelVisible:setLabelVisible,
             refreshDeviceTree:refreshDeviceTree,
-            updateLocation:updateLocation
+            updateLocation:updateLocation,
+            deleteData:deleteData
         }
     }
 

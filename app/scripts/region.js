@@ -22,6 +22,7 @@ $(function(){
 
     $('#modal_region').on('hide.bs.modal', function (event) {
         $('#btn_region_delete').attr('disabled',true); 
+        Region.showAllFence($(this).prop('checked'));
         // if (fenceEntity) {
         //     viewer.entities.remove(fenceEntity)
         // }
@@ -42,6 +43,7 @@ $(function(){
                             viewer.entities.remove(entity)
                         }
                         zTreeObj.removeNode(nodes[0]);
+                        Region.deleteData(nodes[0].params.id);
                         Toast.show('提示','删除成功');
                     }
                     else
@@ -224,12 +226,30 @@ $(function(){
             return modelNodes;
         }
 
+        function deleteData(id,nodes){
+            nodes = nodes||data;
+            for (let i = 0; i < nodes.length; i++) {
+                const node = nodes[i];
+                if (node.params) {
+                    if (node.params.id == id) {
+                        nodes.splice(i,1);
+                        break;
+                    }
+                }
+                else if(node.children)
+                {
+                    deleteData(id,node.children)
+                }
+            }
+        }
+
         return{
             showRegionTree:showRegionTree,
             add:add,
             loadRegions:loadRegions,
             drawFenceEntity:drawFenceEntity,
-            showAllFence:showAllFence
+            showAllFence:showAllFence,
+            deleteData:deleteData
         }
     }
 

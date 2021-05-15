@@ -41,9 +41,8 @@ function init() {
 
     handler.setInputAction(function (e) {
         var entity = viewer.scene.pick(e.position);
-        if (entity && entity.id && entity.id.id != 'car_1' && entity.id.id != 'uav_1') {
+        if (entity && entity.id && entity.id.id != 'car_1' && entity.id.id != 'uav_1' && !entity.id.id.startsWith('building')) {
             // debugger
-            console.log(entity.id.id);
             _moving = true;
             _currentEntity = entity;
             viewer.scene.screenSpaceCameraController.enableRotate = false;
@@ -97,8 +96,6 @@ function init() {
         var cartographic = Cesium.Cartographic.fromCartesian(position);
         var longitude = Cesium.Math.toDegrees(cartographic.longitude);
         var latitude = Cesium.Math.toDegrees(cartographic.latitude);
-        var text = longitude.toFixed(5) + '°,' + latitude.toFixed(5) + '°,' + cartographic.height.toFixed(3) + 'm';
-        $('#status_bar').text(text);
         if (_moving && _currentEntity) {
             var height = viewer.scene.getHeight(longitude, latitude);
             var cartesian = Cesium.Cartesian3.fromDegrees(longitude, latitude, height);

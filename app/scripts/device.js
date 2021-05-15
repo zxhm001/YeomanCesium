@@ -61,6 +61,7 @@ $(function(){
                             viewer.entities.remove(_rangeEntity);
                         }
                         zTreeObj.removeNode(nodes[0]);
+                        Device.deleteData(nodes[0].params.id);
                         Toast.show('提示','删除成功');
                     }
                     else
@@ -376,6 +377,23 @@ $(function(){
             return modelIds;
         }
 
+        function deleteData(id,nodes){
+            nodes = nodes||data;
+            for (let i = 0; i < nodes.length; i++) {
+                const node = nodes[i];
+                if (node.params) {
+                    if (node.params.id == id) {
+                        nodes.splice(i,1);
+                        break;
+                    }
+                }
+                else if(node.children)
+                {
+                    deleteData(id,node.children)
+                }
+            }
+        }
+
         return{
             showDeviceTree:showDeviceTree,
             add:add,
@@ -384,7 +402,8 @@ $(function(){
             showViewshed:showViewshed,
             clearViewshed:clearViewshed,
             setModelVisible:setModelVisible,
-            setLabelVisible:setLabelVisible
+            setLabelVisible:setLabelVisible,
+            deleteData:deleteData
         }
     }
 
