@@ -110,12 +110,19 @@ $(function () {
                 image: '/images/model/safe.png',
                 params: ['name']
             },
+        ],
+        building:[
+            {
+                name: '建筑',
+                image: '/images/model/building.png',
+                params: ['name']
+            },
         ]
     };
 
 
     function deploy() {
-        var _drawHandler,_polygonHandler, _tempEntity, _currentModel, _pickPosition, _lnglats;
+        var _drawHandler,_polygonHandler, _tempEntity, _currentModel, _pickPosition, _lnglats,_maxHeight;
 
         function init() {
             //先将模型都加进来，之后就不用重新加载glb
@@ -146,7 +153,6 @@ $(function () {
                     key = $('#deploy_input_name').val();
                 }
                 else if (_currentModel.params.includes('license')) {
-                    
                     key = $('#deploy_input_license').val();
                 }
                 if (key == null || key.trim().length == 0) {
@@ -193,25 +199,6 @@ $(function () {
                     if (_tempEntity) {
                         viewer.entities.remove(_tempEntity)
                     }
-                    viewer.entities.add({
-                        name: key,
-                        id: modelKey + '_' + key,
-                        position: _pickPosition,
-                        model: {
-                            uri: _currentModel.model,
-                            scale: _currentModel.scale
-                        },
-                        label:{
-                            text: key,
-                            font: sizeStr + 'px Helvetica',
-                            fillColor: Cesium.Color.fromCssColorString(colorStr),
-                            outlineColor: Cesium.Color.BLACK,
-                            outlineWidth: 2,
-                            eyeOffset:new Cesium.Cartesian3(0.0, 2.5, 0.0),
-                            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                            scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
-                        }
-                    });
                     
                     persistenceModel(_currentModel,_pickPosition,params,id=>{
                         params.id = id;
@@ -238,14 +225,48 @@ $(function () {
                             default:
                                 break;
                         }
+                        viewer.entities.add({
+                            name: key,
+                            id: modelKey + '_' + id,
+                            position: _pickPosition,
+                            model: {
+                                uri: _currentModel.model,
+                                scale: _currentModel.scale
+                            },
+                            label:{
+                                text: key,
+                                font: sizeStr + 'px Helvetica',
+                                fillColor: Cesium.Color.fromCssColorString(colorStr),
+                                outlineColor: Cesium.Color.BLACK,
+                                outlineWidth: 2,
+                                eyeOffset:new Cesium.Cartesian3(0.0, 2.5, 0.0),
+                                style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                                scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
+                            }
+                        });
+                        _pickPosition = null;
                     });
                 }
                 else if (_currentModel.color) {
                     var color = new Cesium.Color(_currentModel.color[0]/255, _currentModel.color[1]/255, _currentModel.color[2]/255)
-                    
                     persistenceRegion(_currentModel,_lnglats,params,id=>{
                         params.id = id;
                         Region.add(key,_currentModel.name,color,_lnglats,params);
+                        _lnglats = null;
+                        _maxHeight = 0;
+                    });
+                    if (_polygonHandler) {
+                        _polygonHandler.clear();
+                        _polygonHandler.deactivate();
+                    }
+                }
+                else if (_currentModel.name == '建筑') {
+                    persistenceBuilding(_lnglats,params,id=>{
+                        params.id = id;
+                        params.maxHeight = _maxHeight;
+                        Building.add(params);
+                        _lnglats = null;
+                        _maxHeight = 0;
                     });
                     if (_polygonHandler) {
                         _polygonHandler.clear();
@@ -256,8 +277,8 @@ $(function () {
                 $('.deploy-params')[0].reset()
                 $('.deploy-params').hide();
                 $('.deploy-params .form-group').hide();
-                _pickPosition = null;
-                _lnglats = null;
+                
+                
             });
 
             $('#deploy_cancle').on('click',function(){
@@ -274,6 +295,7 @@ $(function () {
                 }
                 _pickPosition = null;
                 _lnglats = null;
+                _maxHeight = 0;
                 $('.deploy-params')[0].reset()
                 $('.deploy-params').hide();
                 $('.deploy-params .form-group').hide();
@@ -327,11 +349,6 @@ $(function () {
                         viewer.entities.remove(_tempEntity)
                     }
                     var position = viewer.scene.pickPosition(mouseEvent.endPosition);
-                    // if (model.name == "无人机") {
-                    //     var cartographic = Cesium.Cartographic.fromCartesian(position);
-                    //     cartographic.height += 50;
-                    //     position = Cesium.Cartesian3.fromRadians(cartographic.longitude,cartographic.latitude,cartographic.height);
-                    // }
                     _tempEntity = viewer.entities.add({
                         name: model.name,
                         id: model.name,
@@ -349,7 +366,7 @@ $(function () {
                 }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
             }
             else {
-                //区域
+                //区域和建筑
                 if (!_polygonHandler) {
                     _polygonHandler = new Cesium.DrawHandler(viewer, Cesium.DrawMode.Polygon, 0);
                     _polygonHandler.enableDepthTest = false;
@@ -371,6 +388,7 @@ $(function () {
                         var positions = [].concat(polygon.positions);
                         positions = Cesium.arrayRemoveDuplicates(positions, Cesium.Cartesian3.equalsEpsilon);
                         _lnglats = [];
+                        _maxHeight = 0;
                         for (var i = 0; i < positions.length;i++) {
                             var cartographic = Cesium.Cartographic.fromCartesian(polygon.positions[i]);
                             var longitude = Cesium.Math.toDegrees(cartographic.longitude);
@@ -379,7 +397,12 @@ $(function () {
                             _lnglats.push(longitude);
                             _lnglats.push(latitude);
                             _lnglats.push(height);
+                            if (height > _maxHeight) {
+                                _maxHeight = height;
+                            }
                         }
+
+                        //加起点
                         var cartographic = Cesium.Cartographic.fromCartesian(polygon.positions[0]);
                         var longitude = Cesium.Math.toDegrees(cartographic.longitude);
                         var latitude = Cesium.Math.toDegrees(cartographic.latitude);
@@ -387,14 +410,34 @@ $(function () {
                         _lnglats.push(longitude);
                         _lnglats.push(latitude);
                         _lnglats.push(height);
+
+                        //获取最高高度
+                        var lnglats = [];
+                        for (let i = 0; i < _lnglats.length; i+=3) {
+                            lnglats.push([_lnglats[i],_lnglats[i+1]]);
+                            
+                        }
+                        var polygon = turf.polygon([lnglats], { name: 'building' });
+                        var centroid = turf.centroid(polygon);
+                        var centerCoord = centroid.geometry.coordinates;
+                        var height = viewer.scene.getHeight(centerCoord[0],centerCoord[1]);
+                        if (height > _maxHeight) {
+                            _maxHeight = height;
+                        }
+                        _maxHeight += 5;
                     });
                 }
+                console.log(model.name);
                 _polygonHandler.activate();
             }
         };
 
         /**
-         * 保存到服务器端
+         * 保存模型到服务器
+         * @param {*} model 
+         * @param {*} position 
+         * @param {*} params 
+         * @param {*} callback 
          */
         var persistenceModel = function(model,position,params,callback){
             var url = '';
@@ -484,6 +527,13 @@ $(function () {
             });
         };
 
+        /**
+         * 保存区域到服务器
+         * @param {*} model 
+         * @param {*} lnglats 
+         * @param {*} params 
+         * @param {*} callback 
+         */
         var persistenceRegion = function(model,lnglats,params,callback){
             var url = API_ROOT + '/api/region';
             var locations = [];
@@ -498,6 +548,54 @@ $(function () {
                 name:params.name,
                 type:model.name,
                 locations:locations
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.succeeded) {
+                        if (callback) {
+                            callback(response.data);
+                        }
+                        Toast.show('提示','添加成功');
+                    }
+                    else
+                    {
+                        console.error(response.errors);
+                    }
+                    console.log(response);
+                },
+                error: function (err) {
+                    console.error(err);
+                }
+            });
+        }
+
+        /**
+         * 保存建筑到服务器
+         * @param {*} lnglats 
+         * @param {*} params 
+         * @param {*} callback 
+         */
+        function persistenceBuilding(lnglats,params,callback)
+        {
+            var url = API_ROOT + '/api/building';
+            var coords = [];
+            for (let i = 0; i < lnglats.length; i+=3) {
+                coords.push({
+                    longitude: lnglats[i],
+                    latitude: lnglats[i + 1],
+                });
+            }
+            params.coords = coords;
+            var data = {
+                name:params.name,
+                maxHeight:_maxHeight,
+                coords:coords
             };
 
             $.ajax({

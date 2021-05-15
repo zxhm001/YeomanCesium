@@ -41,9 +41,9 @@ $(function(){
     });
 
     $('#modal_person').on('hide.bs.modal', function (event) {
-        $('#btn_person_delete').attr("disabled",true); 
-        $('#btn_person_binding').attr("disabled",true); 
-        $('#btn_person_unbinding').attr("disabled",true); 
+        $('#btn_person_delete').attr('disabled',true); 
+        $('#btn_person_binding').attr('disabled',true); 
+        $('#btn_person_unbinding').attr('disabled',true); 
     });
 
     $('#btn_person_delete').on('click',function(){
@@ -198,22 +198,22 @@ $(function(){
                     onClick:function(event, treeId, treeNode)
                     {
                         if (treeNode.params) {
-                            $('#btn_person_delete').attr("disabled",false); 
+                            $('#btn_person_delete').attr('disabled',false); 
                             if (treeNode.params.deviceId) {
-                                $('#btn_person_binding').attr("disabled",true); 
-                                $('#btn_person_unbinding').attr("disabled",false); 
+                                $('#btn_person_binding').attr('disabled',true); 
+                                $('#btn_person_unbinding').attr('disabled',false); 
                             }
                             else
                             {
-                                $('#btn_person_binding').attr("disabled",false); 
-                                $('#btn_person_unbinding').attr("disabled",true); 
+                                $('#btn_person_binding').attr('disabled',false); 
+                                $('#btn_person_unbinding').attr('disabled',true); 
                             }
                         }
                         else
                         {
-                            $('#btn_person_delete').attr("disabled",true); 
-                            $('#btn_person_binding').attr("disabled",true); 
-                            $('#btn_person_unbinding').attr("disabled",true); 
+                            $('#btn_person_delete').attr('disabled',true); 
+                            $('#btn_person_binding').attr('disabled',true); 
+                            $('#btn_person_unbinding').attr('disabled',true); 
                         }
                     }
                 }

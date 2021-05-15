@@ -41,7 +41,7 @@ $(function(){
         if (_player) {
             _player.stop();
         }
-        $('#btn_device_delete').attr("disabled",true); 
+        $('#btn_device_delete').attr('disabled',true); 
     });
 
     $('#btn_device_delete').on('click',function(){
@@ -88,15 +88,16 @@ $(function(){
     })
 
     $('#btn_device_add').on('click',function(){
-        $('#device-params').show();
+        $('#device_params').show();
     });
 
     $('#btn_device_cancle').on('click',function(){
-        $('#device-params').hide();
+        $('#device_params').hide();
+        $('#device_params')[0].reset()
     });
 
     $('#btn_device_submit').on('click',function(){
-        var params = $('#device-params').serializeToJSON();
+        var params = $('#device_params').serializeToJSON();
         var url = API_ROOT + '/api/device';
         var data = {
             name:params.name,
@@ -115,8 +116,8 @@ $(function(){
                 if (response.succeeded) {
                     Device.add(params.name,params.type,null,params);
                     Toast.show('提示','添加成功');
-                    $('#device-params').hide();
-                    $('#device-params')[0].reset()
+                    $('#device_params').hide();
+                    $('#device_params')[0].reset()
                 }
                 else
                 {
@@ -177,7 +178,7 @@ $(function(){
                             viewer.entities.remove(_rangeEntity);
                         }
                         if (treeNode.params) {
-                            $('#btn_device_delete').attr("disabled",false); 
+                            $('#btn_device_delete').attr('disabled',false); 
                             if (treeNode.params.range) {
                                 var model = viewer.entities.getById(treeNode.model);
                                 Device.showRange(model._position._value,treeNode.params.range);
@@ -188,7 +189,7 @@ $(function(){
                         }
                         else
                         {
-                            $('#btn_device_delete').attr("disabled",true); 
+                            $('#btn_device_delete').attr('disabled',true); 
                         }
                     }
                 }

@@ -41,7 +41,7 @@ function init() {
 
     handler.setInputAction(function (e) {
         var entity = viewer.scene.pick(e.position);
-        if (entity && entity.id.id != 'car_1' && entity.id.id != 'uav_1') {
+        if (entity && entity.id && entity.id.id != 'car_1' && entity.id.id != 'uav_1') {
             // debugger
             console.log(entity.id.id);
             _moving = true;
