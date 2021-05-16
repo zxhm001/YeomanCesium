@@ -257,7 +257,27 @@ $(function(){
         Building.clearTempEntity();
     });
 
+    /**
+     * 编辑建筑信息
+     */
+     $('#btn_building_edit').on('click',function(){
+        var nodes = zTreeObj.getSelectedNodes();
+        if (nodes.length > 0 && nodes[0].params)
+        {
+            Edit.showModal('建筑',nodes[0].params,function(data){
+                nodes[0].name = data.name;
+                zTreeObj.updateNode(nodes[0]);
+            });
+        }
+        else
+        {
+            Toast.show('提示','请选择建筑');
+        }
+    });
 
+    /**
+     * 删除建筑
+     */
     $('#btn_building_delete').on('click', function () {
         var nodes = zTreeObj.getSelectedNodes();
         if (nodes.length > 0 && nodes[0].model && nodes[0].params) {
@@ -335,10 +355,12 @@ $(function(){
                     onClick:function(event, treeId, treeNode)
                     {
                         if (treeNode.params) {
+                            $('#btn_building_edit').attr('disabled',false); 
                             $('#btn_building_delete').attr('disabled',false); 
                         }
                         else
                         {
+                            $('#btn_building_edit').attr('disabled',true); 
                             $('#btn_building_delete').attr('disabled',true); 
                         }
                     }

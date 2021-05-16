@@ -42,10 +42,37 @@ $(function(){
 
     $('#modal_person').on('hide.bs.modal', function (event) {
         $('#btn_person_delete').attr('disabled',true); 
+        $('#btn_person_edit').attr('disabled',true); 
         $('#btn_person_binding').attr('disabled',true); 
         $('#btn_person_unbinding').attr('disabled',true); 
     });
 
+    /**
+     * 编辑人员信息
+     */
+    $('#btn_person_edit').on('click',function(){
+        var nodes = personTreeObj.getSelectedNodes();
+        if (nodes.length > 0 && nodes[0].params)
+        {
+            Edit.showModal(nodes[0].params.type,nodes[0].params,function(data){
+                var numberStr = '';
+                if (data.number > 1) {
+                    numberStr = '(' + data.number + ')';
+                }
+                var name = data.name + numberStr;
+                nodes[0].name = name;
+                personTreeObj.updateNode(nodes[0]);
+            });
+        }
+        else
+        {
+            Toast.show('提示','请选择人员');
+        }
+    });
+
+    /**
+     * 删除人员
+     */
     $('#btn_person_delete').on('click',function(){
         var nodes = personTreeObj.getSelectedNodes();
         if (nodes.length > 0 && nodes[0].params && nodes[0].model) {
@@ -200,6 +227,7 @@ $(function(){
                     {
                         if (treeNode.params) {
                             $('#btn_person_delete').attr('disabled',false); 
+                            $('#btn_person_edit').attr('disabled',false); 
                             if (treeNode.params.deviceId) {
                                 $('#btn_person_binding').attr('disabled',true); 
                                 $('#btn_person_unbinding').attr('disabled',false); 
@@ -213,6 +241,7 @@ $(function(){
                         else
                         {
                             $('#btn_person_delete').attr('disabled',true); 
+                            $('#btn_person_edit').attr('disabled',true); 
                             $('#btn_person_binding').attr('disabled',true); 
                             $('#btn_person_unbinding').attr('disabled',true); 
                         }
@@ -369,7 +398,7 @@ $(function(){
         function getLocationUrl(subNode,callback)
         {
             $.get(API_ROOT + '/api/device/one/' + subNode.params.deviceId,function(response){
-                if (response.succeeded) {
+                if (response.succeeded && response.data) {
                     subNode.params.locationUrl = response.data.locationUrl;
                     if (callback) {
                         callback(subNode.model, subNode.params.locationUrl);

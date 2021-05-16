@@ -1,13 +1,13 @@
-.modal
+.modal-fixed-right
 {
-    top: 72px !important;
     right: 0 !important;
-    width: 22rem !important;
     left: auto !important;
 }
 
-.modal-fixed-right {
-    padding-right: 0 !important;
+.modal {
+    top: 72px;
+    width: 22rem;
+    
 
     .modal-dialog {
         margin: 0;
@@ -96,8 +96,9 @@
 
 .modal-backdrop
 {
-    display: none !important;
+    display: none;
 }
+
 
 .ztree{
     width: 100%;
@@ -129,8 +130,11 @@
     }
 }
 
-#modal_building
+#modal_edit
 {
+    top: 108px !important;
+    left: calc(50vw - 11rem);
+
     form{
         margin-top: 10px;
 
@@ -139,9 +143,14 @@
         }
     }
 
-    #buliding_params
+    #edit_params
     {
-        display: none;
+        // display: none;
+    }
+
+    .input-shed{
+        width: 32% !important;
+        display: inline-block !important;
     }
 }
 

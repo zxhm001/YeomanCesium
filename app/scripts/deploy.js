@@ -1,5 +1,9 @@
 $(function () {
 
+    $('#modal_deploy').on('hide.bs.modal', function (event) {
+        Deploy.resetDraw();
+    });
+
     var deployData = {
         person: [
             {
@@ -37,7 +41,7 @@ $(function () {
                 model: '/data/model/police_car.glb',
                 image: '/images/model/police_car.png',
                 scale: 1,
-                params: ['license','text'],
+                params: ['license'],
                 //params: ['license','text','path','locationurl'],
             },
             {
@@ -45,28 +49,28 @@ $(function () {
                 model: '/data/model/fire_truck.glb',
                 image: '/images/model/fire_truck.png',
                 scale: 1,
-                params: ['license','text'],
+                params: ['license'],
             },
             {
                 name: '救护车',
                 model: '/data/model/ambulance.glb',
                 image: '/images/model/ambulance.png',
                 scale: 1,
-                params: ['license','text'],
+                params: ['license'],
             },
             {
                 name: '警用摩托',
                 model: '/data/model/motorcycle.glb',
                 image: '/images/model/motorcycle.png',
                 scale: 1,
-                params: ['license','text'],
+                params: ['license'],
             },
             {
                 name: '反制车',
                 model: '/data/model/armored_car.glb',
                 image: '/images/model/armored_car.png',
                 scale: 1,
-                params: ['license','text',],
+                params: ['license'],
             }
         ],
         device: [
@@ -201,34 +205,33 @@ $(function () {
                         viewer.entities.remove(_tempEntity)
                     }
                     
-                    persistenceModel(_currentModel,_pickPosition,params,id=>{
-                        params.id = id;
+                    persistenceModel(_currentModel,_pickPosition,params,rdata=>{
                         switch (_currentModel.name) {
                             case '警车':
                             case '消防车': 
                             case '救护车':
                             case '警用摩托':
                             case '反制车':
-                                Car.add(key,_currentModel.name,modelKey + '_' + key,params);
+                                Car.add(key,_currentModel.name,modelKey + '_' + rdata.id,rdata);
                                 break;
                             case '警察':
                             case '医护人员':
                             case '安保人员':
                             case '消防员':
                                 params.deviceId = 0;
-                                Person.add(key,_currentModel.name,modelKey + '_' + key,params);
+                                Person.add(key,_currentModel.name,modelKey + '_' + rdata.id,rdata);
                                 break;
                             case '反制枪':
                             case '布控球':
                             case '无人机':
-                                Device.add(key,_currentModel.name,modelKey + '_' + key,params);
+                                Device.add(key,_currentModel.name,modelKey + '_' + rdata.id,rdata);
                                 break;
                             default:
                                 break;
                         }
                         viewer.entities.add({
                             name: key,
-                            id: modelKey + '_' + id,
+                            id: modelKey + '_' + rdata.id,
                             position: _pickPosition,
                             model: {
                                 uri: _currentModel.model,
@@ -250,9 +253,8 @@ $(function () {
                 }
                 else if (_currentModel.color) {
                     var color = new Cesium.Color(_currentModel.color[0]/255, _currentModel.color[1]/255, _currentModel.color[2]/255)
-                    persistenceRegion(_currentModel,_lnglats,params,id=>{
-                        params.id = id;
-                        Region.add(key,_currentModel.name,color,_lnglats,params);
+                    persistenceRegion(_currentModel,_lnglats,params,rdata=>{
+                        Region.add(key,_currentModel.name,color,_lnglats,rdata);
                         _lnglats = null;
                         _maxHeight = 0;
                     });
@@ -262,10 +264,8 @@ $(function () {
                     }
                 }
                 else if (_currentModel.name == '建筑') {
-                    persistenceBuilding(_lnglats,params,id=>{
-                        params.id = id;
-                        params.maxHeight = _maxHeight;
-                        Building.add(params);
+                    persistenceBuilding(_lnglats,params,rdata=>{
+                        Building.add(rdata);
                         _lnglats = null;
                         _maxHeight = 0;
                     });
@@ -283,26 +283,30 @@ $(function () {
             });
 
             $('#deploy_cancle').on('click',function(){
-                if (_tempEntity) {
-                    viewer.entities.remove(_tempEntity)
-                }
-                if (_drawHandler) {
-                    _drawHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
-                    _drawHandler.removeInputAction(Cesium.ScreenSpaceEventType.MOUSE_MOVE);
-                }
-                if (_polygonHandler) {
-                    _polygonHandler.clear();
-                    _polygonHandler.deactivate();
-                }
-                _pickPosition = null;
-                _lnglats = null;
-                _maxHeight = 0;
-                $('.deploy-params')[0].reset()
-                $('.deploy-params').hide();
-                $('.deploy-params .form-group').hide();
+                resetDraw();
             });
 
         };
+
+        function resetDraw(){
+            if (_tempEntity) {
+                viewer.entities.remove(_tempEntity)
+            }
+            if (_drawHandler) {
+                _drawHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
+                _drawHandler.removeInputAction(Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+            }
+            if (_polygonHandler) {
+                _polygonHandler.clear();
+                _polygonHandler.deactivate();
+            }
+            _pickPosition = null;
+            _lnglats = null;
+            _maxHeight = 0;
+            $('.deploy-params')[0].reset()
+            $('.deploy-params').hide();
+            $('.deploy-params .form-group').hide();
+        }
 
         var showModel = function(type){
             $('#symbol_list').empty();
@@ -624,10 +628,16 @@ $(function () {
             });
         }
 
+        function getDeployConfig(){
+            return deployData;
+        }
+
 
         return {
             init:init,
-            showModel:showModel
+            showModel:showModel,
+            resetDraw:resetDraw,
+            getDeployConfig:getDeployConfig
         };
     }
     window.Deploy = deploy();

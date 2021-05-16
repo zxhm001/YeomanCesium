@@ -44,6 +44,34 @@ $(function(){
         $('#btn_device_delete').attr('disabled',true); 
     });
 
+
+    /**
+     * 编辑设备信息
+     */
+     $('#btn_device_edit').on('click',function(){
+        var nodes = zTreeObj.getSelectedNodes();
+        if (nodes.length > 0 && nodes[0].params)
+        {
+            Edit.showModal(nodes[0].params.type,nodes[0].params,function(data){
+                var numberStr = '';
+                if (data.number > 1) {
+                    numberStr = '(' + dedatavice.number + ')';
+                }
+                var license = data.name?data.name:data.license + numberStr;
+                nodes[0].name = license;
+                zTreeObj.updateNode(nodes[0]);
+            });
+        }
+        else
+        {
+            Toast.show('提示','请选择设备');
+        }
+    });
+
+
+    /**
+     * 删除设备
+     */
     $('#btn_device_delete').on('click',function(){
         var nodes = zTreeObj.getSelectedNodes();
         if (nodes.length > 0 && nodes[0].params) {
@@ -179,6 +207,7 @@ $(function(){
                             viewer.entities.remove(_rangeEntity);
                         }
                         if (treeNode.params) {
+                            $('#btn_device_edit').attr('disabled',false); 
                             $('#btn_device_delete').attr('disabled',false); 
                             if (treeNode.params.range) {
                                 var model = viewer.entities.getById(treeNode.model);
@@ -190,6 +219,7 @@ $(function(){
                         }
                         else
                         {
+                            $('#btn_device_edit').attr('disabled',true); 
                             $('#btn_device_delete').attr('disabled',true); 
                         }
                     }

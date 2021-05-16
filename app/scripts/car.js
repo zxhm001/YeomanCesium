@@ -42,6 +42,28 @@ $(function(){
         }
     });
 
+
+    /**
+     * 编辑车辆信息
+     */
+     $('#btn_car_edit').on('click',function(){
+        var nodes = zTreeObj.getSelectedNodes();
+        if (nodes.length > 0 && nodes[0].params)
+        {
+            Edit.showModal(nodes[0].params.type,nodes[0].params,function(data){
+                nodes[0].name = data.license;
+                zTreeObj.updateNode(nodes[0]);
+            });
+        }
+        else
+        {
+            Toast.show('提示','请选择车辆');
+        }
+    });
+
+    /**
+     * 删除车辆信息
+     */
     $('#btn_car_delete').on('click',function(){
         var nodes = zTreeObj.getSelectedNodes();
         if (nodes.length > 0 && nodes[0].model && nodes[0].params) {
@@ -102,11 +124,13 @@ $(function(){
                     {
                         if (treeNode.params) {
                             $('#btn_car_track').attr('disabled',false); 
+                            $('#btn_car_edit').attr('disabled',false); 
                             $('#btn_car_delete').attr('disabled',false); 
                         }
                         else
                         {
                             $('#btn_car_track').attr('disabled',true); 
+                            $('#btn_car_edit').attr('disabled',true); 
                             $('#btn_car_delete').attr('disabled',true); 
                         }
                     }
