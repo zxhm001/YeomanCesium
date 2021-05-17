@@ -53,6 +53,7 @@ $(function(){
             Edit.showModal(nodes[0].params.type,nodes[0].params,function(data){
                 nodes[0].name = data.license;
                 zTreeObj.updateNode(nodes[0]);
+                //TODO:还没有更新data数据
             });
         }
         else

@@ -267,6 +267,7 @@ $(function(){
             Edit.showModal('建筑',nodes[0].params,function(data){
                 nodes[0].name = data.name;
                 zTreeObj.updateNode(nodes[0]);
+                //TODO:还没有更新data数据
             });
         }
         else

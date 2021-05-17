@@ -62,6 +62,7 @@ $(function(){
                 var name = data.name + numberStr;
                 nodes[0].name = name;
                 personTreeObj.updateNode(nodes[0]);
+                //TODO:还没有更新data数据
             });
         }
         else
@@ -131,6 +132,7 @@ $(function(){
                 if (response.succeeded) {
                     nodes[0].params.deviceId = 0;
                     personTreeObj.updateNode(nodes[0]);
+                    Person.setDataAttribute(nodes[0].params.id,{deviceId:0});
                     Toast.show('提示','解绑成功');
                 }
                 else
@@ -167,6 +169,7 @@ $(function(){
                         if (response.succeeded) {
                             personNodes[0].params.deviceId = response.data.deviceId;
                             personTreeObj.updateNode(personNodes[0]);
+                            Person.setDataAttribute(personNodes[0].params.id,{deviceId:response.data.deviceId});
                             Toast.show('提示','绑定成功');
                             $('#modal_device_select').modal('hide');
                         }
@@ -450,6 +453,9 @@ $(function(){
             }
         }
 
+        /***
+         * 删除data下的数据
+         */
         function deleteData(id,nodes){
             nodes = nodes||data;
             for (let i = 0; i < nodes.length; i++) {
@@ -463,6 +469,31 @@ $(function(){
                 else if(node.children)
                 {
                     deleteData(id,node.children)
+                }
+            }
+        }
+
+        /***
+         * 设置data下的属性
+         */
+        function setDataAttribute(id,attributes,nodes)
+        {
+            nodes = nodes||data;
+            for (let i = 0; i < nodes.length; i++) {
+                const node = nodes[i];
+                if (node.params) {
+                    if (node.params.id == id) {
+                        for (const key in attributes) {
+                            if (Object.hasOwnProperty.call(attributes, key)) {
+                                node.params[key] = attributes[key]; 
+                            }
+                        }  
+                        break;
+                    }
+                }
+                else if(node.children)
+                {
+                    setDataAttribute(id,attributes,node.children)
                 }
             }
         }
@@ -513,7 +544,8 @@ $(function(){
             refreshDeviceTree:refreshDeviceTree,
             updateLocation:updateLocation,
             UpdateUnipptLocation:UpdateUnipptLocation,
-            deleteData:deleteData
+            deleteData:deleteData,
+            setDataAttribute:setDataAttribute
         }
     }
 

@@ -62,6 +62,7 @@ $(function(){
                 var license = data.name?data.name:data.license + numberStr;
                 nodes[0].name = license;
                 zTreeObj.updateNode(nodes[0]);
+                //TODO:还没有更新data数据
             });
         }
         else
@@ -435,6 +436,7 @@ $(function(){
                 if (!_pocWSState) {
                     var pocWs = new WebSocket(Uniptt_POC_URL);
                     pocWs.onopen = function(evt){
+                        //TODO:用户名密码使用config里的数据
                         pocWs.send('{"Code":40000,"SerialNum":1,"LoginName":"hbhddy","Password":"888888","Lang":"zh"}');
                     };
 
@@ -456,7 +458,7 @@ $(function(){
                         _pocWSState = 0;
                     };
                 }
-            }, 5000);
+            }, 10 * 1000);
         }
 
         function startLocaWS(){
@@ -464,6 +466,7 @@ $(function(){
                 if (!_locWSState) {
                     var locWs = new WebSocket(Uniptt_LOC_URL);
                     locWs.onopen = function(evt){
+                        //TODO:用户名密码使用config里的数据
                         locWs.send('{"Code":20000,"Data":{"LoginName":"hbhddy","Password":"888888","Lang":"zh"}}');
                     };
 
@@ -498,7 +501,7 @@ $(function(){
                         _locWSState = 0;
                     };
                 }
-            }, 5000);
+            }, 10 * 1000);
         }
 
         function isOnline(license){
