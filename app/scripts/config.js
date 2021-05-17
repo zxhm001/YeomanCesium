@@ -1,4 +1,6 @@
 var API_ROOT = 'http://localhost:53785';
+var Uniptt_POC_URL = 'ws://127.0.0.1:1338/poc'
+var Uniptt_LOC_URL = 'ws://112.74.167.167:1337/loc'
 
 $(function(){
     $('.color-picker').colorpicker();

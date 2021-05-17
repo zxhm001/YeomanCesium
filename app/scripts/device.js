@@ -1,5 +1,7 @@
 $(function(){
     var zTreeObj,viewshed3D,_rangeEntity,_player;
+    var _pocWSState = 0,_locWSState = 0,_unipptDeviceState = [],_unipptDeviceLocation = [];
+
 
     var data = [
         {
@@ -163,6 +165,8 @@ $(function(){
 
     setTimeout(() => {
         Device.loadDevices();
+        Device.startPocWS();
+        Device.startLocaWS();
     }, 2000);
 
     function device(){
@@ -424,6 +428,111 @@ $(function(){
             }
         }
 
+        function startPocWS()
+        {
+            setInterval(() => {
+                
+                if (!_pocWSState) {
+                    var pocWs = new WebSocket(Uniptt_POC_URL);
+                    pocWs.onopen = function(evt){
+                        pocWs.send('{"Code":40000,"SerialNum":1,"LoginName":"hbhddy","Password":"888888","Lang":"zh"}');
+                    };
+
+                    pocWs.onmessage  = function(evt){
+                        var data = JSON.parse(evt.data);
+                        if (data.Code == 40000 && data.Result == 2200) {
+                            _pocWSState = 1;
+                        }
+                        else if (data.Code == 40019 && data.Result == 2200) {
+                            _unipptDeviceState = data.Users;
+                        }
+                    };
+
+                    pocWs.onerror = function(evt){
+                        console.error('对讲机状态SOCKET错误',evt);
+                    };
+
+                    pocWs.onclose = function(evt){
+                        _pocWSState = 0;
+                    };
+                }
+            }, 5000);
+        }
+
+        function startLocaWS(){
+            setInterval(() => {
+                if (!_locWSState) {
+                    var locWs = new WebSocket(Uniptt_LOC_URL);
+                    locWs.onopen = function(evt){
+                        locWs.send('{"Code":20000,"Data":{"LoginName":"hbhddy","Password":"888888","Lang":"zh"}}');
+                    };
+
+                    locWs.onmessage  = function(evt){
+                        var data = JSON.parse(evt.data);
+                        if (data.Code == 24000 && data.Data.Result == 2200) {
+                            locWs.send('{"Code":20002}');
+                            _locWSState = 1;
+                        }
+                        else if (data.Code == 24001) {
+                            _unipptDeviceLocation = data.Data;
+                        }
+                        else if(data.Code == 24002)
+                        {
+                            for (let i = 0; i < _unipptDeviceLocation.length; i++) {
+                                const element = _unipptDeviceLocation[i];
+                                if (element.Uid == data.Data.Uid) {
+                                    _unipptDeviceLocation.splice(i,1);
+                                    break;
+                                }
+                            }
+                            _unipptDeviceLocation.push(data.Data)
+                            Person.UpdateUnipptLocation(data.Data);
+                        }
+                    };
+
+                    locWs.onerror = function(evt){
+                        console.error('对讲机位置SOCKET错误',evt);
+                    };
+
+                    locWs.onclose = function(evt){
+                        _locWSState = 0;
+                    };
+                }
+            }, 5000);
+        }
+
+        function isOnline(license){
+            var isOnline = false;
+            for (let i = 0; i < _unipptDeviceState.length; i++) {
+                const deviceState = _unipptDeviceState[i];
+                if (deviceState.Uid == license) {
+                    return deviceState.State;
+                } 
+            }
+            for (let i = 0; i < _unipptDeviceLocation.length; i++) {
+                const deviceLocation = _unipptDeviceLocation[i];
+                if (deviceLocation.Uid == license) {
+                    var time = new Date(parseInt(deviceLocation.Time) * 1000);
+                    return (new Date() - time < 60 * 1000);
+                } 
+            }
+            return isOnline;
+        }
+
+        function getLocation(license)
+        {
+            for (let i = 0; i < _unipptDeviceLocation.length; i++) {
+                const deviceLocation = _unipptDeviceLocation[i];
+                if (deviceLocation.Uid == license) {
+                    return {
+                        longitude:deviceLocation.Lng,
+                        latitude:deviceLocation.Lat,
+                        time:deviceLocation.Time
+                    };
+                } 
+            }
+        }
+
         return{
             showDeviceTree:showDeviceTree,
             add:add,
@@ -433,7 +542,11 @@ $(function(){
             clearViewshed:clearViewshed,
             setModelVisible:setModelVisible,
             setLabelVisible:setLabelVisible,
-            deleteData:deleteData
+            deleteData:deleteData,
+            startPocWS:startPocWS,
+            startLocaWS:startLocaWS,
+            isOnline:isOnline,
+            getLocation:getLocation
         }
     }
 

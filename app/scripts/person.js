@@ -165,7 +165,6 @@ $(function(){
                     dataType: 'json',
                     success: function (response) {
                         if (response.succeeded) {
-                            debugger
                             personNodes[0].params.deviceId = response.data.deviceId;
                             personTreeObj.updateNode(personNodes[0]);
                             Toast.show('提示','绑定成功');
@@ -403,11 +402,13 @@ $(function(){
                     if (callback) {
                         callback(subNode.model, subNode.params.locationUrl);
                     }
-                    
                 }
             })
         }
 
+        /**
+         * 更新位置，统一的
+         */
         function updateLocation(){
             if (personTreeObj) {
                 var nodes = personTreeObj.getNodes();
@@ -466,6 +467,43 @@ $(function(){
             }
         }
 
+        /*****
+         * 更新位置，专门针对对讲机
+         */
+        function UpdateUnipptLocation(location) {
+            if (personTreeObj) {
+                var nodes = personTreeObj.getNodes();
+            }
+            else
+            {
+                nodes = data;
+            }
+            nodes.forEach(node => {
+                node.children.forEach(subNode => {
+                    let entity = viewer.entities.getById(subNode.model);
+                    if (subNode.params && subNode.params.deviceId && entity) {
+                        getDeviceLicense(subNode.params.deviceId,function(license){
+                            if (license == location.Uid) {
+                                let height = viewer.scene.getHeight(location.Lng, location.Lat);
+                                (!height) && (height = 1)
+                                var position = Cesium.Cartesian3.fromDegrees(location.Lng, location.Lat, height);
+                                entity.position = position;
+                            }
+                        })
+                    }
+                });
+            });
+        }
+
+        function getDeviceLicense(id,callback)
+        {
+            $.get(API_ROOT + '/api/device/one/' + id,function(response){
+                if (response.succeeded && response.data) {
+                    callback(response.data.license);
+                }
+            })
+        }
+
         return{
             showPersonTree:showPersonTree,
             add:add,
@@ -474,6 +512,7 @@ $(function(){
             setLabelVisible:setLabelVisible,
             refreshDeviceTree:refreshDeviceTree,
             updateLocation:updateLocation,
+            UpdateUnipptLocation:UpdateUnipptLocation,
             deleteData:deleteData
         }
     }
