@@ -243,9 +243,9 @@ $(function () {
                                 fillColor: Cesium.Color.fromCssColorString(colorStr),
                                 outlineColor: Cesium.Color.BLACK,
                                 outlineWidth: 2,
-                                eyeOffset:new Cesium.Cartesian3(0,0,-10),
+                                eyeOffset:new Cesium.Cartesian3(0,0,-15),
                                 style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                                scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 3000, 0.2)
+                                scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 3000, 0.4)
                             }
                         });
                         _pickPosition = null;
