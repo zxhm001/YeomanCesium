@@ -258,6 +258,7 @@ $(function(){
             switch (type) {
                 case '反制枪':
                     uri = '/data/model/gun.glb';
+                    scale = 2;
                     break;
                 case '布控球':
                     uri = '/data/model/camera.glb';
@@ -282,9 +283,9 @@ $(function(){
                     fillColor: Cesium.Color.fromCssColorString(SysConfig.getConfig().device_label_color),
                     outlineColor: Cesium.Color.BLACK,
                     outlineWidth: 2,
-                    eyeOffset:new Cesium.Cartesian3(0.0, 1.0, 0.0),
+                    eyeOffset:new Cesium.Cartesian3(0,0,-10),
                     style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                    scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
+                    scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 3000, 0.2)
                 }
             });  
         }

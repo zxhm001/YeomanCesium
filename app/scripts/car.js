@@ -210,9 +210,9 @@ $(function(){
                     fillColor: Cesium.Color.fromCssColorString(SysConfig.getConfig().car_label_color),
                     outlineColor: Cesium.Color.BLACK,
                     outlineWidth: 2,
-                    eyeOffset:new Cesium.Cartesian3(0.0, 4, 0.0),
+                    eyeOffset:new Cesium.Cartesian3(0,0,-10),
                     style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                    scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
+                    scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 3000, 0.2)
                 }
             });                   
         }

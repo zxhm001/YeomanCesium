@@ -10,28 +10,28 @@ $(function () {
                 name: '警察',
                 model: '/data/model/police.glb',
                 image: '/images/model/police.png',
-                scale: 1,
+                scale: 2,
                 params: ['name','number'],
             },
             {
                 name: '医护人员',
                 model: '/data/model/doctor.glb',
                 image: '/images/model/doctor.png',
-                scale: 1,
+                scale: 2,
                 params: ['name','number'],
             },
             {
                 name: '安保人员',
                 model: '/data/model/guard.glb',
                 image: '/images/model/guard.png',
-                scale: 1,
+                scale: 2,
                 params: ['name','number'],
             },
             {
                 name: '消防员',
                 model: '/data/model/fire_man.glb',
                 image: '/images/model/fire_man.png',
-                scale: 1,
+                scale: 2,
                 params: ['name','number'],
             }
         ],
@@ -78,7 +78,7 @@ $(function () {
                 name: '反制枪',
                 model: '/data/model/gun.glb',
                 image: '/images/model/gun.png',
-                scale: 1,
+                scale: 2,
                 params: ['license','name', 'number','range'],
             },
             {
@@ -243,9 +243,9 @@ $(function () {
                                 fillColor: Cesium.Color.fromCssColorString(colorStr),
                                 outlineColor: Cesium.Color.BLACK,
                                 outlineWidth: 2,
-                                eyeOffset:new Cesium.Cartesian3(0.0, 2.5, 0.0),
+                                eyeOffset:new Cesium.Cartesian3(0,0,-10),
                                 style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                                scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
+                                scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 3000, 0.2)
                             }
                         });
                         _pickPosition = null;

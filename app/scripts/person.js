@@ -323,7 +323,7 @@ $(function(){
 
         function addEntity(key,name,type,lng,lat,height){
             var uri = '';
-            var scale = 1;
+            var scale = 2;
             switch (type) {
                 case '警察':
                     uri = '/data/model/police.glb'
@@ -354,9 +354,9 @@ $(function(){
                     fillColor: Cesium.Color.fromCssColorString(SysConfig.getConfig().person_label_color),
                     outlineColor: Cesium.Color.BLACK,
                     outlineWidth: 2,
-                    eyeOffset:new Cesium.Cartesian3(0.0, 2.5, 0.0),
+                    eyeOffset:new Cesium.Cartesian3(0,0,-10),
                     style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                    scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
+                    scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 3000, 0.2)
                 }
             });        
         }

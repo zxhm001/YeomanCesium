@@ -405,7 +405,7 @@ $(function(){
                     outlineColor: Cesium.Color.BLACK,
                     outlineWidth: 2,
                     style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                    scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
+                    scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 3000, 0.2)
                 }
             });
             viewer.entities.add(label);
