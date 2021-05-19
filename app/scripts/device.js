@@ -275,7 +275,9 @@ $(function(){
                 position: new Cesium.Cartesian3.fromDegrees(lng, lat, height),
                 model: {
                     uri: uri,
-                    scale:scale
+                    scale:scale,
+                    maximumScale:scale * 25,
+                    minimumPixelSize:128
                 },
                 label:{
                     text: license,

@@ -323,7 +323,7 @@ $(function(){
 
         function addEntity(key,name,type,lng,lat,height){
             var uri = '';
-            var scale = 2;
+            var scale = 1;
             switch (type) {
                 case '警察':
                     uri = '/data/model/police.glb'
@@ -346,7 +346,9 @@ $(function(){
                 position: new Cesium.Cartesian3.fromDegrees(lng, lat, height),
                 model: {
                     uri: uri,
-                    scale:scale
+                    scale:scale,
+                    maximumScale:scale * 25,
+                    minimumPixelSize:128
                 },
                 label:{
                     text: name,

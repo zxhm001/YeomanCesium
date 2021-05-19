@@ -1,6 +1,6 @@
 function init() {
     window.viewer = new Cesium.Viewer('cesium_container', {
-        'selectionIndicator': false
+        'selectionIndicator': false,
     });
     var initCamera = {};
 
@@ -15,7 +15,10 @@ function init() {
                 initCamera.position = new Cesium.Cartesian3(camera.position.x,camera.position.y,camera.position.z);
                 initCamera.direction = new Cesium.Cartesian3(camera.direction.x,camera.direction.y,camera.direction.z);
                 initCamera.up = new Cesium.Cartesian3(camera.up.x,camera.up.y,camera.up.z);
+                // var config = SysConfig.getConfig();
+                
             });
+            
         }
         else {
             alert('连接不上服务器！请联系管理员');
