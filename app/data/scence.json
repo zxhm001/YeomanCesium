@@ -24,7 +24,7 @@
             "checked":true,
             "children":[
                 {
-                    "id":"0-1-1",
+                    "id":"0-0-1",
                     "name":"影像图",
                     "type":"s3m",
                     "service":"http://localhost:8090/iserver/services/3D-XTCJ/rest/realspace/datas/%E5%BD%B1%E5%83%8F%E5%9B%BE@YXT/config",

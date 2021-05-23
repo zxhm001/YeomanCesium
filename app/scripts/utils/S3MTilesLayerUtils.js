@@ -18,7 +18,7 @@
         var count = Math.floor(len / 3);
         // 至少有3个点
         if (len < 9) {
-            console.warn("模型开挖至少传入3个点");
+            console.warn('模型开挖至少传入3个点');
             return;
         }
         var cartesianWall = [];
@@ -54,11 +54,11 @@
 
                 // 土壤几何体绘制
                 var wallMaterial = new Cesium.ImageMaterialProperty({
-                    image : "/images/texture/soil1.jpg",
+                    image : '/images/texture/soil1.jpg',
                     repeat : new Cesium.Cartesian2(8.0, 1.0)
                 });
                 var bottomMaterial = new Cesium.ImageMaterialProperty({
-                    image : "/images/texture/soil2.jpg",
+                    image : '/images/texture/soil2.jpg',
                     repeat : new Cesium.Cartesian2(4.0, 2.0)
                 });
                 var entityLayer = viewer.showLayer.getOrCreate(guid);
@@ -99,7 +99,7 @@
         var len = position.length;
         // 至少有3个点
         if (len < 9) {
-            console.warn("模型压平至少传入3个点");
+            console.warn('模型压平至少传入3个点');
             return;
         }
         for (var i = 0; i < layers.length; i++) {

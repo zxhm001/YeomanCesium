@@ -43,7 +43,7 @@ $(function(){
                 });
 
                 layers = scenceData.layers;
-                layerTreeObj = $.fn.zTree.init($("#layer_tree"), zTreeSetting, layers);
+                layerTreeObj = $.fn.zTree.init($('#layer_tree'), zTreeSetting, layers);
                 layers.forEach(layerNode => {
                     addLayer(layerNode);
                 });
@@ -81,6 +81,7 @@ $(function(){
                     name: node.name
                 });
                 s3mPromise.then(function(s3mLayer) {
+                    console.log(node.name,s3mLayer);
                     node.object = s3mLayer;
                     if (node.datasource != null) {
                         node.datasource.url = config.SM_DATA_SERVICE;
@@ -95,10 +96,10 @@ $(function(){
         {
             layerObject.checked = visibility;
             if (layerObject.object != null) {
-                if (typeof(layerObject.object.show) != "undefined") {
+                if (typeof(layerObject.object.show) != 'undefined') {
                     layerObject.object.show = visibility;
                 }
-                if (typeof(layerObject.object.visible) != "undefined") {
+                if (typeof(layerObject.object.visible) != 'undefined') {
                     layerObject.object.visible  = visibility;
                 }
             }

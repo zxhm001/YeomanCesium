@@ -146,7 +146,7 @@
         var description = Popup.defaultDescribeProperty(properties, labelInfo);
         var html = Cesium.Property.getValueOrDefault(description, Cesium.JulianDate.now(), '');
         if (html instanceof HTMLElement) {
-            this._content.innerHTML = "";
+            this._content.innerHTML = '';
             this._content.appendChild(html);
         } else {
             this._content.innerHTML = html;
@@ -185,7 +185,7 @@
         html = html || entity.description;
 
         if (html instanceof HTMLElement) {
-            this._content.innerHTML = "";
+            this._content.innerHTML = '';
             this._content.appendChild(html);
         } else {
             this._content.innerHTML = html;
@@ -263,8 +263,8 @@
 
         this._setVisible(true);
         this.isDirty = false;
-        this._container.style.left = winCoord.x + offset.x + "px";
-        this._container.style.top = winCoord.y + offset.y - 12 + "px";
+        this._container.style.left = winCoord.x + offset.x + 'px';
+        this._container.style.top = winCoord.y + offset.y - 12 + 'px';
     };
 
     Object.defineProperties(Popup.prototype, {
