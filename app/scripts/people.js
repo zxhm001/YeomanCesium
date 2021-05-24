@@ -50,7 +50,7 @@ $(function(){
 
         var showModal = function(buildId)
         {
-            var sql = "id_6='" + buildId + "'";
+            var sql = 'id_6=\'' + buildId + '\'';
             Query.doSqlQuery(sql, ['FC:FCFH'],function(qe){
                 var features = qe.result.features;
                 var hus = features.length;

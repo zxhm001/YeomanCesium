@@ -54,11 +54,11 @@
 
                 // 土壤几何体绘制
                 var wallMaterial = new Cesium.ImageMaterialProperty({
-                    image : '/images/texture/soil1.jpg',
+                    image : '/images/texture/soil1.png',
                     repeat : new Cesium.Cartesian2(8.0, 1.0)
                 });
                 var bottomMaterial = new Cesium.ImageMaterialProperty({
-                    image : '/images/texture/soil2.jpg',
+                    image : '/images/texture/soil2.png',
                     repeat : new Cesium.Cartesian2(4.0, 2.0)
                 });
                 var entityLayer = viewer.showLayer.getOrCreate(guid);

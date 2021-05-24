@@ -18,7 +18,7 @@ $(function(){
 
             if (!errorback) {
                 errorback = function(error){
-                    console.error("空间查询错误：" + error);
+                    console.error('空间查询错误：' + error);
                 }
             }
             
@@ -51,7 +51,7 @@ $(function(){
             });
             if (!errorback) {
                 errorback = function(error){
-                    console.error("SQL查询错误：" + error);
+                    console.error('SQL查询错误：' + error);
                 }
             }
             getFeatureBySQLService = new SuperMap.REST.GetFeaturesBySQLService(config.SM_DATA_SERVICE, {
@@ -76,7 +76,7 @@ $(function(){
             }
             var requestEntity = {
                 'datasetNames':datasets,
-                'getFeatureMode':"SQL",
+                'getFeatureMode':'SQL',
                 'queryParameter':{
                     'attributeFilter':sql,
                     'name':null,
@@ -91,20 +91,20 @@ $(function(){
             }
             params.requestEntity = JSON.stringify(requestEntity)
             var urlParams = Object.keys(params).map(function (key) {
-                return encodeURIComponent(key) + "=" + encodeURIComponent((params[key]));
-            }).join("&");
+                return encodeURIComponent(key) + '=' + encodeURIComponent((params[key]));
+            }).join('&');
             url = url + '?' + urlParams;
             
             if (!errorback) {
                 errorback = function(error){
-                    console.error("SQL查询错误：" + error);
+                    console.error('SQL查询错误：' + error);
                 }
             }
 
             $.ajax({
-                type: "GET",
+                type: 'GET',
                 url: url,
-                dataType: "json",
+                dataType: 'json',
                 success: callback,
                 error:errorback
             });
