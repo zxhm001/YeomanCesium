@@ -81,7 +81,7 @@ $(function(){
             Cesium.GroundPrimitive.extrudeHeight = Number(feature.data['NEWFIELD']); // 矢量面贴对象的拉伸高度
 
             var points3D = []; // [经度, 纬度, 经度, 纬度, ...]的形式，存放楼层面上的点坐标
-            var points = feature.geometry.components[0].components;
+            var points = feature.geometry.components[0].components[0].components;
             points.forEach(point => {
                 points3D.push(point.x);
                 points3D.push(point.y);

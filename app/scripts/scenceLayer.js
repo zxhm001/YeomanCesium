@@ -81,7 +81,6 @@ $(function(){
                     name: node.name
                 });
                 s3mPromise.then(function(s3mLayer) {
-                    console.log(node.name,s3mLayer);
                     node.object = s3mLayer;
                     if (node.datasource != null) {
                         node.datasource.url = config.SM_DATA_SERVICE;

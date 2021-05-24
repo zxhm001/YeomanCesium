@@ -16,6 +16,12 @@ $(function(){
                 toIndex: -1,
             });
 
+            if (!errorback) {
+                errorback = function(error){
+                    console.error("空间查询错误：" + error);
+                }
+            }
+            
             var getFeaturesByGeometryService = new SuperMap.REST.GetFeaturesByGeometryService(config.SM_DATA_SERVICE, {
                 eventListeners: {
                     'processCompleted': callback,
@@ -43,6 +49,11 @@ $(function(){
                 datasetNames: datasets, // 本例中“户型面”为数据源名称，“专题户型面2D”为楼层面相应的数据集名称
                 maxFeatures:999999
             });
+            if (!errorback) {
+                errorback = function(error){
+                    console.error("SQL查询错误：" + error);
+                }
+            }
             getFeatureBySQLService = new SuperMap.REST.GetFeaturesBySQLService(config.SM_DATA_SERVICE, {
                 eventListeners: {
                     'processCompleted': callback, // 查询成功时的回调函数
@@ -51,10 +62,58 @@ $(function(){
             });
             getFeatureBySQLService.processAsync(getFeatureBySQLParams);
         }
+        
+        var doCustomSqlQuery = function(sql,datasets,callback, errorback)
+        {
+            var url = config.SM_DATA_SERVICE + '/featureResults.json';
+            var params = {
+                returnContent:true,
+                fromIndex : 0,
+                toIndex : -1,
+                _method:'POST',
+                sectionCount:1,
+                sectionIndex:0,
+            }
+            var requestEntity = {
+                'datasetNames':datasets,
+                'getFeatureMode':"SQL",
+                'queryParameter':{
+                    'attributeFilter':sql,
+                    'name':null,
+                    'joinItems':null,
+                    'linkItems':null,
+                    'ids':null,
+                    'orderBy':null,
+                    'groupBy':null,
+                    'fields':null
+                },
+                'maxFeatures':999999
+            }
+            params.requestEntity = JSON.stringify(requestEntity)
+            var urlParams = Object.keys(params).map(function (key) {
+                return encodeURIComponent(key) + "=" + encodeURIComponent((params[key]));
+            }).join("&");
+            url = url + '?' + urlParams;
+            
+            if (!errorback) {
+                errorback = function(error){
+                    console.error("SQL查询错误：" + error);
+                }
+            }
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "json",
+                success: callback,
+                error:errorback
+            });
+        }
 
         return{
             doSpatialQuery:doSpatialQuery,
-            doSqlQuery:doSqlQuery
+            doSqlQuery:doSqlQuery,
+            doCustomSqlQuery:doCustomSqlQuery
         }
 
     }

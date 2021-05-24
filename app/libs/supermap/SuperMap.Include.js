@@ -1,5 +1,4 @@
 ﻿(function() {
-    var isWinRT = (typeof Windows === "undefined") ? false : true;
     var r = new RegExp("(^|(.*?\\/))(SuperMap.Include\.js)(\\?|$)"),
     s = document.getElementsByTagName('script'),
     src, m, baseurl = "";
@@ -14,33 +13,42 @@
         }
     }
     function inputScript(inc){
-        if (!isWinRT) {
-            var script = '<' + 'script type="text/javascript" src="' + inc + '"' + '><' + '/script>';
-            document.writeln(script);
-        } else {
-            var script = document.createElement("script");
-            script.src = inc;
-            document.getElementsByTagName("HEAD")[0].appendChild(script);
-        }
+        var script = '<' + 'script type="text/javascript" src="' + inc + '"' + '><' + '/script>';
+        document.writeln(script);
     }
     function inputCSS(style){
-        if (!isWinRT) {
-            var css = '<' + 'link rel="stylesheet" href="' + baseurl + '../theme/default/' + style + '"' + '><' + '/>';
-            document.writeln(css);
-        } else { 
-            var link = document.createElement("link");
-            link.rel = "stylesheet";
-            link.href =  "/theme/default/" + style;
-            document.getElementsByTagName("HEAD")[0].appendChild(link);
-        }
+        var css = '<' + 'link rel="stylesheet" href="' + baseurl + './theme/default/' + style + '"' + '><' + '/>';
+        document.writeln(css);
     }
     //加载类库资源文件
     function loadSMLibs() {
-        inputScript(baseurl+'SuperMap-7.1-11828.js');
+        inputScript(baseurl+'SuperMap-8.1.1-17729.js');
+        if(!window.excludePlot){
+            inputScript(baseurl+'SuperMap_Plot-8.1.1-17729.js');
+        }
+        loadLocalization();
+        inputCSS('style.css');
+        inputCSS('google.css');
     }
     //引入汉化资源文件
     function loadLocalization() {
-        inputScript(baseurl + 'Lang/zh-CN.js');
+        var userLang;
+        //针对不通浏览器做语言浏览器做判断
+        if(navigator.userLanguage){
+            //针对IE浏览器
+            userLang = navigator.userLanguage;
+        }else if(navigator.languages){
+            //针对Chrome
+            userLang = navigator.languages[0];
+        }else{
+            //其他
+            userLang = navigator.language;
+        }
+        if(userLang.indexOf('zh') > -1){
+            inputScript(baseurl + 'Lang/zh-CN.js');
+        }else{
+            inputScript(baseurl + 'Lang/en.js');
+        }
     }
     loadSMLibs();loadLocalization();
 })();
