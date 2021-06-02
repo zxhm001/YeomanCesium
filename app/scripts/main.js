@@ -1,4 +1,7 @@
 function init() {
+    $('#menu_admin').show();
+    $('#menu_front').hide();
+
     window.viewer = new Cesium.Viewer('cesium_container', {
         'selectionIndicator': false,
     });
