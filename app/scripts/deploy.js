@@ -385,7 +385,7 @@ $(function () {
                             $('body').removeClass('drawCur');
                         }
                     });
-                    _polygonHandler.drawEvt.addEventListener(function (result) {
+                    _polygonHandler.drawEvt.addEventListener(async function (result) {
                         var polygon = result.object;
                         if (!polygon) {
                             return;
@@ -425,7 +425,7 @@ $(function () {
                         var polygon = turf.polygon([lnglats], { name: 'building' });
                         var centroid = turf.centroid(polygon);
                         var centerCoord = centroid.geometry.coordinates;
-                        var height = viewer.scene.getHeight(centerCoord[0],centerCoord[1]);
+                        var height = await viewer.scene.getHeight2(centerCoord[0],centerCoord[1]);
                         if (height > _maxHeight) {
                             _maxHeight = height;
                         }

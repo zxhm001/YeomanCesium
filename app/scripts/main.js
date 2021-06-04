@@ -4,8 +4,39 @@ function init() {
 
     window.viewer = new Cesium.Viewer('cesium_container', {
         'selectionIndicator': false,
+        terrainProvider : new Cesium.CesiumTerrainProvider({
+            url : SHANGHAI_TERRAIN,
+            isSct : true,
+            invisibility:true
+        }),
     });
     var initCamera = {};
+
+    // viewer.scene.getHeight2 = function(lon,lat){
+    //     return new Promise(function(resolve, reject){
+    //         var cartographic = Cesium.Cartographic.fromDegrees(lon,lat);
+    //         var height = viewer.scene.sampleHeight(cartographic);
+    //         if (height > 0.1) {
+    //             resolve(height)
+    //         }
+    //         else
+    //         {
+    //             Cesium.sampleTerrain(viewer.terrainProvider,11,[cartographic]).then(data=>{
+    //                 resolve(data[0].height);
+    //             });
+    //         }
+    //     })
+    // }
+
+    viewer.scene.getHeight2 = async function(lon,lat){
+        var cartographic = Cesium.Cartographic.fromDegrees(lon,lat);
+        var height = viewer.scene.sampleHeight(cartographic);
+        if (height < 0.1) {
+            var data = await Cesium.sampleTerrain(viewer.terrainProvider,11,[cartographic]);
+            height = data[0].height;
+        }
+        return height;
+    }
 
     $.get(API_ROOT + '/api/project/current', function (response) {
         if (response.succeeded) {
@@ -18,10 +49,9 @@ function init() {
                 initCamera.position = new Cesium.Cartesian3(camera.position.x,camera.position.y,camera.position.z);
                 initCamera.direction = new Cesium.Cartesian3(camera.direction.x,camera.direction.y,camera.direction.z);
                 initCamera.up = new Cesium.Cartesian3(camera.up.x,camera.up.y,camera.up.z);
+                viewer.terrainProvider._visible = false;
                 // var config = SysConfig.getConfig();
-                
             });
-            
         }
         else {
             alert('连接不上服务器！请联系管理员');
@@ -44,6 +74,15 @@ function init() {
 
     //显示经纬度
     var handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
+
+    handler.setInputAction(async function(event) {
+        var position  = viewer.camera.pickEllipsoid(event.position,viewer.scene.globe.ellipsoid);
+        var cartographic = Cesium.Cartographic.fromCartesian(position);
+        var longitude = Cesium.Math.toDegrees(cartographic.longitude);
+        var latitude = Cesium.Math.toDegrees(cartographic.latitude);
+        var height = await viewer.scene.getHeight2(longitude,latitude);
+        console.log('Height',height);
+    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
     handler.setInputAction(function (e) {
         var entity = viewer.scene.pick(e.position);
@@ -94,7 +133,7 @@ function init() {
         viewer.scene.screenSpaceCameraController.enableRotate = true;
     }, Cesium.ScreenSpaceEventType.LEFT_UP);
 
-    handler.setInputAction(function (event) {
+    handler.setInputAction(async function (event) {
         var position = viewer.scene.pickPosition(event.endPosition);
         if (!position) {
             position = Cesium.Cartesian3.fromDegrees(0, 0, 0);
@@ -103,7 +142,7 @@ function init() {
         var longitude = Cesium.Math.toDegrees(cartographic.longitude);
         var latitude = Cesium.Math.toDegrees(cartographic.latitude);
         if (_moving && _currentEntity) {
-            var height = viewer.scene.getHeight(longitude, latitude);
+            var height = await viewer.scene.getHeight2(longitude, latitude);
             var cartesian = Cesium.Cartesian3.fromDegrees(longitude, latitude, height);
             _currentEntity.id.position = cartesian;
         }

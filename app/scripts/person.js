@@ -441,11 +441,11 @@ $(function(){
         {
             var entity = viewer.entities.getById(entityId);
             if (entity) {
-                $.get(locationUrl,function(response){
+                $.post(locationUrl,async function(response){
                     if (response.data) {
                         var height = response.data.height;
                         if (!height) {
-                            height = viewer.scene.getHeight(response.data.longitude, response.data.latitude);
+                            height = await viewer.scene.getHeight2(response.data.longitude, response.data.latitude);
                             (!height) && (height = 1)
                         }
                         var position = Cesium.Cartesian3.fromDegrees(response.data.longitude, response.data.latitude, height);
@@ -515,9 +515,9 @@ $(function(){
                 node.children.forEach(subNode => {
                     let entity = viewer.entities.getById(subNode.model);
                     if (subNode.params && subNode.params.deviceId && entity) {
-                        getDeviceLicense(subNode.params.deviceId,function(license){
+                        getDeviceLicense(subNode.params.deviceId,async function(license){
                             if (license == location.Uid) {
-                                let height = viewer.scene.getHeight(location.Lng, location.Lat);
+                                let height = await viewer.scene.getHeight2(location.Lng, location.Lat);
                                 (!height) && (height = 1)
                                 var position = Cesium.Cartesian3.fromDegrees(location.Lng, location.Lat, height);
                                 entity.position = position;

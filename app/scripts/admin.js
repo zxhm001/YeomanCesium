@@ -32,4 +32,4 @@ $(function () {
 
     $('.content-inner>section').hide();
     $('.content-inner #admin_project').show();
-}())
+}());

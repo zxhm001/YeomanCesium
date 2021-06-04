@@ -101,6 +101,8 @@ async function modernizr() {
 }
 
 const lintBase = (files, options) => {
+  //eslint支持async
+  options['parserOptions'] = { "ecmaVersion": 8 };
   return src(files)
     .pipe($.eslint(options))
     .pipe(server.reload({stream: true, once: true}))
@@ -119,7 +121,7 @@ function html() {
   return src('app/*.html')
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
     .pipe($.if('*.html', $.fileInclude({prefix: '@@', basepath: '@file'})))
-    .pipe($.if(/\.js$/, $.uglify({compress: {drop_console: true}})))
+    .pipe($.if(/\.js$/, $.uglifyEs.default({compress: {drop_console: true}})))
     .pipe($.if(/\.css$/, $.postcss([cssnano({safe: true, autoprefixer: false})])))
     .pipe($.if(/\.html$/, $.htmlmin({
       collapseWhitespace: true,
