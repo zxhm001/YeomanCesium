@@ -27,9 +27,9 @@
         <nav class="side-navbar">
             <ul class="list-unstyled">
                 <li id="menu_project" class="active"><a href="#"> <i class="bi bi-grid-1x2-fill"></i>项目管理 </a></li>
-                <li id="menu_person"><a href="#"> <i class="bi bi-person-fill"></i>人员管理 </a></li>
+                <!-- <li id="menu_person"><a href="#"> <i class="bi bi-person-fill"></i>人员管理 </a></li> -->
                 <li id="menu_device"><a href="#"> <i class="bi bi-shield-fill-check"></i>设备管理 </a></li>
-                <li id="menu_car"><a href="#"> <i class="bi bi-speedometer"></i>车辆管理 </a></li>
+                <!-- <li id="menu_car"><a href="#"> <i class="bi bi-speedometer"></i>车辆管理 </a></li> -->
                 <li id="menu_user"><a href="#"> <i class="bi bi-person-lines-fill"></i>用户管理 </a></li>
             </ul>
         </nav>
@@ -39,13 +39,15 @@
             @@include('./includes/admin_person.html')
             @@include('./includes/admin_car.html')
             @@include('./includes/admin_user.html')
+
+            @@include('./includes/toast.html')
         </div>
     </div>
 
     <!-- build:js scripts/vendor.js -->
     <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript"
-        src="/node_modules/jquery-serializetojson/dist/jquery.serializeToJSON.min.js"></script>
+    <script type="text/javascript" src="/node_modules/jquery-serializetojson/dist/jquery.serializeToJSON.min.js"></script>
+    <script type="text/javascript" src="/node_modules/jquery.cookie/jquery.cookie.js"></script>
     <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="/node_modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"></script>
     <script type="text/javascript" src="/node_modules/ztree/js/jquery.ztree.all.min.js"></script>
@@ -55,6 +57,8 @@
     <!-- build:js scripts/admin.js -->
     <script src="scripts/config.js"></script>
     <script src="scripts/admin.js"></script>
+    <script src="scripts/toast.js"></script>
+    <script src="scripts/admin_project.js"></script>
     <!-- endbuild -->
 
 </body>

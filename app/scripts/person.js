@@ -206,15 +206,33 @@ $(function(){
         Person.setLabelVisible($(this).prop('checked'));
     })
 
-    setTimeout(() => {
-        Person.loadPersons();
-    }, 2000);
-
     setInterval(() => {
         Person.updateLocation();
     }, 15 * 1000);
       
     function person(){
+
+        function init(){
+            data = [
+                {
+                    name:'警察',
+                    children:[]
+                },
+                {
+                    name:'安保人员',
+                    children:[]
+                },
+                {
+                    name:'医护人员',
+                    children:[]
+                },
+                {
+                    name:'消防员',
+                    children:[]
+                }
+            ];
+            loadPersons();
+        }
 
         function showPersonTree(){
             var setting = {
@@ -306,7 +324,7 @@ $(function(){
         }
 
         function loadPersons(){
-            $.get(API_ROOT + '/api/person',function(response){
+            $.get(`${API_ROOT}/api/person/${currentProject.id}`,function(response){
                 if (response.succeeded) {
                     response.data.forEach(person => {
                         var numberStr = '';
@@ -547,7 +565,8 @@ $(function(){
             updateLocation:updateLocation,
             UpdateUnipptLocation:UpdateUnipptLocation,
             deleteData:deleteData,
-            setDataAttribute:setDataAttribute
+            setDataAttribute:setDataAttribute,
+            init:init
         }
     }
 

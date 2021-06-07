@@ -87,12 +87,26 @@ $(function(){
     $('#region_show_model').on('change',function(){
         Region.showAllFence($(this).prop('checked'));
     })
-
-    setTimeout(() => {
-        Region.loadRegions();
-    }, 2000);
       
     function region(){
+
+        function init(){
+            data = [
+                {
+                    name:'安全区域',
+                    children:[]
+                },
+                {
+                    name:'重点区域',
+                    children:[]
+                },
+                {
+                    name:'危险区域',
+                    children:[]
+                }
+            ];
+            loadRegions();
+        }
 
         function showRegionTree(){
             var setting = {
@@ -187,7 +201,7 @@ $(function(){
         }
 
         function loadRegions(){
-            $.get(API_ROOT + '/api/region',function(response){
+            $.get(`${API_ROOT}/api/region/${currentProject.id}`,function(response){
                 if (response.succeeded) {
                     response.data.forEach(region => {
                         var color = new Cesium.Color(1, 1, 1);
@@ -273,7 +287,8 @@ $(function(){
             loadRegions:loadRegions,
             drawFenceEntity:drawFenceEntity,
             showAllFence:showAllFence,
-            deleteData:deleteData
+            deleteData:deleteData,
+            init:init
         }
     }
 

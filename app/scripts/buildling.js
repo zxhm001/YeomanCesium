@@ -72,16 +72,17 @@ $(function(){
 
     var data = [];
 
-    setTimeout(() => {
-        Building.loadBuilding();
-        data.push({
-            name:currentProject.name,
-            children:[]
-        });
-    }, 5000);
-
     function building(){
         var tempEntity;
+
+        function init(){
+            data = [];
+            data.push({
+                name:currentProject.name,
+                children:[]
+            });
+            loadBuilding();
+        }
 
         function showBuildingTree(){
             var setting = {
@@ -165,7 +166,7 @@ $(function(){
         }
 
         function loadBuilding(){
-            $.get(API_ROOT + '/api/building',function(response){
+            $.get(`${API_ROOT}/api/building/${currentProject.id}`,function(response){
                 if (response.succeeded) {
                     response.data.forEach(building => {
                         add(building);
@@ -228,7 +229,8 @@ $(function(){
             setLabelVisible:setLabelVisible,
             add:add,
             clearTempEntity:clearTempEntity,
-            deleteData:deleteData
+            deleteData:deleteData,
+            init:init
         };
     }
     window.Building = building();

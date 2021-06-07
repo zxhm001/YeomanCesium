@@ -164,13 +164,40 @@ $(function(){
         console.log(params);
     });
 
-    setTimeout(() => {
-        Device.loadDevices();
-        Device.startPocWS();
-        Device.startLocaWS();
-    }, 2000);
-
     function device(){
+
+        function init(){
+            data = [
+                {
+                    name:'布控球',
+                    children:[]
+                },
+                {
+                    name:'反制枪',
+                    children:[]
+                },
+                {
+                    name:'无人机',
+                    children:[]
+                },
+                {
+                    name:'对讲机',
+                    children:[]
+                }
+            ];
+            loadDevices();
+            if (!_pocWSState) {
+                startPocWS();
+            }
+            if (!_locWSState) {
+                startLocaWS();
+            }
+            // if (zTreeObj) {
+            //     $.fn.zTree.destroy("device_tree");
+            //     zTreeObj = null;
+            // }
+        }
+
         function showDeviceTree(){
             var setting = {
                 callback:{
@@ -294,7 +321,7 @@ $(function(){
 
         function loadDevices()
         {
-            $.get(API_ROOT + '/api/device',function(response){
+            $.get(`${API_ROOT}/api/device/${currentProject.id}`,function(response){
                 if (response.succeeded) {
                     response.data.forEach(device => {
                         var numberStr = '';
@@ -552,7 +579,8 @@ $(function(){
             startPocWS:startPocWS,
             startLocaWS:startLocaWS,
             isOnline:isOnline,
-            getLocation:getLocation
+            getLocation:getLocation,
+            init:init
         }
     }
 

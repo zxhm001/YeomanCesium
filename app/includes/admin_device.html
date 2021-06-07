@@ -5,7 +5,50 @@
                 <div class="h3">设备管理</div>
             </div>
             <div class="card-body no-padding">
-
+                <div class="form-group">
+                    <input id="btn_adddevice" type="submit" value="添加设备" class="btn btn-primary">
+                </div>
+                <div class="table-responsive">
+                    <table id="device_table" class="table table-striped table-hover">
+                        <thead>
+                            <th style="width: 5%;">#</th>
+                            <th style="width: 15%;">设备名称</th>
+                            <th style="width: 15%;">设备编号</th>
+                            <th style="width: 10%;">设备类型</th>
+                            <th style="width: 15%;">所属项目</th>
+                            <th>视频流接口</th>
+                            <th>位置接口</th>
+                            <th style="width: 10%;">操作</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>对讲机-1</td>
+                                <td>对讲机-1</td>
+                                <td>对讲机</td>
+                                <td>花博会</td>
+                                <td>rtmp://58.200.131.2:1935/livetv/hunantv</td>
+                                <td>http://192.168.1.28:53785/api/test/random-location</td>
+                                <td><span><a>详情</a><div role="separator" class="divider divider-vertical"></div><a>删除</a></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <nav aria-label="">
+                        <ul id="device_pagination" class="pagination">
+                            <li class="page-item disabled">
+                                <span class="page-link">上一页</span>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active" aria-current="page">
+                                <span class="page-link">2</span>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">下一页</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>

@@ -43,20 +43,19 @@ body,
   background: rgba(239, 239, 239, 0.7);
   align-items: stretch !important;
 
-  .container-fluid{
+  .container-fluid {
     align-items: stretch !important;
   }
 
-  #status_bar{
+  #status_bar {
     position: absolute;
     bottom: 5px;
     left: 5px;
     color: #5e6e82;
   }
 
-
   .navbar-nav {
-    a{
+    a {
       color: #5e6e82;
     }
 
@@ -98,8 +97,73 @@ body,
       transform: translateY(-50%) rotate(225deg);
     }
 
-    .nav-item{
+    .nav-item {
       list-style: none;
     }
   }
+}
+
+#projects_wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+#projects {
+  display: block;
+  height: 80px;
+  cursor: pointer;
+  -webkit-transition-property: width, background-color;
+  transition-property: width, background-color;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  width: 110px;
+  background-color: rgba(255, 255, 255, 0);
+  user-select: none;
+  
+  .project-card{
+    height: 60px;
+    width: 86px;
+    left: 10px;
+    position: absolute;
+    border-radius: 2px;
+    top: 10px;
+    box-sizing: border-box;
+    border: 1px solid rgba(153,153,153,.42);
+    background-size: cover;
+    background-repeat: round !important;
+    -webkit-transition-property: right,background-image;
+    transition-property: right,background-image;
+    -webkit-transition-duration: .4s;
+    transition-duration: .4s;
+
+    span {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      display: inline-block;
+      padding: 3px 3px 2px 4px;
+      font-size: 12px;
+      // height: 12px;
+      line-height: 12px;
+      color: #FFF;
+      border-top-left-radius: 2px;
+    }
+  }
+
+  .project-card.active ,.project-card:hover {
+    span{
+      background-color: #3385FF;
+    }  
+  }
+
+  .project-card.active
+  {
+    z-index: 99;
+  }
+}
+
+.expand #projects
+{
+  background-color: rgba(255, 255, 255, 0.8);
 }

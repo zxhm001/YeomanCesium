@@ -105,12 +105,38 @@ $(function(){
     $('#car_show_label').on('change',function(){
         Car.setLabelVisible($(this).prop('checked'));
     })
-
-    setTimeout(() => {
-        Car.loadCars();
-    }, 2000);
       
     function car(){
+
+        function init(){
+            data = [
+                {
+                    name:'警车',
+                    children:[]
+                },
+                {
+                    name:'消防车',
+                    children:[]
+                },
+                {
+                    name:'救护车',
+                    children:[]
+                },
+                {
+                    name:'反制车',
+                    children:[]
+                },
+                {
+                    name:'警用摩托',
+                    children:[]
+                }
+            ];
+            loadCars();
+            // if (zTreeObj) {
+            //     $.fn.zTree.destroy("car_tree");
+            //     zTreeObj = null;
+            // }
+        }
 
         function showCarTree(){
             var setting = {
@@ -160,7 +186,7 @@ $(function(){
 
         function loadCars()
         {
-            $.get(API_ROOT + '/api/car',function(response){
+            $.get(`${API_ROOT}/api/car/${currentProject.id}`,function(response){
                 if (response.succeeded) {
                     response.data.forEach(car => {
                         if (car.id != 1) {
@@ -276,7 +302,8 @@ $(function(){
             loadCars:loadCars,
             setModelVisible:setModelVisible,
             setLabelVisible:setLabelVisible,
-            deleteData:deleteData
+            deleteData:deleteData,
+            init:init
         }
     }
 

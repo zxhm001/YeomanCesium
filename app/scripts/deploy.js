@@ -508,6 +508,7 @@ $(function () {
                 default:
                     break;
             }
+            data['projectId'] = currentProject.id;
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -552,7 +553,8 @@ $(function () {
             var data = {
                 name:params.name,
                 type:model.name,
-                locations:locations
+                locations:locations,
+                projectId:currentProject.id
             };
 
             $.ajax({
@@ -600,7 +602,8 @@ $(function () {
             var data = {
                 name:params.name,
                 maxHeight:_maxHeight,
-                coords:coords
+                coords:coords,
+                projectId:currentProject.id
             };
 
             $.ajax({

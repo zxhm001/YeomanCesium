@@ -44,80 +44,18 @@
     <![endif]-->
     @@include('./includes/header.html')
     @@include('./includes/menu_group.html')
-    <!-- <nav id="sidebar" class="navbar">
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse show">
-          <ul class="navbar-nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="#modal_person" data-toggle="modal" role="button">
-                <i class="bi bi-person-fill"></i>人员
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#modal_car" data-toggle="modal" role="button">
-                <i class="bi bi-speedometer"></i>车辆
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#modal_uav" data-toggle="modal" role="button">
-                <i class="bi bi-record-circle-fill"></i>无人机
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" role="button" href="#modal_camera" data-toggle="modal">
-                <i class="bi bi-camera-video-fill"></i>摄像头
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" role="button" href="#modal_defence" data-toggle="modal">
-                <i class="bi bi-shield-fill-check"></i>反制设备
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#modal_building" data-toggle="modal" role="button">
-                <i class="bi bi-house-fill"></i>重点建筑
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#modal_region" data-toggle="modal" role="button">
-                <i class="bi bi-heptagon-half"></i>重点区域
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link dropdown-indicator" href="#deploy" data-toggle="collapse" aria-expanded="false" aria-controls="deploy" role="button">
-                <i class="bi bi-easel-fill"></i>部署
-              </a>
-              <ul id="deploy" class="collapse">
-                <li class="nav-item">
-                  <a class="nav-link" data-type="person" role="button">人员</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-type="car" role="button">车辆</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-type="camera" role="button">视频设备</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-type="defence" role="button">反制设备</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-type="region" role="button">区域</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" role="button" href="#modal_marker" data-toggle="modal">
-                <i class="bi bi-pencil-fill"></i>态势推演
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div id="status_bar"></div>
-    </nav>
-    -->
     <div id="cesium_container">
     </div> 
+    <div id="projects_wrapper">
+      <id id="projects">
+        <div class="project-card">
+          <span>园博会</span>
+        </div>
+        <div class="project-card">
+          <span>旗中网球中心</span>
+        </div>
+      </id>
+    </div>
 
     <!--modal-->
     @@include('./includes/modal_person.html')
@@ -134,6 +72,7 @@
     <!-- build:js scripts/vendor.js -->
     <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/node_modules/jquery-serializetojson/dist/jquery.serializeToJSON.min.js"></script>
+    <script type="text/javascript" src="/node_modules/jquery.cookie/jquery.cookie.js"></script>
     <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="/node_modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"></script>
     <script type="text/javascript" src="/node_modules/ztree/js/jquery.ztree.all.min.js"></script>
@@ -170,12 +109,10 @@
     <script src="scripts/buildling.js"></script>
     <script src="scripts/device.js"></script>
     <script src="scripts/region.js"></script>
-    <script src="scripts/marker.js"></script>
     <script src="scripts/deploy.js"></script>
     <script src="scripts/toast.js"></script>
     <script src="scripts/project.js"></script>
     <script src="scripts/edit.js"></script>
-    <script src="scripts/test.js"></script>
     <!-- endbuild -->
 </body>
 

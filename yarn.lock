@@ -5027,6 +5027,11 @@
   "resolved" "https://registry.npm.taobao.org/jquery-serializetojson/download/jquery-serializetojson-1.4.1.tgz"
   "version" "1.4.1"
 
+"jquery.cookie@^1.4.1":
+  "integrity" "sha1-1j3OIJ6raR/mMxbbCMqeR+D5OFs="
+  "resolved" "https://registry.npm.taobao.org/jquery.cookie/download/jquery.cookie-1.4.1.tgz"
+  "version" "1.4.1"
+
 "jquery@^3.4.1", "jquery@>=1.4.4", "jquery@>=2.1.0":
   "integrity" "sha1-17TQjhv9uGrS8aPQOeoXMEcXq7U="
   "resolved" "https://registry.npm.taobao.org/jquery/download/jquery-3.5.1.tgz"
