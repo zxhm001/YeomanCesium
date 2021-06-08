@@ -275,7 +275,7 @@ $(function(){
 
         function refreshDeviceTree(){
             clearDeviceNode();
-            $.get(API_ROOT + '/api/device/unbinding-list',function(response){
+            $.get(`${API_ROOT}/api/device/unbinding-list/${currentProject.id}`,function(response){
                 if (response.succeeded) {
                     var devices = response.data;
                     devices.forEach(device => {

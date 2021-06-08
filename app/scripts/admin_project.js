@@ -126,7 +126,7 @@ $(function () {
          * 设置表的操作事件
          */
         function setOptions(){
-            $('.option-active').on('click',function(){
+            $('#project_table .option-active').on('click',function(){
                 var tr = $(this).parent().parent().parent();
                 var index = tr.index();
                 var text = $(this).text();
@@ -154,7 +154,7 @@ $(function () {
                 }
             });
 
-            $('.option-delete').on('click',function(){
+            $('#project_table .option-delete').on('click',function(){
                 var tr = $(this).parent().parent().parent();
                 var index = tr.index();
                 $.ajax({

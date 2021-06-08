@@ -137,6 +137,7 @@ $(function(){
             type:params.type,
             locationUrl:params.locationurl,
             rtmpUrl:params.rtmpurl,
+            projectId:currentProject.id
         };
         $.ajax({
             type: 'POST',
@@ -155,13 +156,11 @@ $(function(){
                 {
                     console.error(response.errors);
                 }
-                console.log(response);
             },
             error: function (err) {
                 console.error(err);
             }
         });
-        console.log(params);
     });
 
     function device(){

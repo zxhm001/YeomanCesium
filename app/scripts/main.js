@@ -4,12 +4,11 @@ function init() {
 
     window.viewer = new Cesium.Viewer('cesium_container', {
         'selectionIndicator': false,
-        //TODO:忘了插硬盘了没有，回去要加上
-        // terrainProvider : new Cesium.CesiumTerrainProvider({
-        //     url : SHANGHAI_TERRAIN,
-        //     isSct : true,
-        //     invisibility:true
-        // }),
+        terrainProvider : new Cesium.CesiumTerrainProvider({
+            url : SHANGHAI_TERRAIN,
+            isSct : true,
+            invisibility:true
+        }),
     });
     // var initCamera = {};
 
