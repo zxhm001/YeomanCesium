@@ -109,7 +109,15 @@ $(function () {
                                 <td>${project.name}</td>
                                 <td>${project.scence}</td>
                                 <td>${project.isActive ? '是' : '否'}</td>
-                                <td><span><a class="option-active">${project.isActive ? '停止' : '激活'}</a><div role="separator" class="divider divider-vertical"></div><a class="option-delete">删除</a></span></td>
+                                <td>${project.isCurrent ? '是' : '否'}</td>
+                                <td>
+                                    <span>
+                                        ${project.isActive && !project.isCurrent ? '<a class="option-default">默认</a><div role="separator" class="divider divider-vertical"></div>' :''}
+                                        <a class="option-active">${project.isActive ? '停止' : '激活'}</a>
+                                        <div role="separator" class="divider divider-vertical"></div>
+                                        <a class="option-delete">删除</a>
+                                    </span>
+                                </td>
                             </tr>
                             `
                         );
@@ -126,6 +134,28 @@ $(function () {
          * 设置表的操作事件
          */
         function setOptions(){
+            $('#project_table .option-default').on('click',function(){
+                var tr = $(this).parent().parent().parent();
+                var index = tr.index();
+                $.ajax({
+                    type: 'POST',
+                    url: `${API_ROOT}/api/project/set-current/${projects[index].id}`,
+                    success: function (response) {
+                        if (response.succeeded) {
+                            loadDatas(currentPage);
+                            Toast.show('提示','设置成功');
+                        }
+                        else
+                        {
+                            console.error(response);
+                        }
+                    },
+                    error: function (err) {
+                        console.error(err);
+                    }
+                });
+            })
+
             $('#project_table .option-active').on('click',function(){
                 var tr = $(this).parent().parent().parent();
                 var index = tr.index();

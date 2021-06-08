@@ -24,6 +24,10 @@ $(function(){
         currentId = 0;
     });
 
+    $('#btn_device_search').on('click',function(){
+        DeviceAdmin.loadDatas();
+    })
+
 
     var deviceAdmin = function(){
         var pageSize = 10;
@@ -47,29 +51,44 @@ $(function(){
         function loadDatas(page = 1) {
             currentPage = page;
             $('#device_table tbody').empty();
-            $.get(`${API_ROOT}/api/device/page-list/${page}/${pageSize}`, function (response) {
-                if (response.succeeded) {
-                    devices = response.data.items;
-                    var index = 1;
-                    devices.forEach(device => {
-                        $('#device_table tbody').append(
-                            `
-                            <tr>
-                            <th scope="row">${index}</th>
-                            <td>${device.name}</td>
-                            <td>${device.license}</td>
-                            <td>${device.type}</td>
-                            <td>${getProjectName(device.projectId)}</td>
-                            <td>${device.rtmpUrl?device.rtmpUrl:''}</td>
-                            <td>${device.locationUrl?device.locationUrl:''}</td>
-                            <td><span><a class="option-detail">详情</a><div role="separator" class="divider divider-vertical"></div><a class="option-delete">删除</a></span></td>
-                            </tr>
-                            `
-                        );
-                        index++;
-                    });
-                    setOptions();
-                    showPagination(response.data);
+            var data = {
+                keyword: $('#input_device_search').val(),
+                page: page,
+                size: pageSize
+            };
+            $.ajax({
+                type: 'POST',
+                url: `${API_ROOT}/api/device/page-list`,
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.succeeded) {
+                        devices = response.data.items;
+                        var index = 1;
+                        devices.forEach(device => {
+                            $('#device_table tbody').append(
+                                `
+                                <tr>
+                                <th scope="row">${index}</th>
+                                <td>${device.name}</td>
+                                <td>${device.license}</td>
+                                <td>${device.type}</td>
+                                <td>${getProjectName(device.projectId)}</td>
+                                <td>${device.rtmpUrl?device.rtmpUrl:''}</td>
+                                <td>${device.locationUrl?device.locationUrl:''}</td>
+                                <td><span><a class="option-detail">详情</a><div role="separator" class="divider divider-vertical"></div><a class="option-delete">删除</a></span></td>
+                                </tr>
+                                `
+                            );
+                            index++;
+                        });
+                        setOptions();
+                        showPagination(response.data);
+                    }
+                },
+                error: function (err) {
+                    console.error(err);
                 }
             });
         }
@@ -102,7 +121,7 @@ $(function(){
                     dataType: 'json',
                     success: function (response) {
                         if (response.succeeded) {
-                            DeviceAdmin.loadDatas();
+                            loadDatas(currentPage);
                             Toast.show('提示','保存成功');
                             $('#add_device_params')[0].reset();
                             $('#modal_add_device').modal('hide');
@@ -127,7 +146,7 @@ $(function(){
                     dataType: 'json',
                     success: function (response) {
                         if (response.succeeded) {
-                            DeviceAdmin.loadDatas();
+                            loadDatas();
                             Toast.show('提示','添加成功');
                             $('#add_device_params')[0].reset();
                             $('#modal_add_device').modal('hide');

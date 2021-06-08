@@ -7,6 +7,12 @@ h3, .h3 {
     list-style: none;
 }
 
+.table-header-form
+{
+    display: flex;
+    justify-content:space-between;
+}
+
 .divider {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;

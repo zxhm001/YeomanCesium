@@ -5,8 +5,14 @@
                 <div class="h3">设备管理</div>
             </div>
             <div class="card-body no-padding">
-                <div class="form-group">
+                <div class="form-group table-header-form">
                     <input id="btn_adddevice" type="submit" value="添加设备" class="btn btn-primary">
+                    <div class="input-group" style="width: 280px;">
+                        <input id="input_device_search" type="text" class="form-control" placeholder="请输入设备名称/编号/类型" aria-label="请输入设备名称/编号/类型" aria-describedby="btn_device_search">
+                        <div class="input-group-append">
+                          <button class="btn btn-primary" type="button" id="btn_device_search">搜索</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table id="device_table" class="table table-striped table-hover">

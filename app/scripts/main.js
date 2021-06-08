@@ -70,12 +70,22 @@ function init() {
                     }
                 }
             }
-            if(!window.currentProject && window.projects.length > 0)
+            
+            if(!window.currentProject)
             {
-                window.currentProject = window.projects[0];
-                $.cookie('current_project_id', window.currentProject.id, { expires: 7, path: '/' });
+                for (let i = 0; i < window.projects.length; i++) {
+                    const project = window.projects[i];
+                    if (project.isCurrent) {
+                        window.currentProject = project;
+                        break;
+                    }
+                }
+                if (!window.currentProject && window.projects.length > 0) {
+                    window.currentProject = window.projects[0];
+                }
             }
             if (window.currentProject) {
+                $.cookie('current_project_id', window.currentProject.id, { expires: 7, path: '/' });
                 var promise = viewer.scene.open(currentProject.scence);
                 Cesium.when(promise, function (layer) {
                     //初始化其他模块
