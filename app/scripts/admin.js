@@ -18,6 +18,9 @@ $(function () {
             case 'menu_device':
                 $('#admin_device').show();
                 break;
+            case 'menu_deploy':
+                $('#admin_deploy').show();
+                break;
             case 'menu_car':
                 $('#admin_car').show();
                 break;
