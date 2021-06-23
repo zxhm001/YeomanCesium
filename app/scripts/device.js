@@ -388,32 +388,32 @@ $(function(){
 
         function showViewshed(longitude,latitude,height,direction,pitch,distance,verticalFov,horizontalFov)
         {
-            // ViewShedStage.init(viewer,{
-            //     viewPosition:new Cesium.Cartesian3.fromDegrees(longitude, latitude, height + 1.5),
-            //     viewDistance:distance,
-            //     viewHeading:direction,
-            //     viewPitch:pitch,
-            //     horizontalViewAngle:horizontalFov,
-            //     verticalViewAngle:verticalFov
-            // });
-            if (!viewshed3D) {
-                viewshed3D = new Cesium.ViewShed3D(viewer.scene);
-            }
-            viewshed3D.direction = direction;
-            viewshed3D.pitch = pitch;
-            viewshed3D.distance = distance;
-            viewshed3D.verticalFov = verticalFov?verticalFov:90;
-            viewshed3D.horizontalFov = horizontalFov?horizontalFov:120;
-            viewshed3D.viewPosition = [longitude, latitude, height];
-            viewshed3D.build();
+            ViewShedStage.init(viewer,{
+                viewPosition:new Cesium.Cartesian3.fromDegrees(longitude, latitude, height + 1.5),
+                viewDistance:distance,
+                viewHeading:direction,
+                viewPitch:pitch,
+                horizontalViewAngle:horizontalFov,
+                verticalViewAngle:verticalFov
+            });
+            // if (!viewshed3D) {
+            //     viewshed3D = new Cesium.ViewShed3D(viewer.scene);
+            // }
+            // viewshed3D.direction = direction;
+            // viewshed3D.pitch = pitch;
+            // viewshed3D.distance = distance;
+            // viewshed3D.verticalFov = verticalFov?verticalFov:90;
+            // viewshed3D.horizontalFov = horizontalFov?horizontalFov:120;
+            // viewshed3D.viewPosition = [longitude, latitude, height];
+            // viewshed3D.build();
         }
 
         function clearViewshed()
         {
-            //ViewShedStage.clear();
-            if (viewshed3D) {
-                viewshed3D.distance = 0.01;
-            }
+            ViewShedStage.clear();
+            // if (viewshed3D) {
+            //     viewshed3D.distance = 0.01;
+            // }
         }
 
         function setModelVisible(visible)
