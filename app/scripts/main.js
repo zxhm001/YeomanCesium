@@ -2,6 +2,12 @@ function init() {
     $('#menu_admin').show();
     $('#menu_front').hide();
 
+    //椭球模式
+    //Cesium默认的是椭球模式
+    //超图默认的是圆球模式
+    // var obj = [6378137.0, 6378137.0, 6356752.3142451793];
+    // Cesium.Ellipsoid.WGS84 = Object.freeze(new Cesium.Ellipsoid(obj[0], obj[1], obj[2]));
+
     window.viewer = new Cesium.Viewer('cesium_container', {
         'selectionIndicator': false,
         terrainProvider : new Cesium.CesiumTerrainProvider({
@@ -91,13 +97,23 @@ function init() {
                     //初始化其他模块
                     Deploy.init();
                     initData();
+                    viewer.terrainProvider._visible = false;
                     // var camera = viewer.scene.camera;
                     // initCamera.position = new Cesium.Cartesian3(camera.position.x,camera.position.y,camera.position.z);
                     // initCamera.direction = new Cesium.Cartesian3(camera.direction.x,camera.direction.y,camera.direction.z);
                     // initCamera.up = new Cesium.Cartesian3(camera.up.x,camera.up.y,camera.up.z);
-                    viewer.terrainProvider._visible = false;
                     // var config = SysConfig.getConfig();
                 });
+                // var tileset = viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+                //     url: 'http://127.0.0.1:5701/model/f86ceb60d3d311eb971d0b98892bfd53/tileset.json',
+                //     modelMatrix: Cesium.Matrix4.fromArray([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]),
+                // }));
+                // viewer.flyTo(tileset);
+                // setTimeout(() => {
+                //     Deploy.init();
+                //     initData();
+                //     viewer.terrainProvider._visible = false;
+                // }, 2000);
             }
             initProjectSelector();
         }
@@ -193,7 +209,7 @@ function init() {
 
     handler.setInputAction(function (e) {
         var entity = viewer.scene.pick(e.position);
-        if (entity && entity.id && entity.id.id != 'car_1' && entity.id.id != 'uav_1' && !entity.id.id.startsWith('building')) {
+        if (entity && entity.id && entity.id.id != 'car_1' && entity.id.id != 'uav_1' && !entity.id.id.startsWith('building') && !entity.id.name.startsWith('sketch')) {
             // debugger
             _moving = true;
             _currentEntity = entity;

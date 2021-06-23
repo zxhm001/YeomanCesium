@@ -75,6 +75,12 @@ $(function(){
             if (data.pitch) {
                 $('#edit_input_shed_angle').val(data.pitch);
             }
+            if (data.verticalFov) {
+                $('#edit_input_shed_vertical_fov').val(data.verticalFov);
+            }
+            if (data.horizontalFov) {
+                $('#edit_input_shed_horizontal_fov').val(data.horizontalFov);
+            }
         }
 
         function save(){
@@ -100,6 +106,9 @@ $(function(){
                 _data.direction = $('#edit_input_shed_direction').val();
                 _data.distance = $('#edit_input_shed_distance').val();
                 _data.pitch = $('#edit_input_shed_angle').val();
+                _data.direction = $('#edit_input_shed_direction').val();
+                _data.verticalFov = $('#edit_input_shed_vertical_fov').val();
+                _data.horizontalFov = $('#edit_input_shed_horizontal_fov').val();
             }
             
             var modelKey = '';

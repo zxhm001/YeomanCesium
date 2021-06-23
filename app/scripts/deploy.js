@@ -501,8 +501,8 @@ $(function () {
                         direction:params.shed_direction?params.shed_direction:0,
                         pitch:params.shed_angle?params.shed_angle:0,
                         distance:params.shed_distance?params.shed_distance:0,
-                        verticalFov:params.verticalFov,
-                        horizontalFov:params.horizontalFov
+                        verticalFov:params.shed_vertical_fov?params.shed_vertical_fov:0,
+                        horizontalFov:params.shed_horizontal_fov?params.shed_horizontal_fov:0
                     };
                     break;
                 default:
