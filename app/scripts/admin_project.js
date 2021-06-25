@@ -1,9 +1,18 @@
 $(function () {
 
     //当前图片
-    var image = '';
+    var _image = '';
+    var _editMode = 'add';
+    var _selProject;
+
+    $('#modal_add_project').on('hide.bs.modal', function (event) {
+        _image = '';
+        _selProject = null;
+    });
 
     $('#btn_addproject').on('click',function(){
+        _editMode = 'add';
+        $('#modal_add_project_title').html('<i class="bi bi-file-earmark-plus-fill"></i>添加项目');
         $('#modal_add_project').modal('show');
     });
 
@@ -11,7 +20,7 @@ $(function () {
         var params = $('#add_project_params').serializeToJSON();
         params.name = params.name.trim();
         params.scence = params.scence.trim();
-        if (!image) {
+        if (!_image) {
             Toast.show('提示','请上传图片');
             return;
         }
@@ -24,29 +33,60 @@ $(function () {
             Toast.show('提示','场景URL应该是一个网址');
             return;
         }
-        params.image = image;
-        $.ajax({
-            type: 'POST',
-            url: `${API_ROOT}/api/project`,
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(params),
-            dataType: 'json',
-            success: function (response) {
-                if (response.succeeded) {
-                    ProjectAdmin.loadDatas();
-                    $('#add_project_params')[0].reset();
-                    $('#modal_add_project').modal('hide');
-                    Toast.show('提示','添加成功');
+        if (_editMode == 'add') {
+            params.image = _image;
+            $.ajax({
+                type: 'POST',
+                url: `${API_ROOT}/api/project`,
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.succeeded) {
+                        ProjectAdmin.loadDatas();
+                        $('#add_project_params')[0].reset();
+                        $('#modal_add_project').modal('hide');
+                        Toast.show('提示','添加成功');
+                    }
+                    else
+                    {
+                        console.error(response.errors);
+                    }
+                },
+                error: function (err) {
+                    console.error(err);
                 }
-                else
-                {
-                    console.error(response.errors);
+            });
+        }
+        else
+        {
+            _selProject.name = params.name;
+            _selProject.scence = params.scence;
+            _selProject.image = _image;
+            _selProject.isActive = params.isActive;
+            $.ajax({
+                type: 'PUT',
+                url: `${API_ROOT}/api/project`,
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(_selProject),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.succeeded) {
+                        ProjectAdmin.loadDatas();
+                        $('#add_project_params')[0].reset();
+                        $('#modal_add_project').modal('hide');
+                        Toast.show('提示','修改成功');
+                    }
+                    else
+                    {
+                        console.error(response.errors);
+                    }
+                },
+                error: function (err) {
+                    console.error(err);
                 }
-            },
-            error: function (err) {
-                console.error(err);
-            }
-        });
+            });
+        } 
     });
 
     $('#add_project_cancle').on('click',function(){
@@ -69,7 +109,7 @@ $(function () {
                 contentType: false, 
                 success:function(response){
                     if (response.succeeded) {
-                        image = response.data;
+                        _image = response.data;
                         Toast.show('提示','上传成功');
                     }
                     else
@@ -85,7 +125,7 @@ $(function () {
         {
             Toast.show('提示','请选择图片文件');
             $('#add_project_image').val('');
-            image = '';
+            _image = '';
         }
     });
 
@@ -112,6 +152,8 @@ $(function () {
                                 <td>${project.isCurrent ? '是' : '否'}</td>
                                 <td>
                                     <span>
+                                        <a class="option-edit">编辑</a>
+                                        <div role="separator" class="divider divider-vertical"></div>
                                         ${project.isActive && !project.isCurrent ? '<a class="option-default">默认</a><div role="separator" class="divider divider-vertical"></div>' :''}
                                         <a class="option-active">${project.isActive ? '停止' : '激活'}</a>
                                         <div role="separator" class="divider divider-vertical"></div>
@@ -204,6 +246,19 @@ $(function () {
                         console.error(err);
                     }
                 });
+            });
+
+            $('#project_table .option-edit').on('click',function(){
+                var tr = $(this).parent().parent().parent();
+                var index = tr.index();
+                _selProject = projects[index];
+                _editMode = 'edit';
+                $('#modal_add_project_title').html('<i class="bi bi-file-earmark-diff-fill"></i>编辑项目');
+                $('#modal_add_project').modal('show');
+                $('#add_project_name').val(_selProject.name);
+                $('#add_project_scene').val(_selProject.scence);
+                _image = _selProject.image;
+                $('#add_project_active').val(_selProject.isActive + '');
             })
         }
 

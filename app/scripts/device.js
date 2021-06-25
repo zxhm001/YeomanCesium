@@ -388,32 +388,125 @@ $(function(){
 
         function showViewshed(longitude,latitude,height,direction,pitch,distance,verticalFov,horizontalFov)
         {
-            ViewShedStage.init(viewer,{
-                viewPosition:new Cesium.Cartesian3.fromDegrees(longitude, latitude, height + 1.5),
-                viewDistance:distance,
-                viewHeading:direction,
-                viewPitch:pitch,
-                horizontalViewAngle:horizontalFov,
-                verticalViewAngle:verticalFov
-            });
-            // if (!viewshed3D) {
-            //     viewshed3D = new Cesium.ViewShed3D(viewer.scene);
-            // }
-            // viewshed3D.direction = direction;
-            // viewshed3D.pitch = pitch;
-            // viewshed3D.distance = distance;
-            // viewshed3D.verticalFov = verticalFov?verticalFov:90;
-            // viewshed3D.horizontalFov = horizontalFov?horizontalFov:120;
-            // viewshed3D.viewPosition = [longitude, latitude, height];
-            // viewshed3D.build();
+            //TODO:这里只写了超图的方法，还没写中地的
+            if (PLATFORM == 'SuperMap') {
+                if (horizontalFov < 180) {
+                    if (!viewshed3D) {
+                        viewshed3D = new Cesium.ViewShed3D(viewer.scene);
+                    }
+                    viewshed3D = new Cesium.ViewShed3D(viewer.scene);
+                    viewshed3D.direction = direction;
+                    viewshed3D.pitch = pitch;
+                    viewshed3D.distance = distance;
+                    viewshed3D.verticalFov = verticalFov?verticalFov:90;
+                    viewshed3D.horizontalFov = horizontalFov?horizontalFov:120;
+                    //viewshed3D.hintLineColor  = Cesium.Color.TRANSPARENT;
+                    viewshed3D.viewPosition = [longitude, latitude, height + 1.5];
+                    viewshed3D.build();
+                }
+                else
+                {
+                    let ehorizontalFov = horizontalFov;
+                    let cDirction = direction;
+                    //MultiViewShed3D不好用
+                    //viewshed3D = new Cesium.MultiViewShed3D(viewer.scene);
+                    viewshed3D = [];
+                    while (ehorizontalFov > 0) {
+                        let chorizontalFov = 120;
+                        if (ehorizontalFov < 120) {
+                            chorizontalFov = ehorizontalFov;
+                        }
+                        if (cDirction != direction) {
+                            cDirction += chorizontalFov/2;
+                        }
+                        var viewshed3DPartial = new Cesium.ViewShed3D(viewer.scene);
+                        viewshed3DPartial.direction = cDirction;
+                        viewshed3DPartial.pitch = pitch;
+                        viewshed3DPartial.distance = distance;
+                        viewshed3DPartial.verticalFov = verticalFov?verticalFov:90;
+                        viewshed3DPartial.horizontalFov = chorizontalFov;
+                        //viewshed3DPartial.hintLineColor  = Cesium.Color.TRANSPARENT;
+                        viewshed3DPartial.viewPosition = [longitude, latitude, height + 1.5];
+                        //viewshed3D.addViewShed(viewshed3DPartial);
+                        viewshed3DPartial.build();
+                        viewshed3D.push(viewshed3DPartial);
+                        cDirction += chorizontalFov/2;
+                        ehorizontalFov = ehorizontalFov - chorizontalFov;
+                    }
+                    //viewshed3D.build();
+                }
+            }
+            else if (PLATFORM == 'MapGIS')
+            {
+                if (horizontalFov < 90) {
+                    var advancedAnalysisManager = new CesiumZondy.Manager.AdvancedAnalysisManager({
+                        viewer: viewer
+                    });
+                    //创建可视化分析对象
+                    viewshed3D = advancedAnalysisManager.createViewshedAnalysis();
+                    viewshed3D.viewPosition = new Cesium.Cartesian3.fromDegrees(longitude, latitude, height + 1.5);
+                    viewshed3D.horizontAngle = horizontalFov;
+                    viewshed3D.verticalAngle = verticalFov;
+                    var destination = calculatingTargetPoints(longitude, latitude,height + 1.5,direction,distance);
+                    viewshed3D.targetPosition = new Cesium.Cartesian3.fromDegrees(destination[0], destination[1], height + 1.5);
+                    viewer.scene.VisualAnalysisManager.add(viewshed3D);
+                }
+                else
+                {
+                    let ehorizontalFov = horizontalFov;
+                    let cDirction = direction;
+                    viewshed3D = [];
+                    var advancedAnalysisManager = new CesiumZondy.Manager.AdvancedAnalysisManager({
+                        viewer: viewer
+                    });
+                    while (ehorizontalFov > 0) {
+                        debugger
+                        let chorizontalFov = 90;
+                        if (ehorizontalFov < 90) {
+                            chorizontalFov = ehorizontalFov;
+                        }
+                        if (cDirction != direction) {
+                            cDirction += chorizontalFov/2;
+                        }
+                        var viewshed3DPartial = advancedAnalysisManager.createViewshedAnalysis();
+                        viewshed3DPartial.viewPosition = new Cesium.Cartesian3.fromDegrees(longitude, latitude, height + 1.5);
+                        viewshed3DPartial.horizontAngle = chorizontalFov;
+                        viewshed3DPartial.verticalAngle = verticalFov;
+                        var destination = calculatingTargetPoints(longitude, latitude,height + 1.5,cDirction * Math.PI/180,distance);
+                        viewshed3DPartial.targetPosition = new Cesium.Cartesian3.fromDegrees(destination[0], destination[1], height + 1.5);
+                        viewer.scene.VisualAnalysisManager.add(viewshed3DPartial);
+                        viewshed3D.push(viewshed3DPartial);
+                        cDirction += chorizontalFov/2;
+                        ehorizontalFov = ehorizontalFov - chorizontalFov;
+                    }
+                }
+                
+            }
         }
 
         function clearViewshed()
         {
-            ViewShedStage.clear();
-            // if (viewshed3D) {
-            //     viewshed3D.distance = 0.01;
-            // }
+            if (PLATFORM == 'SuperMap') {
+                if (viewshed3D) {
+                    if (viewshed3D instanceof Array) {
+                        viewshed3D.forEach(viewshed3DPartial => {
+                            viewshed3DPartial.destroy();
+                        });
+                    }
+                    else
+                    {
+                        viewshed3D.destroy();
+                    }
+                    viewshed3D = null;
+                }
+            }
+            else if (PLATFORM == 'MapGIS')
+            {
+                if (viewshed3D) {
+                    viewer.scene.VisualAnalysisManager.removeAll()
+                    viewshed3D = null;
+                }
+            }
         }
 
         function setModelVisible(visible)
@@ -573,6 +666,32 @@ $(function(){
                     };
                 } 
             }
+        }
+
+        /**
+         * 根据距离方向和观察点计算目标点（109.878321 19.963493 82 0 500）
+         * @param {Object} lon 经度
+         * @param {Object} lat 维度
+         * @param {Object} height 高度
+         * @param {Object} direction 方向
+         * @param {Object} radius 可视距离
+         */
+        function calculatingTargetPoints(lon, lat, height, direction, radius) {
+            // 观察点
+            var viewPoint = Cesium.Cartesian3.fromDegrees(lon, lat, height);
+            // 世界坐标转换为投影坐标
+            var webMercatorProjection = new Cesium.WebMercatorProjection(viewer.scene.globe.ellipsoid);
+            var viewPointWebMercator = webMercatorProjection.project(Cesium.Cartographic.fromCartesian(viewPoint));
+            // 计算目标点
+            var toPoint = new Cesium.Cartesian3(viewPointWebMercator.x + radius * Math.cos(direction), viewPointWebMercator.y +
+                radius * Math.sin(direction), 0);
+            // 投影坐标转世界坐标
+            toPoint = webMercatorProjection.unproject(toPoint);
+            toPoint = Cesium.Cartographic.toCartesian(toPoint.clone());
+            // 世界坐标转地理坐标
+            var cartographic = Cesium.Cartographic.fromCartesian(toPoint);
+            var point = [Cesium.Math.toDegrees(cartographic.longitude), Cesium.Math.toDegrees(cartographic.latitude)];
+            return point;
         }
 
         return{

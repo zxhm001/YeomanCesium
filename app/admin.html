@@ -27,21 +27,18 @@
         <nav class="side-navbar">
             <ul class="list-unstyled">
                 <li id="menu_project" class="active"><a href="#"> <i class="bi bi-grid-1x2-fill"></i>项目管理 </a></li>
-                <!-- <li id="menu_person"><a href="#"> <i class="bi bi-person-fill"></i>人员管理 </a></li> -->
                 <li id="menu_device"><a href="#"> <i class="bi bi-shield-fill-check"></i>设备管理 </a></li>
-                <!-- <li id="menu_car"><a href="#"> <i class="bi bi-speedometer"></i>车辆管理 </a></li> -->
                 <li id="menu_deploy"><a href="#"> <i class="bi bi-slack"></i>部件管理 </a></li>
                 <li id="menu_user"><a href="#"> <i class="bi bi-person-lines-fill"></i>用户管理 </a></li>
+                <li id="menu_setting"><a href="#"> <i class="bi bi-gear-fill"></i>系统设置 </a></li>
             </ul>
         </nav>
         <div class="content-inner">
             @@include('./includes/admin_project.html')
             @@include('./includes/admin_device.html')
-            @@include('./includes/admin_person.html')
-            @@include('./includes/admin_car.html')
             @@include('./includes/admin_deploy.html')
             @@include('./includes/admin_user.html')
-
+            @@include('./includes/admin_setting.html')
             @@include('./includes/toast.html')
         </div>
     </div>

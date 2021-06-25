@@ -27,6 +27,9 @@ $(function () {
             case 'menu_user':
                 $('#admin_user').show();
                 break;
+            case 'menu_setting':
+                $('#admin_setting').show();
+                break;
 
             default:
                 break;
