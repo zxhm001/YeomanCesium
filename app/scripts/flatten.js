@@ -30,11 +30,11 @@ $(function(){
                 points.forEach(point => {
                     flatPoints.push(point.x);
                     flatPoints.push(point.y);
-                    flatPoints.push(point.z);
+                    flatPoints.push(point.z - config.MANUAL_FLATTEN_DEEP);
                 });
                 flatPoints.push(points[0].x);
                 flatPoints.push(points[0].y);
-                flatPoints.push(points[0].z);
+                flatPoints.push(points[0].z - config.MANUAL_FLATTEN_DEEP);
                 var qxLayer = ScenceLayer.getLayerById('0-1-1');
                 S3MTilesLayerUtils.addFlattenRegion([qxLayer.object], flatPoints);
             });

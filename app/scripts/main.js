@@ -6,6 +6,9 @@ function init(){
     viewer.showLayer = new LayerCollection(viewer);
     viewer.popup = new Popup(viewer);
 
+    let start = Cesium.JulianDate.fromDate(new Date(2021, 12, 21, 9));
+    viewer.clock.currentTime = start.clone();
+
     $('.corner-btn-group .inner .box').on('click',function () {
         var index = $(this).index();
         switch (index) {
