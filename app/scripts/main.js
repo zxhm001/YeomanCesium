@@ -136,18 +136,18 @@ function init() {
             //天地图经纬度数据
             url: 'http://t0.tianditu.com/DataServer?T=vec_c&X={x}&Y={y}&L={l}',
             //开发token （请到天地图官网申请自己的开发token，自带token仅做功能验证随时可能失效）
-            token: "304bc664f193742e0ad7ad3b77d5dccd",
+            token: '304bc664f193742e0ad7ad3b77d5dccd',
             //地图类型 'vec'矢量 'img'影像 'ter'地形
-            ptype: "vec"
+            ptype: 'vec'
         });
 
         var tdtLayerAno = thirdPartyLayer.appendTDTuMap({
             //天地图经纬度数据
             url: 'http://t0.tianditu.com/DataServer?T=vec_c&X={x}&Y={y}&L={l}',
             //开发token （请到天地图官网申请自己的开发token，自带token仅做功能验证随时可能失效）
-            token: "304bc664f193742e0ad7ad3b77d5dccd",
+            token: '304bc664f193742e0ad7ad3b77d5dccd',
             //地图类型 'vec'矢量 'img'影像 'ter'地形
-            ptype: "cia"
+            ptype: 'cia'
         });
     }
 

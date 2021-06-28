@@ -166,8 +166,8 @@ class ViewShedStage{
         this.verticalViewAngle = options.verticalViewAngle || 60.0;
         this.visibleAreaColor = options.visibleAreaColor || Cesium.Color.GREEN;
         this.invisibleAreaColor = options.invisibleAreaColor || Cesium.Color.RED;
-        this.enabled = (typeof options.enabled === "boolean") ? options.enabled : true;
-        this.softShadows = (typeof options.softShadows === "boolean") ? options.softShadows : true;
+        this.enabled = (typeof options.enabled === 'boolean') ? options.enabled : true;
+        this.softShadows = (typeof options.softShadows === 'boolean') ? options.softShadows : true;
         this.size = options.size || 2048;
         this.update();
     }
@@ -257,19 +257,19 @@ class ViewShedStage{
             fragmentShader: fs,
             uniforms: {
                 shadowMap_textureCube: () => {
-                    this.shadowMap.update(Reflect.get(this.viewer.scene, "_frameState"));
-                    return Reflect.get(this.shadowMap, "_shadowMapTexture");
+                    this.shadowMap.update(Reflect.get(this.viewer.scene, '_frameState'));
+                    return Reflect.get(this.shadowMap, '_shadowMapTexture');
                 },
                 shadowMap_matrix: () => {
-                    this.shadowMap.update(Reflect.get(this.viewer.scene, "_frameState"));
-                    return Reflect.get(this.shadowMap, "_shadowMapMatrix");
+                    this.shadowMap.update(Reflect.get(this.viewer.scene, '_frameState'));
+                    return Reflect.get(this.shadowMap, '_shadowMapMatrix');
                 },
                 shadowMap_lightPositionEC: () => {
-                    this.shadowMap.update(Reflect.get(this.viewer.scene, "_frameState"));
-                    return Reflect.get(this.shadowMap, "_lightPositionEC");
+                    this.shadowMap.update(Reflect.get(this.viewer.scene, '_frameState'));
+                    return Reflect.get(this.shadowMap, '_lightPositionEC');
                 },
                 shadowMap_normalOffsetScaleDistanceMaxDistanceAndDarkness: () => {
-                    this.shadowMap.update(Reflect.get(this.viewer.scene, "_frameState"));
+                    this.shadowMap.update(Reflect.get(this.viewer.scene, '_frameState'));
                     const bias = this.shadowMap._pointBias;
                     return Cesium.Cartesian4.fromElements(
                         bias.normalOffsetScale,
@@ -280,7 +280,7 @@ class ViewShedStage{
                     );
                 },
                 shadowMap_texelSizeDepthBiasAndNormalShadingSmooth: () => {
-                    this.shadowMap.update(Reflect.get(this.viewer.scene, "_frameState"));
+                    this.shadowMap.update(Reflect.get(this.viewer.scene, '_frameState'));
                     const bias = this.shadowMap._pointBias;
                     const scratchTexelStepSize = new Cesium.Cartesian2();
                     const texelStepSize = scratchTexelStepSize;
