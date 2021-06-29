@@ -4,6 +4,7 @@ $(function () {
     var _image = '';
     var _editMode = 'add';
     var _selProject;
+    var _currentPage = 1;
 
     $('#modal_add_project').on('hide.bs.modal', function (event) {
         _image = '';
@@ -43,7 +44,7 @@ $(function () {
                 dataType: 'json',
                 success: function (response) {
                     if (response.succeeded) {
-                        ProjectAdmin.loadDatas();
+                        ProjectAdmin.loadDatas(_currentPage);
                         $('#add_project_params')[0].reset();
                         $('#modal_add_project').modal('hide');
                         Toast.show('提示','添加成功');
@@ -72,7 +73,7 @@ $(function () {
                 dataType: 'json',
                 success: function (response) {
                     if (response.succeeded) {
-                        ProjectAdmin.loadDatas();
+                        ProjectAdmin.loadDatas(_currentPage);
                         $('#add_project_params')[0].reset();
                         $('#modal_add_project').modal('hide');
                         Toast.show('提示','修改成功');
@@ -132,10 +133,9 @@ $(function () {
     var projectAdmin = function () {
         var pageSize = 10;
         var projects = null;
-        var currentPage = 1;
 
         function loadDatas(page = 1) {
-            currentPage = page;
+            _currentPage = page;
             $('#project_table tbody').empty();
             $.get(`${API_ROOT}/api/project/page-list/${page}/${pageSize}`, function (response) {
                 if (response.succeeded) {
@@ -184,7 +184,7 @@ $(function () {
                     url: `${API_ROOT}/api/project/set-current/${projects[index].id}`,
                     success: function (response) {
                         if (response.succeeded) {
-                            loadDatas(currentPage);
+                            loadDatas(_currentPage);
                             Toast.show('提示','设置成功');
                         }
                         else
@@ -205,7 +205,7 @@ $(function () {
                 if (text == '激活') {
                     $.post(`${API_ROOT}/api/project/set-active/${projects[index].id}`,function(response){
                         if (response.succeeded) {
-                            loadDatas(currentPage);
+                            loadDatas(_currentPage);
                         }
                         else
                         {
@@ -216,7 +216,7 @@ $(function () {
                 else if (text == '停止') {
                     $.post(`${API_ROOT}/api/project/set-deactive/${projects[index].id}`,function(response){
                         if (response.succeeded) {
-                            loadDatas(currentPage);
+                            loadDatas(_currentPage);
                         }
                         else
                         {

@@ -12,14 +12,15 @@
                     <table id="fitting_table" class="table table-striped table-hover">
                         <thead>
                             <th style="width: 5%;">#</th>
-                            <th style="width: 15%;">部件名称</th>
-                            <th style="width: 15%;">部件类型</th>
+                            <th style="width: 8%;">部件名称</th>
+                            <th style="width: 8%;">部件类型</th>
                             <th style="width: 15%;">模型URL</th>
+                            <th style="width: 7%;">模型倍率</th>
                             <th style="width: 15%;">缩略图URL</th>
-                            <th style="width: 5%;">被绑定</th>
-                            <th style="width: 5%;">视频流</th>
-                            <th style="width: 5%;">定位</th>
-                            <th style="width: 5%;">可视域</th>
+                            <th style="width: 6%;">被绑定</th>
+                            <th style="width: 6%;">视频流</th>
+                            <th style="width: 6%;">定位</th>
+                            <th style="width: 6%;">可视域</th>
                             <th style="width: 15%;">操作</th>
                         </thead>
                         <tbody>
@@ -132,7 +133,13 @@
                         <div class="form-group row" id="fg_fitting_model">
                             <label for="add_fitting_model" class="col-sm-3 col-form-label">模型</label>
                             <div class="col-sm-9">
-                                <input name="model" type="file" class="form-control-file" id="add_project_model">
+                                <input name="model" type="file" class="form-control-file" id="add_fitting_model">
+                            </div>
+                        </div>
+                        <div class="form-group row" id="fg_fitting_scale">
+                            <label for="add_fitting_scale" class="col-sm-3 col-form-label">模型倍率</label>
+                            <div class="col-sm-9">
+                                <input name="scale" type="number" class="form-control" id="add_fitting_scale">
                             </div>
                         </div>
                         <div class="form-group row" id="fg_fitting_image">
@@ -142,12 +149,9 @@
                             </div>
                         </div>
                         <div class="form-group row" id="fg_fitting_color">
-                            <label for="add_fitting_color" class="col-sm-3 col-form-label">是否有颜色</label>
+                            <label for="add_fitting_color" class="col-sm-3 col-form-label">颜色</label>
                             <div class="col-sm-9">
-                                <select name="canBatch" class="form-control" id="add_fitting_color">
-                                    <option value="true">是</option>
-                                    <option value="false">否</option>
-                                </select>
+                                <input name="color" type="text" class="color-picker form-control" id="add_fitting_color">
                             </div>
                         </div>
                         <div class="form-group row" id="fg_fitting_haslocation">

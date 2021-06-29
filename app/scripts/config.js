@@ -24,11 +24,13 @@ $(function(){
 
 
     $('.color-picker').on('colorpickerHide',function(){
-        var key = $(this).attr('id').replace('_input','');
-        var value = $(this).val();
-        SysConfig.saveConfig({key:key,value:value});
-        var type = key.substr(0,key.indexOf('_'));
-        SysConfig.setColor(type,value);
+        if ($(this).attr('name') == 'mlcolor') {
+            var key = $(this).attr('id').replace('_input','');
+            var value = $(this).val();
+            SysConfig.saveConfig({key:key,value:value});
+            var type = key.substr(0,key.indexOf('_'));
+            SysConfig.setColor(type,value);
+        }
     });
 
     var config = function(){
