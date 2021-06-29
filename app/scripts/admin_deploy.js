@@ -133,6 +133,7 @@ $(function(){
      * 绑定到人身上的设备不需要模型，不使用标绘添加，使用管理添加
      */
     $('#add_fitting_canbind').on('change',function(){
+        var type = $('#add_fitting_type').val();
         if ($('#add_fitting_canbind').val() == 'true') {
             _image = '';
             $('#add_fitting_image').val('');
@@ -148,9 +149,11 @@ $(function(){
         else
         {
             $('#fg_fitting_image').show();
-            $('#fg_fitting_model').show();
-            $('#add_fitting_scale').val(1);
-            $('#fg_fitting_scale').show();
+            if (type != '建筑'  && type != '区域') {
+                $('#fg_fitting_model').show();
+                $('#add_fitting_scale').val(1);
+                $('#fg_fitting_scale').show();
+            }
             $('#add_fitting_canbatch').val('true');
             $('#fg_fitting_canbatch').show();
         }
@@ -253,6 +256,7 @@ $(function(){
             _selFitting.hasLocation = params.hasLocation;
             _selFitting.hasStream = params.hasStream;
             _selFitting.hasViewshed = params.hasViewshed;
+            _selFitting.color = params.color;
             _selFitting.model = _model;
             _selFitting.image = _image;
             $.ajax({
@@ -374,12 +378,12 @@ $(function(){
                 $('#add_fitting_canbatch').val(_selFitting.canBatch+ '');
                 $('#add_fitting_scale').val(_selFitting.scale);
                 $('#add_fitting_color').val(_selFitting.color);
-                $('#add_fitting_color').trigger('change');
                 $('#add_fitting_haslocation').val(_selFitting.hasLocation+ '');
                 $('#add_fitting_hasstream').val(_selFitting.hasStream+ '');
                 $('#add_fitting_hasviewshed').val(_selFitting.hasViewshed+ '');
                 _model = _selFitting.model;
                 _image = _selFitting.image;
+                $('#add_fitting_color').trigger('change');
             });
         }
 

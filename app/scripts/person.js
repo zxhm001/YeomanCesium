@@ -2,39 +2,9 @@ $(function(){
 
     var personTreeObj,deviceTreeObj;
 
-    var data = [
-        {
-            name:'警察',
-            children:[]
-        },
-        {
-            name:'安保人员',
-            children:[]
-        },
-        {
-            name:'医护人员',
-            children:[]
-        },
-        {
-            name:'消防员',
-            children:[]
-        }
-    ];
+    var data = [];
 
-    var deviceData = [
-        {
-            name:'对讲机',
-            children:[]
-        },
-        // {
-        //     name:'记录仪',
-        //     children:[]
-        // },
-        // {
-        //     name:'定位器',
-        //     children:[]
-        // }
-    ]
+    var deviceData = []
 
     $('#modal_person').on('show.bs.modal', function (event) {
         Person.showPersonTree();
@@ -213,25 +183,21 @@ $(function(){
     function person(){
 
         function init(){
-            data = [
-                {
-                    name:'警察',
-                    children:[]
-                },
-                {
-                    name:'安保人员',
-                    children:[]
-                },
-                {
-                    name:'医护人员',
-                    children:[]
-                },
-                {
-                    name:'消防员',
-                    children:[]
-                }
-            ];
-            loadPersons();
+            data = [];
+            deviceData = [];
+            $.get(`${API_ROOT}/api/fitting/by-type/人员`,function(response){
+                response.data.forEach(fitting => {
+                    fitting.children = [];
+                    data.push(fitting);
+                });
+                loadPersons();
+            });
+            $.get(`${API_ROOT}/api/fitting/can-bind-list`,function(response){
+                response.data.forEach(fitting => {
+                    fitting.children = [];
+                    deviceData.push(fitting);
+                });
+            });
         }
 
         function showPersonTree(){
@@ -340,24 +306,12 @@ $(function(){
         }
 
         function addEntity(key,name,type,lng,lat,height){
-            var uri = '';
-            var scale = 1;
-            switch (type) {
-                case '警察':
-                    uri = '/data/model/police.glb'
-                    break;
-                case '医护人员':
-                    uri = '/data/model/doctor.glb';
-                    break;
-                case '安保人员':
-                    uri = '/data/model/guard.glb';
-                    break;
-                case '消防员':
-                    uri = '/data/model/fire_man.glb';
-                    break;
-                default:
-                    break;
+            var fitting = getFitting(type);
+            if (!fitting) {
+                return;
             }
+            var uri = `${API_ROOT}/api/file/download/${fitting.model}`
+            var scale = 1;
             viewer.entities.add({
                 name: name,
                 id:'person_' + key,
@@ -553,6 +507,16 @@ $(function(){
                     callback(response.data.license);
                 }
             })
+        }
+
+        function getFitting(name)
+        {
+            for (let index = 0; index < data.length; index++) {
+                const fitting = data[index];
+                if (fitting.name == name) {
+                    return fitting;
+                }
+            }
         }
 
         return{

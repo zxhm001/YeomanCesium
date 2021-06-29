@@ -1,20 +1,7 @@
 $(function(){
     var zTreeObj,fenceEntity;
 
-    var data = [
-        {
-            name:'安全区域',
-            children:[]
-        },
-        {
-            name:'重点区域',
-            children:[]
-        },
-        {
-            name:'危险区域',
-            children:[]
-        }
-    ];
+    var data = [];
 
     $('#modal_region').on('show.bs.modal', function (event) {
         Region.showRegionTree();
@@ -91,21 +78,14 @@ $(function(){
     function region(){
 
         function init(){
-            data = [
-                {
-                    name:'安全区域',
-                    children:[]
-                },
-                {
-                    name:'重点区域',
-                    children:[]
-                },
-                {
-                    name:'危险区域',
-                    children:[]
-                }
-            ];
-            loadRegions();
+            data = [];
+            $.get(`${API_ROOT}/api/fitting/by-type/区域`,function(response){
+                response.data.forEach(fitting => {
+                    fitting.children = [];
+                    data.push(fitting);
+                });
+                loadRegions();
+            });
         }
 
         function showRegionTree(){
@@ -204,7 +184,6 @@ $(function(){
             $.get(`${API_ROOT}/api/region/${currentProject.id}`,function(response){
                 if (response.succeeded) {
                     response.data.forEach(region => {
-                        var color = new Cesium.Color(1, 1, 1);
                         var lnglats = [];
                         region.locations.forEach(location => {
                             lnglats.push(location.longitude);
@@ -214,19 +193,8 @@ $(function(){
                         lnglats.push(region.locations[0].longitude);
                         lnglats.push(region.locations[0].latitude);
                         lnglats.push(region.locations[0].height);
-                        switch (region.type) {
-                            case '危险区域':
-                                color = new Cesium.Color(1, 0, 0);
-                                break;
-                            case '重点区域':
-                                color = new Cesium.Color(1, 0.5, 0);
-                                break;
-                            case '安全区域':
-                                color = new Cesium.Color(0, 1, 0);
-                                break;
-                            default:
-                                break;
-                        }
+                        var fitting = getFitting(region.type);
+                        var color = new Cesium.Color.fromCssColorString(fitting);;
                         add(region.name,region.type,color,lnglats,region);
                     });
                 }
@@ -277,6 +245,16 @@ $(function(){
                 else if(node.children)
                 {
                     deleteData(id,node.children)
+                }
+            }
+        }
+
+        function getFitting(name)
+        {
+            for (let index = 0; index < data.length; index++) {
+                const fitting = data[index];
+                if (fitting.name == name) {
+                    return fitting;
                 }
             }
         }

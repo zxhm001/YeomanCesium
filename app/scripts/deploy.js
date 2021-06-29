@@ -6,122 +6,122 @@ $(function () {
 
     var deployData = {
         person: [
-            {
-                name: '警察',
-                model: '/data/model/police.glb',
-                image: '/images/model/police.png',
-                scale: 2,
-                params: ['name','number'],
-            },
-            {
-                name: '医护人员',
-                model: '/data/model/doctor.glb',
-                image: '/images/model/doctor.png',
-                scale: 2,
-                params: ['name','number'],
-            },
-            {
-                name: '安保人员',
-                model: '/data/model/guard.glb',
-                image: '/images/model/guard.png',
-                scale: 2,
-                params: ['name','number'],
-            },
-            {
-                name: '消防员',
-                model: '/data/model/fire_man.glb',
-                image: '/images/model/fire_man.png',
-                scale: 2,
-                params: ['name','number'],
-            }
+            // {
+            //     name: '警察',
+            //     model: '/data/model/police.glb',
+            //     image: '/images/model/police.png',
+            //     scale: 2,
+            //     params: ['name','number'],
+            // },
+            // {
+            //     name: '医护人员',
+            //     model: '/data/model/doctor.glb',
+            //     image: '/images/model/doctor.png',
+            //     scale: 2,
+            //     params: ['name','number'],
+            // },
+            // {
+            //     name: '安保人员',
+            //     model: '/data/model/guard.glb',
+            //     image: '/images/model/guard.png',
+            //     scale: 2,
+            //     params: ['name','number'],
+            // },
+            // {
+            //     name: '消防员',
+            //     model: '/data/model/fire_man.glb',
+            //     image: '/images/model/fire_man.png',
+            //     scale: 2,
+            //     params: ['name','number'],
+            // }
         ],
         car: [
-            {
-                name: '警车',
-                model: '/data/model/police_car.glb',
-                image: '/images/model/police_car.png',
-                scale: 1,
-                params: ['license'],
-                //params: ['license','text','path','locationurl'],
-            },
-            {
-                name: '消防车',
-                model: '/data/model/fire_truck.glb',
-                image: '/images/model/fire_truck.png',
-                scale: 1,
-                params: ['license'],
-            },
-            {
-                name: '救护车',
-                model: '/data/model/ambulance.glb',
-                image: '/images/model/ambulance.png',
-                scale: 1,
-                params: ['license'],
-            },
-            {
-                name: '警用摩托',
-                model: '/data/model/motorcycle.glb',
-                image: '/images/model/motorcycle.png',
-                scale: 1,
-                params: ['license'],
-            },
-            {
-                name: '反制车',
-                model: '/data/model/armored_car.glb',
-                image: '/images/model/armored_car.png',
-                scale: 1,
-                params: ['license'],
-            }
+            // {
+            //     name: '警车',
+            //     model: '/data/model/police_car.glb',
+            //     image: '/images/model/police_car.png',
+            //     scale: 1,
+            //     params: ['license'],
+            //     //params: ['license','text','path','locationurl'],
+            // },
+            // {
+            //     name: '消防车',
+            //     model: '/data/model/fire_truck.glb',
+            //     image: '/images/model/fire_truck.png',
+            //     scale: 1,
+            //     params: ['license'],
+            // },
+            // {
+            //     name: '救护车',
+            //     model: '/data/model/ambulance.glb',
+            //     image: '/images/model/ambulance.png',
+            //     scale: 1,
+            //     params: ['license'],
+            // },
+            // {
+            //     name: '警用摩托',
+            //     model: '/data/model/motorcycle.glb',
+            //     image: '/images/model/motorcycle.png',
+            //     scale: 1,
+            //     params: ['license'],
+            // },
+            // {
+            //     name: '反制车',
+            //     model: '/data/model/armored_car.glb',
+            //     image: '/images/model/armored_car.png',
+            //     scale: 1,
+            //     params: ['license'],
+            // }
         ],
         device: [
-            {
-                name: '反制枪',
-                model: '/data/model/gun.glb',
-                image: '/images/model/gun.png',
-                scale: 2,
-                params: ['license','name', 'number','range'],
-            },
-            {
-                name: '无人机',
-                model: '/data/model/uav.glb',
-                image: '/images/model/uav.png',
-                scale: 1,
-                params: ['license','name','rtmpurl'],
-            },
-            {
-                name: '布控球',
-                model: '/data/model/camera.glb',
-                image: '/images/model/camera.png',
-                scale: 1,
-                params: ['license','name','rtmpurl','shed'],
-            },
+            // {
+            //     name: '反制枪',
+            //     model: '/data/model/gun.glb',
+            //     image: '/images/model/gun.png',
+            //     scale: 2,
+            //     params: ['license','name', 'number','range'],
+            // },
+            // {
+            //     name: '无人机',
+            //     model: '/data/model/uav.glb',
+            //     image: '/images/model/uav.png',
+            //     scale: 1,
+            //     params: ['license','name','rtmpurl'],
+            // },
+            // {
+            //     name: '布控球',
+            //     model: '/data/model/camera.glb',
+            //     image: '/images/model/camera.png',
+            //     scale: 1,
+            //     params: ['license','name','rtmpurl','shed'],
+            // },
         ],
         region: [
-            {
-                name: '危险区域',
-                color: [255, 0, 0],
-                image: '/images/model/danger.png',
-                params: ['name']
-            },
-            {
-                name: '重点区域',
-                color: [255, 127, 0],
-                image: '/images/model/important.png',
-                params: ['name']
-            },
-            {
-                name: '安全区域',
-                color: [0, 255, 0],
-                image: '/images/model/safe.png',
-                params: ['name']
-            },
+            // {
+            //     name: '危险区域',
+            //     color: [255, 0, 0],
+            //     image: '/images/model/danger.png',
+            //     params: ['name']
+            // },
+            // {
+            //     name: '重点区域',
+            //     color: [255, 127, 0],
+            //     image: '/images/model/important.png',
+            //     params: ['name']
+            // },
+            // {
+            //     name: '安全区域',
+            //     color: [0, 255, 0],
+            //     image: '/images/model/safe.png',
+            //     params: ['name']
+            // },
         ],
         building:[
-            {
-                name: '建筑',
-                image: '/images/model/building.png',
-                params: ['name']
-            },
+            // {
+            //     name: '建筑',
+            //     image: '/images/model/building.png',
+            //     params: ['name']
+            // },
         ]
     };
 
@@ -130,26 +130,78 @@ $(function () {
         var _drawHandler,_polygonHandler, _tempEntity, _currentModel, _pickPosition, _lnglats,_maxHeight;
 
         function init() {
-            //先将模型都加进来，之后就不用重新加载glb
-            var index = 0;
-            for (const key in deployData) {
-                if (Object.hasOwnProperty.call(deployData, key)) {
-                    const type = deployData[key];
-                    type.forEach(model => {
-                        if (model.model) {
-                            viewer.entities.add({
-                                name: 'model_template_' + index,
-                                position: new Cesium.Cartesian3.fromDegrees(0, 0, -200),
-                                model: {
-                                    uri: model.model,
-                                    scale:0.0001
-                                }
-                            }); 
-                        }
-                        index ++;
-                    });
+            $.get(`${API_ROOT}/api/fitting`,function(response){
+                response.data.forEach(fitting => {
+                    if (fitting.canBind) {
+                        return;
+                    }
+                    if (fitting.model) {
+                        fitting.model = `${API_ROOT}/api/file/download/${fitting.model}`
+                    }
+                    if (fitting.image) {
+                        fitting.image = `${API_ROOT}/api/file/download/${fitting.image}`
+                    }
+                    fitting.params = [];
+                    if (fitting.hasName) {
+                        fitting.params.push('name');
+                    }
+                    if (fitting.hasLicense) {
+                        fitting.params.push('license');
+                    }
+                    if (fitting.canBatch) {
+                        fitting.params.push('number');
+                    }
+                    if (fitting.hasLocation) {
+                        fitting.params.push('locationurl');
+                    }
+                    if (fitting.hasStream) {
+                        fitting.params.push('rtmpurl');
+                    }
+                    if (fitting.hasViewshed) {
+                        fitting.params.push('shed');
+                    }
+                    switch (fitting.type) {
+                        case '人员':
+                            deployData.person.push(fitting);
+                            break;
+                        case '车辆':
+                            deployData.car.push(fitting);
+                            break;
+                        case '设备':
+                            deployData.device.push(fitting);
+                            break;
+                        case '建筑':
+                            deployData.building.push(fitting);
+                            break;
+                        case '区域':
+                            deployData.region.push(fitting);
+                            break;
+                        default:
+                            break;
+                    }
+                });
+                //先将模型都加进来，之后就不用重新加载glb
+                var index = 0;
+                for (const key in deployData) {
+                    if (Object.hasOwnProperty.call(deployData, key)) {
+                        const type = deployData[key];
+                        type.forEach(model => {
+                            if (model.model) {
+                                viewer.entities.add({
+                                    name: 'model_template_' + index,
+                                    position: new Cesium.Cartesian3.fromDegrees(0, 0, -200),
+                                    model: {
+                                        uri: model.model,
+                                        scale:0.0001
+                                    }
+                                }); 
+                            }
+                            index ++;
+                        });
+                    }
                 }
-            }
+            });
+            
 
 
             $('#deploy_add').on('click',function(){
@@ -171,27 +223,18 @@ $(function () {
                 var modelKey = 'person'
                 var sizeStr = 20;
                 var colorStr = '#FFFFFF';
-                switch (_currentModel.name) {
-                    case '警车':
-                    case '消防车': 
-                    case '救护车':
-                    case '警用摩托':
-                    case '反制车':
+                switch (_currentModel.type) {
+                    case '车辆':
                         modelKey = 'car';
                         sizeStr = SysConfig.getConfig().car_label_size;
                         colorStr = SysConfig.getConfig().car_label_color;
                         break;
-                    case '警察':
-                    case '医护人员':
-                    case '安保人员':
-                    case '消防员':
+                    case '人员':
                         modelKey = 'person';
                         sizeStr = SysConfig.getConfig().person_label_size;
                         colorStr = SysConfig.getConfig().person_label_color;
                         break;
-                    case '反制枪':
-                    case '布控球':
-                    case '无人机':
+                    case '设备':
                         modelKey = 'device';
                         sizeStr = SysConfig.getConfig().device_label_size;
                         colorStr = SysConfig.getConfig().device_label_color;
@@ -206,24 +249,15 @@ $(function () {
                     }
                     
                     persistenceModel(_currentModel,_pickPosition,params,rdata=>{
-                        switch (_currentModel.name) {
-                            case '警车':
-                            case '消防车': 
-                            case '救护车':
-                            case '警用摩托':
-                            case '反制车':
+                        switch (_currentModel.type) {
+                            case '车辆':
                                 Car.add(key,_currentModel.name,modelKey + '_' + rdata.id,rdata);
                                 break;
-                            case '警察':
-                            case '医护人员':
-                            case '安保人员':
-                            case '消防员':
+                            case '人员':
                                 params.deviceId = 0;
                                 Person.add(key,_currentModel.name,modelKey + '_' + rdata.id,rdata);
                                 break;
-                            case '反制枪':
-                            case '布控球':
-                            case '无人机':
+                            case '设备':
                                 Device.add(key,_currentModel.name,modelKey + '_' + rdata.id,rdata);
                                 break;
                             default:
@@ -251,8 +285,8 @@ $(function () {
                         _pickPosition = null;
                     });
                 }
-                else if (_currentModel.color) {
-                    var color = new Cesium.Color(_currentModel.color[0]/255, _currentModel.color[1]/255, _currentModel.color[2]/255)
+                else if (_currentModel.type == '区域') {
+                    var color = new Cesium.Color.fromCssColorString(_currentModel.color);
                     persistenceRegion(_currentModel,_lnglats,params,rdata=>{
                         Region.add(key,_currentModel.name,color,_lnglats,rdata);
                         _lnglats = null;
@@ -263,7 +297,7 @@ $(function () {
                         _polygonHandler.deactivate();
                     }
                 }
-                else if (_currentModel.name == '建筑') {
+                else if (_currentModel.type == '建筑') {
                     persistenceBuilding(_lnglats,params,rdata=>{
                         Building.add(rdata);
                         _lnglats = null;
@@ -451,12 +485,8 @@ $(function () {
             var longitude = Cesium.Math.toDegrees(cartographic.longitude);
             var latitude = Cesium.Math.toDegrees(cartographic.latitude);
             var height = cartographic.height;
-            switch (model.name) {
-                case '警车':
-                case '消防车': 
-                case '救护车':
-                case '警用摩托':
-                case '反制车':
+            switch (model.type) {
+                case '车辆':
                     url = API_ROOT + '/api/car';
                     data = {
                         license:params.license,
@@ -469,10 +499,7 @@ $(function () {
                         locationUrl:params.locationurl
                     };
                     break;
-                case '警察':
-                case '医护人员':
-                case '安保人员':
-                case '消防员':
+                case '人员':
                     url = API_ROOT + '/api/person';
                     data = {
                         name:params.name,
@@ -483,9 +510,7 @@ $(function () {
                         deviceId:params.device
                     };
                     break;
-                case '无人机':
-                case '反制枪':
-                case '布控球':
+                case '设备':
                     url = API_ROOT + '/api/device';
                     data = {
                         name:params.name,

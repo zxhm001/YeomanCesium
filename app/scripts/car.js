@@ -1,28 +1,7 @@
 $(function(){
     var zTreeObj;
 
-    var data = [
-        {
-            name:'警车',
-            children:[]
-        },
-        {
-            name:'消防车',
-            children:[]
-        },
-        {
-            name:'救护车',
-            children:[]
-        },
-        {
-            name:'反制车',
-            children:[]
-        },
-        {
-            name:'警用摩托',
-            children:[]
-        }
-    ];
+    var data = [];
 
     $('#modal_car').on('show.bs.modal', function (event) {
         Car.showCarTree();
@@ -109,33 +88,14 @@ $(function(){
     function car(){
 
         function init(){
-            data = [
-                {
-                    name:'警车',
-                    children:[]
-                },
-                {
-                    name:'消防车',
-                    children:[]
-                },
-                {
-                    name:'救护车',
-                    children:[]
-                },
-                {
-                    name:'反制车',
-                    children:[]
-                },
-                {
-                    name:'警用摩托',
-                    children:[]
-                }
-            ];
-            loadCars();
-            // if (zTreeObj) {
-            //     $.fn.zTree.destroy("car_tree");
-            //     zTreeObj = null;
-            // }
+            data = [];
+            $.get(`${API_ROOT}/api/fitting/by-type/车辆`,function(response){
+                response.data.forEach(fitting => {
+                    fitting.children = [];
+                    data.push(fitting);
+                });
+                loadCars();
+            });
         }
 
         function showCarTree(){
@@ -200,27 +160,12 @@ $(function(){
 
         function addEntity(key,license,type,lng,lat,height,path)
         {
-            var uri = '';
-            var scale = 1;
-            switch (type) {
-                case '警车':
-                    uri = '/data/model/police_car.glb';
-                    break;
-                case '消防车':
-                    uri = '/data/model/fire_truck.glb';
-                    break;
-                case '救护车':
-                    uri = '/data/model/ambulance.glb';
-                    break;
-                case '警用摩托':
-                    uri = '/data/model/motorcycle.glb';
-                    break;
-                case '反制车':
-                    uri = '/data/model/armored_car.glb';
-                    break;
-                default:
-                    break;
+            var fitting = getFitting(type);
+            if (!fitting) {
+                return;
             }
+            var uri = `${API_ROOT}/api/file/download/${fitting.model}`
+            var scale = 1;
 
             viewer.entities.add({
                 name: license,
@@ -294,7 +239,16 @@ $(function(){
                 }
             }
         }
-            
+
+        function getFitting(name)
+        {
+            for (let index = 0; index < data.length; index++) {
+                const fitting = data[index];
+                if (fitting.name == name) {
+                    return fitting;
+                }
+            }
+        }  
 
         return{
             showCarTree:showCarTree,

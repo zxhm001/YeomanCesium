@@ -3,32 +3,7 @@ $(function(){
     var _pocWSState = 0,_locWSState = 0,_unipptDeviceState = [],_unipptDeviceLocation = [];
 
 
-    var data = [
-        {
-            name:'布控球',
-            children:[]
-        },
-        {
-            name:'反制枪',
-            children:[]
-        },
-        {
-            name:'无人机',
-            children:[]
-        },
-        {
-            name:'对讲机',
-            children:[]
-        },
-        // {
-        //     name:'记录仪',
-        //     children:[]
-        // },
-        // {
-        //     name:'定位器',
-        //     children:[]
-        // }
-    ];
+    var data = [];
 
     $('#modal_device').on('show.bs.modal', function (event) {
         Device.showDeviceTree();
@@ -166,31 +141,22 @@ $(function(){
     function device(){
 
         function init(){
-            data = [
-                {
-                    name:'布控球',
-                    children:[]
-                },
-                {
-                    name:'反制枪',
-                    children:[]
-                },
-                {
-                    name:'无人机',
-                    children:[]
-                },
-                {
-                    name:'对讲机',
-                    children:[]
+            
+            data = [];
+            $.get(`${API_ROOT}/api/fitting/by-type/设备`,function(response){
+                response.data.forEach(fitting => {
+                    fitting.children = [];
+                    data.push(fitting);
+                });
+                loadDevices();
+                if (!_pocWSState) {
+                    startPocWS();
                 }
-            ];
-            loadDevices();
-            if (!_pocWSState) {
-                startPocWS();
-            }
-            if (!_locWSState) {
-                startLocaWS();
-            }
+                if (!_locWSState) {
+                    startLocaWS();
+                }
+            });
+            
             // if (zTreeObj) {
             //     $.fn.zTree.destroy("device_tree");
             //     zTreeObj = null;
@@ -280,22 +246,12 @@ $(function(){
 
         function addEntity(key,license,type,lng,lat,height)
         {
-            var uri = '';
-            var scale = 1;
-            switch (type) {
-                case '反制枪':
-                    uri = '/data/model/gun.glb';
-                    scale = 2;
-                    break;
-                case '布控球':
-                    uri = '/data/model/camera.glb';
-                    break;
-                case '无人机':
-                    uri = '/data/model/uav.glb';
-                    break;
-                default:
-                    return;
+            var fitting = getFitting(type);
+            if (!fitting || fitting.canBind) {
+                return;
             }
+            var uri = `${API_ROOT}/api/file/download/${fitting.model}`
+            var scale = 1;
             viewer.entities.add({
                 name: license,
                 id:'device_' + key,
@@ -692,6 +648,16 @@ $(function(){
             var cartographic = Cesium.Cartographic.fromCartesian(toPoint);
             var point = [Cesium.Math.toDegrees(cartographic.longitude), Cesium.Math.toDegrees(cartographic.latitude)];
             return point;
+        }
+
+        function getFitting(name)
+        {
+            for (let index = 0; index < data.length; index++) {
+                const fitting = data[index];
+                if (fitting.name == name) {
+                    return fitting;
+                }
+            }
         }
 
         return{
