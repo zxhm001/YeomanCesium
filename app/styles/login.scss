@@ -73,9 +73,8 @@
                 font-weight: 300;
             }
 
-            #login
+            #login_btn
             {
-                margin-bottom: 20px;
                 cursor: pointer;
                 background-color: rgb(15, 89, 153);
                 border-color: rgb(15, 89, 153);
@@ -85,6 +84,12 @@
                 font-size: 1rem;
                 line-height: 1.5;
                 border-radius: 0.25rem;
+            }
+
+            #error_label
+            {
+                color: #f00;
+                margin-left: 16px;
             }
         }
 

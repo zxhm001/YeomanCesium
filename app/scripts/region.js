@@ -194,7 +194,7 @@ $(function(){
                         lnglats.push(region.locations[0].latitude);
                         lnglats.push(region.locations[0].height);
                         var fitting = getFitting(region.type);
-                        var color = new Cesium.Color.fromCssColorString(fitting);;
+                        var color = new Cesium.Color.fromCssColorString(fitting.color);;
                         add(region.name,region.type,color,lnglats,region);
                     });
                 }

@@ -5,9 +5,16 @@ $(function(){
     var _selFitting = null;
     var _currentPage = 1;
 
+    $('.color-picker').colorpicker();
+
+    $('.color-picker').on('change',function(){
+        $(this).css('background',$(this).val());
+    });
+
     $('#modal_add_fitting').on('hide.bs.modal', function (event) {
         _image = '';
         _model = '';
+        _selFitting = null;
     });
 
     $('#btn_addfitting').on('click',function(){
