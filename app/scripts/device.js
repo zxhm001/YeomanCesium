@@ -393,7 +393,7 @@ $(function(){
             }
             else if (PLATFORM == 'MapGIS')
             {
-                if (horizontalFov < 90) {
+                if (horizontalFov < 180) {
                     var advancedAnalysisManager = new CesiumZondy.Manager.AdvancedAnalysisManager({
                         viewer: viewer
                     });
@@ -415,15 +415,15 @@ $(function(){
                         viewer: viewer
                     });
                     while (ehorizontalFov > 0) {
-                        let chorizontalFov = 90;
-                        if (ehorizontalFov < 90) {
+                        let chorizontalFov = 60;
+                        if (ehorizontalFov < 60) {
                             chorizontalFov = ehorizontalFov;
                         }
                         if (cDirction != direction) {
                             cDirction += chorizontalFov/2;
                         }
                         var viewshed3DPartial = advancedAnalysisManager.createViewshedAnalysis();
-                        viewshed3DPartial._blendingEnabled = false
+                        viewshed3DPartial._depthTestEnabled = false
                         viewshed3DPartial.viewPosition = new Cesium.Cartesian3.fromDegrees(longitude, latitude, height + 1.5);
                         viewshed3DPartial.horizontAngle = chorizontalFov;
                         viewshed3DPartial.verticalAngle = verticalFov;

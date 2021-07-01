@@ -9,8 +9,8 @@ $(function(){
             dataType: 'json',
             success: function (response) {
                 if (response.succeeded) {
-                    localStorage.setItem("token", response.data);
-                    window.location = "/";
+                    localStorage.setItem('token', response.data);
+                    window.location = '/';
                 }
                 else
                 {

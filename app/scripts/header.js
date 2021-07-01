@@ -1,11 +1,11 @@
 $(function(){
-    var token = localStorage.getItem("token");
+    var token = localStorage.getItem('token');
     if (!token) {
         window.location.href = '/login.html';
     }
     $.ajaxSetup({
         headers: {
-            "Authorization": "Bearer " + token
+            'Authorization': 'Bearer ' + token
         },
         complete: function(xhr) {
             if(xhr.status == 401){
@@ -74,7 +74,7 @@ $(function(){
 
 
     $('#menu_logout').on('click',function(){
-        localStorage.removeItem("token");
-        window.location = "/login.html";
+        localStorage.removeItem('token');
+        window.location = '/login.html';
     })
 }());

@@ -9,7 +9,7 @@ $(function(){
 
     $('#btn_adduser').on('click',function(){
         _editMode = 'add';
-        $('#add_user_username').attr("disabled",false);
+        $('#add_user_username').attr('disabled',false);
         $('#modal_add_user_title').html('<i class="bi bi-file-earmark-plus-fill"></i>添加用户');
         $('#modal_add_user').modal('show');
     });
@@ -155,7 +155,7 @@ $(function(){
                 var index = tr.index();
                 _selUser = users[index];
                 _editMode = 'edit';
-                $('#add_user_username').attr("disabled",true);
+                $('#add_user_username').attr('disabled',true);
                 $('#modal_add_user_title').html('<i class="bi bi-file-earmark-diff-fill"></i>编辑用户');
                 $('#modal_add_user').modal('show');
                 $('#add_user_username').val(_selUser.userName);
