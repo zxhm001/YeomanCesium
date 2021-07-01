@@ -5,124 +5,11 @@ $(function () {
     });
 
     var deployData = {
-        person: [
-            // {
-            //     name: '警察',
-            //     model: '/data/model/police.glb',
-            //     image: '/images/model/police.png',
-            //     scale: 2,
-            //     params: ['name','number'],
-            // },
-            // {
-            //     name: '医护人员',
-            //     model: '/data/model/doctor.glb',
-            //     image: '/images/model/doctor.png',
-            //     scale: 2,
-            //     params: ['name','number'],
-            // },
-            // {
-            //     name: '安保人员',
-            //     model: '/data/model/guard.glb',
-            //     image: '/images/model/guard.png',
-            //     scale: 2,
-            //     params: ['name','number'],
-            // },
-            // {
-            //     name: '消防员',
-            //     model: '/data/model/fire_man.glb',
-            //     image: '/images/model/fire_man.png',
-            //     scale: 2,
-            //     params: ['name','number'],
-            // }
-        ],
-        car: [
-            // {
-            //     name: '警车',
-            //     model: '/data/model/police_car.glb',
-            //     image: '/images/model/police_car.png',
-            //     scale: 1,
-            //     params: ['license'],
-            //     //params: ['license','text','path','locationurl'],
-            // },
-            // {
-            //     name: '消防车',
-            //     model: '/data/model/fire_truck.glb',
-            //     image: '/images/model/fire_truck.png',
-            //     scale: 1,
-            //     params: ['license'],
-            // },
-            // {
-            //     name: '救护车',
-            //     model: '/data/model/ambulance.glb',
-            //     image: '/images/model/ambulance.png',
-            //     scale: 1,
-            //     params: ['license'],
-            // },
-            // {
-            //     name: '警用摩托',
-            //     model: '/data/model/motorcycle.glb',
-            //     image: '/images/model/motorcycle.png',
-            //     scale: 1,
-            //     params: ['license'],
-            // },
-            // {
-            //     name: '反制车',
-            //     model: '/data/model/armored_car.glb',
-            //     image: '/images/model/armored_car.png',
-            //     scale: 1,
-            //     params: ['license'],
-            // }
-        ],
-        device: [
-            // {
-            //     name: '反制枪',
-            //     model: '/data/model/gun.glb',
-            //     image: '/images/model/gun.png',
-            //     scale: 2,
-            //     params: ['license','name', 'number','range'],
-            // },
-            // {
-            //     name: '无人机',
-            //     model: '/data/model/uav.glb',
-            //     image: '/images/model/uav.png',
-            //     scale: 1,
-            //     params: ['license','name','rtmpurl'],
-            // },
-            // {
-            //     name: '布控球',
-            //     model: '/data/model/camera.glb',
-            //     image: '/images/model/camera.png',
-            //     scale: 1,
-            //     params: ['license','name','rtmpurl','shed'],
-            // },
-        ],
-        region: [
-            // {
-            //     name: '危险区域',
-            //     color: [255, 0, 0],
-            //     image: '/images/model/danger.png',
-            //     params: ['name']
-            // },
-            // {
-            //     name: '重点区域',
-            //     color: [255, 127, 0],
-            //     image: '/images/model/important.png',
-            //     params: ['name']
-            // },
-            // {
-            //     name: '安全区域',
-            //     color: [0, 255, 0],
-            //     image: '/images/model/safe.png',
-            //     params: ['name']
-            // },
-        ],
-        building:[
-            // {
-            //     name: '建筑',
-            //     image: '/images/model/building.png',
-            //     params: ['name']
-            // },
-        ]
+        person: [],
+        car: [],
+        device: [],
+        region: [],
+        building:[]
     };
 
 
@@ -247,43 +134,31 @@ $(function () {
                     if (_tempEntity) {
                         viewer.entities.remove(_tempEntity)
                     }
-                    
-                    persistenceModel(_currentModel,_pickPosition,params,rdata=>{
-                        switch (_currentModel.type) {
-                            case '车辆':
-                                Car.add(key,_currentModel.name,modelKey + '_' + rdata.id,rdata);
-                                break;
-                            case '人员':
-                                params.deviceId = 0;
-                                Person.add(key,_currentModel.name,modelKey + '_' + rdata.id,rdata);
-                                break;
-                            case '设备':
-                                Device.add(key,_currentModel.name,modelKey + '_' + rdata.id,rdata);
-                                break;
-                            default:
-                                break;
-                        }
-                        viewer.entities.add({
-                            name: key,
-                            id: modelKey + '_' + rdata.id,
-                            position: _pickPosition,
-                            model: {
-                                uri: _currentModel.model,
-                                scale: _currentModel.scale
-                            },
-                            label:{
-                                text: key,
-                                font: sizeStr + 'px Helvetica',
-                                fillColor: Cesium.Color.fromCssColorString(colorStr),
-                                outlineColor: Cesium.Color.BLACK,
-                                outlineWidth: 2,
-                                eyeOffset:new Cesium.Cartesian3(0,0,-15),
-                                style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                                scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 3000, 0.4)
+                    if (params.number == 0) {
+                        params.number = 1;
+                    }
+                    var catographic = Cesium.Cartographic.fromCartesian(_pickPosition);
+                    var longitude = Number(Cesium.Math.toDegrees(catographic.longitude).toFixed(6));
+                    var latitude = Number(Cesium.Math.toDegrees(catographic.latitude).toFixed(6));
+
+                    var name = params.name;
+                    var license = params.license;
+                    for (let index = 0; index < params.number; index++) {
+                        var newKey = key;
+                        if (params.number > 1) {
+                            var newKey = key + (index + 1);
+                            if (name) {
+                                params.name = name + (index + 1);
                             }
-                        });
-                        _pickPosition = null;
-                    });
+                            if (license) {
+                                params.license = license + (index + 1);
+                            }
+                        }
+                        var position = Cesium.Cartesian3.fromDegrees(longitude + 0.00002 * index,latitude + 0.00002 * index,catographic.height);
+
+                        saveModel(modelKey,position,params,newKey,sizeStr,colorStr);
+                    }
+                    _pickPosition = null;
                 }
                 else if (_currentModel.type == '区域') {
                     var color = new Cesium.Color.fromCssColorString(_currentModel.color);
@@ -312,8 +187,6 @@ $(function () {
                 $('.deploy-params')[0].reset()
                 $('.deploy-params').hide();
                 $('.deploy-params .form-group').hide();
-                
-                
             });
 
             $('#deploy_cancle').on('click',function(){
@@ -321,6 +194,45 @@ $(function () {
             });
 
         };
+
+        function saveModel(modelKey,position,params,key,sizeStr,colorStr)
+        {
+            persistenceModel(_currentModel,position,params,rdata=>{
+                switch (_currentModel.type) {
+                    case '车辆':
+                        Car.add(key,_currentModel.name,modelKey + '_' + rdata.id,rdata);
+                        break;
+                    case '人员':
+                        params.deviceId = 0;
+                        Person.add(key,_currentModel.name,modelKey + '_' + rdata.id,rdata);
+                        break;
+                    case '设备':
+                        Device.add(key,_currentModel.name,modelKey + '_' + rdata.id,rdata);
+                        break;
+                    default:
+                        break;
+                }
+                viewer.entities.add({
+                    name: key,
+                    id: modelKey + '_' + rdata.id,
+                    position: position,
+                    model: {
+                        uri: _currentModel.model,
+                        scale: _currentModel.scale
+                    },
+                    label:{
+                        text: key,
+                        font: sizeStr + 'px Helvetica',
+                        fillColor: Cesium.Color.fromCssColorString(colorStr),
+                        outlineColor: Cesium.Color.BLACK,
+                        outlineWidth: 2,
+                        eyeOffset:new Cesium.Cartesian3(0,0,-15),
+                        style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                        scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 3000, 0.4)
+                    }
+                });
+            });
+        }
 
         function resetDraw(){
             if (_tempEntity) {
