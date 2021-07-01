@@ -344,7 +344,6 @@ $(function(){
 
         function showViewshed(longitude,latitude,height,direction,pitch,distance,verticalFov,horizontalFov)
         {
-            //TODO:这里只写了超图的方法，还没写中地的
             if (PLATFORM == 'SuperMap') {
                 if (horizontalFov < 180) {
                     if (!viewshed3D) {
@@ -416,7 +415,6 @@ $(function(){
                         viewer: viewer
                     });
                     while (ehorizontalFov > 0) {
-                        debugger
                         let chorizontalFov = 90;
                         if (ehorizontalFov < 90) {
                             chorizontalFov = ehorizontalFov;
@@ -425,6 +423,7 @@ $(function(){
                             cDirction += chorizontalFov/2;
                         }
                         var viewshed3DPartial = advancedAnalysisManager.createViewshedAnalysis();
+                        viewshed3DPartial._blendingEnabled = false
                         viewshed3DPartial.viewPosition = new Cesium.Cartesian3.fromDegrees(longitude, latitude, height + 1.5);
                         viewshed3DPartial.horizontAngle = chorizontalFov;
                         viewshed3DPartial.verticalAngle = verticalFov;
@@ -524,8 +523,7 @@ $(function(){
                 if (!_pocWSState) {
                     var pocWs = new WebSocket(Uniptt_POC_URL);
                     pocWs.onopen = function(evt){
-                        //TODO:用户名密码使用config里的数据
-                        pocWs.send('{"Code":40000,"SerialNum":1,"LoginName":"hbhddy","Password":"888888","Lang":"zh"}');
+                        pocWs.send(`{"Code":40000,"SerialNum":1,"LoginName":"${SysConfig.getConfig('uniptt_user_name')}","Password":"${SysConfig.getConfig('uniptt_password')}","Lang":"zh"}`);
                     };
 
                     pocWs.onmessage  = function(evt){
@@ -554,8 +552,7 @@ $(function(){
                 if (!_locWSState) {
                     var locWs = new WebSocket(Uniptt_LOC_URL);
                     locWs.onopen = function(evt){
-                        //TODO:用户名密码使用config里的数据
-                        locWs.send('{"Code":20000,"Data":{"LoginName":"hbhddy","Password":"888888","Lang":"zh"}}');
+                        locWs.send(`{"Code":20000,"Data":{"LoginName":"${SysConfig.getConfig('uniptt_user_name')}","Password":"${SysConfig.getConfig('uniptt_password')}","Lang":"zh"}}`);
                     };
 
                     locWs.onmessage  = function(evt){

@@ -11,24 +11,23 @@ $(function () {
         switch (id) {
             case 'menu_project':
                 $('#admin_project').show();
-                break;
-            case 'menu_person':
-                $('#admin_person').show();
+                ProjectAdmin.loadDatas();
                 break;
             case 'menu_device':
                 $('#admin_device').show();
+                DeviceAdmin.init();
                 break;
             case 'menu_deploy':
                 $('#admin_deploy').show();
-                break;
-            case 'menu_car':
-                $('#admin_car').show();
+                DeployAdmin.loadDatas();
                 break;
             case 'menu_user':
                 $('#admin_user').show();
+                UserAdmin.loadDatas();
                 break;
             case 'menu_setting':
                 $('#admin_setting').show();
+                Setting.init();
                 break;
 
             default:

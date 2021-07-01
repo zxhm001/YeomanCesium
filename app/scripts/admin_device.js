@@ -240,5 +240,5 @@ $(function(){
     }
 
     window.DeviceAdmin = deviceAdmin();
-    DeviceAdmin.init();
+    //DeviceAdmin.init();
 }());

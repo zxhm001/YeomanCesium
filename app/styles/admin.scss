@@ -128,6 +128,16 @@ h3, .h3 {
                     -webkit-text-decoration-skip: objects;
                 }
             }
+
+            .setting-item
+            {
+                margin: 10px 0;
+                padding-left: 0;
+
+                label{
+                    padding-left:0;
+                }
+            }
         }
     }
 }

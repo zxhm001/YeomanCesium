@@ -428,5 +428,5 @@ $(function(){
         }
     }
     window.DeployAdmin = deployAdmin();
-    DeployAdmin.loadDatas();
+    //DeployAdmin.loadDatas();
 }());

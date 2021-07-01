@@ -200,6 +200,6 @@ $(function(){
     }
 
     window.UserAdmin = userAdmin();
-    UserAdmin.loadDatas();
+    //UserAdmin.loadDatas();
 
 }());
