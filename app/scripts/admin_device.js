@@ -46,6 +46,15 @@ $(function(){
                     });
                 }
             })
+
+            $.get(API_ROOT + '/api/fitting/can-bind-list',function(response){
+                if (response.succeeded) {
+                    response.data.forEach(fitting => {
+                        $('#device_input_type').empty();
+                        $('#device_input_type').append(`<option value="${fitting.name}">${fitting.name}</option>`);
+                    });
+                }
+            });
         }
 
         function loadDatas(page = 1) {

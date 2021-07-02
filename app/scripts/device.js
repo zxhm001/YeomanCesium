@@ -7,6 +7,14 @@ $(function(){
 
     $('#modal_device').on('show.bs.modal', function (event) {
         Device.showDeviceTree();
+        $.get(API_ROOT + '/api/fitting/can-bind-list',function(response){
+            if (response.succeeded) {
+                response.data.forEach(fitting => {
+                    $('#device_input_type').empty();
+                    $('#device_input_type').append(`<option value="${fitting.name}">${fitting.name}</option>`);
+                });
+            }
+        });
     });
 
     $('#modal_device').on('hide.bs.modal', function (event) {
