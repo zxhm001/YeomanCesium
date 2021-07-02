@@ -85,8 +85,14 @@
 
             #error_label
             {
+                display: block;
                 color: #f00;
-                margin-left: 16px;
+            }
+
+            #login_btn
+            {
+                display: block;
+                align-items: center;
             }
         }
 
