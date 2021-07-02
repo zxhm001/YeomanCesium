@@ -54,9 +54,6 @@ $(function(){
             if (data.license) {
                 $('#edit_input_license').val(data.license);
             }
-            if (data.number) {
-                $('#edit_input_number').val(data.number);
-            }
             if (data.rtmpUrl) {
                 $('#edit_input_rtmpurl').val(data.rtmpUrl);
             }

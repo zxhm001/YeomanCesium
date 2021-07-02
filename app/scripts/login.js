@@ -23,6 +23,12 @@ $(function(){
         });
     })
 
+    $(document).on('keydown',function(event){
+        if (event.key == 'Enter') {
+            $('#login_btn').trigger('click');
+        }
+    });
+
     function setError(text)
     {
         $('#error_label').text(text);

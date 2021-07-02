@@ -54,16 +54,6 @@ function init() {
                         initData();
                         viewer.terrainProvider._visible = false;
                     });
-                    // var tileset = viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
-                    //     url: 'http://127.0.0.1:5701/model/f86ceb60d3d311eb971d0b98892bfd53/tileset.json',
-                    //     modelMatrix: Cesium.Matrix4.fromArray([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]),
-                    // }));
-                    // viewer.flyTo(tileset);
-                    // setTimeout(() => {
-                    //     Deploy.init();
-                    //     initData();
-                    //     viewer.terrainProvider._visible = false;
-                    // }, 2000);
                 }
                 initProjectSelector();
             }
@@ -86,7 +76,14 @@ function init() {
         var sceneManager = new CesiumZondy.Manager.SceneManager({
             viewer: webGlobe.viewer
         });
-
+        var terrain = new CesiumZondy.Layer.TerrainLayer({
+            viewer: webGlobe.viewer
+        });
+        var geobodyLayer = terrain.append(SHANGHAI_TERRAIN_MG, {
+            loaded: function(layer) {
+                console.log(layer);
+            }
+        });
         $.get(API_ROOT + '/api/project/active-list',function(response){
             if (response.succeeded) {
                 window.projects = response.data;
@@ -118,6 +115,20 @@ function init() {
                     var provider = webGlobe.append(currentProject.scence, {
                         autoReset: true,
                         loaded: function (e) {
+                            var center = e.boundingSphere.center;
+                            var radius = e.boundingSphere.radius;
+                            var cartographic = Cesium.Cartographic.fromCartesian(center);
+                            cartographic.height = 2.5 * radius;
+                            var pCenter = Cesium.Cartesian3.fromRadians(cartographic.longitude,cartographic.latitude,cartographic.height); 
+                            viewer.camera.flyTo({
+                                destination : pCenter,
+                                orientation : {
+                                    heading : 0,
+                                    pitch : Cesium.Math.toRadians(-90),
+                                    roll : 0.0
+                                }
+                            });
+                            
                             Deploy.init();
                             initData();
                         }

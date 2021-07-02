@@ -9,8 +9,8 @@ $(function(){
         Device.showDeviceTree();
         $.get(API_ROOT + '/api/fitting/can-bind-list',function(response){
             if (response.succeeded) {
+                $('#device_input_type').empty();
                 response.data.forEach(fitting => {
-                    $('#device_input_type').empty();
                     $('#device_input_type').append(`<option value="${fitting.name}">${fitting.name}</option>`);
                 });
             }
@@ -38,11 +38,7 @@ $(function(){
         if (nodes.length > 0 && nodes[0].params)
         {
             Edit.showModal(nodes[0].params.type,nodes[0].params,function(data){
-                var numberStr = '';
-                if (data.number > 1) {
-                    numberStr = '(' + dedatavice.number + ')';
-                }
-                var license = data.name?data.name:data.license + numberStr;
+                var license = data.name?data.name:data.license;
                 nodes[0].name = license;
                 zTreeObj.updateNode(nodes[0]);
                 //TODO:还没有更新data数据
@@ -288,11 +284,8 @@ $(function(){
             $.get(`${API_ROOT}/api/device/${currentProject.id}`,function(response){
                 if (response.succeeded) {
                     response.data.forEach(device => {
-                        var numberStr = '';
-                        if (device.number > 1) {
-                            numberStr = '(' + device.number + ')';
-                        }
-                        var license = device.name?device.name:device.license + numberStr;
+                        debugger
+                        var license = device.name?device.name:device.license;
                         addEntity(device.id,license,device.type,device.longitude,device.latitude,device.height);
                         add(license,device.type,'device_' + device.id,device);
                     });

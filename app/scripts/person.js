@@ -25,11 +25,7 @@ $(function(){
         if (nodes.length > 0 && nodes[0].params)
         {
             Edit.showModal(nodes[0].params.type,nodes[0].params,function(data){
-                var numberStr = '';
-                if (data.number > 1) {
-                    numberStr = '(' + data.number + ')';
-                }
-                var name = data.name + numberStr;
+                var name = data.name;
                 nodes[0].name = name;
                 personTreeObj.updateNode(nodes[0]);
                 //TODO:还没有更新data数据
@@ -293,11 +289,7 @@ $(function(){
             $.get(`${API_ROOT}/api/person/${currentProject.id}`,function(response){
                 if (response.succeeded) {
                     response.data.forEach(person => {
-                        var numberStr = '';
-                        if (person.number > 1) {
-                            numberStr = '(' + person.number + ')';
-                        }
-                        var name = person.name + numberStr;
+                        var name = person.name;
                         addEntity(person.id,name,person.type,person.longitude,person.latitude,person.height);
                         add(name,person.type,'person_' + person.id,person);
                     });
