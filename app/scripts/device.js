@@ -37,7 +37,7 @@ $(function(){
         var nodes = zTreeObj.getSelectedNodes();
         if (nodes.length > 0 && nodes[0].params)
         {
-            Edit.showModal(nodes[0].params.type,nodes[0].params,function(data){
+            Edit.showModal('设备',nodes[0].params,function(data){
                 var license = data.name?data.name:data.license;
                 nodes[0].name = license;
                 zTreeObj.updateNode(nodes[0]);
@@ -284,7 +284,6 @@ $(function(){
             $.get(`${API_ROOT}/api/device/${currentProject.id}`,function(response){
                 if (response.succeeded) {
                     response.data.forEach(device => {
-                        debugger
                         var license = device.name?device.name:device.license;
                         addEntity(device.id,license,device.type,device.longitude,device.latitude,device.height);
                         add(license,device.type,'device_' + device.id,device);

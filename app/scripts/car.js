@@ -29,7 +29,7 @@ $(function(){
         var nodes = zTreeObj.getSelectedNodes();
         if (nodes.length > 0 && nodes[0].params)
         {
-            Edit.showModal(nodes[0].params.type,nodes[0].params,function(data){
+            Edit.showModal('车辆',nodes[0].params,function(data){
                 nodes[0].name = data.license;
                 zTreeObj.updateNode(nodes[0]);
                 //TODO:还没有更新data数据

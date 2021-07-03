@@ -20,6 +20,7 @@ $(function(){
     $('#btn_addfitting').on('click',function(){
         _editMode = 'add';
         $('#modal_add_fitting_title').html('<i class="bi bi-file-earmark-plus-fill"></i>添加部件');
+        $('#add_fitting_type').attr('disabled',false);
         $('#modal_add_fitting').modal('show');
         $('#add_fitting_type').trigger('change');
     });
@@ -254,7 +255,6 @@ $(function(){
         }
         else if (_editMode == 'edit') {
             _selFitting.name = params.name;
-            _selFitting.type = params.type;
             _selFitting.hasName = params.hasName;
             _selFitting.hasLicense = params.hasLicense;
             _selFitting.canBind = params.canBind;
@@ -374,6 +374,7 @@ $(function(){
                 _selFitting = fittings[index];
                 _editMode = 'edit';
                 $('#modal_add_fitting_title').html('<i class="bi bi-file-earmark-diff-fill"></i>编辑组件');
+                $('#add_fitting_type').attr('disabled',true);
                 $('#modal_add_fitting').modal('show');
                 $('#add_fitting_name').val(_selFitting.name);
                 $('#add_fitting_type').val(_selFitting.type);

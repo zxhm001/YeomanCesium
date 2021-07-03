@@ -110,33 +110,19 @@ $(function(){
             
             var modelKey = '';
             switch (_type) {
-                case '警车':
-                case '消防车': 
-                case '救护车':
-                case '警用摩托':
-                case '反制车':
+                case '车辆':
                     modelKey = 'car';
                     break;
-                case '警察':
-                case '医护人员': 
-                case '安保人员':
-                case '消防员':
+                case '人员':
                     modelKey = 'person';
                     break;
-                case '反制枪':
-                case '布控球':
-                case '无人机':
-                case '对讲机':
-                case '记录仪':
-                case '定位器':
+                case '设备':
                     modelKey = 'device';
                     break;
                 case '建筑':
                     modelKey = 'building';
                     break;
-                case '安全区域':
-                case '重点区域':
-                case '危险区域':
+                case '区域':
                     modelKey = 'region';
                     break;
                 default:
