@@ -296,6 +296,10 @@ function init() {
                     console.error(err);
                 }
             });
+            //TODO:只处理了设备，其他的目前没用着就暂时不变
+            if (type == 'device') {
+                Device.setPositionData(id,longitude,latitude, cartographic.height);
+            }
         }
         _currentEntity = null;
         viewer.scene.screenSpaceCameraController.enableRotate = true;

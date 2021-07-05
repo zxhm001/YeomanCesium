@@ -295,7 +295,6 @@ $(function(){
         var r1 = 1,r2 = 1;
         var _maxR = 100;
 
-        //TODO:对于辐射范围可能应该用圆形
         function showRange(position,maxR)
         {
             if (_rangeEntity) {
@@ -516,6 +515,25 @@ $(function(){
             }
         }
 
+        function setPositionData(id,longitude,latitude,height)
+        {
+            data.forEach(node => {
+                node.children.forEach(subNode => {
+                    if (subNode.params.id == id) {
+                        subNode.params.longitude = longitude;
+                        subNode.params.latitude = latitude;
+                        subNode.params.height = height;
+                    }
+                });
+            });
+            if (zTreeObj) {
+                var node = zTreeObj.getNodeByParam('model','device_' + id)
+                node.params.longitude = longitude;
+                node.params.latitude = latitude;
+                node.params.height = height;
+            }
+        }
+
         function startPocWS()
         {
             setInterval(() => {
@@ -671,6 +689,7 @@ $(function(){
             startLocaWS:startLocaWS,
             isOnline:isOnline,
             getLocation:getLocation,
+            setPositionData:setPositionData,
             init:init
         }
     }
