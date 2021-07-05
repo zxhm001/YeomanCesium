@@ -71,11 +71,8 @@ function init() {
     }
     else if(PLATFORM == 'MapGIS')
     {
-        var webGlobe = new Cesium.WebSceneControl('cesium_container', {});
+        window.webGlobe = new Cesium.WebSceneControl('cesium_container', {});
         window.viewer = webGlobe.viewer;
-        var sceneManager = new CesiumZondy.Manager.SceneManager({
-            viewer: webGlobe.viewer
-        });
         var terrain = new CesiumZondy.Layer.TerrainLayer({
             viewer: webGlobe.viewer
         });
@@ -189,14 +186,33 @@ function init() {
                 $(this).addClass('active');
                 window.currentProject = project;
                 $.cookie('current_project_id', window.currentProject.id, { expires: 7, path: '/' });
-                var promise = viewer.scene.open(currentProject.scence);
-                Cesium.when(promise, function (layer) {
-                    var camera = viewer.scene.camera;
-                    initCamera.position = new Cesium.Cartesian3(camera.position.x,camera.position.y,camera.position.z);
-                    initCamera.direction = new Cesium.Cartesian3(camera.direction.x,camera.direction.y,camera.direction.z);
-                    initCamera.up = new Cesium.Cartesian3(camera.up.x,camera.up.y,camera.up.z);
-                    viewer.terrainProvider._visible = false;
-                });
+                if (PLATFORM == 'SuperMap') {
+                    var promise = viewer.scene.open(currentProject.scence);
+                    Cesium.when(promise, function (layer) {
+                        viewer.terrainProvider._visible = false;
+                    });
+                }
+                else if (PLATFORM == 'MapGIS') {
+                    var provider = webGlobe.append(currentProject.scence, {
+                        autoReset: true,
+                        loaded: function (e) {
+                            var center = e.boundingSphere.center;
+                            var radius = e.boundingSphere.radius;
+                            var cartographic = Cesium.Cartographic.fromCartesian(center);
+                            cartographic.height = 2.5 * radius;
+                            var pCenter = Cesium.Cartesian3.fromRadians(cartographic.longitude,cartographic.latitude,cartographic.height); 
+                            viewer.camera.flyTo({
+                                destination : pCenter,
+                                orientation : {
+                                    heading : 0,
+                                    pitch : Cesium.Math.toRadians(-90),
+                                    roll : 0.0
+                                }
+                            });
+                        }
+                    }) 
+                }
+                
                 initData();
             });
             $('#projects').append(selector);
@@ -321,117 +337,11 @@ function init() {
     }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
 
-    // var carpositions = [];
-    // carpositions.push(new Cesium.Cartesian3.fromDegrees(121.35152, 31.03718, 15.84));
-    // carpositions.push(new Cesium.Cartesian3.fromDegrees(121.35116, 31.03892, 15.75));
-    // carpositions.push(new Cesium.Cartesian3.fromDegrees(121.35331, 31.03949, 16.32));
-    // carpositions.push(new Cesium.Cartesian3.fromDegrees(121.35734, 31.04057, 17.30));
-
-    // var uavPositions = [];
-    // uavPositions.push(new Cesium.Cartesian3.fromDegrees(121.35243, 31.03988, 100));
-    // uavPositions.push(new Cesium.Cartesian3.fromDegrees(121.35639, 31.04109, 100));
-    // uavPositions.push(new Cesium.Cartesian3.fromDegrees(121.35582, 31.04355, 100));
-    // uavPositions.push(new Cesium.Cartesian3.fromDegrees(121.35335, 31.04237, 100));
-
-    // var start = new Cesium.JulianDate.fromDate(new Date());
-    // var stop;
-    // var carPositionProperty = new Cesium.SampledPositionProperty();
-    // var uavPositionProperty = new Cesium.SampledPositionProperty();
-    // for (let i = 0; i < carpositions.length; i++) {
-    //     const carPosition = carpositions[i];
-    //     const uavPosition = uavPositions[i];
-    //     var time = Cesium.JulianDate.addSeconds(start, 15 * i, new Cesium.JulianDate());
-    //     carPositionProperty.addSample(time, carPosition);
-    //     uavPositionProperty.addSample(time, uavPosition);
-    //     if (i == carpositions.length - 1) {
-    //         stop = time;
-    //     }
-    // }
-
-    // viewer.clock.startTime = start.clone();
-    // viewer.clock.currentTime = start.clone();
-    // viewer.clock.stopTime = stop.clone();
-    // viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP;
-
-    // var car = viewer.entities.add({
-    //     name: 'JC_00001',
-    //     id: 'car_1',
-    //     position: carPositionProperty,
-    //     orientation: new Cesium.VelocityOrientationProperty(carPositionProperty),
-    //     model: {
-    //         uri: '/data/model/police_car.glb',
-    //         scale: 1
-    //     },
-    //     path: {
-    //         resolution: 1,
-    //         material: new Cesium.PolylineGlowMaterialProperty({ glowPower: 0.1, color: Cesium.Color.YELLOW, }),
-    //         width: 10
-    //     },
-    //     viewFrom: new Cesium.Cartesian3(30, 0, 30),
-    //     // label:{
-    //     //     text: 'JC_00001',
-    //     //     font: '20px Helvetica',
-    //     //     fillColor: Cesium.Color.WHITE,
-    //     //     outlineColor: Cesium.Color.BLACK,
-    //     //     outlineWidth: 2,
-    //     //     eyeOffset:new Cesium.Cartesian3(0.0, 4, 0.0),
-    //     //     style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-    //     //     scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
-    //     // }
-    // });
-
-    // var uav = viewer.entities.add({
-    //     name: 'U_00001',
-    //     id: 'uav_1',
-    //     position: uavPositionProperty,
-    //     orientation: new Cesium.VelocityOrientationProperty(uavPositionProperty),
-    //     model: {
-    //         uri: '/data/model/uav.glb',
-    //         scale: 1
-    //     },
-    //     path: {
-    //         resolution: 1,
-    //         material: new Cesium.PolylineGlowMaterialProperty({ glowPower: 0.1, color: Cesium.Color.YELLOW, }),
-    //         width: 10
-    //     },
-    //     viewFrom: new Cesium.Cartesian3(30, 0, 30),
-    //     // label:{
-    //     //     text: 'U_00001',
-    //     //     font: '20px Helvetica',
-    //     //     fillColor: Cesium.Color.WHITE,
-    //     //     outlineColor: Cesium.Color.BLACK,
-    //     //     outlineWidth: 2,
-    //     //     eyeOffset:new Cesium.Cartesian3(0.0, 1, 0.0),
-    //     //     style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-    //     //     scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 200, 0.4)
-    //     // }
-    // });
-
     window.setExtent = function (maxx, minx, maxy, miny) {
         viewer.camera.flyTo({
             destination: Cesium.Rectangle.fromDegrees(minx, miny, maxx, maxy)
         });
     }
-
-    // $('.core-btn').on('click', function () {
-    //     viewer.scene.camera.setView({
-    //         destination: new Cesium.Cartesian3(-2844445.995988, 4668163.510785, 3288134.420725),
-    //         orientation: {
-    //             direction: new Cesium.Cartesian3(0.4687117685901372, -0.7612987345932591, 0.4480329392933161),
-    //             up: new Cesium.Cartesian3(-0.2309045971528698, 0.3839714733384412, 0.8940072565007388)
-    //         }
-    //     });
-    // });
-
-    // $('.core-btn').on('click', function () {
-    //     viewer.scene.camera.setView({
-    //         destination: initCamera.position,
-    //         orientation: {
-    //             direction: initCamera.direction,
-    //             up: initCamera.up
-    //         }
-    //     });
-    // });
 }
 
 if (typeof Cesium !== 'undefined') {
