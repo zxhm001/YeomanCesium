@@ -299,7 +299,7 @@ $(function(){
 
         function addEntity(key,name,type,lng,lat,height){
             var fitting = getFitting(type);
-            if (!fitting) {
+            if (!fitting || !fitting.model) {
                 return;
             }
             var uri = `${API_ROOT}/api/file/download/${fitting.model}`

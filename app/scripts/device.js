@@ -251,7 +251,7 @@ $(function(){
         function addEntity(key,license,type,lng,lat,height)
         {
             var fitting = getFitting(type);
-            if (!fitting || fitting.canBind) {
+            if (!fitting || !fitting.model || fitting.canBind) {
                 return;
             }
             var uri = `${API_ROOT}/api/file/download/${fitting.model}`
