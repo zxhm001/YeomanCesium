@@ -19,9 +19,6 @@ $(function () {
         function init() {
             $.get(`${API_ROOT}/api/fitting`,function(response){
                 response.data.forEach(fitting => {
-                    if (fitting.canBind) {
-                        return;
-                    }
                     if (fitting.model) {
                         fitting.model = `${API_ROOT}/api/file/download/${fitting.model}`
                     }
@@ -258,6 +255,9 @@ $(function () {
             $('#symbol_list').empty();
             var models = deployData[type];
             models.forEach(model => {
+                if (model.canBind) {
+                    return;
+                }
                 var item = $(`<div class="symbol-item">
                     <img alt="${model.name}" src="${model.image}">
                     <p>${model.name}</p>

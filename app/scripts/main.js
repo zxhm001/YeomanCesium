@@ -1,4 +1,8 @@
 function init() {
+    //移动模型用到的全局变量
+    var _currentEntity = null;
+    var _moving = false;
+
     $('#menu_admin').show();
     $('#menu_front').hide();
 
@@ -163,6 +167,76 @@ function init() {
             }
             return height;
         }
+
+        var handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
+
+        handler.setInputAction(function (e) {
+            var entity = viewer.scene.pick(e.position);
+            if (entity && entity.id && entity.id.id != 'car_1' && entity.id.id != 'uav_1' && !entity.id.id.startsWith('building') && !entity.id.name.startsWith('sketch')) {
+                // debugger
+                _moving = true;
+                _currentEntity = entity;
+                viewer.scene.screenSpaceCameraController.enableRotate = false;
+            }
+        }, Cesium.ScreenSpaceEventType.LEFT_DOWN);
+
+        handler.setInputAction(function (e) {
+            _moving = false;
+            if (_currentEntity) {
+                var cartographic = Cesium.Cartographic.fromCartesian(_currentEntity.id.position._value);
+                var longitude = Cesium.Math.toDegrees(cartographic.longitude);
+                var latitude = Cesium.Math.toDegrees(cartographic.latitude);
+                var entityId = _currentEntity.id.id;
+                var type = entityId.split('_')[0];
+                var id = parseInt(entityId.split('_')[1]);
+                var data = {
+                    id: id,
+                    longitude: longitude,
+                    latitude: latitude,
+                    height: cartographic.height
+                };
+                var url = API_ROOT + '/api/' + type + '/position';
+                $.ajax({
+                    type: 'PUT',
+                    url: url,
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.succeeded) {
+                        }
+                        else {
+                            console.error(response.errors);
+                        }
+                        console.log(response);
+                    },
+                    error: function (err) {
+                        console.error(err);
+                    }
+                });
+                //TODO:只处理了设备，其他的目前没用着就暂时不变
+                if (type == 'device') {
+                    Device.setPositionData(id,longitude,latitude, cartographic.height);
+                }
+            }
+            _currentEntity = null;
+            viewer.scene.screenSpaceCameraController.enableRotate = true;
+        }, Cesium.ScreenSpaceEventType.LEFT_UP);
+
+        handler.setInputAction(async function (event) {
+            var position = viewer.scene.pickPosition(event.endPosition);
+            if (!position) {
+                position = Cesium.Cartesian3.fromDegrees(0, 0, 0);
+            }
+            var cartographic = Cesium.Cartographic.fromCartesian(position);
+            var longitude = Cesium.Math.toDegrees(cartographic.longitude);
+            var latitude = Cesium.Math.toDegrees(cartographic.latitude);
+            if (_moving && _currentEntity) {
+                var height = await viewer.scene.getHeight2(longitude, latitude);
+                var cartesian = Cesium.Cartesian3.fromDegrees(longitude, latitude, height);
+                _currentEntity.id.position = cartesian;
+            }
+        }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
     });
     
 
@@ -249,89 +323,6 @@ function init() {
         $(this).removeClass('expand');
         $('.project-card').css('left','10px');
     })
-
-    var _currentEntity = null;
-    var _moving = false;
-
-    //显示经纬度
-    var handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
-
-    handler.setInputAction(async function(event) {
-        var position  = viewer.camera.pickEllipsoid(event.position,viewer.scene.globe.ellipsoid);
-        var cartographic = Cesium.Cartographic.fromCartesian(position);
-        var longitude = Cesium.Math.toDegrees(cartographic.longitude);
-        var latitude = Cesium.Math.toDegrees(cartographic.latitude);
-        var height = await viewer.scene.getHeight2(longitude,latitude);
-        console.log('Height',height);
-    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
-
-    handler.setInputAction(function (e) {
-        var entity = viewer.scene.pick(e.position);
-        if (entity && entity.id && entity.id.id != 'car_1' && entity.id.id != 'uav_1' && !entity.id.id.startsWith('building') && !entity.id.name.startsWith('sketch')) {
-            // debugger
-            _moving = true;
-            _currentEntity = entity;
-            viewer.scene.screenSpaceCameraController.enableRotate = false;
-        }
-    }, Cesium.ScreenSpaceEventType.LEFT_DOWN);
-
-    handler.setInputAction(function (e) {
-        _moving = false;
-        if (_currentEntity) {
-            var cartographic = Cesium.Cartographic.fromCartesian(_currentEntity.id.position._value);
-            var longitude = Cesium.Math.toDegrees(cartographic.longitude);
-            var latitude = Cesium.Math.toDegrees(cartographic.latitude);
-            var entityId = _currentEntity.id.id;
-            var type = entityId.split('_')[0];
-            var id = parseInt(entityId.split('_')[1]);
-            var data = {
-                id: id,
-                longitude: longitude,
-                latitude: latitude,
-                height: cartographic.height
-            };
-            var url = API_ROOT + '/api/' + type + '/position';
-            $.ajax({
-                type: 'PUT',
-                url: url,
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data),
-                dataType: 'json',
-                success: function (response) {
-                    if (response.succeeded) {
-                    }
-                    else {
-                        console.error(response.errors);
-                    }
-                    console.log(response);
-                },
-                error: function (err) {
-                    console.error(err);
-                }
-            });
-            //TODO:只处理了设备，其他的目前没用着就暂时不变
-            if (type == 'device') {
-                Device.setPositionData(id,longitude,latitude, cartographic.height);
-            }
-        }
-        _currentEntity = null;
-        viewer.scene.screenSpaceCameraController.enableRotate = true;
-    }, Cesium.ScreenSpaceEventType.LEFT_UP);
-
-    handler.setInputAction(async function (event) {
-        var position = viewer.scene.pickPosition(event.endPosition);
-        if (!position) {
-            position = Cesium.Cartesian3.fromDegrees(0, 0, 0);
-        }
-        var cartographic = Cesium.Cartographic.fromCartesian(position);
-        var longitude = Cesium.Math.toDegrees(cartographic.longitude);
-        var latitude = Cesium.Math.toDegrees(cartographic.latitude);
-        if (_moving && _currentEntity) {
-            var height = await viewer.scene.getHeight2(longitude, latitude);
-            var cartesian = Cesium.Cartesian3.fromDegrees(longitude, latitude, height);
-            _currentEntity.id.position = cartesian;
-        }
-    }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
 
     window.setExtent = function (maxx, minx, maxy, miny) {

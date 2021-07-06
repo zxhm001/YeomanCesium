@@ -387,7 +387,7 @@ $(function(){
                 $('#add_fitting_scale').val(_selFitting.scale);
                 $('#add_fitting_color').val(_selFitting.color);
                 $('#add_fitting_haslocation').val(_selFitting.hasLocation+ '');
-                $('#add_fitting_hasstream').val(_selFitting.hasStream+ '');
+                $('#add_fitting_hastream').val(_selFitting.hasStream+ '');
                 $('#add_fitting_hasviewshed').val(_selFitting.hasViewshed+ '');
                 _model = _selFitting.model;
                 _image = _selFitting.image;

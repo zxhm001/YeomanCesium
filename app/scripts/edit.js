@@ -32,19 +32,19 @@ $(function(){
                     const deployData = deployDatas[key];
                     for (let j = 0; j < deployData.length; j++) {
                         const model = deployData[j];
-                        if (type == model.name) {
+                        if (data.type == model.name) {
                             model.params.forEach(param => {
                                 $('.edit-params-' + param).show();
                             });
                             break;
                         }
-                        else if(type == '对讲机' || type == '记录仪' ||type == '定位器')
-                        {
-                            $('.edit-params-name').show();
-                            $('.edit-params-license').show();
-                            $('.edit-params-rtmpurl').show();
-                            $('.edit-params-locationurl').show();
-                        }
+                        // else if(type == '对讲机' || type == '记录仪' ||type == '定位器')
+                        // {
+                        //     $('.edit-params-name').show();
+                        //     $('.edit-params-license').show();
+                        //     $('.edit-params-rtmpurl').show();
+                        //     $('.edit-params-locationurl').show();
+                        // }
                     }
                 }
             }
