@@ -2,6 +2,7 @@ function init() {
     //移动模型用到的全局变量
     var _currentEntity = null;
     var _moving = false;
+    var _inited = false;
 
     $('#menu_admin').show();
     $('#menu_front').hide();
@@ -81,11 +82,11 @@ function init() {
             var terrain = new CesiumZondy.Layer.TerrainLayer({
                 viewer: webGlobe.viewer
             });
-            var geobodyLayer = terrain.append(terrain_url, {
-                loaded: function(layer) {
-                    console.log(layer);
-                }
-            });
+            // var geobodyLayer = terrain.append(terrain_url, {
+            //     loaded: function(layer) {
+            //         console.log(layer);
+            //     }
+            // });
             $.get(API_ROOT + '/api/project/active-list',function(response){
                 if (response.succeeded) {
                     window.projects = response.data;
@@ -117,22 +118,26 @@ function init() {
                         var provider = webGlobe.append(currentProject.scence, {
                             autoReset: true,
                             loaded: function (e) {
-                                var center = e.boundingSphere.center;
-                                var radius = e.boundingSphere.radius;
-                                var cartographic = Cesium.Cartographic.fromCartesian(center);
-                                cartographic.height = 2.5 * radius;
-                                var pCenter = Cesium.Cartesian3.fromRadians(cartographic.longitude,cartographic.latitude,cartographic.height); 
-                                viewer.camera.flyTo({
-                                    destination : pCenter,
-                                    orientation : {
-                                        heading : 0,
-                                        pitch : Cesium.Math.toRadians(-90),
-                                        roll : 0.0
-                                    }
-                                });
+                                if (!_inited) {
+                                    var center = e.boundingSphere.center;
+                                    var radius = e.boundingSphere.radius;
+                                    var cartographic = Cesium.Cartographic.fromCartesian(center);
+                                    cartographic.height = 2.5 * radius;
+                                    var pCenter = Cesium.Cartesian3.fromRadians(cartographic.longitude,cartographic.latitude,cartographic.height); 
+                                    viewer.camera.flyTo({
+                                        destination : pCenter,
+                                        orientation : {
+                                            heading : 0,
+                                            pitch : Cesium.Math.toRadians(-90),
+                                            roll : 0.0
+                                        }
+                                    });
+                                    
+                                    Deploy.init();
+                                    initData();
+                                    _inited = true;
+                                }
                                 
-                                Deploy.init();
-                                initData();
                             }
                         }) 
                     }
