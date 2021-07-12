@@ -229,14 +229,14 @@ function init() {
         }, Cesium.ScreenSpaceEventType.LEFT_UP);
 
         handler.setInputAction(async function (event) {
-            var position = viewer.scene.pickPosition(event.endPosition);
-            if (!position) {
-                position = Cesium.Cartesian3.fromDegrees(0, 0, 0);
-            }
-            var cartographic = Cesium.Cartographic.fromCartesian(position);
-            var longitude = Cesium.Math.toDegrees(cartographic.longitude);
-            var latitude = Cesium.Math.toDegrees(cartographic.latitude);
             if (_moving && _currentEntity) {
+                var position = viewer.scene.pickPosition(event.endPosition);
+                if (!position) {
+                    position = Cesium.Cartesian3.fromDegrees(0, 0, 0);
+                }
+                var cartographic = Cesium.Cartographic.fromCartesian(position);
+                var longitude = Cesium.Math.toDegrees(cartographic.longitude);
+                var latitude = Cesium.Math.toDegrees(cartographic.latitude);
                 var height = await viewer.scene.getHeight2(longitude, latitude);
                 var cartesian = Cesium.Cartesian3.fromDegrees(longitude, latitude, height);
                 _currentEntity.id.position = cartesian;

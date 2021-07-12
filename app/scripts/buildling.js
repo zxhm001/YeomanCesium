@@ -126,6 +126,7 @@ $(function(){
 
         function add(params)
         {
+            params.type = '建筑';
             var newNode = {
                 name:params.name,
                 model:'building_' + params.id,
