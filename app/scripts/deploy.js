@@ -299,6 +299,9 @@ $(function () {
                         viewer.entities.remove(_tempEntity)
                     }
                     var position = viewer.scene.pickPosition(mouseEvent.endPosition);
+                    if (!position) {
+                        return;
+                    }
                     _tempEntity = viewer.entities.add({
                         name: model.name,
                         id: model.name,

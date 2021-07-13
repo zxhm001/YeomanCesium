@@ -17,10 +17,18 @@ $(function(){
         var nodes = zTreeObj.getSelectedNodes();
         if (nodes.length > 0 && nodes[0].params)
         {
-            Edit.showModal('建筑',nodes[0].params,function(data){
-                nodes[0].name = data.name;
+            Edit.showModal('建筑',nodes[0].params,function(edata){
+                nodes[0].name = edata.name;
                 zTreeObj.updateNode(nodes[0]);
-                //TODO:还没有更新data数据
+                data.forEach(node => {
+                    node.children.forEach(subNode => {
+                        if (subNode.params.id == edata.id) {
+                            subNode.params = edata;
+                            subNode.name = edata.name;
+                            return;
+                        }
+                    });
+                });
             });
         }
         else

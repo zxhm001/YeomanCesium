@@ -24,11 +24,19 @@ $(function(){
         var nodes = personTreeObj.getSelectedNodes();
         if (nodes.length > 0 && nodes[0].params)
         {
-            Edit.showModal('人员',nodes[0].params,function(data){
-                var name = data.name;
+            Edit.showModal('人员',nodes[0].params,function(edata){
+                var name = edata.name;
                 nodes[0].name = name;
                 personTreeObj.updateNode(nodes[0]);
-                //TODO:还没有更新data数据
+                data.forEach(node => {
+                    node.children.forEach(subNode => {
+                        if (subNode.params.id == edata.id) {
+                            subNode.params = edata;
+                            subNode.name = name;
+                            return;
+                        }
+                    });
+                });
             });
         }
         else

@@ -37,11 +37,20 @@ $(function(){
         var nodes = zTreeObj.getSelectedNodes();
         if (nodes.length > 0 && nodes[0].params)
         {
-            Edit.showModal('设备',nodes[0].params,function(data){
-                var license = data.name?data.name:data.license;
+            Edit.showModal('设备',nodes[0].params,function(edata){
+                var license = edata.name?edata.name:edata.license;
                 nodes[0].name = license;
+                //nodes[0].params = data;
                 zTreeObj.updateNode(nodes[0]);
-                //TODO:还没有更新data数据
+                data.forEach(node => {
+                    node.children.forEach(subNode => {
+                        if (subNode.params.id == edata.id) {
+                            subNode.params = edata;
+                            subNode.name = license;
+                            return;
+                        }
+                    });
+                });
             });
         }
         else

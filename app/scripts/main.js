@@ -82,11 +82,11 @@ function init() {
             var terrain = new CesiumZondy.Layer.TerrainLayer({
                 viewer: webGlobe.viewer
             });
-            // var geobodyLayer = terrain.append(terrain_url, {
-            //     loaded: function(layer) {
-            //         console.log(layer);
-            //     }
-            // });
+            var geobodyLayer = terrain.append(terrain_url, {
+                loaded: function(layer) {
+                    console.log(layer);
+                }
+            });
             $.get(API_ROOT + '/api/project/active-list',function(response){
                 if (response.succeeded) {
                     window.projects = response.data;
@@ -164,13 +164,20 @@ function init() {
         }
     
         viewer.scene.getHeight2 = async function(lon,lat){
-            var cartographic = Cesium.Cartographic.fromDegrees(lon,lat);
-            var height = viewer.scene.sampleHeight(cartographic);
-            if (height < 0.1) {
-                var data = await Cesium.sampleTerrain(viewer.terrainProvider,11,[cartographic]);
-                height = data[0].height;
+            if (viewer.scene.getHeight) {
+                return viewer.scene.getHeight(lon,lat)
             }
-            return height;
+            else
+            {
+                var cartographic = Cesium.Cartographic.fromDegrees(lon,lat);
+                var height = viewer.scene.sampleHeight(cartographic);
+                if (height < 0.1) {
+                    var data = await Cesium.sampleTerrain(viewer.terrainProvider,11,[cartographic]);
+                    height = data[0].height;
+                }
+                return height;
+            }
+            
         }
 
         var handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
@@ -181,7 +188,8 @@ function init() {
                 // debugger
                 _moving = true;
                 _currentEntity = entity;
-                viewer.scene.screenSpaceCameraController.enableRotate = false;
+                //viewer.scene.screenSpaceCameraController.enableRotate = false;
+                viewer.scene.screenSpaceCameraController.enableInputs = false;
             }
         }, Cesium.ScreenSpaceEventType.LEFT_DOWN);
 
@@ -225,19 +233,24 @@ function init() {
                 }
             }
             _currentEntity = null;
-            viewer.scene.screenSpaceCameraController.enableRotate = true;
+            //viewer.scene.screenSpaceCameraController.enableRotate = true;
+            viewer.scene.screenSpaceCameraController.enableInputs = true;
         }, Cesium.ScreenSpaceEventType.LEFT_UP);
 
         handler.setInputAction(async function (event) {
             if (_moving && _currentEntity) {
                 var position = viewer.scene.pickPosition(event.endPosition);
                 if (!position) {
-                    position = Cesium.Cartesian3.fromDegrees(0, 0, 0);
+                    return;
                 }
                 var cartographic = Cesium.Cartographic.fromCartesian(position);
                 var longitude = Cesium.Math.toDegrees(cartographic.longitude);
                 var latitude = Cesium.Math.toDegrees(cartographic.latitude);
                 var height = await viewer.scene.getHeight2(longitude, latitude);
+                if (height > cartographic.height) {
+                    height = cartographic.height;
+                }
+                console.log({'longitude':longitude,'latitude':latitude,'height':height});
                 var cartesian = Cesium.Cartesian3.fromDegrees(longitude, latitude, height);
                 _currentEntity.id.position = cartesian;
             }
