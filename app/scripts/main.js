@@ -77,7 +77,9 @@ function init() {
         }
         else if(PLATFORM == 'MapGIS')
         {
-            window.webGlobe = new Cesium.WebSceneControl('cesium_container', {});
+            window.webGlobe = new Cesium.WebSceneControl('cesium_container', {
+                keyEventEnable: false,
+            });
             window.viewer = webGlobe.viewer;
             var terrain = new CesiumZondy.Layer.TerrainLayer({
                 viewer: webGlobe.viewer

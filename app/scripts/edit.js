@@ -63,19 +63,11 @@ $(function(){
             if (data.range) {
                 $('#edit_input_range').val(data.range);
             }
-            if (data.direction) {
+            if (data.direction || data.distance || data.pitch || data.verticalFov || data.horizontalFov) {
                 $('#edit_input_shed_direction').val(data.direction);
-            }
-            if (data.distance) {
                 $('#edit_input_shed_distance').val(data.distance);
-            }
-            if (data.pitch) {
                 $('#edit_input_shed_angle').val(data.pitch);
-            }
-            if (data.verticalFov) {
                 $('#edit_input_shed_vertical_fov').val(data.verticalFov);
-            }
-            if (data.horizontalFov) {
                 $('#edit_input_shed_horizontal_fov').val(data.horizontalFov);
             }
         }
