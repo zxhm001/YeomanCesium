@@ -66,6 +66,7 @@ $(function () {
                 });
                 //先将模型都加进来，之后就不用重新加载glb
                 var index = 0;
+                
                 for (const key in deployData) {
                     if (Object.hasOwnProperty.call(deployData, key)) {
                         const type = deployData[key];
@@ -76,7 +77,7 @@ $(function () {
                                     position: new Cesium.Cartesian3.fromDegrees(0, 0, -200),
                                     model: {
                                         uri: model.model,
-                                        scale: 0.0001
+                                        scale: 0.1
                                     }
                                 });
                             }

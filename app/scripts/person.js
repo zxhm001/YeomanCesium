@@ -411,6 +411,9 @@ $(function(){
 
         function setEntityLocation(entityId,locationUrl)
         {
+            if (!locationUrl) {
+                return;
+            }
             var entity = viewer.entities.getById(entityId);
             if (entity) {
                 $.post(locationUrl,async function(response){

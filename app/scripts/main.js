@@ -81,14 +81,16 @@ function init() {
                 keyEventEnable: false,
             });
             window.viewer = webGlobe.viewer;
-            var terrain = new CesiumZondy.Layer.TerrainLayer({
-                viewer: webGlobe.viewer
-            });
-            var geobodyLayer = terrain.append(terrain_url, {
-                loaded: function(layer) {
-                    console.log(layer);
-                }
-            });
+            if (terrain_url) {
+                var terrain = new CesiumZondy.Layer.TerrainLayer({
+                    viewer: webGlobe.viewer
+                });
+                var geobodyLayer = terrain.append(terrain_url, {
+                    loaded: function(layer) {
+                        console.log(layer);
+                    }
+                });
+            }      
             $.get(API_ROOT + '/api/project/active-list',function(response){
                 if (response.succeeded) {
                     window.projects = response.data;
@@ -134,7 +136,6 @@ function init() {
                                             roll : 0.0
                                         }
                                     });
-                                    
                                     Deploy.init();
                                     initData();
                                     _inited = true;
@@ -173,7 +174,7 @@ function init() {
             {
                 var cartographic = Cesium.Cartographic.fromDegrees(lon,lat);
                 var height = viewer.scene.sampleHeight(cartographic);
-                if (height < 0.1) {
+                if (height < 0.1 && viewer.terrainProvider) {
                     var data = await Cesium.sampleTerrain(viewer.terrainProvider,11,[cartographic]);
                     height = data[0].height;
                 }
@@ -303,7 +304,6 @@ function init() {
                         }
                     }) 
                 }
-                
                 initData();
             });
             $('#projects').append(selector);
@@ -352,7 +352,9 @@ function init() {
     }
 }
 
-if (typeof Cesium !== 'undefined') {
-    window.startupCalled = true;
-    init(Cesium);
-}
+$(function(){
+    if (typeof Cesium !== 'undefined') {
+        window.startupCalled = true;
+        init(Cesium);
+    }
+})
