@@ -264,7 +264,7 @@ $(function(){
                 return;
             }
             var uri = `${API_ROOT}/api/file/download/${fitting.model}`
-            var scale = 1;
+            var scale = fitting.scale;
             viewer.entities.add({
                 name: license,
                 id:'device_' + key,
@@ -550,7 +550,7 @@ $(function(){
                 if (!_pocWSState) {
                     var pocWs = new WebSocket(Uniptt_POC_URL);
                     pocWs.onopen = function(evt){
-                        pocWs.send(`{"Code":40000,"SerialNum":1,"LoginName":"${SysConfig.getConfig('uniptt_user_name')}","Password":"${SysConfig.getConfig('uniptt_password')}","Lang":"zh"}`);
+                        pocWs.send(`{"Code":40000,"SerialNum":1,"LoginName":"${SysConfig.getConfig().uniptt_user_name}","Password":"${SysConfig.getConfig().uniptt_password}","Lang":"zh"}`);
                     };
 
                     pocWs.onmessage  = function(evt){
@@ -579,7 +579,7 @@ $(function(){
                 if (!_locWSState) {
                     var locWs = new WebSocket(Uniptt_LOC_URL);
                     locWs.onopen = function(evt){
-                        locWs.send(`{"Code":20000,"Data":{"LoginName":"${SysConfig.getConfig('uniptt_user_name')}","Password":"${SysConfig.getConfig('uniptt_password')}","Lang":"zh"}}`);
+                        locWs.send(`{"Code":20000,"Data":{"LoginName":"${SysConfig.getConfig().uniptt_user_name}","Password":"${SysConfig.getConfig().uniptt_password}","Lang":"zh"}}`);
                     };
 
                     locWs.onmessage  = function(evt){

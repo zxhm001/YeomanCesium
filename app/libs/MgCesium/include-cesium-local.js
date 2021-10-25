@@ -49,7 +49,7 @@
 
         if (!inArray(excludes, 'cesium')) {
             inputCSS(httpUrl + '/cesium/Widgets/widgets.css');
-            inputCSS(httpUrl + '/cesium/MapGIS/css/mapgis.css');
+            //inputCSS(httpUrl + '/cesium/MapGIS/css/mapgis.css');
             inputScript(httpUrl + '/cesium/Cesium.js');
         }
         // if (!inArray(includes, 'wmts')) {

@@ -311,7 +311,7 @@ $(function(){
                 return;
             }
             var uri = `${API_ROOT}/api/file/download/${fitting.model}`
-            var scale = 1;
+            var scale = fitting.scale;
             viewer.entities.add({
                 name: name,
                 id:'person_' + key,
