@@ -78,7 +78,8 @@ function init() {
         else if(PLATFORM == 'MapGIS')
         {
             window.webGlobe = new Cesium.WebSceneControl('cesium_container', {
-                keyEventEnable: false,
+                // keyEventEnable:false,
+                onCopy:true
             });
             window.viewer = webGlobe.viewer;
             if (terrain_url) {
