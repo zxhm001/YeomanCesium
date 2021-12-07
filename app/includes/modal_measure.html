@@ -1,0 +1,31 @@
+<div id="modal_measure" class="modal fade modal-fixed-right overflow-hidden" data-backdrop="static"
+    aria-labelledby="car-modal-label" data-options='{"autoShow":true,"autoShowDelay":3000,"showOnce":true}'>
+    <div class="modal-dialog modal-dialog-vertical" role="dialog">
+        <div class="modal-content border-0 vh-100 scrollbar">
+            <div class="modal-header bg-shape">
+                <div class="z-index-1 py-1 light">
+                    <h5 class="text-white" id="car-modal-label"><i class="bi bi-rulers"></i>测量</h5>
+                </div>
+                <button class="btn-close z-index-1 mt-0" type="button" data-dismiss="modal" aria-label="Close"><i
+                        class="bi bi-x" style="color: #fff;"></i></button>
+            </div>
+            <div class="modal-body px-card">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">模式：</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="" id="sel_measure_mode">
+                            <option selected value="1">空间量算</option>
+                            <option value="2">贴地量算</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                <div class="btn-group">
+                    <input id="btn_measure_lenght" type="button" class="btn btn-primary" value="长度测量">
+                    <input id="btn_measure_area" type="button" class="btn btn-warning" value="面积测量">
+                    <input id="btn_measure_height" type="button" class="btn btn-danger" value="三角测量">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

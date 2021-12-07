@@ -115,6 +115,17 @@ $(document).ready(function(){
             //区域
             window.Deploy.showModel('region')
         }
+        else if($(this).hasClass('celiang-box'))
+        {
+            //测量
+            $('#modal_measure').modal('show');
+            $('#modal_deploy').modal('hide');
+            $('#modal_region').modal('hide');
+            $('#modal_person').modal('hide');
+            $('#modal_car').modal('hide');
+            $('#modal_device').modal('hide');
+            $('#modal_building').modal('hide');
+        }
        
     })
 

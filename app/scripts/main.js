@@ -13,19 +13,19 @@ function init() {
     // var obj = [6378137.0, 6378137.0, 6356752.3142451793];
     // Cesium.Ellipsoid.WGS84 = Object.freeze(new Cesium.Ellipsoid(obj[0], obj[1], obj[2]));
 
-    $.get(API_ROOT + '/api/sys-config/terrain_url',function(response){
+    $.get(API_ROOT + '/api/sys-config/terrain_url', function (response) {
         var terrain_url = response.data.value;
         if (PLATFORM == 'SuperMap') {
             window.viewer = new Cesium.Viewer('cesium_container', {
                 'selectionIndicator': false,
-                terrainProvider : new Cesium.CesiumTerrainProvider({
-                    url : terrain_url,
-                    isSct : true,
-                    invisibility:true
+                terrainProvider: new Cesium.CesiumTerrainProvider({
+                    url: terrain_url,
+                    isSct: true,
+                    invisibility: true
                 }),
             });
-            
-            $.get(API_ROOT + '/api/project/active-list',function(response){
+
+            $.get(API_ROOT + '/api/project/active-list', function (response) {
                 if (response.succeeded) {
                     window.projects = response.data;
                     if ($.cookie('current_project_id')) {
@@ -37,9 +37,8 @@ function init() {
                             }
                         }
                     }
-                    
-                    if(!window.currentProject)
-                    {
+
+                    if (!window.currentProject) {
                         for (let i = 0; i < window.projects.length; i++) {
                             const project = window.projects[i];
                             if (project.isCurrent) {
@@ -64,22 +63,21 @@ function init() {
                     initProjectSelector();
                 }
             });
-    
+
             viewer.imageryLayers.addImageryProvider(new Cesium.TiandituImageryProvider({
                 mapStyle: Cesium.TiandituMapsStyle.CIA_C,
                 token: '304bc664f193742e0ad7ad3b77d5dccd'
             }));
-        
+
             viewer.imageryLayers.addImageryProvider(new Cesium.TiandituImageryProvider({
                 mapStyle: Cesium.TiandituMapsStyle.VEC_C,
                 token: '304bc664f193742e0ad7ad3b77d5dccd'
             }), 1);
         }
-        else if(PLATFORM == 'MapGIS')
-        {
+        else if (PLATFORM == 'MapGIS') {
             window.webGlobe = new Cesium.WebSceneControl('cesium_container', {
                 // keyEventEnable:false,
-                onCopy:true
+                onCopy: true
             });
             window.viewer = webGlobe.viewer;
             if (terrain_url) {
@@ -87,12 +85,12 @@ function init() {
                     viewer: webGlobe.viewer
                 });
                 var geobodyLayer = terrain.append(terrain_url, {
-                    loaded: function(layer) {
+                    loaded: function (layer) {
                         console.log(layer);
                     }
                 });
-            }      
-            $.get(API_ROOT + '/api/project/active-list',function(response){
+            }
+            $.get(API_ROOT + '/api/project/active-list', function (response) {
                 if (response.succeeded) {
                     window.projects = response.data;
                     if ($.cookie('current_project_id')) {
@@ -104,9 +102,8 @@ function init() {
                             }
                         }
                     }
-                    
-                    if(!window.currentProject)
-                    {
+
+                    if (!window.currentProject) {
                         for (let i = 0; i < window.projects.length; i++) {
                             const project = window.projects[i];
                             if (project.isCurrent) {
@@ -128,27 +125,27 @@ function init() {
                                     var radius = e.boundingSphere.radius;
                                     var cartographic = Cesium.Cartographic.fromCartesian(center);
                                     cartographic.height = 2.5 * radius;
-                                    var pCenter = Cesium.Cartesian3.fromRadians(cartographic.longitude,cartographic.latitude,cartographic.height); 
+                                    var pCenter = Cesium.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, cartographic.height);
                                     viewer.camera.flyTo({
-                                        destination : pCenter,
-                                        orientation : {
-                                            heading : 0,
-                                            pitch : Cesium.Math.toRadians(-90),
-                                            roll : 0.0
+                                        destination: pCenter,
+                                        orientation: {
+                                            heading: 0,
+                                            pitch: Cesium.Math.toRadians(-90),
+                                            roll: 0.0
                                         }
                                     });
                                     Deploy.init();
                                     initData();
                                     _inited = true;
                                 }
-                                
+
                             }
-                        }) 
+                        })
                     }
                     initProjectSelector();
                 }
             });
-    
+
             //构造第三方图层对象
             var thirdPartyLayer = new CesiumZondy.Layer.ThirdPartyLayer({
                 viewer: webGlobe.viewer
@@ -159,36 +156,36 @@ function init() {
                 token: '304bc664f193742e0ad7ad3b77d5dccd',
                 ptype: 'vec'
             });
-    
+
             var tdtLayerAno = thirdPartyLayer.appendTDTuMap({
                 url: 'http://t0.tianditu.com/DataServer?T=vec_c&X={x}&Y={y}&L={l}',
                 token: '304bc664f193742e0ad7ad3b77d5dccd',
                 ptype: 'cia'
             });
         }
-    
-        viewer.scene.getHeight2 = async function(lon,lat){
+
+        viewer.scene.getHeight2 = async function (lon, lat) {
             if (viewer.scene.getHeight) {
-                return viewer.scene.getHeight(lon,lat)
+                return viewer.scene.getHeight(lon, lat)
             }
-            else
-            {
-                var cartographic = Cesium.Cartographic.fromDegrees(lon,lat);
+            else {
+                var cartographic = Cesium.Cartographic.fromDegrees(lon, lat);
                 var height = viewer.scene.sampleHeight(cartographic);
                 if (height < 0.1 && viewer.terrainProvider) {
-                    var data = await Cesium.sampleTerrain(viewer.terrainProvider,11,[cartographic]);
+                    var data = await Cesium.sampleTerrain(viewer.terrainProvider, 11, [cartographic]);
                     height = data[0].height;
                 }
                 return height;
             }
-            
+
         }
 
         var handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
 
         handler.setInputAction(function (e) {
             var entity = viewer.scene.pick(e.position);
-            if (entity && entity.id && entity.id.id != 'car_1' && entity.id.id != 'uav_1' && !entity.id.id.startsWith('building') && !entity.id.name.startsWith('sketch')) {
+            if (!_isMeasuring && entity && entity.id && entity.id.id != 'car_1' && entity.id.id != 'uav_1' &&
+                !entity.id.id.startsWith('building') && !entity.id.name.startsWith('sketch')) {
                 // debugger
                 _moving = true;
                 _currentEntity = entity;
@@ -233,7 +230,7 @@ function init() {
                 });
                 //TODO:只处理了设备，其他的目前没用着就暂时不变
                 if (type == 'device') {
-                    Device.setPositionData(id,longitude,latitude, cartographic.height);
+                    Device.setPositionData(id, longitude, latitude, cartographic.height);
                 }
             }
             _currentEntity = null;
@@ -254,27 +251,27 @@ function init() {
                 if (height > cartographic.height) {
                     height = cartographic.height;
                 }
-                console.log({'longitude':longitude,'latitude':latitude,'height':height});
+                console.log({ 'longitude': longitude, 'latitude': latitude, 'height': height });
                 var cartesian = Cesium.Cartesian3.fromDegrees(longitude, latitude, height);
                 _currentEntity.id.position = cartesian;
             }
         }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
     });
-    
 
-    
 
-    function initProjectSelector(){
+
+
+    function initProjectSelector() {
         $('#projects').empty();
         for (let i = 0; i < projects.length; i++) {
             const project = projects[i];
             var selector = $(`
-            <div class="project-card ${project.id == currentProject.id?'active':''}">
+            <div class="project-card ${project.id == currentProject.id ? 'active' : ''}">
             <span>${project.name}</span>
             </div>
             `);
-            selector.css('background',`url(${API_ROOT}/api/file/download/${project.image})`);
-            selector.on('click',function(){
+            selector.css('background', `url(${API_ROOT}/api/file/download/${project.image})`);
+            selector.on('click', function () {
                 $('.project-card').removeClass('active');
                 $(this).addClass('active');
                 window.currentProject = project;
@@ -293,17 +290,17 @@ function init() {
                             var radius = e.boundingSphere.radius;
                             var cartographic = Cesium.Cartographic.fromCartesian(center);
                             cartographic.height = 2.5 * radius;
-                            var pCenter = Cesium.Cartesian3.fromRadians(cartographic.longitude,cartographic.latitude,cartographic.height); 
+                            var pCenter = Cesium.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, cartographic.height);
                             viewer.camera.flyTo({
-                                destination : pCenter,
-                                orientation : {
-                                    heading : 0,
-                                    pitch : Cesium.Math.toRadians(-90),
-                                    roll : 0.0
+                                destination: pCenter,
+                                orientation: {
+                                    heading: 0,
+                                    pitch: Cesium.Math.toRadians(-90),
+                                    roll: 0.0
                                 }
                             });
                         }
-                    }) 
+                    })
                 }
                 initData();
             });
@@ -314,12 +311,12 @@ function init() {
     /**
      * 加载业务数据
      */
-    function initData(){
+    function initData() {
         var entities = viewer.entities.values;
         for (let i = 0; i < entities.length; i++) {
             const entity = entities[i];
-            if (entity.id.startsWith('person_') || entity.id.startsWith('device_')||entity.id.startsWith('car_')
-                ||entity.id.startsWith('building_')||entity.id.startsWith('region_')) {
+            if (entity.id.startsWith('person_') || entity.id.startsWith('device_') || entity.id.startsWith('car_')
+                || entity.id.startsWith('building_') || entity.id.startsWith('region_')) {
                 viewer.entities.remove(entity);
                 i--
             }
@@ -332,17 +329,17 @@ function init() {
         Region.init();
     }
 
-    $('#projects_wrapper').on('mouseover',function(){
+    $('#projects_wrapper').on('mouseover', function () {
         $(this).addClass('expand');
-        $('.expand #projects').css('width',(projects.length * 96 + 10) + 'px');
+        $('.expand #projects').css('width', (projects.length * 96 + 10) + 'px');
         for (let i = 0; i < projects.length; i++) {
             $('.expand .project-card:eq(' + i + ')').css('left', (96 * i + 10) + 'px');
         }
     });
 
-    $('#projects_wrapper').on('mouseout',function(){
+    $('#projects_wrapper').on('mouseout', function () {
         $(this).removeClass('expand');
-        $('.project-card').css('left','10px');
+        $('.project-card').css('left', '10px');
     })
 
 
@@ -353,7 +350,7 @@ function init() {
     }
 }
 
-$(function(){
+$(function () {
     if (typeof Cesium !== 'undefined') {
         window.startupCalled = true;
         init(Cesium);
