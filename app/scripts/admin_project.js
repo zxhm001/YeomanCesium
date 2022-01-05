@@ -227,25 +227,27 @@ $(function () {
             });
 
             $('#project_table .option-delete').on('click',function(){
-                var tr = $(this).parent().parent().parent();
-                var index = tr.index();
-                $.ajax({
-                    type: 'DELETE',
-                    url: `${API_ROOT}/api/project/${projects[index].id}`,
-                    success: function (response) {
-                        if (response.succeeded) {
-                            loadDatas();
-                            Toast.show('提示','删除成功');
+                if (confirm("删除项目将删除相关的人员、车辆、区域、建筑等信息，是否继续？")) {
+                    var tr = $(this).parent().parent().parent();
+                    var index = tr.index();
+                    $.ajax({
+                        type: 'DELETE',
+                        url: `${API_ROOT}/api/project/${projects[index].id}`,
+                        success: function (response) {
+                            if (response.succeeded) {
+                                loadDatas();
+                                Toast.show('提示','删除成功');
+                            }
+                            else
+                            {
+                                console.error(response);
+                            }
+                        },
+                        error: function (err) {
+                            console.error(err);
                         }
-                        else
-                        {
-                            console.error(response);
-                        }
-                    },
-                    error: function (err) {
-                        console.error(err);
-                    }
-                });
+                    });
+                }
             });
 
             $('#project_table .option-edit').on('click',function(){

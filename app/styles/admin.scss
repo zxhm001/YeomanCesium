@@ -148,6 +148,12 @@ h3, .h3 {
     left: auto !important;
 }
 
+.modal-fixed-center
+{
+    left: calc(50vw - 11rem) !important;
+    top: calc(30vh - 72px) !important;
+}
+
 .modal {
     top: 72px;
     width: 22rem;
