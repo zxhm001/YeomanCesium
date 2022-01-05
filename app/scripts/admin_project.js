@@ -227,7 +227,7 @@ $(function () {
             });
 
             $('#project_table .option-delete').on('click',function(){
-                if (confirm("删除项目将删除相关的人员、车辆、区域、建筑等信息，是否继续？")) {
+                if (confirm('删除项目将删除相关的人员、车辆、区域、建筑等信息，是否继续？')) {
                     var tr = $(this).parent().parent().parent();
                     var index = tr.index();
                     $.ajax({

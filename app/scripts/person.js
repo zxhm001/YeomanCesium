@@ -319,7 +319,7 @@ $(function(){
                 model: {
                     uri: uri,
                     scale:scale,
-                    maximumScale:scale * 10,
+                    maximumScale:scale * 3,
                     minimumPixelSize:128
                 },
                 label:{
