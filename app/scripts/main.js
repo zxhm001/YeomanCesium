@@ -359,15 +359,22 @@ function init() {
 
     $('#projects_wrapper').on('mouseover', function () {
         $(this).addClass('expand');
-        $('.expand #projects').css('width', (projects.length * 96 + 10) + 'px');
+        var hCount = projects.length <= 10 ? projects.length : 10
+        var wCount = Math.floor(projects.length / 10) + 1
+        $('.expand #projects').css('height', (70 * hCount + 10) + 'px');
+        $('.expand #projects').css('width', (wCount * 96 + 10) + 'px');
         for (let i = 0; i < projects.length; i++) {
-            $('.expand .project-card:eq(' + i + ')').css('left', (96 * i + 10) + 'px');
+            var hIndex = hCount - i % 10 -1
+            var wIndex = Math.floor(i / 10)
+            $('.expand .project-card:eq(' + i + ')').css('left', (96 * wIndex + 10) + 'px');
+            $('.expand .project-card:eq(' + i + ')').css('bottom', (70 * hIndex + 10) + 'px');
         }
     });
 
     $('#projects_wrapper').on('mouseout', function () {
         $(this).removeClass('expand');
         $('.project-card').css('left', '10px');
+        $('.project-card').css('bottom', '10px');
     })
 
 
