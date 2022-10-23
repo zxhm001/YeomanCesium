@@ -158,7 +158,7 @@ $(function(){
                 if (response.succeeded) {
                     response.data.forEach(car => {
                         if (car.id != 1) {
-                            addEntity(car.id,car.license,car.type,car.longitude,car.latitude,car.height,car.path);
+                            addEntity(car.id,car.license,car.type,car.longitude,car.latitude,car.height,car.orientation,car.path);
                         }
                         add(car.license,car.type,'car_' + car.id,car);
                     });
@@ -166,7 +166,7 @@ $(function(){
             });
         }
 
-        function addEntity(key,license,type,lng,lat,height,path)
+        function addEntity(key,license,type,lng,lat,height,orientation,path)
         {
             var fitting = getFitting(type);
             if (!fitting || !fitting.model) {
@@ -174,11 +174,12 @@ $(function(){
             }
             var uri = `${API_ROOT}/api/file/download/${fitting.model}`
             var scale = fitting.scale;
-
+            const position = new Cesium.Cartesian3.fromDegrees(lng, lat, height);
             viewer.entities.add({
                 name: license,
                 id:'car_' + key,
-                position: new Cesium.Cartesian3.fromDegrees(lng, lat, height),
+                position: position,
+                orientation:getOrientation(position,orientation),
                 model: {
                     uri: uri,
                     scale:scale,
@@ -194,6 +195,15 @@ $(function(){
                     scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 3000, 0.4)
                 }
             });                   
+        }
+
+        var getOrientation = (position,ori)=>{
+            const heading = Cesium.Math.toRadians(ori||0);
+            const pitch = Cesium.Math.toRadians(0);
+            const roll = Cesium.Math.toRadians(0);
+            const hpr = new Cesium.HeadingPitchRoll(heading, pitch, roll);
+            const orientation = Cesium.Transforms.headingPitchRollQuaternion(position, hpr);
+            return orientation;
         }
 
         function setModelVisible(visible)

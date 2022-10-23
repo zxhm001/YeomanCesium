@@ -46,12 +46,15 @@ $(function () {
                     }
                     switch (fitting.type) {
                         case '人员':
+                            fitting.params.push('orientation');
                             deployData.person.push(fitting);
                             break;
                         case '车辆':
+                            fitting.params.push('orientation');
                             deployData.car.push(fitting);
                             break;
                         case '设备':
+                            fitting.params.push('orientation');
                             deployData.device.push(fitting);
                             break;
                         case '建筑':
@@ -87,7 +90,11 @@ $(function () {
                 }
             });
 
-
+            $('#deploy_input_orientation').on('change',event=>{
+                if (_tempEntity) {
+                    _tempEntity.orientation = getOrientation(_tempEntity.position.getValue(),$('#deploy_input_orientation').val())
+                }
+            })
 
             $('#deploy_add').on('click', function () {
                 var key = '';
@@ -229,6 +236,7 @@ $(function () {
                     name: key,
                     id: modelKey + '_' + rdata.id,
                     position: position,
+                    orientation:getOrientation(position,params.orientation),
                     model: model,
                     label: {
                         text: key,
@@ -316,10 +324,12 @@ $(function () {
                     if (!position) {
                         return;
                     }
+                    
                     _tempEntity = viewer.entities.add({
                         name: model.name,
                         id: model.name,
                         position: position,
+                        orientation:getOrientation(position,$('#deploy_input_orientation').val()),
                         model: {
                             uri: model.model,
                             scale: model.scale
@@ -444,8 +454,16 @@ $(function () {
                     _polygonHandler.activeTool();
                 }
             }
-
         };
+
+        var getOrientation = (position,ori)=>{
+            const heading = Cesium.Math.toRadians(ori);
+            const pitch = Cesium.Math.toRadians(0);
+            const roll = Cesium.Math.toRadians(0);
+            const hpr = new Cesium.HeadingPitchRoll(heading, pitch, roll);
+            const orientation = Cesium.Transforms.headingPitchRollQuaternion(position, hpr);
+            return orientation;
+        }
 
         /**
          * 保存模型到服务器
@@ -472,6 +490,7 @@ $(function () {
                         longitude: longitude,
                         latitude: latitude,
                         height: height,
+                        orientation: params.orientation,
                         locationUrl: params.locationurl
                     };
                     break;
@@ -483,6 +502,7 @@ $(function () {
                         longitude: longitude,
                         latitude: latitude,
                         height: height,
+                        orientation: params.orientation,
                         deviceId: params.device
                     };
                     break;
@@ -497,6 +517,7 @@ $(function () {
                         longitude: longitude,
                         latitude: latitude,
                         height: height,
+                        orientation: params.orientation,
                         locationUrl: params.locationurl,
                         rtmpUrl: params.rtmpurl,
                         direction: params.shed_direction ? params.shed_direction : 0,

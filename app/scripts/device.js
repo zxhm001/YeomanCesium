@@ -257,7 +257,7 @@ $(function(){
             }
         }
 
-        function addEntity(key,license,type,lng,lat,height)
+        function addEntity(key,license,type,lng,lat,height,orientation)
         {
             var fitting = getFitting(type);
             if (!fitting || !fitting.model || fitting.canBind) {
@@ -265,10 +265,12 @@ $(function(){
             }
             var uri = `${API_ROOT}/api/file/download/${fitting.model}`
             var scale = fitting.scale;
+            const position = new Cesium.Cartesian3.fromDegrees(lng, lat, height);
             viewer.entities.add({
                 name: license,
                 id:'device_' + key,
-                position: new Cesium.Cartesian3.fromDegrees(lng, lat, height),
+                position: position,
+                orientation:getOrientation(position,orientation),
                 model: {
                     uri: uri,
                     scale:scale,
@@ -287,6 +289,15 @@ $(function(){
                 }
             });  
         }
+        
+        var getOrientation = (position,ori)=>{
+            const heading = Cesium.Math.toRadians(ori||0);
+            const pitch = Cesium.Math.toRadians(0);
+            const roll = Cesium.Math.toRadians(0);
+            const hpr = new Cesium.HeadingPitchRoll(heading, pitch, roll);
+            const orientation = Cesium.Transforms.headingPitchRollQuaternion(position, hpr);
+            return orientation;
+        }
 
         function loadDevices()
         {
@@ -294,7 +305,7 @@ $(function(){
                 if (response.succeeded) {
                     response.data.forEach(device => {
                         var license = device.name?device.name:device.license;
-                        addEntity(device.id,license,device.type,device.longitude,device.latitude,device.height);
+                        addEntity(device.id,license,device.type,device.longitude,device.latitude,device.height,device.orientation);
                         add(license,device.type,'device_' + device.id,device);
                     });
                 }

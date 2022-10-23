@@ -298,24 +298,26 @@ $(function(){
                 if (response.succeeded) {
                     response.data.forEach(person => {
                         var name = person.name;
-                        addEntity(person.id,name,person.type,person.longitude,person.latitude,person.height);
+                        addEntity(person.id,name,person.type,person.longitude,person.latitude,person.height,person.orientation);
                         add(name,person.type,'person_' + person.id,person);
                     });
                 }
             });
         }
 
-        function addEntity(key,name,type,lng,lat,height){
+        function addEntity(key,name,type,lng,lat,height,orientation){
             var fitting = getFitting(type);
             if (!fitting || !fitting.model) {
                 return;
             }
             var uri = `${API_ROOT}/api/file/download/${fitting.model}`
             var scale = fitting.scale;
+            const position = new Cesium.Cartesian3.fromDegrees(lng, lat, height);
             viewer.entities.add({
                 name: name,
                 id:'person_' + key,
-                position: new Cesium.Cartesian3.fromDegrees(lng, lat, height),
+                position: position,
+                orientation:getOrientation(position,orientation),
                 model: {
                     uri: uri,
                     scale:scale,
@@ -333,6 +335,15 @@ $(function(){
                     scaleByDistance: new Cesium.NearFarScalar(100, 1.0, 3000, 0.4)
                 }
             });        
+        }
+
+        var getOrientation = (position,ori)=>{
+            const heading = Cesium.Math.toRadians(ori||0);
+            const pitch = Cesium.Math.toRadians(0);
+            const roll = Cesium.Math.toRadians(0);
+            const hpr = new Cesium.HeadingPitchRoll(heading, pitch, roll);
+            const orientation = Cesium.Transforms.headingPitchRollQuaternion(position, hpr);
+            return orientation;
         }
 
         function setModelVisible(visible)
