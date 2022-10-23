@@ -1,5 +1,4 @@
 // var API_ROOT = 'http://127.0.0.1:53785';
-// var API_ROOT = 'http://47.100.253.158:81';
 var API_ROOT = 'http://124.71.164.9:81';
 // var API_ROOT = 'http://api.shab.com';
 var Uniptt_POC_URL = 'ws://127.0.0.1:1338/poc'

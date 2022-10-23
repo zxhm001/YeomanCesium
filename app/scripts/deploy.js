@@ -209,14 +209,27 @@ $(function () {
                     default:
                         break;
                 }
+                const model = {
+                    uri: _currentModel.model,
+                    scale: _currentModel.scale
+                }
+                switch (modelKey) {
+                    case 'person':
+                        model.maximumScale = _currentModel.scale * 3;
+                        model.minimumPixelSize = 128
+                        break;
+                    case 'device':
+                        model.maximumScale = _currentModel.scale * 10;
+                        model.minimumPixelSize = 128
+                        break
+                    default:
+                        break;
+                }
                 viewer.entities.add({
                     name: key,
                     id: modelKey + '_' + rdata.id,
                     position: position,
-                    model: {
-                        uri: _currentModel.model,
-                        scale: _currentModel.scale
-                    },
+                    model: model,
                     label: {
                         text: key,
                         font: sizeStr + 'px Helvetica',
