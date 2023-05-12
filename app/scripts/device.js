@@ -423,7 +423,7 @@ $(function(){
                     viewshed3D.verticalAngle = verticalFov;
                     var destination = calculatingTargetPoints(longitude, latitude,height + 1.5,direction,distance);
                     viewshed3D.targetPosition = new Cesium.Cartesian3.fromDegrees(destination[0], destination[1], height + 1.5);
-                    viewer.scene.VisualAnalysisManager.add(viewshed3D);
+                    viewer.scene.visualAnalysisManager.add(viewshed3D);
                 }
                 else
                 {
@@ -434,8 +434,8 @@ $(function(){
                         viewer: viewer
                     });
                     while (ehorizontalFov > 0) {
-                        let chorizontalFov = 60;
-                        if (ehorizontalFov < 60) {
+                        let chorizontalFov = 120;
+                        if (ehorizontalFov < 120) {
                             chorizontalFov = ehorizontalFov;
                         }
                         if (cDirction != direction) {
@@ -445,10 +445,10 @@ $(function(){
                         viewshed3DPartial._depthTestEnabled = false
                         viewshed3DPartial.viewPosition = new Cesium.Cartesian3.fromDegrees(longitude, latitude, height + 1.5);
                         viewshed3DPartial.horizontAngle = chorizontalFov;
-                        viewshed3DPartial.verticalAngle = verticalFov;
+                        viewshed3DPartial.verticalAngle = verticalFov?verticalFov:90;
                         var destination = calculatingTargetPoints(longitude, latitude,height + 1.5,cDirction * Math.PI/180,distance);
                         viewshed3DPartial.targetPosition = new Cesium.Cartesian3.fromDegrees(destination[0], destination[1], height + 1.5);
-                        viewer.scene.VisualAnalysisManager.add(viewshed3DPartial);
+                        viewer.scene.visualAnalysisManager.add(viewshed3DPartial);
                         viewshed3D.push(viewshed3DPartial);
                         cDirction += chorizontalFov/2;
                         ehorizontalFov = ehorizontalFov - chorizontalFov;
@@ -477,7 +477,7 @@ $(function(){
             else if (PLATFORM == 'MapGIS')
             {
                 if (viewshed3D) {
-                    viewer.scene.VisualAnalysisManager.removeAll()
+                    viewer.scene.visualAnalysisManager.removeAll()
                     viewshed3D = null;
                 }
             }

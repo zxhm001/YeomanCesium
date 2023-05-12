@@ -56,7 +56,7 @@
             } else {
                 // 引入Cesium1.84版本 对应10.5.6之间的版本
                 inputCSS(httpUrl + '/cesium/Widgets/widgets.css');
-                inputCSS(httpUrl + '/cesium/MapGIS/css/mapgis.css');
+                // inputCSS(httpUrl + '/cesium/MapGIS/css/mapgis.css');
                 inputScript(httpUrl + '/cesium/Cesium.js');
             }
         }

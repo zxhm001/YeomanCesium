@@ -80,7 +80,6 @@ function init() {
                 window.viewer = new Cesium.Viewer("cesium_container", {
                     onCopy: true
                 });
-
                 if (terrain_url) {
                     let terrainProvider = new Cesium.CesiumTerrainProvider({
                         url: terrain_url,
@@ -117,15 +116,7 @@ function init() {
                         if (window.currentProject) {
                             $.cookie('current_project_id', window.currentProject.id, { expires: 7, path: '/' });
                             viewer.scene.layers.appendSceneLayer(currentProject.scence, {
-                                // 是否显示3d tileset模型
-                                show: true,
-                                // 根瓦片的4×4变换矩阵
-                                modelMatrix: Cesium.Matrix4.IDENTITY,
-                                //是否投射或者吸收光源的阴影。默认 ENABLED（接收和投射阴影)，DISABLED（不投射和接收阴影），CAST_ONLY（只接收阴影），RECEIVE_ONLY (只接收阴影）
-                                shadows: Cesium.ShadowMode.ENABLED,
-                                // 是否自动定位
-                                autoReset: true,
-                                // 跳转时间，以秒为单位
+                                //跳转时间
                                 duration: 1,
                                 // 回调函数，加载完后返回加载的m3d图层
                                 loaded: function (layer) {
@@ -156,60 +147,7 @@ function init() {
                                 getDocLayerIndexes: function (indexes) {
                                     console.log(indexes);
                                 },
-                                // M3D数据密码
-                                password: undefined,
-                                // 是否使用前端缓存加载模型
-                                useIDB: false,
-                                //最大屏幕空间误差，用于控制模型显示细节，值较大将会渲染更少的贴图，进而可以提高性能，而较低的值将提高视觉质量
                                 maximumScreenSpaceError: 16,
-                                // 最大前端缓存级别
-                                maxCacheLevel: 3,
-                                //tileset可以使用的最大内存(Mb)
-                                maximumMemoryUsage: 512,
-                                //是否使用子项包围盒的并集来剔除图块
-                                cullWithChildrenBounds: true,
-                                //是否优先加载叶子节点
-                                preferLeaves: false,
-                                //动态屏幕空间误差，是否减少离相机较远的瓦片的屏幕空间误差
-                                dynamicScreenSpaceError: false,
-                                //用于调节动态屏幕空间误差的参数
-                                dynamicScreenSpaceErrorDensity: 0.00278,
-                                //用于增加计算出来的动态屏幕空间误差的参数
-                                dynamicScreenSpaceErrorFactor: 4.0,
-                                //可选选项，是否在遍历时候跳过详情
-                                skipLevelOfDetail: false,
-                                //如果skipLevelOfDetail为true，则指在跳过细节级别之前必须达到的屏幕空间错误。
-                                baseScreenSpaceError: 1024,
-                                //当skipLevelOfDetail为时true，指定义要跳过的最小屏幕空间错误的乘数。与skipLevels一起使用以确定要加载的图块。
-                                skipScreenSpaceErrorFactor: 16,
-                                //当skipLevelOfDetail为时true，此常数定义加载图块时要跳过的最小级别数。为0时，不会跳过任何级别。与一起使用skipScreenSpaceErrorFactor以确定要加载的图块。
-                                skipLevels: 1,
-                                //如果skipLevelOfDetail是true，只有满足最大屏幕空间误差的瓦片会被下载。跳过因子将被忽略，仅加载所需的图块。
-                                immediatelyLoadDesiredLevelOfDetail: false,
-                                //如果skipLevelOfDetail是true，该参数用于确定在遍历期间是否下载可见瓦片的同级瓦片。
-                                loadSiblings: false,
-                                //是否开启背面剔除。false的时候关闭，true的时候由glTF的doubleSided属性决定
-                                backFaceCulling: true,
-                                //仅用于调试。确定是否仅应使用最后一帧中的图块进行渲染
-                                debugFreezeFrame: false,
-                                //仅用于调试。如果为true，则为每个图块分配随机颜色。
-                                debugColorizeTiles: false,
-                                //仅用于调试。如果为true，则将每个图块的内容渲染为线框。
-                                debugWireframe: false,
-                                //仅用于调试。为true时，渲染每个图块的包围盒
-                                debugShowBoundingVolume: false,
-                                //仅用于调试。为true时，渲染每个图块内容的包围盒。
-                                debugShowContentBoundingVolume: false,
-                                //仅用于调试。如果为true，则为每个图块渲染查看器的请求量。
-                                debugShowViewerRequestVolume: false,
-                                //仅用于调试。为true时，绘制标签以指示每个图块的几何误差。
-                                debugShowGeometricError: false,
-                                //仅用于调试。如果为true，则绘制标签以指示每个图块的命令，点，三角形和特征的数量。
-                                debugShowRenderingStatistics: false,
-                                //仅用于调试。为true时，绘制标签以指示每个图块使用的纹理和几何内存（以兆字节为单位）。
-                                debugShowMemoryUsage: false,
-                                //仅用于调试。为true时，绘制标签以指示每个图块的url。
-                                debugShowUrl: false,
                             });
                         }
                         initProjectSelector();
@@ -359,17 +297,7 @@ function init() {
                 }
                 else if (PLATFORM == 'MapGIS') {
                     viewer.scene.layers.appendSceneLayer(currentProject.scence, {
-                        // 是否显示3d tileset模型
-                        show: true,
-                        // 根瓦片的4×4变换矩阵
-                        modelMatrix: Cesium.Matrix4.IDENTITY,
-                        //是否投射或者吸收光源的阴影。默认 ENABLED（接收和投射阴影)，DISABLED（不投射和接收阴影），CAST_ONLY（只接收阴影），RECEIVE_ONLY (只接收阴影）
-                        shadows: Cesium.ShadowMode.ENABLED,
-                        // 是否自动定位
-                        autoReset: true,
-                        // 跳转时间，以秒为单位
                         duration: 1,
-                        // 回调函数，加载完后返回加载的m3d图层
                         loaded: function (layer) {
                             var center = layer.boundingSphere.center;
                             var radius = layer.boundingSphere.radius;
@@ -385,87 +313,14 @@ function init() {
                                 }
                             });
                         },
-                        // 异常回调函数
                         errorCallback: function (error) {
                             console.log(error);
                         },
-                        //回调函数，返回加载的所有图层索引，用于获取文档中的所有图层对象
                         getDocLayerIndexes: function (indexes) {
                             console.log(indexes);
                         },
-                        // M3D数据密码
-                        password: undefined,
-                        // 是否使用前端缓存加载模型
-                        useIDB: false,
-                        //最大屏幕空间误差，用于控制模型显示细节，值较大将会渲染更少的贴图，进而可以提高性能，而较低的值将提高视觉质量
                         maximumScreenSpaceError: 16,
-                        // 最大前端缓存级别
-                        maxCacheLevel: 3,
-                        //tileset可以使用的最大内存(Mb)
-                        maximumMemoryUsage: 512,
-                        //是否使用子项包围盒的并集来剔除图块
-                        cullWithChildrenBounds: true,
-                        //是否优先加载叶子节点
-                        preferLeaves: false,
-                        //动态屏幕空间误差，是否减少离相机较远的瓦片的屏幕空间误差
-                        dynamicScreenSpaceError: false,
-                        //用于调节动态屏幕空间误差的参数
-                        dynamicScreenSpaceErrorDensity: 0.00278,
-                        //用于增加计算出来的动态屏幕空间误差的参数
-                        dynamicScreenSpaceErrorFactor: 4.0,
-                        //可选选项，是否在遍历时候跳过详情
-                        skipLevelOfDetail: false,
-                        //如果skipLevelOfDetail为true，则指在跳过细节级别之前必须达到的屏幕空间错误。
-                        baseScreenSpaceError: 1024,
-                        //当skipLevelOfDetail为时true，指定义要跳过的最小屏幕空间错误的乘数。与skipLevels一起使用以确定要加载的图块。
-                        skipScreenSpaceErrorFactor: 16,
-                        //当skipLevelOfDetail为时true，此常数定义加载图块时要跳过的最小级别数。为0时，不会跳过任何级别。与一起使用skipScreenSpaceErrorFactor以确定要加载的图块。
-                        skipLevels: 1,
-                        //如果skipLevelOfDetail是true，只有满足最大屏幕空间误差的瓦片会被下载。跳过因子将被忽略，仅加载所需的图块。
-                        immediatelyLoadDesiredLevelOfDetail: false,
-                        //如果skipLevelOfDetail是true，该参数用于确定在遍历期间是否下载可见瓦片的同级瓦片。
-                        loadSiblings: false,
-                        //是否开启背面剔除。false的时候关闭，true的时候由glTF的doubleSided属性决定
-                        backFaceCulling: true,
-                        //仅用于调试。确定是否仅应使用最后一帧中的图块进行渲染
-                        debugFreezeFrame: false,
-                        //仅用于调试。如果为true，则为每个图块分配随机颜色。
-                        debugColorizeTiles: false,
-                        //仅用于调试。如果为true，则将每个图块的内容渲染为线框。
-                        debugWireframe: false,
-                        //仅用于调试。为true时，渲染每个图块的包围盒
-                        debugShowBoundingVolume: false,
-                        //仅用于调试。为true时，渲染每个图块内容的包围盒。
-                        debugShowContentBoundingVolume: false,
-                        //仅用于调试。如果为true，则为每个图块渲染查看器的请求量。
-                        debugShowViewerRequestVolume: false,
-                        //仅用于调试。为true时，绘制标签以指示每个图块的几何误差。
-                        debugShowGeometricError: false,
-                        //仅用于调试。如果为true，则绘制标签以指示每个图块的命令，点，三角形和特征的数量。
-                        debugShowRenderingStatistics: false,
-                        //仅用于调试。为true时，绘制标签以指示每个图块使用的纹理和几何内存（以兆字节为单位）。
-                        debugShowMemoryUsage: false,
-                        //仅用于调试。为true时，绘制标签以指示每个图块的url。
-                        debugShowUrl: false,
                     });
-                    // var provider = webGlobe.append(currentProject.scence, {
-                    //     autoReset: true,
-                    //     loaded: function (e) {
-                    //         var center = e.boundingSphere.center;
-                    //         var radius = e.boundingSphere.radius;
-                    //         var cartographic = Cesium.Cartographic.fromCartesian(center);
-                    //         cartographic.height = 2.5 * radius;
-                    //         var pCenter = Cesium.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, cartographic.height);
-                    //         viewer.camera.flyTo({
-                    //             destination: pCenter,
-                    //             orientation: {
-                    //                 heading: 0,
-                    //                 pitch: Cesium.Math.toRadians(-90),
-                    //                 roll: 0.0
-                    //             }
-                    //         });
-                    //     }
-                    // })
                 }
                 initData();
             });

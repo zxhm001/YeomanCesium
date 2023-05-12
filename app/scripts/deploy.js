@@ -12,6 +12,209 @@ $(function () {
         building: []
     };
 
+    /**
+     * 绘制器
+     */
+    class DrawHandler {
+        /**
+         * 
+         * @param {*} viewer 
+         * @param {*} mode 
+         * @param {*} complete 
+         */
+        constructor(viewer, mode, complete) {
+            this.viewer = viewer
+            this.mode = mode
+            this.complete = complete
+        }
+
+        activate() {
+            this.deactivate()
+            switch (this.mode) {
+                case 'point':
+                    break;
+                case 'polyline':
+                    break;
+                case 'polygon':
+                    this._drawPolygon()
+                    break;
+            }
+        }
+
+        _drawPolygon() {
+            const that = this
+            this._screenSpaceHandler = new Cesium.ScreenSpaceEventHandler(this.viewer.canvas)
+            this._tempPolygon = null, this._tempLine = null
+            // 点数组
+            let positions = [];
+            let clickCount = 0
+            let clickTimer = null
+
+            //左键点击
+            this._screenSpaceHandler.setInputAction((event) => {
+                if (clickTimer) {
+                    clearTimeout(clickTimer)
+                    clickTimer = null
+                }
+                clickTimer = setTimeout(() => {
+                    let cartesian = that.viewer.scene.pickPosition(event.position);
+                    if (Cesium.defined(cartesian)) {
+                        cartesian = addHeight(cartesian, 2.0)
+                        if (positions.length > clickCount) {
+                            positions.pop();
+                        }
+                        clickCount++
+                        positions.push(cartesian);
+                        if (!that._tempPolygon) {
+                            //新建就把旧的清空了
+                            that.clear()
+                            that._tempPolygon = that.viewer.entities.add({
+                                polygon: {
+                                    hierarchy: new Cesium.CallbackProperty(() => {
+                                        return new Cesium.PolygonHierarchy(positions);
+                                    }, false),
+                                    material: Cesium.Color.RED.withAlpha(0.5),
+                                    perPositionHeight: true
+                                },
+                            });
+                        }
+                    }
+                }, 100);
+
+            }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+            //鼠标移动
+            this._screenSpaceHandler.setInputAction((event) => {
+                if (that._tempPolygon) {
+                    let cartesian = that.viewer.scene.pickPosition(event.endPosition);
+                    if (Cesium.defined(cartesian)) {
+                        cartesian = addHeight(cartesian, 2.0)
+                        if (positions.length > clickCount) {
+                            positions.pop();
+                        }
+                        positions.push(cartesian);
+                        that._clearTempLine()
+                        //如果只有两个点就添加临时线
+                        if (positions.length == 2) {
+                            that._tempLine = that.viewer.entities.add({
+                                polyline: {
+                                    positions: positions,
+                                    material: Cesium.Color.RED.withAlpha(0.5),
+                                    width: 2
+                                },
+                            });
+                        }
+                    }
+                }
+            }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+
+
+            //鼠标右键，取消绘制
+            this._screenSpaceHandler.setInputAction((event) => {
+                that._clearTempPolygon()
+                that._clearTempLine()
+                positions = []
+                clickCount = 0
+            }, Cesium.ScreenSpaceEventType.RIGHT_CLICK);
+
+            //双击绘制完成
+            this._screenSpaceHandler.setInputAction((event) => {
+                if (clickTimer) {
+                    clearTimeout(clickTimer)
+                    clickTimer = null
+                }
+
+                let cartesian = that.viewer.scene.pickPosition(event.position);
+                if (Cesium.defined(cartesian)) {
+                    cartesian = addHeight(cartesian, 2.0)
+                    //删掉移动的最后一个
+                    positions.pop()
+                    positions.push(cartesian);
+                    if (positions.length >= 3) {
+                        that._polygon = that.viewer.entities.add({
+                            polygon: {
+                                hierarchy: positions,
+                                material: Cesium.Color.RED.withAlpha(0.5),
+                                perPositionHeight: true,
+                                outline: true,
+                                outlineColor: Cesium.Color.RED,
+                                outlineWidth: 2,
+
+                            },
+                            clampToGround: false
+                        });
+                        if (that.complete) {
+                            const coordinates = []
+                            positions.forEach(position => {
+                                const cartographic = Cesium.Cartographic.fromCartesian(position);
+                                const longitude = Cesium.Math.toDegrees(cartographic.longitude);
+                                const latitude = Cesium.Math.toDegrees(cartographic.latitude);
+                                const height = cartographic.height;
+                                coordinates.push([longitude, latitude, height])
+                            });
+
+                            that.complete({
+                                positions: positions,
+                                coordinates: coordinates
+                            })
+                        }
+                    }
+                }
+                that._clearTempPolygon()
+                that._clearTempLine()
+                positions = []
+                clickCount = 0
+
+            }, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+
+            //添加高度
+            function addHeight(cartesian, height) {
+                let cartographic = Cesium.Cartographic.fromCartesian(cartesian);
+                cartographic.height += height;
+                const cartesian2 = Cesium.Cartographic.toCartesian(cartographic);
+                return cartesian2
+            }
+
+
+
+        }
+
+        //清空临时线
+        _clearTempLine() {
+            if (this._tempLine) {
+                this.viewer.entities.remove(this._tempLine)
+                this._tempLine = null
+            }
+        }
+
+        //清空临时面
+        _clearTempPolygon() {
+            if (this._tempPolygon) {
+                this.viewer.entities.remove(this._tempPolygon);
+                this._tempPolygon = null
+            }
+        }
+
+        clear() {
+            if (this._polygon) {
+                this.viewer.entities.remove(this._polygon);
+                this._polygon = null
+            }
+        }
+
+        deactivate() {
+            this._clearTempPolygon()
+            this.clear()
+            if (this._screenSpaceHandler) {
+                this._screenSpaceHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
+                this._screenSpaceHandler.removeInputAction(Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+                this._screenSpaceHandler.removeInputAction(Cesium.ScreenSpaceEventType.RIGHT_CLICK);
+                this._screenSpaceHandler.destroy()
+                this._screenSpaceHandler = null
+            }
+        }
+    }
+
 
     function deploy() {
         var _drawHandler, _polygonHandler, _tempEntity, _currentModel, _pickPosition, _lnglats, _maxHeight;
@@ -69,7 +272,7 @@ $(function () {
                 });
                 //先将模型都加进来，之后就不用重新加载glb
                 var index = 0;
-                
+
                 for (const key in deployData) {
                     if (Object.hasOwnProperty.call(deployData, key)) {
                         const type = deployData[key];
@@ -90,9 +293,9 @@ $(function () {
                 }
             });
 
-            $('#deploy_input_orientation').on('change',event=>{
+            $('#deploy_input_orientation').on('change', event => {
                 if (_tempEntity) {
-                    _tempEntity.orientation = getOrientation(_tempEntity.position.getValue(),$('#deploy_input_orientation').val())
+                    _tempEntity.orientation = getOrientation(_tempEntity.position.getValue(), $('#deploy_input_orientation').val())
                 }
             })
 
@@ -236,7 +439,7 @@ $(function () {
                     name: key,
                     id: modelKey + '_' + rdata.id,
                     position: position,
-                    orientation:getOrientation(position,params.orientation),
+                    orientation: getOrientation(position, params.orientation),
                     model: model,
                     label: {
                         text: key,
@@ -256,14 +459,23 @@ $(function () {
             if (_tempEntity) {
                 viewer.entities.remove(_tempEntity)
             }
-            if (_drawHandler) {
-                _drawHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
-                _drawHandler.removeInputAction(Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+            if (PLATFORM == 'SuperMap') {
+                if (_drawHandler) {
+                    _drawHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
+                    _drawHandler.removeInputAction(Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+                }
+
+                if (_polygonHandler && PLATFORM == 'SuperMap') {
+                    _polygonHandler.clear();
+                    _polygonHandler.deactivate();
+                }
             }
-            if (_polygonHandler && PLATFORM == 'SuperMap') {
-                _polygonHandler.clear();
-                _polygonHandler.deactivate();
+            else if (PLATFORM = "MapGIS") {
+                if (_drawHandler && _drawHandler.deactivate) {
+                    _drawHandler.deactivate()
+                }
             }
+
             _pickPosition = null;
             _lnglats = null;
             _maxHeight = 0;
@@ -324,12 +536,12 @@ $(function () {
                     if (!position) {
                         return;
                     }
-                    
+
                     _tempEntity = viewer.entities.add({
                         name: model.name,
                         id: model.name,
                         position: position,
-                        orientation:getOrientation(position,$('#deploy_input_orientation').val()),
+                        orientation: getOrientation(position, $('#deploy_input_orientation').val()),
                         model: {
                             uri: model.model,
                             scale: model.scale
@@ -408,55 +620,48 @@ $(function () {
                     _polygonHandler.activate();
                 }
                 else if (PLATFORM == 'MapGIS') {
-                    _polygonHandler = new Cesium.DrawPolygonTool(webGlobe.viewer, async function(polygon){
-                        if (!polygon) {
-                            return;
-                        }
-                        _lnglats = [];
-                        _maxHeight = 0;
-                        for (let index = 0; index < polygon._points.length; index++) {
-                            var cartographic = Cesium.Cartographic.fromCartesian(polygon._points[index]);
-                            var longitude = Cesium.Math.toDegrees(cartographic.longitude);
-                            var latitude = Cesium.Math.toDegrees(cartographic.latitude);
-                            var height = cartographic.height;
-                            _lnglats.push(longitude);
-                            _lnglats.push(latitude);
-                            _lnglats.push(height);
+                    if (!_drawHandler) {
+                        _drawHandler = new DrawHandler(viewer, 'polygon', async (polygon) => {
+                            if (!polygon) {
+                                return
+                            }
+                            _lnglats = [];
+                            _maxHeight = 0;
+                            for (let index = 0; index < polygon.coordinates.length; index ++) {
+                                _lnglats.push(polygon.coordinates[index][0]);
+                                _lnglats.push(polygon.coordinates[index][1]);
+                                _lnglats.push(polygon.coordinates[index][2]);
+                                if (polygon.coordinates[index][2] > _maxHeight) {
+                                    _maxHeight = polygon.coordinates[index][2];
+                                }
+                            }
+                            //加起点
+                            _lnglats.push(polygon.coordinates[0][0]);
+                            _lnglats.push(polygon.coordinates[0][1]);
+                            _lnglats.push(polygon.coordinates[0][2]);
+
+                            //获取最高高度
+                            var lnglats = [];
+                            for (let i = 0; i < _lnglats.length; i += 3) {
+                                lnglats.push([_lnglats[i], _lnglats[i + 1]]);
+
+                            }
+                            var tpolygon = turf.polygon([lnglats], { name: 'building' });
+                            var centroid = turf.centroid(tpolygon);
+                            var centerCoord = centroid.geometry.coordinates;
+                            var height = await viewer.scene.getHeight2(centerCoord[0], centerCoord[1]);
                             if (height > _maxHeight) {
                                 _maxHeight = height;
                             }
-                        }
-
-                        //加起点
-                        var cartographic = Cesium.Cartographic.fromCartesian(polygon._points[0]);
-                        var longitude = Cesium.Math.toDegrees(cartographic.longitude);
-                        var latitude = Cesium.Math.toDegrees(cartographic.latitude);
-                        var height = cartographic.height;
-                        _lnglats.push(longitude);
-                        _lnglats.push(latitude);
-                        _lnglats.push(height);
-
-                        //获取最高高度
-                        var lnglats = [];
-                        for (let i = 0; i < _lnglats.length; i += 3) {
-                            lnglats.push([_lnglats[i], _lnglats[i + 1]]);
-
-                        }
-                        var polygon = turf.polygon([lnglats], { name: 'building' });
-                        var centroid = turf.centroid(polygon);
-                        var centerCoord = centroid.geometry.coordinates;
-                        var height = await viewer.scene.getHeight2(centerCoord[0], centerCoord[1]);
-                        if (height > _maxHeight) {
-                            _maxHeight = height;
-                        }
-                        _maxHeight += 5;
-                    });
-                    _polygonHandler.activeTool();
+                            _maxHeight += 5;
+                        })
+                    }
+                    _drawHandler.activate()
                 }
             }
         };
 
-        var getOrientation = (position,ori)=>{
+        var getOrientation = (position, ori) => {
             const heading = Cesium.Math.toRadians(ori);
             const pitch = Cesium.Math.toRadians(0);
             const roll = Cesium.Math.toRadians(0);
@@ -661,6 +866,9 @@ $(function () {
             getDeployConfig: getDeployConfig
         };
     }
+
     window.Deploy = deploy();
+
+
 
 }());
