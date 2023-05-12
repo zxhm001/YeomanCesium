@@ -470,7 +470,7 @@ $(function () {
                     _polygonHandler.deactivate();
                 }
             }
-            else if (PLATFORM = "MapGIS") {
+            else if (PLATFORM = 'MapGIS') {
                 if (_drawHandler && _drawHandler.deactivate) {
                     _drawHandler.deactivate()
                 }

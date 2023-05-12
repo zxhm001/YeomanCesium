@@ -77,7 +77,7 @@ function init() {
                 }), 1);
             }
             else if (PLATFORM == 'MapGIS') {
-                window.viewer = new Cesium.Viewer("cesium_container", {
+                window.viewer = new Cesium.Viewer('cesium_container', {
                     onCopy: true
                 });
                 if (terrain_url) {
@@ -147,7 +147,7 @@ function init() {
                                 getDocLayerIndexes: function (indexes) {
                                     console.log(indexes);
                                 },
-                                maximumScreenSpaceError: 16,
+                                maximumScreenSpaceError: 8,
                             });
                         }
                         initProjectSelector();
@@ -156,18 +156,18 @@ function init() {
 
                 //加载天地图
                 viewer.imageryLayers.addImageryProvider(new Cesium.WebMapTileServiceImageryProvider({
-                    url: "http://t0.tianditu.gov.cn/vec_w/wmts?tk=304bc664f193742e0ad7ad3b77d5dccd",
-                    layer: "vec",
-                    style: "default",
-                    tileMatrixSetID: "w",
-                    format: "tiles",
+                    url: 'http://t0.tianditu.gov.cn/vec_w/wmts?tk=304bc664f193742e0ad7ad3b77d5dccd',
+                    layer: 'vec',
+                    style: 'default',
+                    tileMatrixSetID: 'w',
+                    format: 'tiles',
                 }));
                 viewer.imageryLayers.addImageryProvider(new Cesium.WebMapTileServiceImageryProvider({
-                    url: "http://t0.tianditu.gov.cn/cva_w/wmts?tk=304bc664f193742e0ad7ad3b77d5dccd",
-                    layer: "cva",
-                    style: "default",
-                    tileMatrixSetID: "w",
-                    format: "tiles",
+                    url: 'http://t0.tianditu.gov.cn/cva_w/wmts?tk=304bc664f193742e0ad7ad3b77d5dccd',
+                    layer: 'cva',
+                    style: 'default',
+                    tileMatrixSetID: 'w',
+                    format: 'tiles',
                 }));
                 if (tile_url) {
                     viewer.imageryLayers.addImageryProvider(new Cesium.MapGISTileServerImageProvider({
@@ -319,7 +319,7 @@ function init() {
                         getDocLayerIndexes: function (indexes) {
                             console.log(indexes);
                         },
-                        maximumScreenSpaceError: 16,
+                        maximumScreenSpaceError: 8,
                     });
                 }
                 initData();
